@@ -2,7 +2,7 @@ node_modules/
 
 .DS_Store
 .vscode
-
+.env
 # Binaries
 api/hawkeye
 api/genkeys
