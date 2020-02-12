@@ -3,8 +3,8 @@ FROM node:alpine
 WORKDIR /usr/src/client
 
 COPY package*.json ./
-RUN yarn install
+RUN npm install
 
 COPY . .
 
-ENTRYPOINT ["yarn", "run", "start"]
+ENTRYPOINT ["npm" , "start"]
