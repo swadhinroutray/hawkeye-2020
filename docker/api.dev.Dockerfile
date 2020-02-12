@@ -8,6 +8,7 @@ ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.6.0/wait
 RUN chmod +x /wait
 
 RUN go get -u github.com/githubnemo/CompileDaemon
+
 COPY dev.api.sh .
 COPY go.mod .
 COPY go.sum .
