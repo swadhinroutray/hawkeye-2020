@@ -7,7 +7,7 @@
 
 ```sh 
 $ cd cyberhawk19
-$ npm install --prefix client
+$ yarn install --prefix client
 $ cp .env.example .env
 ```
 - Set environment variables in `.env`
