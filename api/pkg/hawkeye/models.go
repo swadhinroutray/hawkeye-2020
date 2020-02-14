@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type User struct { //TODO: Fix number of potions
+type User struct { //TODO: Fix number of items
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
@@ -24,7 +24,7 @@ type User struct { //TODO: Fix number of potions
 	Inventory    []int   `bson:"inventory" json:"inventory"` // Inventory items implemmentation (How many does each user have?)
 	Points       int     `bson:"points" json:"points"`       //Check how to implement points
 	RegionUnlock string  `bson:"regionunlock" json:"regionunlock"`
-	PotionBool   [7]bool `bson:"potionbool" json:"potionbool"` // Check wether a potiion has already been used on a question
+	ItemBool   	 [7]bool `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
 	ToBuy        []int   `bson:"tobuy"  json:"tobuy"`          //How many left to be bough for ech usr, if you have doubt call sanchit and ask
 }
 
@@ -34,6 +34,7 @@ type Question struct {
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
 
 	Level    int    `bson:"level"    json:"level"`
+	Region   int 	`bson:"region" json: "region"`
 	Question string `bson:"question" json:"question"`
 	Answer   string `bson:"answer"   json:"answer,omitempty"`
 	AddInfo  string `bson:"add_info" json:"addInfo,omitempty"`
@@ -61,9 +62,9 @@ type Submission struct {
 	Answer   string             `bson:"answer" json:"answer"`
 	Status   string             `bson:"status"   json:"status"`
 }
+
 type Region struct {
 	ID         primitive.ObjectID `bson:"_id"          json:"id"`
 	CreatedAt  time.Time          `bson:"created_at" json:"createdAt"`
 	UnlockedAt time.Time          `bson:"unlocked_at" json:"unlocked_at"` //Unlocking time for each region
-	Questions  []Question         `bson:"questions" json:"questions"`     //Questions for each region
 }
