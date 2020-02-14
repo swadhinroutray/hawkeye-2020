@@ -1,21 +1,23 @@
 # Hawkeye 2020
 
-## Development 
+## Development
 
-- Install node, npm, yarn, go, docker, docker-compose 
+- Install node, npm, yarn, go, docker, docker-compose
 - Docker requires Linux / Mac OS / Windows professional
 
-```sh 
-$ cd cyberhawk19
+```sh
+$ cd hawkeye-2020
 $ yarn install --prefix client
 $ cp .env.example .env
 ```
+
 - Set environment variables in `.env`
 - Generate encryption keys and add them to `.env`
 
 ```sh
 $ ./Taskfile.sh genkeys
 ```
+
 ## Taskfile commands
 
 ```sh
