@@ -52,18 +52,12 @@ func (app *App) GetUser(w http.ResponseWriter, r *http.Request) {
 
 	findOpts := options.Find()
 
-	cur, err := app.db.Collection("User").Find(r.Context(), bson.D{}, findOpts)
+	cur, err := app.db.Collection("users").Find(r.Context(), bson.D{}, findOpts)
 	if err != nil {
 		fmt.Printf("Database Error:%s", err)
 	}
 
 	var allUsers []User
-
-	err = cur.All(r.Context(), &allUsers)
-	fmt.Println(allUsers)
-	if err != nil {
-		fmt.Printf("Database error:%s", err)
-	}
 
 	w.Header().Set("Content-Type", "application/json")
 
