@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-//User
+//User ...
 type User struct { //TODO: Fix number of items
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
@@ -30,14 +30,14 @@ type User struct { //TODO: Fix number of items
 	History      []Elixir `bson:"history" json:"history"`
 }
 
-//Questions
+//Question ...
 type Question struct {
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
 
 	Level    int    `bson:"level"    json:"level"`
-	Region   int    `bson:"region" json: "region"`
+	Region   int    `bson:"region"   json:"region"`
 	Question string `bson:"question" json:"question"`
 	Answer   string `bson:"answer"   json:"answer,omitempty"`
 	AddInfo  string `bson:"add_info" json:"addInfo,omitempty"`
@@ -45,7 +45,7 @@ type Question struct {
 	Hints []Hint `bson:"hints" json:"hints"`
 }
 
-//Hint
+//Hint ...
 type Hint struct {
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
@@ -56,7 +56,7 @@ type Hint struct {
 	Active bool   `bson:"active" json:"active"`
 }
 
-//Submission
+//Submission ...
 type Submission struct {
 	ID        primitive.ObjectID `bson:"_id"          json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
@@ -68,14 +68,14 @@ type Submission struct {
 	Status   string             `bson:"status"   json:"status"`
 }
 
-//Regions
+//Region ...
 type Region struct {
 	ID         primitive.ObjectID `bson:"_id"          json:"id"`
 	CreatedAt  time.Time          `bson:"created_at" json:"createdAt"`
 	UnlockedAt time.Time          `bson:"unlocked_at" json:"unlocked_at"` //Unlocking time for each region
 }
 
-//Inventory
+//Elixir ...
 type Elixir struct {
 	ID       primitive.ObjectID `bson:"_id"          json:"id"`
 	BoughtAt time.Time          `bson:"bought_at" json:"BoughtAt"`

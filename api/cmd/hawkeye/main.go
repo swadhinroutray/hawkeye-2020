@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"hawkeye2020/api/pkg/hawkeye"
 )
 
 func main() {
-
-	fmt.Print(hawkeye.Hello())
+	app := &hawkeye.App{}
+	app.InitApp()
+	app.Start()
 }
