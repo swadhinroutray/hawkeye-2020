@@ -24,7 +24,7 @@ type User struct { //TODO: Fix number of items
 	Banned       bool     `bson:"banned" json:"banned"`
 	Inventory    []Elixir `bson:"inventory" json:"inventory"` // Inventory items implemmentation (How many does each user have?)
 	Points       int      `bson:"points" json:"points"`       //Check how to implement points
-	RegionUnlock string   `bson:"regionunlock" json:"regionunlock"`
+	RegionUnlock [7]int   `bson:"regionunlock" json:"regionunlock"`
 	ItemBool     [7]bool  `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
 	ToBuy        []int    `bson:"tobuy"  json:"tobuy"`      //How many left to be bough for ech usr, if you have doubt call sanchit and ask
 	History      []Elixir `bson:"history" json:"history"`
