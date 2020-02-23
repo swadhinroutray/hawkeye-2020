@@ -2,12 +2,12 @@
 
 ## Development
 
-- Install node, npm, yarn, go, docker, docker-compose
-- Docker requires Linux / Mac OS / Windows professional
+- Install node, npm, go, docker, docker-compose
+- Docker requires Linux / macOS / Windows Professional
 
 ```sh
 $ cd hawkeye-2020
-$ yarn install --prefix client
+$ npm install --prefix client
 $ cp .env.example .env
 ```
 
