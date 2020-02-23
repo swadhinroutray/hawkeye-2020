@@ -1,0 +1,56 @@
+version: "3.3"
+services:
+  api:
+    build:
+      context: ../api
+      dockerfile: ../docker/api.dev.Dockerfile
+    restart: unless-stopped
+    networks:
+      - network
+    volumes:
+      - ../api:/usr/src/api
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    env_file: ../.env
+    environment:
+      WAIT_HOSTS: db:27017,redis:6379
+      WAIT_HOSTS_TIMEOUT: 120
+
+  client:
+    build:
+      context: ../client
+      dockerfile: ../docker/client.dev.Dockerfile
+    restart: unless-stopped
+    networks:
+      - network
+    volumes:
+      - ../client:/usr/src/client
+    ports:
+      - ${CLIENT_PORT}:3000
+    env_file: ../.env
+
+  db:
+    image: mongo:latest
+    command: [--auth]
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - network
+
+  redis:
+    image: redis
+    restart: unless-stopped
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
