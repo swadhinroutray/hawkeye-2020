@@ -28,7 +28,7 @@ services:
     volumes:
       - ../client:/usr/src/client
     ports:
-      - 3000:3000
+      - ${CLIENT_PORT}:3000
     env_file: ../.env
 
   db:

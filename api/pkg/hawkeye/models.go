@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-//User ...
+//User (Collection)...
 type User struct { //TODO: Fix number of items
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
@@ -24,19 +24,19 @@ type User struct { //TODO: Fix number of items
 	Banned       bool     `bson:"banned" json:"banned"`
 	Inventory    []Elixir `bson:"inventory" json:"inventory"` // Inventory items implemmentation (How many does each user have?)
 	Points       int      `bson:"points" json:"points"`       //Check how to implement points
-	RegionUnlock [7]int   `bson:"regionunlock" json:"regionunlock"`
+	RegionUnlock [7]int   `bson:"regionunlock" json:"-"`
 	ItemBool     [7]bool  `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
 	ToBuy        []int    `bson:"tobuy"  json:"tobuy"`      //How many left to be bough for ech usr, if you have doubt call sanchit and ask
 	History      []Elixir `bson:"history" json:"history"`
 }
 
 //Test ...
-type Test struct {
-	ID      primitive.ObjectID `bson:"_id" json:"id"`
-	Content string             `bson:"content" json:"content"`
-}
+// type Test struct {
+// 	ID      primitive.ObjectID `bson:"_id" json:"id"`
+// 	Content string             `bson:"content" json:"content"`
+// }
 
-//Question ...
+//Question (Collection)...
 type Question struct {
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
@@ -62,7 +62,7 @@ type Hint struct {
 	Active bool   `bson:"active" json:"active"`
 }
 
-//Submission ...
+//Submission (Collection)...
 type Submission struct {
 	ID        primitive.ObjectID `bson:"_id"          json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
@@ -72,21 +72,21 @@ type Submission struct {
 	Username string             `bson:"username" json:"username"`
 	Answer   string             `bson:"answer" json:"answer"`
 	Status   string             `bson:"status"   json:"status"`
+	Points   int                `bson:"points"   json:"points"`
 }
 
 //Region ...
 type Region struct {
-	ID         primitive.ObjectID `bson:"_id"          json:"id"`
-	CreatedAt  time.Time          `bson:"created_at" json:"createdAt"`
-	UnlockedAt time.Time          `bson:"unlocked_at" json:"unlocked_at"` //Unlocking time for each region
+	ID        primitive.ObjectID `bson:"_id"          json:"id"`
+	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 }
 
-//Elixir ...
+//Elixir (Collection) ...
 type Elixir struct {
 	ID       primitive.ObjectID `bson:"_id"          json:"id"`
 	BoughtAt time.Time          `bson:"bought_at" json:"BoughtAt"`
 	UsedAt   time.Time          `bson:"used_at" json:"UsedAt"`
-	Elixir   int                `bson:"elixir" json:"elexir"`
+	Elixir   int                `bson:"elixir" json:"elixir"`
 	Active   bool               `bson:"active"  json:"active"`
 	Region   int                `bson:"region" json:"region"`
 	Question int                `bson:"question" json:"question"`
