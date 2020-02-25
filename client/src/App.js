@@ -1,10 +1,14 @@
 import React from 'react';
-
+import { AppRouter } from './routes/AppRouter';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { GlobalStyle } from './components/GlobalStyle';
 function App() {
 	return (
-		<div className="App">
-			<h1>Hawkeye'20</h1>
-		</div>
+		<BrowserRouter>
+			{/* <Switch><Route path="/app" component={AppRouter} /></Switch> */}
+			<GlobalStyle />
+			<AppRouter />
+		</BrowserRouter>
 	);
 }
 
