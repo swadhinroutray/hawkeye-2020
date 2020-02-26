@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch } from 'react-router';
-import  RegisterPage  from '../pages/app/RegisterPage/RegisterPage';
+import  {RegisterPage}  from '../pages/app/RegisterPage/RegisterPage';
 import LoginPage from '../pages/app/LoginPage/LoginPage';
 import { Route } from 'react-router-dom';
 import { Provider } from 'mobx-react';

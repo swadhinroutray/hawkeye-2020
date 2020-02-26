@@ -11,6 +11,13 @@ import { LoginForm } from './LoginForm';
 };
 
 const LoginPageWrapper = styled.div`
-	min-height: 100vh;	
+height: 100vh;
+text-align: center;
+h1 {
+	font-family: 'Nidus Sans';
+	color: white;
+	letter-spacing: 0.1em;
+	font-weight: 400;
+}
 `;
 export default LoginPage
