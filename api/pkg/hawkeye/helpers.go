@@ -75,7 +75,7 @@ func (app *App) sendDecodeError(w http.ResponseWriter, err error) {
 	app.log.Infof("Decode Error %s", err.Error())
 	app.sendResponse(w, false, BadRequest, nil)
 }
-func (app *App) sendValidationErrors(w http.ResponseWriter, err error) {
+func (app *App) sendValidationError(w http.ResponseWriter, err error) {
 	var verrors []ValidationError
 	for _, err := range err.(validator.ValidationErrors) {
 		verr := ValidationError{Field: err.StructField(), Error: err.Tag()}

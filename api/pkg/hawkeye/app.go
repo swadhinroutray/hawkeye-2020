@@ -16,6 +16,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"go.uber.org/zap"
 	"gopkg.in/boj/redistore.v1"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 //App ...
@@ -24,6 +25,7 @@ type App struct {
 	router       *mux.Router
 	db           *mongo.Database
 	sessionStore *redistore.RediStore
+	validate     *validator.Validate
 	config       AppConfig
 }
 
@@ -43,11 +45,10 @@ const port = 8080
 
 //InitApp ...
 func (app *App) InitApp() {
-	//TODO: Add App Logger
-
 	app.loadConfig()
 	app.connectToMongo()
 	app.buildLogger()
+	app.buildValidator()
 	app.loadRedis()
 	app.router = mux.NewRouter()
 }

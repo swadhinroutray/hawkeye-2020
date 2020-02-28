@@ -28,6 +28,7 @@ type User struct { //TODO: Fix number of items
 	ItemBool     [7]bool  `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
 	ToBuy        []int    `bson:"tobuy"  json:"tobuy"`      //How many left to be bough for ech usr, if you have doubt call sanchit and ask
 	History      []Elixir `bson:"history" json:"history"`
+	Token        string   `bson:"token" json:"-"`
 }
 
 //Test ...

@@ -42,20 +42,20 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 	var reqBody RegisterRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
-		//app.sendDecoderError(w, err)
+		app.sendDecodeError(w, err)
 		return
 	}
 
-	// if err := app.validate.Struct(reqBody); err != nil {
-	// 	app.sendValidationErrors(w, err)
-	// 	return
-	// }
+	if err := app.validate.Struct(reqBody); err != nil {
+		app.sendValidationError(w, err)
+		return
+	}
 
 	//Check for unique username
 	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"username": strings.TrimSpace(reqBody.Username)}).Decode(nil); err != mongo.ErrNoDocuments {
 		verr := ValidationError{Field: "username", Error: "username_exists"}
 		app.log.Infof("%#v", verr)
-		//app.sendResponse(w, false, Conflict, []ValidationError{verr})
+		app.sendResponse(w, false, Conflict, []ValidationError{verr})
 		return
 	}
 
@@ -63,7 +63,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"email": strings.TrimSpace(reqBody.Email)}).Decode(nil); err != mongo.ErrNoDocuments {
 		verr := ValidationError{Field: "email", Error: "email_exists"}
 		app.log.Infof("%#v", verr)
-		//app.sendResponse(w, false, Conflict, []ValidationError{verr})
+		app.sendResponse(w, false, Conflict, []ValidationError{verr})
 		return
 	}
 
@@ -121,14 +121,14 @@ type LoginRequest struct {
 func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	var reqBody LoginRequest
 	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
-		//app.sendDecodeError(w, err)
+		app.sendDecodeError(w, err)
 		return
 	}
 
-	// if err := app.validate.Struct(reqBody); err != nil {
-	// 	app.sendValidationError(w, err)
-	// 	return
-	// }
+	if err := app.validate.Struct(reqBody); err != nil {
+		app.sendValidationError(w, err)
+		return
+	}
 
 	user := User{}
 
