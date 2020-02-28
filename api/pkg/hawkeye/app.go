@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -13,11 +14,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"go.uber.org/zap"
 	"gopkg.in/boj/redistore.v1"
 )
 
 //App ...
 type App struct {
+	log          *zap.SugaredLogger
 	router       *mux.Router
 	db           *mongo.Database
 	sessionStore *redistore.RediStore
@@ -41,8 +44,10 @@ const port = 8080
 //InitApp ...
 func (app *App) InitApp() {
 	//TODO: Add App Logger
+
 	app.loadConfig()
 	app.connectToMongo()
+	app.buildLogger()
 	app.loadRedis()
 	app.router = mux.NewRouter()
 }
@@ -111,6 +116,26 @@ func (app *App) connectToMongo() {
 
 	app.db = client.Database(app.config.databaseName)
 
+}
+func (app *App) buildLogger() {
+	var cfg zap.Config
+	if app.config.production {
+		cfg = zap.NewProductionConfig()
+	} else {
+		cfg = zap.NewDevelopmentConfig()
+	}
+
+	cfg.OutputPaths = []string{
+		"stdout",
+	}
+
+	logger, err := cfg.Build()
+	if err != nil {
+		log.Fatal("Could not initialize Zap logger")
+	}
+	defer logger.Sync()
+
+	app.log = logger.Sugar()
 }
 
 //loadRedis ...
