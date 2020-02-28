@@ -10,7 +10,7 @@ import (
 	"gopkg.in/go-playground/validator.v9"
 )
 
-//Error Field Validation ...
+//ValidationError ...
 type ValidationError struct {
 	Field string `json:"field"`
 	Error string `json:"eror"`
@@ -41,7 +41,7 @@ func (r ResponseMessage) String() string {
 	}[r]
 }
 
-//HTTPStatus ...
+//Status ... HTTPStatus
 func (r ResponseMessage) Status() int {
 	return [...]int{
 		http.StatusOK,
@@ -92,6 +92,7 @@ func sanitize(s string) string {
 	return s
 }
 
+//Answer Types
 const (
 	CorrectAnswer = "CORRECT"
 	CloseAnswer   = "CLOSE"

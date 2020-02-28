@@ -9,6 +9,7 @@ import (
 
 const sessionName = "session"
 
+//CurrUser ...
 type CurrUser struct {
 	ID    primitive.ObjectID
 	Email string
@@ -17,14 +18,14 @@ type CurrUser struct {
 //ErrorInvalidCookie ...
 var ErrorInvalidCookie = errors.New("invalid cookie")
 
-func (app *App) setSession(w http.ResponseWriter, r *http.Request) error {
+func (app *App) setSession(w http.ResponseWriter, r *http.Request, currUser CurrUser, age int) error {
 	session, err := app.sessionStore.Get(r, sessionName)
 	if err != nil {
 		app.log.Errorf("Session store err: %s ", err.Error())
 		return err
 	}
-	session.Values["ID"] = CurrUser.ID.Hex()
-	session.Values["email"] = CurrUser.Email
+	session.Values["id"] = currUser.ID.Hex()
+	session.Values["email"] = currUser.Email
 
 	if err := session.Save(r, w); err != nil {
 		app.log.Infof("Session Store save error: %s", err.Error())
