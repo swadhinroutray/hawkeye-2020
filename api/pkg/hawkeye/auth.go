@@ -11,8 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
-	//"go.mongodb.org/mongo-driver/bson"
-	//"go.mongodb.org/mongo-driver/mongo"
 )
 
 //RegisterRequest ...
@@ -89,13 +87,13 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Mobile:    strings.TrimSpace(reqBody.Mobile),
 		College:   strings.TrimSpace(reqBody.College),
 
-		Level: levels,
-		//Inventory: []int{}
+		Level:        levels,
+		Inventory:    []Elixir{},
 		Points:       0,
 		RegionUnlock: regionOrder,
 		ItemBool:     [7]bool{true, true, true, true, true, true, true},
-		//ToBuy : []int{}
-		History: []Elixir{},
+		ToBuy:        []int{2, 2, 2, 1},
+		History:      []Elixir{},
 
 		Access: 0,
 		Banned: false,
