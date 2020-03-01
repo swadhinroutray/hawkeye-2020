@@ -4,7 +4,9 @@ import (
 	"errors"
 	"net/http"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 const sessionName = "session"
@@ -25,7 +27,7 @@ func (app *App) setSession(w http.ResponseWriter, r *http.Request, currUser Curr
 		return err
 	}
 	session.Values["id"] = currUser.ID.Hex()
-	session.Values["email"] = currUser.Email
+	session.Values["Email"] = currUser.Email
 
 	if err := session.Save(r, w); err != nil {
 		app.log.Infof("Session Store save error: %s", err.Error())
@@ -57,6 +59,26 @@ func (app *App) getCurrentUser(r *http.Request) (CurrUser, error) {
 		ID:    id,
 		Email: email,
 	}, nil
+}
+
+func (app *App) getUserTest(r *http.Request) User {
+	CurrUser, err := app.getCurrentUser(r)
+	if err != nil {
+	}
+	// //app.sendResponse(w, true, Success, CurrUser)
+	var curUser User
+	filter := bson.M{"email": CurrUser.Email}
+	err = app.db.Collection("users").FindOne(r.Context(), filter).Decode(&curUser)
+	if err == mongo.ErrNoDocuments {
+		app.log.Infof("Unable to fetch user")
+
+		return User{}
+	}
+	if err != nil {
+		return User{}
+	}
+
+	return curUser
 }
 
 func (app *App) clearSession(w http.ResponseWriter, r *http.Request) error {

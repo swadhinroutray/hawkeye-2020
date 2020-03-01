@@ -57,7 +57,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// //Unique Email
+	//Unique Email
 	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"email": strings.TrimSpace(reqBody.Email)}).Decode(nil); err != mongo.ErrNoDocuments {
 		verr := ValidationError{Field: "email", Error: "email_exists"}
 		app.log.Infof("%#v", verr)
@@ -112,12 +112,13 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 
 //LoginRequest ...
 type LoginRequest struct {
-	Email    string `json:"email" validate:"required, email"`
+	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
 }
 
 func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	var reqBody LoginRequest
+
 	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
 		app.sendDecodeError(w, err)
 		return
