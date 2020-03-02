@@ -2,6 +2,7 @@ package hawkeye
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -81,4 +82,52 @@ func (app *App) fetchQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	app.sendResponse(w, true, Success, questions[0])
+}
+
+//AnswerRequest ...
+type AnswerRequest struct {
+	Answer string `json:"answer" bson:"answer"`
+	Region int    `json:"region" bson:"region"`
+}
+
+func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
+
+	currUser := app.getUserTest(r)
+
+	var ansReq AnswerRequest
+	json.NewDecoder(r.Body).Decode(&ansReq)
+
+	region := ansReq.Region
+	level := currUser.Level[ansReq.Region]
+
+	var answerQues Question
+	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"level": level, "region": region}).Decode(&answerQues)
+
+	if err != nil {
+		app.log.Error("Database Error")
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	matchResult := checkAnswer(sanitize(ansReq.Answer), answerQues.Answer)
+
+	if matchResult == WrongAnswer {
+		app.sendResponse(w, true, Success, "Wrong Answer")
+		return
+	}
+	if matchResult == CloseAnswer {
+		app.sendResponse(w, true, Success, "Close Answer")
+		return
+	}
+
+	if matchResult == CorrectAnswer {
+
+		//TODO: Check number of questions answered and update Multiplier accordingly.
+
+		levelSon := fmt.Sprintf("level.%d", ansReq.Region)
+		app.db.Collection("user").FindOneAndUpdate(r.Context(),
+			bson.M{"_id": currUser.ID},
+			bson.M{"$set": bson.A{bson.M{"points": currUser.Points + currUser.Multiplier}, bson.M{levelSon: currUser.Level[ansReq.Region] + 1}}},
+		)
+
+	}
 }

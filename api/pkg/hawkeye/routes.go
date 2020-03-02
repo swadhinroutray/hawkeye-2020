@@ -16,5 +16,4 @@ func (app *App) mountRoutes() {
 	questions := api.PathPrefix("/question").Subrouter()
 
 	questions.HandleFunc("/fetch", app.fetchQuestion).Methods("GET")
-	//questions.HandleFunc("/test", app.getUserTest).Methods("GET")
 }

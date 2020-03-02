@@ -22,8 +22,9 @@ type User struct { //TODO: Fix number of items
 	Level        [7]int   `bson:"level"  json:"level"` //Levels across multiple regions
 	Access       int      `bson:"access" json:"access"`
 	Banned       bool     `bson:"banned" json:"banned"`
-	Inventory    []Elixir `bson:"inventory" json:"inventory"` // Inventory items implemmentation (How many does each user have?)
-	Points       int      `bson:"points" json:"points"`       //Check how to implement points
+	Inventory    []Elixir `bson:"inventory" json:"inventory"`   // Inventory items implemmentation (How many does each user have?)
+	Points       int      `bson:"points" json:"points"`         //Check how to implement points
+	Multiplier   int      `bson:"multiplier" json:"multiplier"` //How many points user gets on answering questions.
 	RegionUnlock []int    `bson:"regionunlock" json:"-"`
 	ItemBool     [7]bool  `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
 	ToBuy        []int    `bson:"tobuy"  json:"tobuy"`      //How many left to be bough for ech usr, if you have doubt call sanchit and ask
