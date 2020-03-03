@@ -16,8 +16,8 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
 }
 	html, body {
-		font-family: "LemonMilk";
 		color:white;
+		font-family: 'Nidus Sans';
 		height: 100%;
 		margin:0;
 		padding:0;

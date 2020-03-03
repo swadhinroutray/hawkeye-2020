@@ -7,4 +7,13 @@ func (app *App) mountRoutes() {
 	api.HandleFunc("/allusers", app.GetUser).Methods("GET")
 	//api.HandleFunc("/random", app.RegionString).Methods("GET")
 	api.HandleFunc("/adduser", app.AddUser).Methods("POST")
+
+	auth := api.PathPrefix("/auth").Subrouter()
+
+	auth.HandleFunc("/register", app.registerController).Methods("POST")
+	auth.HandleFunc("/login", app.loginController).Methods("POST")
+
+	questions := api.PathPrefix("/question").Subrouter()
+
+	questions.HandleFunc("/fetch", app.fetchQuestion).Methods("GET")
 }
