@@ -40,5 +40,8 @@
 			"last 1 safari version"
 		]
 	},
-	"proxy": "http://api:8080"
+	"proxy": "http://api:8080",
+	"devDependencies": {
+		"babel-preset-mobx": "^2.0.0"
+	}
 }

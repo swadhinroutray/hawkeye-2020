@@ -7,6 +7,7 @@ import { Provider } from 'mobx-react';
 const RegisterPageWrapper = styled.div`
 	height: 100vh;
 	text-align: center;
+
 	h1 {
 		font-family: 'Nidus Sans';
 		color: white;

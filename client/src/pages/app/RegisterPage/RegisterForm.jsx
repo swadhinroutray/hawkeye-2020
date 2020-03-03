@@ -2,6 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+
 const RegisterFormWrapper = styled.div`
 	color: #fff;
 	border: 3px solid #31bfb8;
@@ -41,7 +42,7 @@ const RegisterFormWrapper = styled.div`
 			box-sizing: border-box;
 			padding: 0.5em 0.6em;
 			width: 90%;
-			font-family: 'Nidus Sans';
+			font-family: 'Share Tech';
 			text-align: left;
 			border-bottom: 1px solid #ccc;
 			border-radius: 5px;
@@ -58,13 +59,13 @@ const RegisterFormWrapper = styled.div`
 				color: rgba(196, 253, 250, 0.49);
 			}
 		}
-		span {
-			margin-top: 2px;
-			font-size: 0.8em;
-			min-height: 1.1em;
-			user-select: none;
-			color: #fa507b;
-		}
+	}
+	span {
+		margin-top: 2px;
+		font-size: 0.8em;
+		min-height: 1.1em;
+		user-select: none;
+		color: #fa507b;
 	}
 	button {
 		all: unset;
@@ -142,10 +143,10 @@ const RegisterForm = inject('registerStore')(
 					type="password"
 					placeholder="Confirm Password"
 					required={true}
-					onChange={e => registerStore.setField('confPass', e.target.value)}
-					// value={registerStore['confPass'].value}
+					onChange={e => registerStore.setField('confirmPass', e.target.value)}
+					// value={registerStore['confirmPass'].value}
 				/>
-				<span>{registerStore['confPass'].error}</span>
+				<span>{registerStore['confirmPass'].error}</span>
 			</div>
 			<div className="input-field">
 				<input
@@ -161,12 +162,12 @@ const RegisterForm = inject('registerStore')(
 					type="text"
 					placeholder="College"
 					onChange={e => registerStore.setField('college', e.target.value)}
-					// value={registerStore['college'].value}
+					// value={registerStore['college'].error}
 				/>
 				<span>{registerStore['college'].error}</span>
 			</div>
 			<button onClick={() => registerStore.register()}>SUBMIT</button>
-			<span className="message">{registerStore.message.value}</span>
+			<span className="message">{registerStore['message'].value}</span>
 			<Link className="link-register" to="/app/login">
 				Back to login
 			</Link>
