@@ -19,10 +19,10 @@ type FetchedQuestion struct {
 }
 
 //FetchedHint ...
-type FetchedHint struct {
-	ID   primitive.ObjectID `json:"id" bson:"_id"`
-	Hint string             `json:"hints" bson:"hints"`
-}
+// type FetchedHint struct {
+// 	ID   primitive.ObjectID `json:"id" bson:"_id"`
+// 	Hint string             `json:"hints" bson:"hints"`
+// }
 
 //QuestionRequest ...
 type QuestionRequest struct {

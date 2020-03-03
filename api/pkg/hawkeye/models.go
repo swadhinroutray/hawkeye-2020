@@ -59,9 +59,10 @@ type Hint struct {
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
 
-	Level  int    `bson:"level" json:"level"`
-	Hint   string `bson:"hint"   json:"hint"`
-	Active bool   `bson:"active" json:"active"`
+	hintType int    `json:"hintType" bson:"hintType"` //0 for NORMAL HINT, 1 FOR HIDDEN HINT
+	Level    int    `bson:"level" json:"level"`
+	Hint     string `bson:"hint"   json:"hint"`
+	Active   bool   `bson:"active,omitempty" json:"active"`
 }
 
 //Submission (Collection)...

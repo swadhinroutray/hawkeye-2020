@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/texttheater/golang-levenshtein/levenshtein"
 	"gopkg.in/go-playground/validator.v9"
@@ -13,7 +14,7 @@ import (
 //ValidationError ...
 type ValidationError struct {
 	Field string `json:"field"`
-	Error string `json:"eror"`
+	Error string `json:"error"`
 }
 
 //ResponseMessage ...
@@ -109,3 +110,36 @@ func checkAnswer(userAnswer string, answer string) string {
 	}
 	return WrongAnswer
 }
+
+var timeBought struct {
+	tused   time.Time
+	tbought time.Time
+}
+
+// func (app *App) logElixir(elixir FetchedElixir, used bool, bought bool) {
+
+// 	if used {
+// 		tused := time.Now()
+// 	}
+// 	if bought {
+// 		tbought := time.Now()
+// 	}
+
+// 	newElixir := Elixir{
+// 		ID:       elixir.ID,
+// 		Elixir:   elixir.Elixir,
+// 		UsedAt:   time.Now(),
+// 		BoughtAt: time.Now(),
+// 		Region:   elixir.Region,
+// 		Question: elixir.Question,
+// 	}
+
+// 	_, err := app.db.Collection("elixirs").InsertOne(r.Context(), newElixir)
+// 	if err != nil {
+// 		app.log.Errorf("Failed to insert User %s", err.Error())
+// 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+// 		return
+// 	}
+// 	app.log.Infof("New Elixir logged %v ", newElixir)
+// 	return
+// }

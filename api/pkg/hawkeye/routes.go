@@ -14,6 +14,8 @@ func (app *App) mountRoutes() {
 	auth.HandleFunc("/login", app.loginController).Methods("POST")
 
 	questions := api.PathPrefix("/question").Subrouter()
-
 	questions.HandleFunc("/fetch", app.fetchQuestion).Methods("GET")
+
+	potions := api.PathPrefix("/elixir").Subrouter()
+	potions.HandleFunc("/unlockhint", app.unlockExtraHint).Methods("POST")
 }
