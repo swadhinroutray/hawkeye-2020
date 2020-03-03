@@ -14,10 +14,10 @@ const GlobalStyle = createGlobalStyle`
          url('nidsans-webfont.svg#nidus_sansregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 	html, body {
 		font-family: "LemonMilk";
+		color:white;
 		height: 100%;
 		margin:0;
 		padding:0;
