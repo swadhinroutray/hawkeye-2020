@@ -28,7 +28,7 @@ export const LoginForm = inject('loginStore')(
 						Create an account
 					</Link>
 				</div>
-				{loginStore.loggedIn ? <Redirect to="/app/game" /> : null}
+				{loginStore.loggedIn ? <Redirect to="/regions" /> : null}
 			</LoginFormWrapper>
 		);
 	})

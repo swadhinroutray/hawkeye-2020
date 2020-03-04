@@ -5,7 +5,7 @@ import {
 	validateRequired,
 	validateWithError,
 } from '../../utils/validation';
-
+import {get,post} from '../../utils/api'
 class LoginModel {	
     formData= {email:{value:"",error:""},password:{value:"",error:""}}
 	loggedIn= false
@@ -49,10 +49,10 @@ class LoginModel {
 		const { email, password } = this.formData;
         const postData = { email: email.value, password: password.value };
         
-		console.log(postData)
+		post('/api/auth/login',postData).then(this.loginControl)
 	}
 
-    loginControl(res) {
+    loginControl=(res) =>{
 		if (res.success) {
 			this.loggedIn = true;
 			const {
@@ -95,7 +95,7 @@ class LoginModel {
 		console.log("unimplemented");
 	}
 
-	logoutControl(res) {
+	logoutControl=(res)=> {
 		if (res.success) {
 			this.loggedIn = false;
 		}
