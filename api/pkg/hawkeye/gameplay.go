@@ -36,7 +36,7 @@ func (app *App) fetchQuestion(w http.ResponseWriter, r *http.Request) {
 
 	var quesReq QuestionRequest
 	json.NewDecoder(r.Body).Decode(&quesReq)
-
+	fmt.Println(currUser)
 	if currUser.Level[quesReq.Region] <= 0 {
 		app.sendResponse(w, false, Success, "Region Locked")
 		return
