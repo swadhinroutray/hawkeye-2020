@@ -44,10 +44,10 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := app.validate.Struct(reqBody); err != nil {
-		app.sendValidationError(w, err)
-		return
-	}
+	// if err := app.validate.Struct(reqBody); err != nil {
+	// 	app.sendValidationError(w, err)
+	// 	return
+	// }
 
 	//Check for unique username
 	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"username": strings.TrimSpace(reqBody.Username)}).Decode(nil); err != mongo.ErrNoDocuments {

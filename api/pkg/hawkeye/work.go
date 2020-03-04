@@ -69,3 +69,8 @@ func (app *App) GetUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(allUsers)
 
 }
+
+func (app *App) getProfile(w http.ResponseWriter, r *http.Request) {
+	//Get user Profile
+	
+}
