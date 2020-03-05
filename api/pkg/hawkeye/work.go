@@ -80,8 +80,8 @@ func (app *App) getProfile(w http.ResponseWriter, r *http.Request) {
 	// 	app.sendResponse(w,false,InternalServerError,"something went wrong")
 	// 	return
 	// }
-	id,err :=primitive.ObjectIDFromHex(currUser)
-	fmt.Println(id)
+	//id,err :=primitive.ObjectIDFromHex(currUser)
+	//fmt.Println(id)
 	findUser := bson.M{"_id": currUser.ID}
 	var user User
 	err = app.db.Collection("users").FindOne(r.Context(),findUser).Decode(&user)
@@ -93,3 +93,6 @@ func (app *App) getProfile(w http.ResponseWriter, r *http.Request) {
 	app.sendResponse(w,true,Success,user)
 
 }
+
+
+

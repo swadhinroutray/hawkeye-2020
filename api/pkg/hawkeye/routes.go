@@ -18,9 +18,9 @@ func (app *App) mountRoutes() {
 	questions.HandleFunc("/fetch", app.fetchQuestion).Methods("GET")
 
 	//Elixir Routes
-	potions := api.PathPrefix("/elixir").Subrouter()
-	potions.HandleFunc("/unlockhint", app.unlockExtraHint).Methods("POST")
-
+	elixir := api.PathPrefix("/elixir").Subrouter()
+	elixir.HandleFunc("/unlockhint", app.unlockExtraHint).Methods("POST")
+	elixir.HandleFunc("/regionmultiply", app.regionMultipler).Methods("POST")
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.getProfile).Methods("GET")
