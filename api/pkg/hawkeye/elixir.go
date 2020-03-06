@@ -95,7 +95,7 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 	}
 	//Change itemBOOl of that region to  false so no more potions can be used
 	//TODO: Log info to the elixir collection
-	//app.logElixir(elixir, true, false)
+	app.logElixir(r, elixir, true, false)
 	currUser.ItemBool[elixir.Region] = false
 	app.sendResponse(w, false, Success, fetchedHint[0])
 	//TODO: Delete hint from the user's inventory

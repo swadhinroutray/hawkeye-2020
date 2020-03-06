@@ -156,7 +156,7 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.sendResponse(w, true, Success, user)
+	app.sendResponse(w, true, Success, currUser)
 }
 
 func (app *App) logoutController(w http.ResponseWriter, r *http.Request) {
@@ -164,7 +164,7 @@ func (app *App) logoutController(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return
 	}
-
+	app.log.Infof("Logged out successfully")
 	app.sendResponse(w, true, Success, "Logged out successfully")
 }
 

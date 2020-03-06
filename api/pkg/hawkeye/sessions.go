@@ -42,7 +42,7 @@ func (app *App) setSession(w http.ResponseWriter, r *http.Request, currUser Curr
 func (app *App) getCurrentUser(r *http.Request) (CurrUser, error) {
 	fmt.Println(r)
 	session, err := app.sessionStore.Get(r, sessionName)
-	//fmt.Println(session)
+	fmt.Println(session)
 	if err != nil {
 		app.log.Errorf("Session store get error: %s", err.Error())
 		return CurrUser{}, err
