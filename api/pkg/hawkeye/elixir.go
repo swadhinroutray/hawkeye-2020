@@ -30,7 +30,7 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 	var elixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&elixir)
 	if currUser.ItemBool[elixir.Region] == false {
-		app.sendResponse(w, false, Success, "A hint has already been used on this question")
+		app.sendResponse(w, false, Success, "A potion has already been used on this question")
 		return
 	}
 	//Check if he has a potion of this kind in his inventory Or do i have to check this?
@@ -94,7 +94,60 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//Change itemBOOl of that region to  false so no more potions can be used
-	//app.logElixir(elixir, true, false)
+	//TODO: Log info to the elixir collection
+	app.logElixir(r, elixir, true, false)
 	currUser.ItemBool[elixir.Region] = false
 	app.sendResponse(w, false, Success, fetchedHint[0])
+	//TODO: Delete hint from the user's inventory
+
+}
+
+func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
+	currUser := app.getUserTest(r)
+	//TODO:Frontend sends id of potion check if he has it in his inventory of not, and then apply to the question
+
+	var elixir FetchedElixir
+	json.NewDecoder(r.Body).Decode(&elixir)
+	if currUser.ItemBool[elixir.Region] == false {
+		app.sendResponse(w, false, Success, "A potion has already been used on this question")
+		return
+	}
+	//Check if he has a potion of this kind in his inventory Or do i have to check this?
+	inventoryCheck := bson.A{
+		bson.M{
+			"$match": bson.M{"_id": currUser.ID},
+		},
+		bson.M{
+			"$match": bson.M{"inventory.Elixir": elixir.Elixir},
+		},
+	}
+	cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
+	if err != nil {
+		app.log.Errorf("Internal Server Error %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	var fetchEli []FetchedElixir
+	if err := cursor.All(r.Context(), &fetchEli); err != nil {
+		app.log.Errorf("Internal Server Error: %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	if len(fetchEli) == 0 {
+		app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
+		return
+	}
+	if _, err := app.db.Collection("users").UpdateOne(
+		r.Context(),
+		bson.M{"_id": currUser.ID},
+		bson.M{"$set": bson.M{"regionmultiplier": elixir.Region}},
+	); err != nil {
+		app.log.Errorf("Internal Server Error: %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	app.log.Infof("Multiplier applied to region %d", elixir.Region)
+	app.sendResponse(w, true, Success, "Multiplier applied successfully")
+	//TODO: Delete From Inventory & Log the elixir in the elixir collections
+
 }

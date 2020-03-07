@@ -116,30 +116,36 @@ var timeBought struct {
 	tbought time.Time
 }
 
-// func (app *App) logElixir(elixir FetchedElixir, used bool, bought bool) {
+func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, bought bool) {
 
-// 	if used {
-// 		tused := time.Now()
-// 	}
-// 	if bought {
-// 		tbought := time.Now()
-// 	}
+	var newElixir Elixir
+	if used {
+		tused := time.Now()
 
-// 	newElixir := Elixir{
-// 		ID:       elixir.ID,
-// 		Elixir:   elixir.Elixir,
-// 		UsedAt:   time.Now(),
-// 		BoughtAt: time.Now(),
-// 		Region:   elixir.Region,
-// 		Question: elixir.Question,
-// 	}
+		newElixir = Elixir{
+			ID:       elixir.ID,
+			Elixir:   elixir.Elixir,
+			UsedAt:   tused,
+			Region:   elixir.Region,
+			Question: elixir.Question,
+		}
+	}
+	if bought {
+		tbought := time.Now()
+		newElixir = Elixir{
+			ID:       elixir.ID,
+			Elixir:   elixir.Elixir,
+			BoughtAt: tbought,
+			Region:   elixir.Region,
+			Question: elixir.Question,
+		}
+	}
 
-// 	_, err := app.db.Collection("elixirs").InsertOne(r.Context(), newElixir)
-// 	if err != nil {
-// 		app.log.Errorf("Failed to insert User %s", err.Error())
-// 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
-// 		return
-// 	}
-// 	app.log.Infof("New Elixir logged %v ", newElixir)
-// 	return
-// }
+	_, err := app.db.Collection("elixirs").InsertOne(r.Context(), newElixir)
+	if err != nil {
+		app.log.Errorf("Failed to insert User %s", err.Error())
+		return
+	}
+	app.log.Infof("New Elixir logged %v ", newElixir)
+	return
+}

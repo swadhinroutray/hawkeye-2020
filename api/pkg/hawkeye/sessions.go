@@ -40,14 +40,14 @@ func (app *App) setSession(w http.ResponseWriter, r *http.Request, currUser Curr
 }
 
 func (app *App) getCurrentUser(r *http.Request) (CurrUser, error) {
-	fmt.Println(r)
-	session, err := app.sessionStore.Get(r, sessionName)
-	//fmt.Println(session)
+	fmt.Println(r, "\n")
+	session, err := app.sessionStore.Get(r, "session")
+	fmt.Println(session)
 	if err != nil {
 		app.log.Errorf("Session store get error: %s", err.Error())
 		return CurrUser{}, err
 	}
-	if session.Values["id"] == nil || session.Values["email"] == nil {
+	if session.Values["id"] == nil || session.Values["Email"] == nil {
 		app.log.Infof("%s", ErrorInvalidCookie.Error())
 		return CurrUser{}, ErrorInvalidCookie
 	}

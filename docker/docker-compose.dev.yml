@@ -46,7 +46,7 @@ services:
       - network
 
   redis:
-    image: redis
+    image: redis:alpine
     restart: unless-stopped
     networks:
       - network
