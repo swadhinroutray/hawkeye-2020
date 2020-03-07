@@ -17,6 +17,7 @@ func (app *App) mountRoutes() {
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
 	questions.HandleFunc("/fetch", app.withUser(app.fetchQuestion)).Methods("GET")
+	questions.HandleFunc("/addquestion", app.withAdmin(app.addQuestion)).Methods("POST")
 
 	//Elixir Routes
 	elixir := api.PathPrefix("/elixir").Subrouter()

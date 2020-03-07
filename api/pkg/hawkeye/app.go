@@ -147,7 +147,7 @@ func (app *App) loadRedis() {
 	} else {
 		fmt.Println("Created redis store")
 	}
-
+	sessions.SetMaxAge(10 * 24 * 3600)
 	app.sessionStore = sessions
 
 }
