@@ -10,16 +10,20 @@ import { LoginModel } from '../../../models/app/LoginModel';
 
  const Game = inject('loginStore')(
 	observer(({ loginStore }) => {
-		
+		useEffect(() => {
+			loginStore.getProfile()
+			loginStore.clearErrors();
+			
+		}, [loginStore]);
 
-		const [rules, setRules] = useState(false);
+		const [invertory, setInvertory] = useState(false);
 
 		return (
 			<GameWrapper>
 				<Provider gameplayStore={GameplayModel}>
 					<nav className="Navbar">
-						<div className="navbar-btn" onClick={() => setRules(true)}>
-							Rules
+						<div className="navbar-btn" onClick={() => setInvertory(true)}>
+							Invertory
 						</div>
 						<div className="navbar-btn" onClick={() => loginStore.logout()}>
 							Logout
@@ -31,10 +35,10 @@ import { LoginModel } from '../../../models/app/LoginModel';
 							<QuestionBox />
 							<HintsBox />
 							<AttemptsBox />
-							{rules && (
+							{invertory && (
 								<div className="RulesBox">
-									<h1>Rules</h1>
-									<i className="btn-close" onClick={() => setRules(false)}>
+									<h1>Invertory</h1>
+									<i className="btn-close" onClick={() => setInvertory(false)}>
 										x
 									</i>
 									<div className="RulesBox-content">
@@ -148,6 +152,5 @@ const AttemptsBox = inject('gameplayStore')(
 );
 
 const GameWrapper = styled.div`
-	
 `;
 export default Game;

@@ -53,6 +53,7 @@ class LoginModel {
 	}
 
     loginControl=(res) =>{
+		console.log(res.data)
 		if (res.success) {
 			this.loggedIn = true;
 			const {
@@ -102,7 +103,7 @@ class LoginModel {
 	}
 
 	getProfile() {
-		console.log("unimplemented");
+		get('/api/users/getprofile').then(this.loginControl)
 	}
 
 
