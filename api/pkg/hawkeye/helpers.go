@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/texttheater/golang-levenshtein/levenshtein"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -123,7 +124,7 @@ func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, boug
 		tused := time.Now()
 
 		newElixir = Elixir{
-			ID:       elixir.ID,
+			ID:       primitive.NewObjectID(),
 			Elixir:   elixir.Elixir,
 			UsedAt:   tused,
 			Region:   elixir.Region,
@@ -133,7 +134,7 @@ func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, boug
 	if bought {
 		tbought := time.Now()
 		newElixir = Elixir{
-			ID:       elixir.ID,
+			ID:       primitive.NewObjectID(),
 			Elixir:   elixir.Elixir,
 			BoughtAt: tbought,
 			Region:   elixir.Region,

@@ -10,10 +10,10 @@ import (
 
 //FetchedElixir ...
 type FetchedElixir struct {
-	ID       primitive.ObjectID `json:"id" bson:"_id"`
-	Elixir   int                `json:"elixir" bson:"elixir"`
-	Region   int                `json:"region" bson:"region,omitempty"`
-	Question int                `bson:"question" json:"question"`
+	//ID       primitive.ObjectID `json:"id" bson:"_id"`
+	Elixir   int `json:"elixir" bson:"elixir"`
+	Region   int `json:"region" bson:"region,omitempty"`
+	Question int `bson:"question" json:"question"`
 	//Active bool               `bson:"active"  json:"active"`
 }
 
@@ -113,7 +113,7 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//Check if he has a potion of this kind in his inventory Or do i have to check this?
-	inventoryCheck := bson.A{
+	inventoryCheck := bson.A{ //TODO: Change to currUser checking, db doesn't work!!!!!
 		bson.M{
 			"$match": bson.M{"_id": currUser.ID},
 		},
@@ -134,6 +134,7 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if len(fetchEli) == 0 {
+		app.log.Infof("%v", fetchEli)
 		app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
 		return
 	}
@@ -146,8 +147,11 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return
 	}
-	app.log.Infof("Multiplier applied to region %d", elixir.Region)
-	app.sendResponse(w, true, Success, "Multiplier applied successfully")
-	//TODO: Delete From Inventory & Log the elixir in the elixir collections
 
+	app.log.Infof("Multiplier applied to region %d", elixir.Region)
+	//Log info to the elixir collection
+	app.logElixir(r, elixir, true, false)
+	currUser.ItemBool[elixir.Region] = false
+	app.sendResponse(w, true, Success, "Multiplier applied successfully")
+	//TODO: Delete From Inventory
 }

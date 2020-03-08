@@ -87,13 +87,14 @@ type Region struct {
 
 //Elixir (Collection) ...
 type Elixir struct {
-	ID       primitive.ObjectID `bson:"_id"          json:"id"`
-	BoughtAt time.Time          `bson:"bought_at" json:"BoughtAt"`
-	UsedAt   time.Time          `bson:"used_at" json:"UsedAt"`
-	Elixir   int                `bson:"elixir" json:"elixir"`
-	Active   bool               `bson:"active"  json:"active"`
-	Region   int                `bson:"region" json:"region"`
-	Question int                `bson:"question" json:"question"`
+	ID         primitive.ObjectID `bson:"_id"          json:"id"`
+	BoughtAt   time.Time          `bson:"bought_at" json:"BoughtAt"`
+	UsedAt     time.Time          `bson:"used_at" json:"UsedAt"`
+	Elixir     int                `bson:"elixir" json:"elixir"`
+	ElixirName string             `bson: "elixir_name" json:"elixirname"`
+	Active     bool               `bson:"active"  json:"active"`    //WHY?
+	Region     int                `bson:"region" json:"region"`     //When bought it is initialised to -1
+	Question   int                `bson:"question" json:"question"` //When bought it is initialised to -1
 }
 
 /*What potions are we keeping?
