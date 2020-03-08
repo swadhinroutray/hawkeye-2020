@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 //ElixirName ...
@@ -49,7 +50,7 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	//get index of the elixir in the url parameter
 	elixirID, err := strconv.Atoi(params["elixirid"])
-	app.log.Infof("Lvl questions %d", elixirID)
+	app.log.Infof("Elixir ID: %d", elixirID)
 	if err != nil {
 		app.log.Infof("Bad request params %s", err.Error())
 		app.sendResponse(w, false, BadRequest, nil)
@@ -61,10 +62,10 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//Create a new elixir and add to his inventory(done)
-	//TODO:deduct the tobuy value of that index by one
+	//deduct the tobuy value of that index by one(done)
 	//log the  elixir (done)
 	//Deduct the points of the user(done)
-	//TODO: Check if he has enough points (DONE)
+	// Check if he has enough points (DONE)
 
 	name, elixirpoints := ElixirName(elixirID)
 
@@ -119,4 +120,51 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 	app.log.Infof("Elixir bought successfully")
 	app.logElixir(r, tempFetch, false, true)
 	app.sendResponse(w, true, Success, "A new potion has been addedto your inventory")
+}
+
+func (app *App) sendInventory(w http.ResponseWriter, r *http.Request) {
+
+	currUser, err := app.getCurrentUser(r)
+	//var inventory []int
+	var curUser User
+	filter := bson.M{
+		"_id": currUser.ID,
+	}
+	err = app.db.Collection("users").FindOne(r.Context(), filter).Decode(&curUser)
+	if err == mongo.ErrNoDocuments {
+		fmt.Println(curUser)
+		app.log.Infof("Unable to fetch user")
+		app.sendResponse(w, false, InternalServerError, "Databse error")
+		return
+	}
+	if err != nil {
+		app.log.Errorf("An error occurred %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	app.log.Infof("Sending inventory")
+	app.sendResponse(w, true, Success, curUser.Inventory)
+}
+func (app *App) canBuy(w http.ResponseWriter, r *http.Request) {
+
+	currUser, err := app.getCurrentUser(r)
+	//var inventory []int
+	var curUser User
+	filter := bson.M{
+		"_id": currUser.ID,
+	}
+	err = app.db.Collection("users").FindOne(r.Context(), filter).Decode(&curUser)
+	if err == mongo.ErrNoDocuments {
+		fmt.Println(curUser)
+		app.log.Infof("Unable to fetch user")
+		app.sendResponse(w, false, InternalServerError, "Databse error")
+		return
+	}
+	if err != nil {
+		app.log.Errorf("An error occurred %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	app.log.Infof("Sending items that can be bought")
+	app.sendResponse(w, true, Success, curUser.ToBuy)
 }
