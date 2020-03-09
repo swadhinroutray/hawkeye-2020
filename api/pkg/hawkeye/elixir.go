@@ -2,6 +2,7 @@ package hawkeye
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/rand"
 	"net/http"
 	"strings"
@@ -12,9 +13,10 @@ import (
 
 //FetchedElixir ...
 type FetchedElixir struct {
-	//ID       primitive.ObjectID `json:"id" bson:"_id"`
+	//ID         primitive.ObjectID `json:"id" bson:"_id"`
 	Elixir     int                `json:"elixir" bson:"elixir"`
 	Region     int                `json:"region" bson:"region,omitempty"`
+	ElixirName string             `bson:"elixir_name" json:"elixir_name"`
 	QuestionID primitive.ObjectID `bson:"question" json:"question"`
 	QuestionNo int                `bson:"question_no" json:"question_no"`
 	//Active bool               `bson:"active"  json:"active"`
@@ -96,18 +98,28 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, Success, fetchedHint)
 		return
 	}
-	//Change itemBOOl of that region to  false so no more potions can be used
-	//TODO: Log info to the elixir collection
+	//Change itemBOOl of that region to  false so no more potions can be used on that question
 	app.logElixir(r, elixir, true, false)
-	currUser.ItemBool[elixir.Region] = false
-	app.sendResponse(w, false, Success, fetchedHint[0])
+	SetField := fmt.Sprintf("ItemBool.%d", elixir.Region)
+	filter := bson.M{"_id": currUser.ID}
+	update := bson.M{"$set": bson.M{
+		SetField: false,
+	},
+	}
+	if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
+		app.log.Errorf("Databse error %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	//currUser.ItemBool[elixir.Region] = false
+	app.sendResponse(w, false, Success, fetchedHint)
 	//TODO: Delete hint from the user's inventory
 
 }
 
 func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 	currUser := app.getUserTest(r)
-	//TODO:Frontend sends id of potion check if he has it in his inventory of not, and then apply to the question
 
 	var elixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&elixir)
@@ -115,15 +127,16 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, Success, "A potion has already been used on this question")
 		return
 	}
-	//Check if he has a potion of this kind in his inventory Or do i have to check this?
-	inventoryCheck := bson.A{ //TODO: Change to currUser checking, db doesn't work!!!!!
+
+	inventoryCheck := bson.A{
 		bson.M{
 			"$match": bson.M{"_id": currUser.ID},
 		},
 		bson.M{
-			"$match": bson.M{"inventory.Elixir": elixir.Elixir},
+			"$match": bson.M{"inventory.elixir": elixir.Elixir},
 		},
 	}
+
 	cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
 	if err != nil {
 		app.log.Errorf("Internal Server Error %s", err.Error())
@@ -151,12 +164,32 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	SetField := fmt.Sprintf("itembool.%d", elixir.Region)
+	filter := bson.M{"_id": currUser.ID}
+	update := bson.M{"$set": bson.M{
+		SetField: false,
+	},
+	}
+	if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
+		app.log.Errorf("Databse error %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	//TODO: Delete From Inventory DONE :)
+	if _, err := app.db.Collection("users").UpdateOne(
+		r.Context(),
+		bson.M{"_id": currUser.ID},
+		bson.M{"$pull": bson.M{"inventory": bson.M{"elixir": 1}}},
+	); err != nil {
+		app.log.Errorf("Internal Server Error: %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
 	app.log.Infof("Multiplier applied to region %d", elixir.Region)
-	//Log info to the elixir collection
 	app.logElixir(r, elixir, true, false)
-	currUser.ItemBool[elixir.Region] = false
 	app.sendResponse(w, true, Success, "Multiplier applied successfully")
-	//TODO: Delete From Inventory
+
 }
 
 func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
