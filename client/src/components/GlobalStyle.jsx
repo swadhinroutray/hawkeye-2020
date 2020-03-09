@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-
+import bg from '../assets/Artboard.svg';
 const GlobalStyle = createGlobalStyle`
 
 
@@ -19,16 +19,16 @@ const GlobalStyle = createGlobalStyle`
 	html, body {
 		font-family: 'Nidus Sans';
 		height: 100%;
-		margin:0;
-		padding:0;
-		background: radial-gradient(
-			103.64% 49.14% at 50% 50%,
-			#312163 0%,
-			#24113b 100%
-			);
-			
+		margin:0 !important;
+		padding:0 !important;
 		overflow: auto;
 		overflow-x: hidden;
+	}
+	body{
+		background-image: url(${bg})
+	}
+	*{
+		color: #3abdb7;
 	}
 	`;
 
