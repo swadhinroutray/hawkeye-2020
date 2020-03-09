@@ -21,11 +21,13 @@ const GlobalStyle = createGlobalStyle`
 		height: 100%;
 		margin:0 !important;
 		padding:0 !important;
-		overflow: auto;
+		overflow: hidden;
 		overflow-x: hidden;
 	}
 	body{
-		background-image: url(${bg})
+		background-image: url(${bg});
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 	*{
 		color: #3abdb7;
