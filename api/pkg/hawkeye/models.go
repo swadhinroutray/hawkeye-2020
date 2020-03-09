@@ -19,6 +19,7 @@ type User struct { //TODO: Fix number of items
 	Mobile   string `bson:"mobile"   json:"mobile"`
 	College  string `bson:"college"  json:"college"`
 
+	AnswerCount      int      `bson:"answer_count" json:"-"`
 	Level            [7]int   `bson:"level"  json:"level"` //Levels across multiple regions
 	Access           int      `bson:"access" json:"access"`
 	Banned           bool     `bson:"banned" json:"banned"`
@@ -60,7 +61,7 @@ type Hint struct {
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
 
-	hintType int    `json:"hintType" bson:"hintType"` //0 for NORMAL HINT, 1 FOR HIDDEN HINT
+	HintType int    `json:"hintType" bson:"hintType"` //0 for NORMAL HINT, 1 FOR HIDDEN HINT
 	Level    int    `bson:"level" json:"level"`
 	Hint     string `bson:"hint"   json:"hint"`
 	Active   bool   `bson:"active,omitempty" json:"active"`
@@ -91,7 +92,7 @@ type Elixir struct {
 	BoughtAt   time.Time          `bson:"bought_at" json:"BoughtAt"`
 	UsedAt     time.Time          `bson:"used_at" json:"UsedAt"`
 	Elixir     int                `bson:"elixir" json:"elixir"`
-	ElixirName string             `bson: "elixir_name" json:"elixirname"`
+	ElixirName string             `bson:"elixir_name" json:"elixir_name"`
 	Active     bool               `bson:"active"  json:"active"`    //WHY?
 	Region     int                `bson:"region" json:"region"`     //When bought it is initialised to -1
 	Question   int                `bson:"question" json:"question"` //When bought it is initialised to -1
@@ -103,6 +104,7 @@ type Elixir struct {
 - Extra Hint
 -
 */
+
 /*
 	Every five questions, we have a multiplier for the next one
 

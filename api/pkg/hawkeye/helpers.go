@@ -128,7 +128,7 @@ func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, boug
 			Elixir:   elixir.Elixir,
 			UsedAt:   tused,
 			Region:   elixir.Region,
-			Question: elixir.Question,
+			Question: elixir.QuestionNo,
 		}
 	}
 	if bought {
@@ -138,7 +138,7 @@ func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, boug
 			Elixir:   elixir.Elixir,
 			BoughtAt: tbought,
 			Region:   elixir.Region,
-			Question: elixir.Question,
+			Question: elixir.QuestionNo,
 		}
 	}
 

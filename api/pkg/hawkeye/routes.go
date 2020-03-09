@@ -23,6 +23,7 @@ func (app *App) mountRoutes() {
 	elixir := api.PathPrefix("/elixir").Subrouter()
 	elixir.HandleFunc("/unlockhint", app.withUser(app.unlockExtraHint)).Methods("POST")
 	elixir.HandleFunc("/regionmultiply", app.withUser(app.regionMultipler)).Methods("POST")
+	elixir.HandleFunc("/hangman", app.withUser(app.hangMan)).Methods("POST")
 
 	shop := api.PathPrefix("/shop").Subrouter()
 	shop.HandleFunc("/buy/{elixirid}", app.withUser(app.buyElixir)).Methods("POST")

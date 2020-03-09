@@ -2,7 +2,9 @@ package hawkeye
 
 import (
 	"encoding/json"
+	"math/rand"
 	"net/http"
+	"strings"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -11,9 +13,10 @@ import (
 //FetchedElixir ...
 type FetchedElixir struct {
 	//ID       primitive.ObjectID `json:"id" bson:"_id"`
-	Elixir   int `json:"elixir" bson:"elixir"`
-	Region   int `json:"region" bson:"region,omitempty"`
-	Question int `bson:"question" json:"question"`
+	Elixir     int                `json:"elixir" bson:"elixir"`
+	Region     int                `json:"region" bson:"region,omitempty"`
+	QuestionID primitive.ObjectID `bson:"question" json:"question"`
+	QuestionNo int                `bson:"question_no" json:"question_no"`
 	//Active bool               `bson:"active"  json:"active"`
 }
 
@@ -60,7 +63,7 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 	}
 	questSpec := bson.A{
 		bson.M{
-			"$match": bson.M{"region": elixir.Region, "level": elixir.Question},
+			"$match": bson.M{"_id": elixir.QuestionID},
 		},
 		bson.M{
 			"$project": bson.M{
@@ -154,4 +157,64 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 	currUser.ItemBool[elixir.Region] = false
 	app.sendResponse(w, true, Success, "Multiplier applied successfully")
 	//TODO: Delete From Inventory
+}
+
+func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
+	var fetchedElixir FetchedElixir
+	json.NewDecoder(r.Body).Decode(&fetchedElixir)
+
+	var fetchedQuestion Question
+	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"_id": fetchedElixir.QuestionID}).Decode(&fetchedQuestion)
+
+	if err != nil {
+		app.log.Errorf("Internal Server Error: %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	}
+
+	unlockedHint := app.hangmanRemoveLetter(fetchedQuestion.Answer)
+
+	app.sendResponse(w, true, Success, unlockedHint)
+}
+
+func (app *App) hangmanRemoveLetter(Answer string) string {
+
+	lenAnswer := len(Answer)
+	var i int
+	var j int
+	if lenAnswer > 5 {
+		j = 5
+	} else {
+		j = 2
+	}
+
+	taken := make([]int, len(Answer))
+
+	for i = 0; i < j; i++ {
+		taken[i] = rand.Intn(lenAnswer)
+	}
+
+	thing := make([]string, len(Answer))
+	k := 0
+	for i = 0; i < lenAnswer; i++ {
+		if in(taken, j, i) {
+			thing[i] = string(Answer[taken[k]])
+			k = k + 1
+		} else {
+			thing[i] = "-"
+		}
+	}
+
+	hintUnlocked := strings.Join(thing, "")
+	return hintUnlocked
+
+}
+
+func in(arr []int, n int, val int) bool {
+	var i int
+	for i = 0; i < n; i++ {
+		if arr[i] == val {
+			return true
+		}
+	}
+	return false
 }

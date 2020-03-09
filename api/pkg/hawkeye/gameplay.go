@@ -121,12 +121,23 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	if matchResult == CorrectAnswer {
 
-		//TODO: Check number of questions answered and update Multiplier accordingly.
+		newMult := currUser.Multiplier
 
+		if currUser.Multiplier%5 == 0 {
+			newMult = int(float64(newMult) * 1.5)
+		}
 		levelSon := fmt.Sprintf("level.%d", ansReq.Region)
 		app.db.Collection("user").FindOneAndUpdate(r.Context(),
 			bson.M{"_id": currUser.ID},
-			bson.M{"$set": bson.A{bson.M{"points": currUser.Points + currUser.Multiplier}, bson.M{levelSon: currUser.Level[ansReq.Region] + 1}}},
+			bson.M{"$set": bson.A{
+				bson.M{
+					"points":       currUser.Points + currUser.Multiplier,
+					"answer_count": currUser.AnswerCount + 1,
+					"multiplier":   newMult,
+				},
+				bson.M{levelSon: currUser.Level[ansReq.Region] + 1},
+			},
+			},
 		)
 
 	}

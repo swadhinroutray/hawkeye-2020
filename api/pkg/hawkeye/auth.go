@@ -2,7 +2,6 @@ package hawkeye
 
 import (
 	"encoding/json"
-	"fmt"
 	"math/rand"
 	"net/http"
 	"strings"
@@ -136,7 +135,7 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"email": reqBody.Email}).Decode(&user); err == mongo.ErrNoDocuments {
 		verr := ValidationError{Field: "email", Error: "emaildoesnotexist"}
 		app.log.Infof("%#v", verr)
-		fmt.Println("1 \n")
+		//fmt.Println("1")
 		app.sendResponse(w, false, Conflict, []ValidationError{verr})
 		return
 	}
@@ -144,7 +143,7 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	if err := bcrypt.CompareHashAndPassword([]byte(strings.TrimSpace(user.Password)), []byte(reqBody.Password)); err == bcrypt.ErrMismatchedHashAndPassword {
 		app.log.Infof("Password mismatch %s")
 		verr := ValidationError{Field: "password", Error: "wrongpassword"}
-		fmt.Println("2 \n")
+		//fmt.Println("2 \n")
 		app.sendResponse(w, false, Unauthorized, []ValidationError{verr})
 		return
 	}

@@ -113,9 +113,9 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tempFetch := FetchedElixir{
-		Elixir:   elixirID,
-		Region:   newElixir.Region,
-		Question: newElixir.Question,
+		Elixir:     elixirID,
+		Region:     newElixir.Region,
+		QuestionNo: newElixir.Question,
 	}
 	app.log.Infof("Elixir bought successfully")
 	app.logElixir(r, tempFetch, false, true)
