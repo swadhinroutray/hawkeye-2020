@@ -99,12 +99,14 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	region := ansReq.Region
 	level := currUser.Level[ansReq.Region]
-
+	fmt.Println(region)
+	fmt.Println(level)
 	//Fetch the Question that is going to be answered
 	var answerQues Question
 	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"level": level, "region": region}).Decode(&answerQues)
 
 	if err != nil {
+		fmt.Println(err)
 		app.log.Error("Database Error")
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return
@@ -152,7 +154,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	//Update level of the region
 	levelSon := fmt.Sprintf("level.%d", ansReq.Region)
-	itemBool := fmt.Sprintf("itemBool.%d", ansReq.Region)
+	itemBool := fmt.Sprintf("itembool.%d", ansReq.Region)
 	//Update points, answer count and multiplier, change item bool to true
 	app.db.Collection("users").FindOneAndUpdate(r.Context(),
 		bson.M{"_id": currUser.ID},

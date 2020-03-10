@@ -38,7 +38,7 @@ import  GameplayModel  from '../../../models/app/GameplayModel';
 					</nav>
 					<div className="GameContent">
 						<div className="GameWrapper">
-							<QuestionBox />
+							<QuestionBox match={match} />
 							<HintsBox />
 							<AttemptsBox />
 							{invertory && (
@@ -66,7 +66,7 @@ import  GameplayModel  from '../../../models/app/GameplayModel';
 
 const QuestionBox = inject('gameplayStore')(
 	observer(
-		({ gameplayStore }) => (
+		({ gameplayStore,match }) => (
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
 					<div className="Level">Level {gameplayStore.level}</div>
@@ -82,10 +82,10 @@ const QuestionBox = inject('gameplayStore')(
 							onChange={e => gameplayStore.setCurrentAnswer(e.target.value)}
 							onKeyPress={e => {
 								const code = e.keyCode || e.which;
-								if (code == 13) gameplayStore.submit();
+								if (code == 13) gameplayStore.submit(match.params.id);
 							}}
 						></input>
-						<button onClick={() => gameplayStore.submit()}>Submit</button>
+						<button onClick={() => gameplayStore.submit(match.params.id)}>Submit</button>
 					</div>
 					<span className="AnswerStatus">
 						<span>{gameplayStore.message}</span>

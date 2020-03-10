@@ -1,9 +1,9 @@
 import {decorate, observable, action} from 'mobx';
 import { get, post } from '../../utils/api';
 const hawkResponses = {
-	CORRECT: `Hawk approves!`,
-	WRONG: `Hawk disapproves.`,
-	CLOSE: `Hawk thinks you're close.`,
+	Correct: `Hawk approves!`,
+	Wrong: `Hawk disapproves.`,
+	Close: `Hawk thinks you're close.`,
 };
 
 class GameplayModel {
@@ -19,11 +19,12 @@ class GameplayModel {
 		this.currentAnswer = newValue;
 	}
 
-	getQuestion(region) {
+	getQuestion=(region)=> {
+		if(this.region===0){
+		this.region=region;
+		}
 		
-		const questionData={region:parseInt(region)}
-		console.log(questionData)
-	get(`/api/question/fetch/?region=${region}`).then(this.getQuestionControl);
+	get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);
 	}
 
 	getQuestionControl=(res)=> {
@@ -41,9 +42,10 @@ class GameplayModel {
 		}
 	}
 
-	submit() {
+	submit(region) {
+		console.log(region)
 		if (this.currentAnswer.length === 0) return;
-		post(`/api/question/answer`, { answer: this.currentAnswer }).then(
+		post(`/api/question/answer`, { answer: this.currentAnswer,region:parseInt(region) }).then(
 			this.submitControl
 		);
 		this.attempts.unshift(this.currentAnswer);
@@ -51,14 +53,14 @@ class GameplayModel {
 	}
 
 	 submitControl=(res)=> {
+		 console.log(hawkResponses[res.data.split(' ')[0]])
 		if (res.success) {
 			this.currentAnswer = '';
-			this.message = hawkResponses[res.data.status];
+			this.message = hawkResponses[res.data.split(' ')[0]];
 			setTimeout(this.clearMessage, 1000);
-			if (res.data.status === 'CORRECT') {
+			if (res.data === 'Correct Answer') {
 				setTimeout(this.getQuestion, 1000);
-				setTimeout(this.getStats, 1000);
-				setTimeout(this.getTries, 1000);
+				
 			}
 		}
 	}
@@ -98,7 +100,8 @@ decorate(GameplayModel,{
 	attempts:observable,
 	hints:observable,
 	stats:observable,
-	getQuestion:action
+	getQuestion:action,
+	submit:action
 })
 const store=new GameplayModel()
 export default store;

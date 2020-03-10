@@ -184,7 +184,7 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 
 	unlockedHint := app.hangmanRemoveLetter(fetchedQuestion.Answer)
 
-	itemBool := fmt.Sprintf("itemBool.%d", fetchedQuestion.Region)
+	itemBool := fmt.Sprintf("itembool.%d", fetchedQuestion.Region)
 
 	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
 		bson.M{
