@@ -110,6 +110,20 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	}
 	matchResult := checkAnswer(sanitize(ansReq.Answer), answerQues.Answer)
 
+	app.db.Collection("users").FindOneAndUpdate(r.Context(),
+		bson.M{"_id": currUser.ID},
+		bson.M{
+			"$push": bson.M{
+				"submissions": bson.M{
+					"answer": answerQues.Answer,
+					"status": matchResult,
+					"region": answerQues.Region,
+					"level":  level,
+				},
+			},
+		},
+	)
+
 	if matchResult == WrongAnswer {
 		app.sendResponse(w, true, Success, "Wrong Answer")
 		return
@@ -119,15 +133,24 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if matchResult == CorrectAnswer {
+	newMult := currUser.Multiplier
 
-		//TODO: Check number of questions answered and update Multiplier accordingly.
-
-		levelSon := fmt.Sprintf("level.%d", ansReq.Region)
-		app.db.Collection("user").FindOneAndUpdate(r.Context(),
-			bson.M{"_id": currUser.ID},
-			bson.M{"$set": bson.A{bson.M{"points": currUser.Points + currUser.Multiplier}, bson.M{levelSon: currUser.Level[ansReq.Region] + 1}}},
-		)
-
+	if currUser.Multiplier%5 == 0 {
+		newMult = int(float64(newMult) * 1.5)
 	}
+	//fmt.Println("")
+	levelSon := fmt.Sprintf("level.%d", ansReq.Region)
+	app.db.Collection("users").FindOneAndUpdate(r.Context(),
+		bson.M{"_id": currUser.ID},
+		bson.M{
+			"$set": bson.M{
+				"points":       currUser.Points + currUser.Multiplier,
+				"answer_count": currUser.AnswerCount + 1,
+				"multiplier":   newMult,
+				levelSon:       currUser.Level[ansReq.Region] + 1,
+			},
+		},
+	)
+	app.sendResponse(w, true, Success, "Correct Answer")
+	return
 }

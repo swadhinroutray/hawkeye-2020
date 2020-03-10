@@ -18,11 +18,18 @@ func (app *App) mountRoutes() {
 	questions := api.PathPrefix("/question").Subrouter()
 	questions.HandleFunc("/fetch", app.withUser(app.fetchQuestion)).Methods("GET")
 	questions.HandleFunc("/addquestion", app.withAdmin(app.addQuestion)).Methods("POST")
+	questions.HandleFunc("/answer", app.withUser(app.answerController)).Methods("POST")
 
 	//Elixir Routes
 	elixir := api.PathPrefix("/elixir").Subrouter()
 	elixir.HandleFunc("/unlockhint", app.withUser(app.unlockExtraHint)).Methods("POST")
 	elixir.HandleFunc("/regionmultiply", app.withUser(app.regionMultipler)).Methods("POST")
+	elixir.HandleFunc("/hangman", app.withUser(app.hangMan)).Methods("POST")
+
+	shop := api.PathPrefix("/shop").Subrouter()
+	shop.HandleFunc("/buy/{elixirid}", app.withUser(app.buyElixir)).Methods("POST")
+	shop.HandleFunc("/getinventory", app.withUser(app.sendInventory)).Methods("GET")
+	shop.HandleFunc("/tobuy", app.withUser(app.canBuy)).Methods("GET")
 
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()

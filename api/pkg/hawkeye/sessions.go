@@ -40,9 +40,7 @@ func (app *App) setSession(w http.ResponseWriter, r *http.Request, currUser Curr
 }
 
 func (app *App) getCurrentUser(r *http.Request) (CurrUser, error) {
-	fmt.Println(r, "\n")
 	session, err := app.sessionStore.Get(r, "session")
-	fmt.Println(session)
 	if err != nil {
 		app.log.Errorf("Session store get error: %s", err.Error())
 		return CurrUser{}, err
@@ -68,7 +66,7 @@ func (app *App) getUserTest(r *http.Request) User {
 	CurrUser, err := app.getCurrentUser(r)
 	if err != nil {
 	}
-	// //app.sendResponse(w, true, Success, CurrUser)
+	// app.sendResponse(w, true, Success, CurrUser)
 	var curUser User
 	filter := bson.M{"email": CurrUser.Email}
 	err = app.db.Collection("users").FindOne(r.Context(), filter).Decode(&curUser)

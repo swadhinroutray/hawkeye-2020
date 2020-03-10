@@ -1,5 +1,5 @@
 import { isEmail } from 'validator';
-import {decorate, observable, action} from 'mobx';
+import { decorate, observable, action, computed } from 'mobx';
 import {
 	chainValidations,
 	validateRequired,
@@ -21,36 +21,38 @@ class LoginModel {
 		this.formData[field].error = err;
 	}
 
-    validateAll() {
-		
-		this.formData.email.error = loginValidator['email'](this.formData.email.value);
-		this.formData.password.error = loginValidator['password'](this.formData.password.value);
-    }
-   clearErrors() {
+	validateAll() {
+		this.formData.email.error = loginValidator['email'](
+			this.formData.email.value,
+		);
+		this.formData.password.error = loginValidator['password'](
+			this.formData.password.value,
+		);
+	}
+	clearErrors() {
 		this.formData.email.error = '';
 		this.formData.password.error = '';
 	}
 
 	hasErrors() {
 		const { formData } = this;
-		
+
 		return [formData.email.error, formData.password.error].some(
-			err => err !== ''
+			err => err !== '',
 		);
 	}
 
-    login() {
-		
+	login() {
 		this.validateAll();
-		
-		if (this.hasErrors()){
-			console.log("err");
+
+		if (this.hasErrors()) {
+			console.log('err');
 			return;
-		} 
+		}
 		const { email, password } = this.formData;
-        const postData = { email: email.value, password: password.value };
-        
-		post('/api/auth/login',postData).then(this.loginControl)
+		const postData = { email: email.value, password: password.value };
+
+		post('/api/auth/login', postData).then(this.loginControl);
 	}
 
     loginControl=(res) =>{
@@ -101,18 +103,31 @@ class LoginModel {
 		post('/api/auth/logout').then(this.logoutControl)
 	}
 
-	logoutControl=(res)=> {
+	logoutControl = res => {
 		if (res.success) {
 			this.loggedIn = false;
 			this.profileSet=false;
 			this.profileSetError=true;
 		}
-	}
+	};
 
 	getProfile() {
 		get('/api/users/getprofile').then(this.loginControl)
 	}
+}
+decorate(LoginModel, {
+	formData: observable,
+	loggedIn: observable,
+	profile: observable,
+	profileSet: observable,
+	shop: observable,
+	setField: action,
+	clearErrors: action,
+	validateAll: action,
+	login: action,
+});
 
+const store = new LoginModel();
 
 };
 decorate(LoginModel,{
@@ -133,7 +148,7 @@ const loginValidator= {
 	email: email =>
 		chainValidations(
 			validateRequired(email, 'Email'),
-			validateWithError(isEmail(email), 'Invalid Email')
+			validateWithError(isEmail(email), 'Invalid Email'),
 		),
 	password: password => validateRequired(password, 'Password'),
 };
