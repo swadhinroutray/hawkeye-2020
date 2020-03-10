@@ -157,7 +157,7 @@ func (app *App) canBuy(w http.ResponseWriter, r *http.Request) {
 	if err == mongo.ErrNoDocuments {
 		fmt.Println(curUser)
 		app.log.Infof("Unable to fetch user")
-		app.sendResponse(w, false, InternalServerError, "Databse error")
+		app.sendResponse(w, false, InternalServerError, "Database error")
 		return
 	}
 	if err != nil {

@@ -74,7 +74,14 @@ func (app *App) GetUser(w http.ResponseWriter, r *http.Request) {
 func (app *App) getProfile(w http.ResponseWriter, r *http.Request) {
 	//Get user Profile
 	var currUser CurrUser
-	currUser, err := app.getCurrentUser(r)
+	currUser,err := app.getCurrentUser(r)
+	// if err != nil{
+	// 	app.log.Errorf("Internal Server Error:  %v", err.Error())
+	// 	app.sendResponse(w,false,InternalServerError,"something went wrong")
+	// 	return
+	// }
+	// id,err :=primitive.ObjectIDFromHex(currUser)
+	// fmt.Println(id)
 	findUser := bson.M{"_id": currUser.ID}
 	var user User
 	err = app.db.Collection("users").FindOne(r.Context(), findUser).Decode(&user)
