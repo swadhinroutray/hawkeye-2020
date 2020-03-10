@@ -21,13 +21,14 @@ class GameplayModel {
 
 	getQuestion=(region)=> {
 		if(this.region===0){
-		this.region=region;
+		this.region=parseInt(region);
 		}
 		
-	get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);
+	get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl).then(this.getTries).then(this.getStats);
 	}
 
 	getQuestionControl=(res)=> {
+		
 		console.log(res)
 		if (res.success) {
 			if (res.data.question) {
@@ -39,6 +40,7 @@ class GameplayModel {
 					this.hints.replace(['No hints yet']);
 				}
 			}
+			
 		}
 	}
 
@@ -59,8 +61,7 @@ class GameplayModel {
 			this.message = hawkResponses[res.data.split(' ')[0]];
 			setTimeout(this.clearMessage, 1000);
 			if (res.data === 'Correct Answer') {
-				setTimeout(this.getQuestion, 1000);
-				
+				setTimeout(this.getQuestion, 1000);		
 			}
 		}
 	}
@@ -69,25 +70,32 @@ class GameplayModel {
 		this.message = '';
 	}
 
-	getTries() {
-		get(`/api/gameplay/submissions`).then(this.getTriesControl);
+	getTries=()=> {
+		get(`/api/users/getprofile`).then(this.getTriesControl);
 	}
 
-	getTriesControl(res) {
+	getTriesControl=(res)=> {
+		console.log(res.data.submissions)
 		if (res.success) {
-			this.attempts.replace(res.data.map(sub => sub.answer));
+			let submissions=res.data.submissions
+			submissions=submissions.filter(submission=>submission.region===this.region&&submission.level===this.level)
+			console.log(submissions)
+			this.attempts.replace(submissions.map(sub=>sub.answer))
 		}
+		}
+	
+
+	getStats=()=> {
+		get(`/api/users/getrank`).then(this.getStatsControl);
 	}
 
-	getStats() {
-		get(`/api/gameplay/stats`).then(this.getStatsControl);
-	}
-
-     getStatsControl(res) {
+     getStatsControl=(res)=> {
+		 console.log(res)
 		if (res.success) {
 			this.stats.atPar = res.data.atPar;
 			this.stats.leading = res.data.leading;
 			this.stats.trailing = res.data.trailing;
+			console.log(this.stats)
 		}
 	}
 }
@@ -101,7 +109,9 @@ decorate(GameplayModel,{
 	hints:observable,
 	stats:observable,
 	getQuestion:action,
-	submit:action
+	submit:action,
+	getTries:action,
+	getStats:action
 })
 const store=new GameplayModel()
 export default store;

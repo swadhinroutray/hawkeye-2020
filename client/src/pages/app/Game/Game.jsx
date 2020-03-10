@@ -15,6 +15,7 @@ import  GameplayModel  from '../../../models/app/GameplayModel';
 			loginStore.getProfile()
 			}
 			GameplayModel.getQuestion(match.params.id);
+			
 			loginStore.clearErrors();
 			
 		}, [loginStore,match,GameplayModel]);

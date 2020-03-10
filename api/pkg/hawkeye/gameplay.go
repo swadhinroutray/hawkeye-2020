@@ -223,12 +223,13 @@ func (app *App) rankController(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		app.log.Errorf("Internal Server Error:%s", err.Error())
-		app.sendResponse(w, false, InternalServerError, nil)
+		app.sendResponse(w, false, InternalServerError, err.Error())
 		return
 	}
+
 	if err = curAtPar.All(r.Context(), &atPar); err != nil {
 		app.log.Errorf("Internal Server Error:%s", err.Error())
-		app.sendResponse(w, false, InternalServerError, nil)
+		app.sendResponse(w, false, InternalServerError, err.Error())
 		return
 	}
 
