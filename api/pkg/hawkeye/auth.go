@@ -89,15 +89,17 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 
 		Level:            levels,
 		Inventory:        []Elixir{},
+		AnswerCount:      0,
+		Multiplier:       10,
 		Points:           0,
 		RegionUnlock:     regionOrder,
 		ItemBool:         [7]bool{true, true, true, true, true, true, true},
 		ToBuy:            []int{2, 2, 2, 1},
 		History:          []Elixir{},
 		RegionMultiplier: -1,
-
-		Access: 0,
-		Banned: false,
+		Submissions:      []Submission{},
+		Access:           0,
+		Banned:           false,
 	}
 
 	_, err = app.db.Collection("users").InsertOne(r.Context(), newUser)
