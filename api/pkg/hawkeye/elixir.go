@@ -14,11 +14,12 @@ import (
 //FetchedElixir ...
 type FetchedElixir struct {
 	//ID         primitive.ObjectID `json:"id" bson:"_id"`
-	Elixir     int                `json:"elixir" bson:"elixir"`
-	Region     int                `json:"region" bson:"region,omitempty"`
-	ElixirName string             `bson:"elixir_name" json:"elixir_name"`
-	QuestionID primitive.ObjectID `bson:"question" json:"question"`
-	QuestionNo int                `bson:"question_no" json:"question_no"`
+	Elixir         int                `json:"elixir" bson:"elixir"`
+	Region         int                `json:"region" bson:"region,omitempty"`
+	ElixirName     string             `bson:"elixir_name" json:"elixir_name"`
+	QuestionID     primitive.ObjectID `bson:"question" json:"question"`
+	QuestionNo     int                `bson:"question_no" json:"question_no"`
+	QuestionRegion int                `bson:"question_region" json:"question_region"`
 	//Active bool               `bson:"active"  json:"active"`
 }
 
@@ -39,30 +40,38 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//Check if he has a potion of this kind in his inventory Or do i have to check this?
-	inventoryCheck := bson.A{
-		bson.M{
-			"$match": bson.M{"_id": currUser.ID},
-		},
-		bson.M{
-			"$match": bson.M{"inventory.Elixir": elixir.Elixir},
-		},
-	}
-	cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
-	if err != nil {
-		app.log.Errorf("Internal Server Error %s", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// inventoryCheck := bson.A{
+	// 	bson.M{
+	// 		"$match": bson.M{"_id": currUser.ID},
+	// 	},
+	// 	bson.M{
+	// 		"$match": bson.M{"inventory.Elixir": elixir.Elixir},
+	// 	},
+	// }
+	// cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
+	// if err != nil {
+	// 	app.log.Errorf("Internal Server Error %s", err.Error())
+	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// 	return
+	// }
+	// var fetchEli []FetchedElixir
+	// if err := cursor.All(r.Context(), &fetchEli); err != nil {
+	// 	app.log.Errorf("Internal Server Error: %s", err.Error())
+	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// 	return
+	// }
+	// if len(fetchEli) == 0 {
+	// 	app.sendResponse(w, false, Success, "You do not have any Unlock Hint potions")
+	// 	return
+	// }
+
+	message, status := app.checkInventory(r, currUser, elixir)
+
+	if !status {
+		app.sendResponse(w, false, message, nil)
 		return
 	}
-	var fetchEli []FetchedElixir
-	if err := cursor.All(r.Context(), &fetchEli); err != nil {
-		app.log.Errorf("Internal Server Error: %s", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
-		return
-	}
-	if len(fetchEli) == 0 {
-		app.sendResponse(w, false, Success, "You do not have any Unlock Hint potions")
-		return
-	}
+
 	questSpec := bson.A{
 		bson.M{
 			"$match": bson.M{"_id": elixir.QuestionID},
@@ -123,37 +132,46 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 
 	var elixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&elixir)
+
 	if currUser.ItemBool[elixir.Region] == false {
 		app.sendResponse(w, false, Success, "A potion has already been used on this question")
 		return
 	}
 
-	inventoryCheck := bson.A{
-		bson.M{
-			"$match": bson.M{"_id": currUser.ID},
-		},
-		bson.M{
-			"$match": bson.M{"inventory.elixir": elixir.Elixir},
-		},
+	// inventoryCheck := bson.A{
+	// 	bson.M{
+	// 		"$match": bson.M{"_id": currUser.ID},
+	// 	},
+	// 	bson.M{
+	// 		"$match": bson.M{"inventory.elixir": elixir.Elixir},
+	// 	},
+	// }
+
+	// cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
+	// if err != nil {
+	// 	app.log.Errorf("Internal Server Error %s", err.Error())
+	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// 	return
+	// }
+	// var fetchEli []FetchedElixir
+	// if err := cursor.All(r.Context(), &fetchEli); err != nil {
+	// 	app.log.Errorf("Internal Server Error: %s", err.Error())
+	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// 	return
+	// }
+	// if len(fetchEli) == 0 {
+	// 	app.log.Infof("%v", fetchEli)
+	// 	app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
+	// 	return
+	// }
+
+	message, status := app.checkInventory(r, currUser, elixir)
+
+	if !status {
+		app.sendResponse(w, false, message, nil)
+		return
 	}
 
-	cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
-	if err != nil {
-		app.log.Errorf("Internal Server Error %s", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
-		return
-	}
-	var fetchEli []FetchedElixir
-	if err := cursor.All(r.Context(), &fetchEli); err != nil {
-		app.log.Errorf("Internal Server Error: %s", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
-		return
-	}
-	if len(fetchEli) == 0 {
-		app.log.Infof("%v", fetchEli)
-		app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
-		return
-	}
 	if _, err := app.db.Collection("users").UpdateOne(
 		r.Context(),
 		bson.M{"_id": currUser.ID},
@@ -176,13 +194,19 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//TODO: Delete From Inventory DONE :)
-	if _, err := app.db.Collection("users").UpdateOne(
-		r.Context(),
-		bson.M{"_id": currUser.ID},
-		bson.M{"$pull": bson.M{"inventory": bson.M{"elixir": 1}}},
-	); err != nil {
-		app.log.Errorf("Internal Server Error: %v", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// if _, err := app.db.Collection("users").UpdateOne(
+	// 	r.Context(),
+	// 	bson.M{"_id": currUser.ID},
+	// 	bson.M{"$pull": bson.M{"inventory": bson.M{"elixir": 1}}},
+	// ); err != nil {
+	// 	app.log.Errorf("Internal Server Error: %v", err.Error())
+	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// 	return
+	// }
+	message, status = app.removeInventory(r, currUser, 1)
+
+	if !status {
+		app.sendResponse(w, false, message, nil)
 		return
 	}
 
@@ -196,6 +220,20 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 	var fetchedElixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&fetchedElixir)
 
+	currUser := app.getUserTest(r)
+
+	if currUser.ItemBool[fetchedElixir.Region] == false {
+		app.sendResponse(w, false, Success, "A potion has already been used on this question")
+		return
+	}
+
+	message, status := app.checkInventory(r, currUser, fetchedElixir)
+
+	if !status {
+		app.sendResponse(w, false, message, nil)
+		return
+	}
+
 	var fetchedQuestion Question
 	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"_id": fetchedElixir.QuestionID}).Decode(&fetchedQuestion)
 
@@ -205,6 +243,24 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 	}
 
 	unlockedHint := app.hangmanRemoveLetter(fetchedQuestion.Answer)
+
+	itemBool := fmt.Sprintf("itemBool.%d", fetchedQuestion.Region)
+
+	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
+		bson.M{
+			"$set": bson.M{
+				itemBool: false,
+			},
+		})
+
+	app.logElixir(r, fetchedElixir, true, false)
+
+	message, status = app.removeInventory(r, currUser, 2)
+
+	if !status {
+		app.sendResponse(w, false, message, nil)
+		return
+	}
 
 	app.sendResponse(w, true, Success, unlockedHint)
 }

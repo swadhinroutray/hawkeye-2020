@@ -28,6 +28,7 @@ type User struct { //TODO: Fix number of items
 	Points           int          `bson:"points" json:"points"`         //Check how to implement points
 	Multiplier       int          `bson:"multiplier" json:"multiplier"` //How many points user gets on answering questions.
 	RegionUnlock     []int        `bson:"regionunlock" json:"-"`
+	UnlockedRegions  int          `bson:"unlocked" json:"unlocked"`
 	ItemBool         [7]bool      `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
 	ToBuy            []int        `bson:"tobuy"  json:"tobuy"`      //How many left to be bough for ech usr, if you have doubt call sanchit and ask
 	History          []Elixir     `bson:"history" json:"history"`

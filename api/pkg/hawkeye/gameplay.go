@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
+	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -18,12 +20,6 @@ type FetchedQuestion struct {
 	Hints    []Hint             `json:"hints" bson:"hints"`
 }
 
-//FetchedHint ...
-// type FetchedHint struct {
-// 	ID   primitive.ObjectID `json:"id" bson:"_id"`
-// 	Hint string             `json:"hints" bson:"hints"`
-// }
-
 //QuestionRequest ...
 type QuestionRequest struct {
 	Region int `json:"region" bson:"region"`
@@ -32,19 +28,23 @@ type QuestionRequest struct {
 //FetchQuestion ...
 func (app *App) fetchQuestion(w http.ResponseWriter, r *http.Request) {
 
+	params := mux.Vars(r)
+	region, err := strconv.Atoi(params["region"])
+	if err != nil {
+		app.log.Errorf("Bad Params:%s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
 	currUser := app.getUserTest(r)
 
-	var quesReq QuestionRequest
-	json.NewDecoder(r.Body).Decode(&quesReq)
-	fmt.Println(currUser)
-	if currUser.Level[quesReq.Region] <= 0 {
+	if currUser.Level[region] <= 0 {
 		app.sendResponse(w, false, Success, "Region Locked")
 		return
 	}
 
 	questSpec := bson.A{
 		bson.M{
-			"$match": bson.M{"region": quesReq.Region, "level": currUser.Level[quesReq.Region]},
+			"$match": bson.M{"region": region, "level": currUser.Level[region]},
 		},
 		bson.M{
 			"$project": bson.M{
@@ -100,6 +100,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	region := ansReq.Region
 	level := currUser.Level[ansReq.Region]
 
+	//Fetch the Question that is going to be answered
 	var answerQues Question
 	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"level": level, "region": region}).Decode(&answerQues)
 
@@ -108,8 +109,11 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return
 	}
+
+	//Check if answer is close, wrong or correct
 	matchResult := checkAnswer(sanitize(ansReq.Answer), answerQues.Answer)
 
+	//Log the answer, along with status, region, level
 	app.db.Collection("users").FindOneAndUpdate(r.Context(),
 		bson.M{"_id": currUser.ID},
 		bson.M{
@@ -133,13 +137,23 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//Only gets here if the answer is correct
 	newMult := currUser.Multiplier
 
+	//Change scoring system after every 5th question
 	if currUser.Multiplier%5 == 0 {
-		newMult = int(float64(newMult) * 1.5)
+		newMult = int(float64(newMult) * ScoringGradient)
 	}
-	//fmt.Println("")
+
+	//If a certain number of questions are answered in a region, unlock new region
+	if currUser.Level[region]+1 == RegionLimit {
+		app.unlockNextRegion(currUser, r)
+	}
+
+	//Update level of the region
 	levelSon := fmt.Sprintf("level.%d", ansReq.Region)
+	itemBool := fmt.Sprintf("itemBool.%d", ansReq.Region)
+	//Update points, answer count and multiplier, change item bool to true
 	app.db.Collection("users").FindOneAndUpdate(r.Context(),
 		bson.M{"_id": currUser.ID},
 		bson.M{
@@ -148,9 +162,25 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 				"answer_count": currUser.AnswerCount + 1,
 				"multiplier":   newMult,
 				levelSon:       currUser.Level[ansReq.Region] + 1,
+				itemBool:       true,
 			},
 		},
 	)
 	app.sendResponse(w, true, Success, "Correct Answer")
 	return
+}
+
+func (app *App) unlockNextRegion(currUser User, r *http.Request) {
+	nextUnlock := currUser.UnlockedRegions + 1
+	if nextUnlock < 7 {
+		levelUnlock := fmt.Sprintf("level.%d", currUser.RegionUnlock[nextUnlock])
+		app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
+			bson.M{
+				"$set": bson.M{
+					"unlocked":  nextUnlock,
+					levelUnlock: 1,
+				},
+			},
+		)
+	}
 }
