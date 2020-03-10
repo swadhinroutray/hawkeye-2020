@@ -34,4 +34,5 @@ func (app *App) mountRoutes() {
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")
+	Users.HandleFunc("/getrank", app.withUser(app.rankController)).Methods("GET")
 }
