@@ -36,12 +36,6 @@ type User struct { //TODO: Fix number of items
 	RegionMultiplier int          `bson:"regionmultiplier" json:"regionmultiplier"`
 }
 
-//Test ...
-// type Test struct {
-// 	ID      primitive.ObjectID `bson:"_id" json:"id"`
-// 	Content string             `bson:"content" json:"content"`
-// }
-
 //Question (Collection)...
 type Question struct {
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
