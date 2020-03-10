@@ -23,7 +23,7 @@ class GameplayModel {
 		
 		const questionData={region:parseInt(region)}
 		console.log(questionData)
-	post(`/api/question/fetch`,questionData).then(this.getQuestionControl);
+	get(`/api/question/fetch/?region=${region}`).then(this.getQuestionControl);
 	}
 
 	getQuestionControl=(res)=> {
@@ -50,7 +50,7 @@ class GameplayModel {
 		this.attempts.replace(this.attempts.slice(0, 10));
 	}
 
-	 submitControl(res) {
+	 submitControl=(res)=> {
 		if (res.success) {
 			this.currentAnswer = '';
 			this.message = hawkResponses[res.data.status];

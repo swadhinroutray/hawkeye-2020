@@ -16,7 +16,7 @@ func (app *App) mountRoutes() {
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
-	questions.HandleFunc("/fetch", app.withUser(app.fetchQuestion)).Methods("POST")
+	questions.HandleFunc("/fetch/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
 	questions.HandleFunc("/addquestion", app.withAdmin(app.addQuestion)).Methods("POST")
 	questions.HandleFunc("/answer", app.withUser(app.answerController)).Methods("POST")
 
@@ -34,4 +34,5 @@ func (app *App) mountRoutes() {
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")
+	Users.HandleFunc("/getrank", app.withUser(app.rankController)).Methods("GET")
 }
