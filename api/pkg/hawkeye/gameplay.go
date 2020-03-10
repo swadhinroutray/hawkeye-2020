@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 //FetchedQuestion ...
@@ -113,19 +115,23 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	//Check if answer is close, wrong or correct
 	matchResult := checkAnswer(sanitize(ansReq.Answer), answerQues.Answer)
 
-	//Log the answer, along with status, region, level
+	newSubmission := Submission{
+		ID:        primitive.NewObjectID(),
+		CreatedAt: time.Now(),
+
+		Region: region,
+		Level:  level,
+		Answer: ansReq.Answer,
+		Status: matchResult,
+	}
+
+	updateOptions := options.FindOneAndUpdate()
+	updateOptions.SetSort(bson.M{"created_at": -1})
 	app.db.Collection("users").FindOneAndUpdate(r.Context(),
 		bson.M{"_id": currUser.ID},
-		bson.M{
-			"$push": bson.M{
-				"submissions": bson.M{
-					"answer": answerQues.Answer,
-					"status": matchResult,
-					"region": answerQues.Region,
-					"level":  level,
-				},
-			},
-		},
+
+		bson.M{"$push": bson.M{"submissions": newSubmission}},
+		updateOptions,
 	)
 
 	if matchResult == WrongAnswer {
