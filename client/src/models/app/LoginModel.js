@@ -112,24 +112,14 @@ class LoginModel {
 	};
 
 	getProfile() {
+
 		get('/api/users/getprofile').then(this.loginControl)
+
 	}
 }
-decorate(LoginModel, {
-	formData: observable,
-	loggedIn: observable,
-	profile: observable,
-	profileSet: observable,
-	shop: observable,
-	setField: action,
-	clearErrors: action,
-	validateAll: action,
-	login: action,
-});
 
-const store = new LoginModel();
 
-};
+
 decorate(LoginModel,{
     formData:observable,
     loggedIn:observable,
@@ -145,6 +135,7 @@ decorate(LoginModel,{
 const store=new LoginModel()
 
 const loginValidator= {
+
 	email: email =>
 		chainValidations(
 			validateRequired(email, 'Email'),

@@ -19,13 +19,15 @@ class GameplayModel {
 		this.currentAnswer = newValue;
 	}
 
-	getQuestion() {
-		const {region}=this;
-		const questionData={region:region}
-		get(`/api/gameplay/question`).then(this.getQuestionControl,questionData);
+	getQuestion(region) {
+		
+		const questionData={region:parseInt(region)}
+		console.log(questionData)
+	post(`/api/question/fetch`,questionData).then(this.getQuestionControl);
 	}
 
-	getQuestionControl(res) {
+	getQuestionControl=(res)=> {
+		console.log(res)
 		if (res.success) {
 			if (res.data.question) {
 				this.question = res.data.question;
@@ -41,7 +43,7 @@ class GameplayModel {
 
 	submit() {
 		if (this.currentAnswer.length === 0) return;
-		post(`/api/gameplay/answer`, { answer: this.currentAnswer }).then(
+		post(`/api/question/answer`, { answer: this.currentAnswer }).then(
 			this.submitControl
 		);
 		this.attempts.unshift(this.currentAnswer);
@@ -95,7 +97,8 @@ decorate(GameplayModel,{
 	currentAnswer:observable,
 	attempts:observable,
 	hints:observable,
-	stats:observable
+	stats:observable,
+	getQuestion:action
 })
 const store=new GameplayModel()
 export default store;

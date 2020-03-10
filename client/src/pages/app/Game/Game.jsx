@@ -9,16 +9,15 @@ import  GameplayModel  from '../../../models/app/GameplayModel';
 
 
  const Game = inject('loginStore')(
-	observer(({ loginStore }) => {
+	observer(({ loginStore,match }) => {
 		useEffect(() => {
 			if(!loginStore.profileSet){
 			loginStore.getProfile()
 			}
-			console.log("running")
-			
+			GameplayModel.getQuestion(match.params.id);
 			loginStore.clearErrors();
 			
-		}, [loginStore]);
+		}, [loginStore,match,GameplayModel]);
 
 		const [invertory, setInvertory] = useState(false);
 
