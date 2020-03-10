@@ -230,7 +230,7 @@ func (app *App) hangmanRemoveLetter(Answer string) string {
 	k := 0
 	for i = 0; i < lenAnswer; i++ {
 		if in(taken, j, i) {
-			thing[i] = string(Answer[taken[k]])
+			thing[i] = string(Answer[i])
 			k = k + 1
 		} else {
 			thing[i] = "-"
