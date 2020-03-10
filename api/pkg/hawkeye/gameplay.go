@@ -184,3 +184,91 @@ func (app *App) unlockNextRegion(currUser User, r *http.Request) {
 		)
 	}
 }
+
+//RankResponse ...
+type RankResponse struct {
+	AtPar    int `json:"atPar"`
+	Leading  int `json:"leading"`
+	Trailing int `json:"trailing"`
+}
+
+//Rank ...
+type Rank struct {
+	Count int `json:"count"`
+}
+
+func (app *App) rankController(w http.ResponseWriter, r *http.Request) {
+	currUser := app.getUserTest(r)
+
+	var atPar []Rank
+	var trailing []Rank
+	var leading []Rank
+
+	curAtPar, err := app.db.Collection("users").Aggregate(r.Context(), bson.A{
+		bson.M{
+			"$match": bson.M{
+				"points": currUser.Points,
+			},
+		},
+		bson.M{"$count": "count"},
+	})
+
+	if err != nil {
+		app.log.Errorf("Internal Server Error:%s", err.Error())
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+	if err = curAtPar.All(r.Context(), &atPar); err != nil {
+		app.log.Errorf("Internal Server Error:%s", err.Error())
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+
+	curTrailing, err := app.db.Collection("users").Aggregate(r.Context(), bson.A{
+		bson.M{
+			"$match": bson.M{
+				"points": bson.M{"$lt": currUser.Points},
+			},
+		},
+		bson.M{"$count": "count"},
+	})
+
+	if err != nil {
+		app.log.Errorf("Internal Server Error:%s", err.Error())
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+	if err = curTrailing.All(r.Context(), &trailing); err != nil {
+		app.log.Errorf("Internal Server Error:%s", err.Error())
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+
+	curLeading, err := app.db.Collection("users").Aggregate(r.Context(), bson.A{
+		bson.M{
+			"$match": bson.M{
+				"points": bson.M{"$gt": currUser.Points},
+			},
+		},
+		bson.M{"$count": "count"},
+	})
+
+	if err != nil {
+		app.log.Errorf("Internal Server Error:%s", err.Error())
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+	if err = curLeading.All(r.Context(), &leading); err != nil {
+		app.log.Errorf("Internal Server Error:%s", err.Error())
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+
+	stats := RankResponse{
+		AtPar:    atPar[0].Count,
+		Leading:  leading[0].Count,
+		Trailing: trailing[0].Count,
+	}
+
+	app.sendResponse(w, true, Success, stats)
+}
