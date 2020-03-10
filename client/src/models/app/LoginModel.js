@@ -10,7 +10,8 @@ class LoginModel {
     formData= {email:{value:"",error:""},password:{value:"",error:""}}
 	loggedIn= false
 	profile= {}
-    profileSet= false
+	profileSet= false
+	profileSetError= false
 
     setField(field, newValue) {
 		this.formData[field].value = newValue;
@@ -55,7 +56,9 @@ class LoginModel {
     loginControl=(res) =>{
 		console.log(res.data)
 		if (res.success) {
+			
 			this.loggedIn = true;
+			console.log(this.loggedIn)
 			const {
 				id,
 				name,
@@ -81,24 +84,28 @@ class LoginModel {
 			this.profile.banned = banned;
 			this.profile.invertory = invertory;
 			this.profile.points = points;
-
+			this.profileSet=true
 			this.setField('email', '');
 			this.setField('password', '');
 			return;
 		}
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		if (res.message === 'UNAUTHORIZED')
+		else if (res.message === 'UNAUTHORIZED')
 			this.formData.password.error = 'Incorrect password';
+		else
+			this.profileSetError=true
 	}
 
 	logout() {
-		console.log("unimplemented");
+		post('/api/auth/logout').then(this.logoutControl)
 	}
 
 	logoutControl=(res)=> {
 		if (res.success) {
 			this.loggedIn = false;
+			this.profileSet=false;
+			this.profileSetError=true;
 		}
 	}
 
@@ -112,7 +119,8 @@ decorate(LoginModel,{
     formData:observable,
     loggedIn:observable,
     profile:observable,
-    profileSet:observable,
+	profileSet:observable,
+	profileSetError:observable,
     setField:action,
     clearErrors:action,
     validateAll:action,

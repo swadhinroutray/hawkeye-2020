@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import  GameplayModel  from '../../../models/app/GameplayModel';
-import { LoginModel } from '../../../models/app/LoginModel';
+
 
 
 
@@ -11,15 +11,22 @@ import { LoginModel } from '../../../models/app/LoginModel';
  const Game = inject('loginStore')(
 	observer(({ loginStore }) => {
 		useEffect(() => {
+			if(!loginStore.profileSet){
 			loginStore.getProfile()
+			}
+			console.log("running")
+			
 			loginStore.clearErrors();
 			
 		}, [loginStore]);
 
 		const [invertory, setInvertory] = useState(false);
 
-		return (
+		return loginStore.profileSet ?
+		 (
+			
 			<GameWrapper>
+				
 				<Provider gameplayStore={GameplayModel}>
 					<nav className="Navbar">
 						<div className="navbar-btn" onClick={() => setInvertory(true)}>
@@ -28,7 +35,7 @@ import { LoginModel } from '../../../models/app/LoginModel';
 						<div className="navbar-btn" onClick={() => loginStore.logout()}>
 							Logout
 						</div>
-						{!loginStore.loggedIn ? <Redirect to="/login" /> : null}
+						{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}
 					</nav>
 					<div className="GameContent">
 						<div className="GameWrapper">
@@ -53,7 +60,7 @@ import { LoginModel } from '../../../models/app/LoginModel';
 					</div>
 				</Provider>
 			</GameWrapper>
-		);
+	):(<div>{console.log("loading")}loading{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}</div>)
 	})
 );
 
