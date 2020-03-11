@@ -272,11 +272,25 @@ func (app *App) rankController(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, nil)
 		return
 	}
-
-	stats := RankResponse{
-		AtPar:    atPar[0].Count,
-		Leading:  leading[0].Count,
-		Trailing: trailing[0].Count,
+	
+	var stats RankResponse
+	
+	if len(atPar) <= 0 {
+	    stats.AtPar = 0
+	} else {
+	    stats.AtPar = atPar[0].Count
+	}
+	
+	if len(leading) <= 0{
+	    stats.Leading = 0
+	} else {
+	    stats.Leading = leading[0].Count
+	}
+	
+	if len(trailing) <= 0 {
+	    stats.Trailing = 0
+	} else {
+	    stats.Trailing = trailing[0].Count
 	}
 
 	app.sendResponse(w, true, Success, stats)
