@@ -147,6 +147,7 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 		Region: reqBody.Region,
 		Hint:   strings.TrimSpace(reqBody.Hint),
 		Active: false,
+		Users:  []string{""},
 	}
 
 	filter = bson.M{"level": reqBody.Level, "region": reqBody.Region}

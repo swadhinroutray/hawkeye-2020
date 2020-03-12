@@ -57,10 +57,12 @@ type Hint struct {
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
 
-	Level  int    `bson:"level"    json:"level"`
-	Region int    `bson:"region" json:"region"`
-	Hint   string `bson:"hint"   json:"hint"`
-	Active bool   `bson:"active,omitempty" json:"active"`
+	Level  int      `bson:"level"    json:"level"`
+	Region int      `bson:"region" json:"region"`
+	Hint   string   `bson:"hint"   json:"hint"`
+	Active bool     `bson:"active,omitempty" json:"active"`
+	Users  []string `bson:"users" json:"-"`
+	Elixir int      `json:"elixir" bson:"elixir"`
 }
 
 //Submission (Collection)...

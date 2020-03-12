@@ -19,13 +19,16 @@ type FetchedElixir struct {
 	ElixirName string             `bson:"elixir_name" json:"elixir_name"`
 	QuestionID primitive.ObjectID `bson:"question,omitempty" json:"question"`
 	QuestionNo int                `bson:"question_no" json:"question_no"`
+
 	//Active bool               `bson:"active"  json:"active"`
 }
 
 //FetchedHint ...
 type FetchedHint struct {
-	ID   primitive.ObjectID `json:"id" bson:"_id"`
-	Hint string             `json:"hint" bson:"hint"`
+	ID     primitive.ObjectID `json:"id" bson:"_id"`
+	Elixir int                `json:"elixir" bson:"elixir"`
+	Hint   string             `json:"hint" bson:"hint"`
+	Users  []string           `json:"users" bson:"users"`
 }
 
 func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
@@ -45,7 +48,7 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	Filter := bson.M{"level": elixir.QuestionNo, "region": elixir.Region}
+	Filter := bson.M{"level": elixir.QuestionNo, "region": elixir.Region, "elixir": elixir.Elixir}
 	var fetchedHint FetchedHint
 
 	//fmt.Println(fetchedHint)
@@ -61,6 +64,14 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 	},
 	}
 	if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
+		app.log.Errorf("Database error %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	Filter = bson.M{"level": elixir.QuestionNo, "region": elixir.Region, "elixir": elixir.Elixir}
+	update = bson.M{"$push": bson.M{"users": currUser.ID.Hex()}}
+	if _, err := app.db.Collection("hiddenhints").UpdateOne(r.Context(), Filter, update); err != nil {
 		app.log.Errorf("Database error %v", err.Error())
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return

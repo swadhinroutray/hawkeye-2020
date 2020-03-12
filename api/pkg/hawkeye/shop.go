@@ -149,7 +149,6 @@ func (app *App) sendInventory(w http.ResponseWriter, r *http.Request) {
 func (app *App) canBuy(w http.ResponseWriter, r *http.Request) {
 
 	currUser, err := app.getCurrentUser(r)
-	//var inventory []int
 	var curUser User
 	filter := bson.M{
 		"_id": currUser.ID,
