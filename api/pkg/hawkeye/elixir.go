@@ -14,25 +14,25 @@ import (
 //FetchedElixir ...
 type FetchedElixir struct {
 	//ID         primitive.ObjectID `json:"id" bson:"_id"`
-	Elixir         int                `json:"elixir" bson:"elixir"`
-	Region         int                `json:"region" bson:"region,omitempty"`
-	ElixirName     string             `bson:"elixir_name" json:"elixir_name"`
-	QuestionID     primitive.ObjectID `bson:"question" json:"question"`
-	QuestionNo     int                `bson:"question_no" json:"question_no"`
-	QuestionRegion int                `bson:"question_region" json:"question_region"`
+	Elixir     int                `json:"elixir" bson:"elixir"`
+	Region     int                `json:"region" bson:"region,omitempty"`
+	ElixirName string             `bson:"elixir_name" json:"elixir_name"`
+	QuestionID primitive.ObjectID `bson:"question,omitempty" json:"question"`
+	QuestionNo int                `bson:"question_no" json:"question_no"`
 	//Active bool               `bson:"active"  json:"active"`
 }
 
 //FetchedHint ...
 type FetchedHint struct {
 	ID   primitive.ObjectID `json:"id" bson:"_id"`
-	Hint string             `json:"hints" bson:"hints"`
+	Hint string             `json:"hint" bson:"hint"`
 }
 
 func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 	currUser := app.getUserTest(r)
 	var elixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&elixir)
+	fmt.Println(elixir)
 	if currUser.ItemBool[elixir.Region] == false {
 		app.sendResponse(w, false, Success, "A potion has already been used on this question")
 		return
@@ -45,42 +45,16 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	questSpec := bson.A{
-		bson.M{
-			"$match": bson.M{"_id": elixir.QuestionID},
-		},
-		bson.M{
-			"$project": bson.M{
-				"hints": bson.M{
-					"$filter": bson.M{
-						"input": "$hints",
-						"as":    "hint",
-						"cond": bson.M{
-							"$eq": bson.A{"$$hint.hintType", 1},
-						},
-					},
-				},
-			},
-		},
-	}
-	cursor2, err := app.db.Collection("questions").Aggregate(r.Context(), questSpec)
+	Filter := bson.M{"level": elixir.QuestionNo, "region": elixir.Region}
+	var fetchedHint FetchedHint
 
-	if err != nil {
-		app.log.Errorf("Internal Server Error: %s", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	//fmt.Println(fetchedHint)
+	if err := app.db.Collection("hiddenhints").FindOne(r.Context(), Filter).Decode(&fetchedHint); err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, Success, "No hidden hint yet")
 		return
 	}
-	var fetchedHint []FetchedHint
-	if err := cursor2.All(r.Context(), &fetchedHint); err != nil {
-		app.log.Errorf("Internal Server Error: %s", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
-		return
-	}
-	if len(fetchedHint) == 0 {
-		app.sendResponse(w, false, Success, fetchedHint)
-		return
-	}
-	SetField := fmt.Sprintf("ItemBool.%d", elixir.Region)
+	SetField := fmt.Sprintf("itembool.%d", elixir.Region)
 	filter := bson.M{"_id": currUser.ID}
 	update := bson.M{"$set": bson.M{
 		SetField: false,
@@ -99,7 +73,7 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 	}
 
 	app.logElixir(r, elixir, true, false)
-	app.sendResponse(w, false, Success, fetchedHint)
+	app.sendResponse(w, true, Success, fetchedHint)
 
 }
 

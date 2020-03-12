@@ -19,7 +19,8 @@ func (app *App) mountRoutes() {
 	questions.HandleFunc("/fetch/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
 	questions.HandleFunc("/addquestion", app.withUser(app.addQuestion)).Methods("POST")
 	questions.HandleFunc("/answer", app.withUser(app.answerController)).Methods("POST")
-
+	questions.HandleFunc("/addhint", app.withUser(app.addHint)).Methods("POST")
+	questions.HandleFunc("/hiddenhint", app.withUser(app.addHiddenHint)).Methods("POST")
 	//Elixir Routes
 	elixir := api.PathPrefix("/elixir").Subrouter()
 	elixir.HandleFunc("/unlockhint", app.withUser(app.unlockExtraHint)).Methods("POST")

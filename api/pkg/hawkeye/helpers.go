@@ -194,7 +194,7 @@ func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedEli
 		return InternalServerError, false
 	}
 	if len(fetchEli) == 0 {
-		app.log.Infof("%v", fetchEli)
+		app.log.Infof("You don't have this potion%v", fetchEli)
 		//app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
 		return Success, false
 	}
