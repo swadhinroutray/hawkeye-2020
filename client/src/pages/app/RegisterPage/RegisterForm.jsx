@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const RegisterFormWrapper = styled.div`
 	color: #fff;
-	border: 3px solid #31bfb8;
+	border: 3px solid #3abdb7;
 	position: absolute;
 	width: 90%;
 	top: 50%;
@@ -51,8 +51,8 @@ const RegisterFormWrapper = styled.div`
 			font-weight: 100;
 			font-size: 13px;
 			:focus {
-				border-bottom: 2.5px solid #31bfb8;
-				color: #31bfb8;
+				border-bottom: 2.5px solid #3abdb7;
+				color: #3abdb7;
 				background: none;
 			}
 			::placeholder {
@@ -71,15 +71,15 @@ const RegisterFormWrapper = styled.div`
 		all: unset;
 		width: 20%;
 		text-align: center;
-		border: 2px solid #31bfb8;
+		border: 2px solid #3abdb7;
 		border-radius: 5px;
 		padding: 0.5em 1em;
 		margin-top: 1em;
-		color: #31bfb8;
+		color: #3abdb7;
 
 		:hover {
 			cursor: pointer;
-			background-color: #31bfb8;
+			background-color: #3abdb7;
 			color: #fff;
 		}
 	}

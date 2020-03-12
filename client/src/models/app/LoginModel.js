@@ -1,16 +1,17 @@
 import { isEmail } from 'validator';
-import {decorate, observable, action} from 'mobx';
+import { decorate, observable, action, computed } from 'mobx';
 import {
 	chainValidations,
 	validateRequired,
 	validateWithError,
 } from '../../utils/validation';
-
+import {get,post} from '../../utils/api'
 class LoginModel {	
     formData= {email:{value:"",error:""},password:{value:"",error:""}}
 	loggedIn= false
 	profile= {}
-    profileSet= false
+	profileSet= false
+	profileSetError= false
 
     setField(field, newValue) {
 		this.formData[field].value = newValue;
@@ -20,41 +21,46 @@ class LoginModel {
 		this.formData[field].error = err;
 	}
 
-    validateAll() {
-		
-		this.formData.email.error = loginValidator['email'](this.formData.email.value);
-		this.formData.password.error = loginValidator['password'](this.formData.password.value);
-    }
-   clearErrors() {
+	validateAll() {
+		this.formData.email.error = loginValidator['email'](
+			this.formData.email.value,
+		);
+		this.formData.password.error = loginValidator['password'](
+			this.formData.password.value,
+		);
+	}
+	clearErrors() {
 		this.formData.email.error = '';
 		this.formData.password.error = '';
 	}
 
 	hasErrors() {
 		const { formData } = this;
-		
+
 		return [formData.email.error, formData.password.error].some(
-			err => err !== ''
+			err => err !== '',
 		);
 	}
 
-    login() {
-		
+	login() {
 		this.validateAll();
-		
-		if (this.hasErrors()){
-			console.log("err");
+
+		if (this.hasErrors()) {
+			console.log('err');
 			return;
-		} 
+		}
 		const { email, password } = this.formData;
-        const postData = { email: email.value, password: password.value };
-        
-		console.log(postData)
+		const postData = { email: email.value, password: password.value };
+
+		post('/api/auth/login', postData).then(this.loginControl);
 	}
 
-    loginControl(res) {
+    loginControl=(res) =>{
+		console.log(res.data)
 		if (res.success) {
+			
 			this.loggedIn = true;
+			console.log(this.loggedIn)
 			const {
 				id,
 				name,
@@ -80,38 +86,46 @@ class LoginModel {
 			this.profile.banned = banned;
 			this.profile.invertory = invertory;
 			this.profile.points = points;
-
+			this.profileSet=true
 			this.setField('email', '');
 			this.setField('password', '');
 			return;
 		}
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		if (res.message === 'UNAUTHORIZED')
+		else if (res.message === 'UNAUTHORIZED')
 			this.formData.password.error = 'Incorrect password';
+		else
+			this.profileSetError=true
 	}
 
 	logout() {
-		console.log("unimplemented");
+		post('/api/auth/logout').then(this.logoutControl)
 	}
 
-	logoutControl(res) {
+	logoutControl = res => {
 		if (res.success) {
 			this.loggedIn = false;
+			this.profileSet=false;
+			this.profileSetError=true;
 		}
-	}
+	};
 
 	getProfile() {
-		console.log("unimplemented");
+
+		get('/api/users/getprofile').then(this.loginControl)
+
 	}
+}
 
 
-};
+
 decorate(LoginModel,{
     formData:observable,
     loggedIn:observable,
     profile:observable,
-    profileSet:observable,
+	profileSet:observable,
+	profileSetError:observable,
     setField:action,
     clearErrors:action,
     validateAll:action,
@@ -121,10 +135,11 @@ decorate(LoginModel,{
 const store=new LoginModel()
 
 const loginValidator= {
+
 	email: email =>
 		chainValidations(
 			validateRequired(email, 'Email'),
-			validateWithError(isEmail(email), 'Invalid Email')
+			validateWithError(isEmail(email), 'Invalid Email'),
 		),
 	password: password => validateRequired(password, 'Password'),
 };

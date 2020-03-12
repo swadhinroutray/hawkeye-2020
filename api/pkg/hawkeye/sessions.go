@@ -2,6 +2,7 @@ package hawkeye
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -28,7 +29,7 @@ func (app *App) setSession(w http.ResponseWriter, r *http.Request, currUser Curr
 	}
 	session.Values["id"] = currUser.ID.Hex()
 	session.Values["Email"] = currUser.Email
-
+	fmt.Println(session.Values)
 	if err := session.Save(r, w); err != nil {
 		app.log.Infof("Session Store save error: %s", err.Error())
 		return err
@@ -39,12 +40,12 @@ func (app *App) setSession(w http.ResponseWriter, r *http.Request, currUser Curr
 }
 
 func (app *App) getCurrentUser(r *http.Request) (CurrUser, error) {
-	session, err := app.sessionStore.Get(r, sessionName)
+	session, err := app.sessionStore.Get(r, "session")
 	if err != nil {
 		app.log.Errorf("Session store get error: %s", err.Error())
 		return CurrUser{}, err
 	}
-	if session.Values["id"] == nil || session.Values["email"] == nil {
+	if session.Values["id"] == nil || session.Values["Email"] == nil {
 		app.log.Infof("%s", ErrorInvalidCookie.Error())
 		return CurrUser{}, ErrorInvalidCookie
 	}
@@ -65,11 +66,12 @@ func (app *App) getUserTest(r *http.Request) User {
 	CurrUser, err := app.getCurrentUser(r)
 	if err != nil {
 	}
-	// //app.sendResponse(w, true, Success, CurrUser)
+	// app.sendResponse(w, true, Success, CurrUser)
 	var curUser User
 	filter := bson.M{"email": CurrUser.Email}
 	err = app.db.Collection("users").FindOne(r.Context(), filter).Decode(&curUser)
 	if err == mongo.ErrNoDocuments {
+		fmt.Println(curUser)
 		app.log.Infof("Unable to fetch user")
 
 		return User{}

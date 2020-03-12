@@ -5,8 +5,11 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/texttheater/golang-levenshtein/levenshtein"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -27,6 +30,12 @@ const (
 	Conflict
 	Unauthorized
 	InternalServerError
+)
+
+//Setting Variables ...
+const (
+	ScoringGradient = 1.5
+	RegionLimit     = 15
 )
 
 //HTTP Status message ...
@@ -108,4 +117,87 @@ func checkAnswer(userAnswer string, answer string) string {
 		return CloseAnswer
 	}
 	return WrongAnswer
+}
+
+var timeBought struct {
+	tused   time.Time
+	tbought time.Time
+}
+
+func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, bought bool) {
+
+	var newElixir Elixir
+	if used {
+		tused := time.Now()
+
+		newElixir = Elixir{
+			ID:       primitive.NewObjectID(),
+			Elixir:   elixir.Elixir,
+			UsedAt:   tused,
+			Region:   elixir.Region,
+			Question: elixir.QuestionNo,
+		}
+	}
+	if bought {
+		tbought := time.Now()
+		newElixir = Elixir{
+			ID:       primitive.NewObjectID(),
+			Elixir:   elixir.Elixir,
+			BoughtAt: tbought,
+			Region:   elixir.Region,
+			Question: elixir.QuestionNo,
+		}
+	}
+
+	_, err := app.db.Collection("elixirs").InsertOne(r.Context(), newElixir)
+	if err != nil {
+		app.log.Errorf("Failed to insert User %s", err.Error())
+		return
+	}
+	app.log.Infof("New Elixir logged %v ", newElixir)
+	return
+}
+
+func (app *App) removeInventory(r *http.Request, currUser User, elixir int) (ResponseMessage, bool) {
+	if _, err := app.db.Collection("users").UpdateOne(
+		r.Context(),
+		bson.M{"_id": currUser.ID},
+		bson.M{"$pull": bson.M{"inventory": bson.M{"elixir": elixir}}},
+	); err != nil {
+		app.log.Errorf("Internal Server Error: %v", err.Error())
+		//app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return InternalServerError, false
+	}
+	return Success, true
+}
+
+func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedElixir) (ResponseMessage, bool) {
+	inventoryCheck := bson.A{
+		bson.M{
+			"$match": bson.M{"_id": currUser.ID},
+		},
+		bson.M{
+			"$match": bson.M{"inventory.elixir": elixir.Elixir},
+		},
+	}
+
+	cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
+	if err != nil {
+		app.log.Errorf("Internal Server Error %s", err.Error())
+		//app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return InternalServerError, false
+	}
+	var fetchEli []FetchedElixir
+	if err := cursor.All(r.Context(), &fetchEli); err != nil {
+		app.log.Errorf("Internal Server Error: %s", err.Error())
+		//app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return InternalServerError, false
+	}
+	if len(fetchEli) == 0 {
+		app.log.Infof("You don't have this potion%v", fetchEli)
+		//app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
+		return Success, false
+	}
+
+	return Success, true
 }

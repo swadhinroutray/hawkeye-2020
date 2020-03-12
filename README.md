@@ -27,3 +27,10 @@ $ ./Taskfile.sh genkeys
 ./Taskfile.sh rediscli # Access redis CLI
 ./Taskfile.sh dbshell  # Access database shell
 ```
+
+
+## Elixirs according to Index
+- 1. Extra Hint
+- 2. Region Multiplier
+- 3. Hangman
+- 4. TBD
