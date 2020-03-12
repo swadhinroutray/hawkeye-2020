@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { observer, Provider, useLocalStore } from 'mobx-react';
+import { observer, Provider } from 'mobx-react';
 import store from '../../models/app/LandingPageModel';
 import {
 	RegionInfo,
 	Header,
 	Hologram,
+	Waves,
 } from '../../components/LandingPageComponents';
 import {
 	leftBar,
 	rightBar,
 	backgroundMesh,
-	waves,
 } from '../../assets/landing-assets/index';
 
 export const LandingPage = observer(() => {
@@ -19,24 +19,28 @@ export const LandingPage = observer(() => {
 		<Provider LandingStore={store}>
 			<Page>
 				<Header />
-				<RegionWrapper>
-					<LeftBar src={leftBar} />
-					<RightBar src={rightBar} />
-					<h5>WELCOME DENNIS</h5>
-					<h4>SELECT YOUR REGION</h4>
-					<Hologram />
+				<Wrapper>
+					<RegionSelector>
+						<LeftBar src={leftBar} />
+						<RightBar src={rightBar} />
+						<h5>WELCOME WAYNE</h5>
+						<h4>SELECT YOUR REGION</h4>
+						<Hologram />
+						<Slider
+							type="range"
+							name="region-selector"
+							min="0"
+							max="70"
+							onChange={e =>
+								store.changeRegion(Math.floor(e.target.value / 10))
+							}
+						/>
+						<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
+					</RegionSelector>
 
-					<Slider
-						type="range"
-						name="region-selector"
-						min="0"
-						max="70"
-						onChange={e => store.changeRegion(Math.floor(e.target.value / 10))}
-					/>
-					<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
 					<RegionInfo />
-					<Waves src={waves} alt="waves" />
-				</RegionWrapper>
+					<Waves />
+				</Wrapper>
 				<Events>TODAY'S LIST OF EVENTS</Events>
 			</Page>
 		</Provider>
@@ -44,18 +48,21 @@ export const LandingPage = observer(() => {
 });
 
 const Page = styled.div`
-	font-family: 'Nidus Sans';
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	box-sizing: border-box;
+	text-align: center;
 	letter-spacing: 0.1em;
-	height: 100vh;
+	color: white;
+	font-family: 'Nidus Sans', sans-serif;
 	background-image: url(${backgroundMesh});
 	background-size: cover;
-	text-align: center;
-	font-family: Raleway, sans-serif;
-	color: white;
-	padding: 0;
-	box-sizing: border-box;
+
 	h5 {
 		font-weight: 400;
+		font-size: 0.9em;
 		margin: 8px 0;
 	}
 	h4 {
@@ -63,11 +70,36 @@ const Page = styled.div`
 		font-size: 1.1em;
 		margin-top: 5px;
 	}
+
+	@media (min-width: 768px) {
+		background-repeat: repeat;
+		h5 {
+			font-weight: 500;
+			font-size: 1.4em;
+			margin: 3vh 0 0 0;
+		}
+		h4 {
+			font-weight: 600;
+			font-size: 1.5em;
+			margin: 2vh 0 3vh 0;
+		}
+	}
 `;
-const RegionWrapper = styled.div`
-	margin-top: 10px;
+const Wrapper = styled.div`
 	padding: 5px 20px;
 	position: relative;
+
+	@media (min-width: 768px) {
+		display: grid;
+		grid-template-columns: 30% auto 30%;
+		justify-items: stretch;
+	}
+`;
+
+const RegionSelector = styled.div`
+	@media (min-width: 768px) {
+		grid-column: 2/3;
+	}
 `;
 
 const Slider = styled.input`
@@ -82,6 +114,11 @@ const Slider = styled.input`
 	transition: opacity 0.2s;
 	margin-bottom: 3vh;
 
+	@media (min-width: 768px) {
+		margin-top: 8vh;
+		width: 90%;
+		height: 18px;
+	}
 	::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
@@ -90,13 +127,24 @@ const Slider = styled.input`
 		background: #00ced1;
 		border-radius: 5px;
 		cursor: pointer;
+
+		@media (min-width: 768px) {
+			width: 40px;
+			height: 24px;
+		}
 	}
 
 	::-moz-range-thumb {
-		width: 25px;
-		height: 25px;
+		width: 26px;
+		height: 12px;
 		background: #4caf50;
+		border-radius: 5px;
 		cursor: pointer;
+
+		@media (min-width: 768px) {
+			width: 40px;
+			height: 24px;
+		}
 	}
 `;
 const Year = styled.div`
@@ -105,7 +153,14 @@ const Year = styled.div`
 	padding: 5px 10px;
 	color: turquoise;
 	font-size: 1.2em;
+	font-weight: 600;
 	margin: 0 auto 2vh auto;
+
+	@media (min-width: 768px) {
+		margin-top: 3vh;
+		width: 50%;
+		font-size: 1.7em;
+	}
 `;
 
 const LeftBar = styled.img`
@@ -122,9 +177,10 @@ const RightBar = styled.img`
 `;
 
 const Events = styled.footer`
-	position: absolute;
+	float: bottom;
 	width: 100%;
 	bottom: 0;
+	margin: 0;
 	background-image: linear-gradient(
 		to right,
 		rgb(64, 200, 208, 1),
@@ -134,10 +190,9 @@ const Events = styled.footer`
 	box-sizing: border-box;
 	padding: 1px;
 	color: white;
-`;
 
-const Waves = styled.img`
-	height: 10vh;
-	margin: 10px auto;
-	width: 100%;
+	@media (min-width: 768px) {
+		font-size: 1.2em;
+		padding: 6px;
+	}
 `;

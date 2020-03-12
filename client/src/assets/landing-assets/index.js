@@ -7,6 +7,10 @@ import sliderButton from './SliderButton.svg';
 import waves from './Waves.svg';
 import backgroundMesh from './Background.svg';
 import startButton from './StartButton.svg';
+import hawkLogo from './HawkLogo.svg';
+import shopLogo from './ShopIcon.svg';
+import logoutLogo from './LogoutIcon.svg';
+import map from './Map.svg';
 export {
 	leftBar,
 	rightBar,
@@ -17,4 +21,8 @@ export {
 	slider,
 	sliderButton,
 	startButton,
+	hawkLogo,
+	shopLogo,
+	logoutLogo,
+	map,
 };

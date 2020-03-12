@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import hawkLogo from '../../assets/landing-assets/RulesIcon.svg';
-import shopLogo from '../../assets/landing-assets/ShopIcon.svg';
-import logoutLogo from '../../assets/landing-assets/LogoutIcon.svg';
+import { hawkLogo, shopLogo, logoutLogo } from '../../assets/landing-assets';
 
 export const Header = () => {
 	return (
@@ -21,6 +19,7 @@ const HeaderWrapper = styled.header`
 	position: relative;
 	display: grid;
 	grid-template-columns: 25% 50% 25%;
+	align-items: center;
 	width: 100%;
 	padding-top: 5px;
 	> h1 {
@@ -29,22 +28,39 @@ const HeaderWrapper = styled.header`
 	}
 	> div {
 		grid-column: 3;
-		align-items: stretch;
-
+		display: flex;
 		> img {
-			align-items: end;
 			margin: auto;
 			height: 5vh;
+			align-self: flex-end;
+
 			:first-of-type {
 				margin-right: 7px;
+			}
+		}
+	}
+
+	@media (min-width: 768px) {
+		> h1 {
+			margin-top: 3vh;
+			font-size: 3em;
+		}
+		> div {
+			> img {
+				height: 8vh;
 			}
 		}
 	}
 `;
 const HawkLogo = styled.img`
 	float: left;
-	height: 5vh;
+	height: 6vh;
 	margin-left: 10%;
 	grid-column: 1/2;
 	align-items: center;
+
+	align-self: flex-end;
+	@media (min-width: 768px) {
+		height: 9vh;
+	}
 `;

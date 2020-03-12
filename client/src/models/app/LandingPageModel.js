@@ -12,8 +12,6 @@ class Region {
 	}
 }
 class LandingPageModel {
-	regionImages = [regionImg, hologramImg, regionImg, hologramImg, regionImg];
-
 	currentRegion = 1;
 	regionInfo = [];
 
@@ -37,33 +35,33 @@ class LandingPageModel {
 			),
 			new Region(
 				regionImg,
-				'NEW HORIZONS',
+				'new horizons',
 				1977,
-				'BROOKLYN',
+				'brooklyn',
 				'26-28 MARCH',
 				'12AM-12PM',
 			),
 			new Region(
 				hologramImg,
-				'HMAYRA',
+				'hmayra',
 				2022,
-				'TORONTO',
+				'toronto',
 				'26-28 MARCH',
 				'12AM-12PM',
 			),
 			new Region(
 				regionImg,
-				'NUKETOWN',
+				'Nuketown',
 				2068,
-				'COMPTON',
+				'compton',
 				'26-28 MARCH',
 				'12AM-12PM',
 			),
 			new Region(
 				hologramImg,
-				'SOMWHERE',
+				'somewhere',
 				3000,
-				'SEOUL',
+				'seoul',
 				'26-28 MARCH',
 				'12AM-12PM',
 			),
@@ -77,7 +75,7 @@ class LandingPageModel {
 }
 
 decorate(LandingPageModel, {
-	regionImages: observable,
+	regionInfo: observable,
 	currentRegion: observable,
 	changeRegion: action,
 });
