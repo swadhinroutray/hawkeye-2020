@@ -128,15 +128,18 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 		app.sendValidationError(w, err)
 		return
 	}
-	filter := bson.M{
-		"region": reqBody.Region,
-		"level":  reqBody.Level,
-	}
-	if _, err := app.db.Collection("hiddenhints").Find(r.Context(), filter); err != nil {
-		app.log.Errorf(" Hint already exists")
-		app.sendResponse(w, false, InternalServerError, "Hint already exists")
-		return
-	}
+
+	//Don't check this, because HangMan hints will also be added.
+
+	// filter := bson.M{
+	// 	"region": reqBody.Region,
+	// 	"level":  reqBody.Level,
+	// }
+	// if _, err := app.db.Collection("hiddenhints").Find(r.Context(), filter); err != nil {
+	// 	app.log.Errorf("Hint already exists")
+	// 	app.sendResponse(w, false, InternalServerError, "Hint already exists")
+	// 	return
+	// }
 
 	newHint := Hint{
 		ID:        primitive.NewObjectID(),
@@ -150,7 +153,7 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 		Users:  []string{""},
 	}
 
-	filter = bson.M{"level": reqBody.Level, "region": reqBody.Region}
+	//filter := bson.M{"level": reqBody.Level, "region": reqBody.Region}
 	_, err := app.db.Collection("hiddenhints").InsertOne(r.Context(), newHint)
 	if err != nil {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")

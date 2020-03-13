@@ -5,9 +5,13 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"time"
 	"strings"
+	"strconv"
+	"github.com/gorilla/mux"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -29,6 +33,63 @@ type FetchedHint struct {
 	Elixir int                `json:"elixir" bson:"elixir"`
 	Hint   string             `json:"hint" bson:"hint"`
 	Users  []string           `json:"users" bson:"users"`
+}
+
+type FetchHintRequest struct {
+	Region int `json:"region" bson:"region"`
+	Level int `json:"level" bson:"level"`
+}
+
+func (app *App) getHiddenHints(w http.ResponseWriter, r *http.Request) {
+	currUser := app.getUserTest(r)
+	
+	params := mux.Vars(r)
+
+	level, err1 := strconv.Atoi(params["level"])
+	region, err2 := strconv.Atoi(params["region"])
+	
+	if err1!=nil || err2 !=nil{
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+
+	var hintRequest FetchHintRequest
+	json.NewDecoder(r.Body).Decode(&hintRequest)
+
+	var hiddenHints []Hint
+
+	// filter := bson.A{
+	// 	bson.M{
+	// 		"$match": bson.M{"users": currUser.ID.Hex(), "region":region, "level":level},
+	// 		//"$in": bson.M{currUser.ID.Hex() : "$users"}
+	// 	},
+	// 	bson.M{
+	// 		"$project": bson.M{
+	// 			"hint":1,
+	// 		},
+	// 	},
+	// }
+
+	cursor, err := app.db.Collection("hiddenhints").Aggregate(r.Context(), 
+		bson.A{
+			bson.M{	"$match": bson.M{"users": currUser.ID.Hex(), "region":region, "level":level },
+			},
+		},
+	)
+
+	if err != nil {
+		app.log.Errorf("Internal Server Erro: %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return 
+	}
+
+	if err := cursor.All(r.Context(), &hiddenHints); err != nil{
+		app.log.Errorf("Internal Server Error: %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.sendResponse(w, true, Success, hiddenHints)
 }
 
 func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
@@ -161,14 +222,46 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var fetchedQuestion Question
-	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"_id": fetchedElixir.QuestionID}).Decode(&fetchedQuestion)
+	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"region": fetchedElixir.Region, "level": fetchedElixir.QuestionNo}).Decode(&fetchedQuestion)
 
 	if err != nil {
 		app.log.Errorf("Internal Server Error: %s", err.Error())
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 	}
 
-	unlockedHint := app.hangmanRemoveLetter(fetchedQuestion.Answer)
+
+	Filter := bson.M{"level": fetchedElixir.QuestionNo, "region": fetchedElixir.Region, "elixir": fetchedElixir.Elixir}
+	//update := bson.M{"$push": bson.M{"users": currUser.ID.Hex()}}
+	var presentHint FetchedHint
+	err = app.db.Collection("hiddenhints").FindOne(r.Context(), Filter).Decode(&presentHint)
+	
+	if err == mongo.ErrNoDocuments {
+		unlockedHint := app.hangmanRemoveLetter(fetchedQuestion.Answer)
+		newHang := Hint{
+			ID:        primitive.NewObjectID(),
+			CreatedAt: time.Now(),
+			UpdatedAt: time.Now(),
+	
+			Level:  fetchedElixir.QuestionNo,
+			Region: fetchedElixir.Region,
+			Hint:   strings.TrimSpace(unlockedHint),
+			Active: false,
+			Users:  []string{currUser.ID.Hex()},
+		}
+		_, err1 := app.db.Collection("hiddenhints").InsertOne(r.Context(), newHang)
+		if err1 != nil {
+			app.sendResponse(w, false, InternalServerError, "Something went wrong")
+			return 
+		}
+		//app.sendResponse(w, true, Success, unlockedHint)
+		//return 
+	}
+	
+	if err != nil && err != mongo.ErrNoDocuments {
+		app.log.Errorf("Database error %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
 
 	itemBool := fmt.Sprintf("itembool.%d", fetchedQuestion.Region)
 
@@ -188,7 +281,7 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.sendResponse(w, true, Success, unlockedHint)
+	app.sendResponse(w, true, Success, presentHint.Hint)
 }
 
 func (app *App) hangmanRemoveLetter(Answer string) string {

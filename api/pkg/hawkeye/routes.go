@@ -21,11 +21,13 @@ func (app *App) mountRoutes() {
 	questions.HandleFunc("/answer", app.withUser(app.answerController)).Methods("POST")
 	questions.HandleFunc("/addhint", app.withUser(app.addHint)).Methods("POST")
 	questions.HandleFunc("/hiddenhint", app.withUser(app.addHiddenHint)).Methods("POST")
+	
 	//Elixir Routes
 	elixir := api.PathPrefix("/elixir").Subrouter()
 	elixir.HandleFunc("/unlockhint", app.withUser(app.unlockExtraHint)).Methods("POST")
 	elixir.HandleFunc("/regionmultiply", app.withUser(app.regionMultipler)).Methods("POST")
 	elixir.HandleFunc("/hangman", app.withUser(app.hangMan)).Methods("POST")
+	elixir.HandleFunc("/perks/{region}/{level}", app.withUser(app.getHiddenHints)).Methods("GET")
 
 	shop := api.PathPrefix("/shop").Subrouter()
 	shop.HandleFunc("/buy/{elixirid}", app.withUser(app.buyElixir)).Methods("POST")
