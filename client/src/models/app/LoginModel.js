@@ -56,11 +56,11 @@ class LoginModel {
 	}
 
     loginControl=(res) =>{
-		console.log(res.data)
+		console.log(res)
 		if (res.success) {
 			
 			this.loggedIn = true;
-			console.log(this.loggedIn)
+			console.log(res.data)
 			const {
 				id,
 				name,
@@ -91,12 +91,14 @@ class LoginModel {
 			this.setField('password', '');
 			return;
 		}
+		this.profileSetError=true
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		else if (res.message === 'UNAUTHORIZED')
+		else if (res.message === 'UNAUTHORIZED'){
 			this.formData.password.error = 'Incorrect password';
-		else
-			this.profileSetError=true
+			
+		
+		}
 	}
 
 	logout() {
@@ -116,6 +118,14 @@ class LoginModel {
 		get('/api/users/getprofile').then(this.loginControl)
 
 	}
+	getInventory(){
+		get('/api/shop/getinventory').then(this.inventoryControl)
+	}
+	inventoryControl=(res)=>{
+		if(res.success){
+			this.profile.inventory=res.data
+		}
+	}
 }
 
 
@@ -129,7 +139,8 @@ decorate(LoginModel,{
     setField:action,
     clearErrors:action,
     validateAll:action,
-    login:action,
+	login:action,
+	getInventory:action
 })
 
 const store=new LoginModel()

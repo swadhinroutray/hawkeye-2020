@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 		height: 100%;
 		margin:0 !important;
 		padding:0 !important;
-		overflow: hidden;
+		
 		overflow-x: hidden;
 	}
 	body{

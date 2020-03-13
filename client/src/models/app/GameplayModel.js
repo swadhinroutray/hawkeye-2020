@@ -7,6 +7,7 @@ const hawkResponses = {
 };
 
 class GameplayModel {
+	questionId
 	level= 0
 	region=0
 	question= ''
@@ -15,16 +16,19 @@ class GameplayModel {
 	attempts= []
 	hints= []
 	stats= {atPar:0,trailing:0,leading:0}
+	hangman=""
+	inventory=[]
+
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
-
+	
 	getQuestion=(region)=> {
 		if(this.region===0){
 		this.region=parseInt(region);
 		}
 		
-	get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl).then(this.getTries).then(this.getStats);
+	get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);
 	}
 
 	getQuestionControl=(res)=> {
@@ -32,6 +36,7 @@ class GameplayModel {
 		console.log(res)
 		if (res.success) {
 			if (res.data.question) {
+				this.questionId=res.data.id
 				this.question = res.data.question;
 				this.level = res.data.level;
 				if (res.data.hints.length > 0) {
@@ -40,8 +45,9 @@ class GameplayModel {
 					this.hints.replace(['No hints yet']);
 				}
 			}
-			
+			this.getTries()
 		}
+		
 	}
 
 	submit(region) {
@@ -80,8 +86,10 @@ class GameplayModel {
 			let submissions=res.data.submissions
 			submissions=submissions.filter(submission=>submission.region===this.region&&submission.level===this.level)
 			console.log(submissions)
+			submissions=submissions.reverse()
 			this.attempts.replace(submissions.map(sub=>sub.answer))
 		}
+		this.getStats()
 		}
 	
 
@@ -97,6 +105,34 @@ class GameplayModel {
 			this.stats.trailing = res.data.trailing;
 			console.log(this.stats)
 		}
+		this.getInventory()
+	}
+	getInventory=()=>{
+		get('/api/shop/getinventory').then(this.inventoryControl)
+	}
+	inventoryControl=(res)=>{
+		if(res.success){
+			this.inventory=[]
+			if (res.data.length > 0) {
+				res.data.forEach(item=>{
+					let newItem=item;
+					newItem.region=this.region;
+					newItem.question=this.level;
+					this.inventory.push(newItem)
+				})
+			} else {
+				this.inventory.push(['No hints yet']);
+			}
+		console.log(this.inventory)	
+		}
+	}
+	getHangman(){
+		const hangmanData={
+			elixir:2,
+			region:this.region,
+			question:this.questionId
+		}
+		post('/api/elixir/hangman',hangmanData)
 	}
 }
 decorate(GameplayModel,{
@@ -108,6 +144,7 @@ decorate(GameplayModel,{
 	attempts:observable,
 	hints:observable,
 	stats:observable,
+	hangman:observable,
 	getQuestion:action,
 	submit:action,
 	getTries:action,
