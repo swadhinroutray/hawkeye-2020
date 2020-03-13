@@ -159,10 +159,19 @@ func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, boug
 }
 
 func (app *App) removeInventory(r *http.Request, currUser User, elixir int) (ResponseMessage, bool) {
+	inventory := currUser.Inventory
+	i :=0
+	for i=0;i<len(inventory);i++{
+		if inventory[i].Elixir == elixir{
+			inventory = append(inventory[:i], inventory[i+1:]...)
+			break
+		}
+	}
+
 	if _, err := app.db.Collection("users").UpdateOne(
 		r.Context(),
 		bson.M{"_id": currUser.ID},
-		bson.M{"$pull": bson.M{"inventory": bson.M{"elixir": elixir}}},
+		bson.M{"$set": bson.M{"inventory": inventory}},
 	); err != nil {
 		app.log.Errorf("Internal Server Error: %v", err.Error())
 		//app.sendResponse(w, false, InternalServerError, "Something went wrong")
@@ -172,12 +181,15 @@ func (app *App) removeInventory(r *http.Request, currUser User, elixir int) (Res
 }
 
 func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedElixir) (ResponseMessage, bool) {
+	app.log.Infof("FetchedElixir:%v", elixir)
 	inventoryCheck := bson.A{
 		bson.M{
-			"$match": bson.M{"_id": currUser.ID},
+			"$match": bson.M{"_id": currUser.ID, "inventory.elixir": elixir.Elixir},
 		},
 		bson.M{
-			"$match": bson.M{"inventory.elixir": elixir.Elixir},
+			"$project":bson.M{
+				"_id":1,
+			},
 		},
 	}
 
@@ -194,7 +206,7 @@ func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedEli
 		return InternalServerError, false
 	}
 	if len(fetchEli) == 0 {
-		app.log.Infof("%v", fetchEli)
+		app.log.Infof("You don't have this potion%v", fetchEli)
 		//app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
 		return Success, false
 	}

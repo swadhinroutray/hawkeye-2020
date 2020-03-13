@@ -62,3 +62,104 @@ func (app *App) addQuestion(w http.ResponseWriter, r *http.Request) {
 	app.log.Infof("Added New Question ", res)
 	app.sendResponse(w, true, Success, newQues)
 }
+
+//AddHintRequest ...
+type AddHintRequest struct {
+	Region int    `json:"region" bson:"region"`
+	Level  int    `json:"level" bson:"level"`
+	Hint   string `json:"hint" bson:"hint"`
+}
+
+func (app *App) addHint(w http.ResponseWriter, r *http.Request) {
+
+	var reqBody AddHintRequest
+	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	if err := app.validate.Struct(reqBody); err != nil {
+		app.sendValidationError(w, err)
+		return
+	}
+	filter := bson.M{
+		"region": reqBody.Region,
+		"level":  reqBody.Level,
+	}
+	if _, err := app.db.Collection("questions").Find(r.Context(), filter); err != nil {
+		app.log.Errorf("Question does not exist ")
+		app.sendResponse(w, false, InternalServerError, "Question doesn't exist")
+		return
+	}
+
+	newHint := Hint{
+		ID:        primitive.NewObjectID(),
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+
+		Level:  reqBody.Level,
+		Region: reqBody.Region,
+		Hint:   strings.TrimSpace(reqBody.Hint),
+		Active: false,
+	}
+
+	filter = bson.M{"level": reqBody.Level, "region": reqBody.Region}
+	update := bson.M{"$push": bson.M{"hints": newHint}}
+
+	_, err := app.db.Collection("questions").UpdateOne(r.Context(), filter, update)
+	if err != nil {
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.log.Infof("New hint added %v", newHint)
+	app.sendResponse(w, true, Success, newHint)
+}
+
+func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
+
+	var reqBody AddHintRequest
+	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	if err := app.validate.Struct(reqBody); err != nil {
+		app.sendValidationError(w, err)
+		return
+	}
+
+	//Don't check this, because HangMan hints will also be added.
+
+	// filter := bson.M{
+	// 	"region": reqBody.Region,
+	// 	"level":  reqBody.Level,
+	// }
+	// if _, err := app.db.Collection("hiddenhints").Find(r.Context(), filter); err != nil {
+	// 	app.log.Errorf("Hint already exists")
+	// 	app.sendResponse(w, false, InternalServerError, "Hint already exists")
+	// 	return
+	// }
+
+	newHint := Hint{
+		ID:        primitive.NewObjectID(),
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+
+		Level:  reqBody.Level,
+		Region: reqBody.Region,
+		Hint:   strings.TrimSpace(reqBody.Hint),
+		Active: false,
+		Users:  []string{""},
+	}
+
+	//filter := bson.M{"level": reqBody.Level, "region": reqBody.Region}
+	_, err := app.db.Collection("hiddenhints").InsertOne(r.Context(), newHint)
+	if err != nil {
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.log.Infof("New hidden hint added %v", newHint)
+	app.sendResponse(w, true, Success, newHint)
+}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -84,7 +85,7 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 		BoughtAt:   time.Now(),
 		UsedAt:     time.Time{},
 		Elixir:     elixirID,
-		ElixirName: name,
+		ElixirName: strings.TrimSpace(name),
 		Active:     false, //Why ?
 		Region:     -1,
 		Question:   -1,
@@ -132,7 +133,7 @@ func (app *App) sendInventory(w http.ResponseWriter, r *http.Request) {
 	}
 	err = app.db.Collection("users").FindOne(r.Context(), filter).Decode(&curUser)
 	if err == mongo.ErrNoDocuments {
-		fmt.Println(curUser)
+		fmt.Println(currUser)
 		app.log.Infof("Unable to fetch user")
 		app.sendResponse(w, false, InternalServerError, "Databse error")
 		return
@@ -148,7 +149,6 @@ func (app *App) sendInventory(w http.ResponseWriter, r *http.Request) {
 func (app *App) canBuy(w http.ResponseWriter, r *http.Request) {
 
 	currUser, err := app.getCurrentUser(r)
-	//var inventory []int
 	var curUser User
 	filter := bson.M{
 		"_id": currUser.ID,

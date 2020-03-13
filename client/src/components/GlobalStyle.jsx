@@ -2,8 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import bg from '../assets/Artboard.svg';
 const GlobalStyle = createGlobalStyle`
 
-
-
 @font-face {
     font-family: 'nidus_sansregular';
     src: url('nidsans-webfont.eot');
@@ -21,8 +19,6 @@ const GlobalStyle = createGlobalStyle`
 		height: 100%;
 		margin:0 !important;
 		padding:0 !important;
-		
-		overflow-x: hidden;
 	}
 	body{
 		background-image: url(${bg});

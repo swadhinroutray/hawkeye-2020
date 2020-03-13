@@ -4,9 +4,29 @@ import YellowCrystal from '../../../components/YellowCrystal';
 import BlueCrystal from '../../../components/BlueCrystal';
 import PurpleCrystal from '../../../components/PurpleCrystal';
 import RedCrystal from '../../../components/RedCrystal';
-import store from '../../../models/app/ShopModel';
 import { inject, observer } from 'mobx-react';
-import { ShopPage } from './ShopPage';
+
+const size = {
+	mobileS: '320px',
+	mobileM: '375px',
+	mobileL: '425px',
+	tablet: '768px',
+	laptop: '1024px',
+	laptopL: '1440px',
+	desktop: '1560px',
+};
+
+const device = {
+	mobileS: `(min-width: ${size.mobileS})`,
+	mobileM: `(min-width: ${size.mobileM})`,
+	mobileL: `(min-width: ${size.mobileL})`,
+	tablet: `(min-width: ${size.tablet})`,
+	laptop: `(min-width: ${size.laptop})`,
+	laptopL: `(min-width: ${size.laptopL})`,
+	desktop: `(min-width: ${size.desktop})`,
+	desktopL: `(min-width: ${size.desktop})`,
+};
+
 const ShopItemContainer = styled.div`
 	justify-self: center;
 	margin: 10px;
@@ -18,6 +38,38 @@ const ShopItemContainer = styled.div`
 	}
 	.subtext {
 		font-size: 13px;
+	}
+	@media ${device.mobileS} and (max-width: ${size.mobileM}) {
+		.image {
+			width: 70px;
+		}
+	}
+	@media ${device.tablet} {
+		margin: 10px auto;
+
+		.image {
+			margin: 10px auto;
+			width: 90px;
+		}
+		.content {
+			font-size: 22px;
+		}
+		.subtext {
+			font-size: 18px;
+		}
+	}
+	@media ${device.laptop} {
+		letter-spacing: 1px;
+		.image {
+			cursor: pointer;
+		}
+	}
+	@media ${device.desktop} {
+		letter-spacing: 5px;
+		.image {
+			margin: 0 auto;
+			width: 100px;
+		}
 	}
 `;
 
