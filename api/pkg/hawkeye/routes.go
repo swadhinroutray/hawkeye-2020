@@ -31,7 +31,6 @@ func (app *App) mountRoutes() {
 	shop.HandleFunc("/buy/{elixirid}", app.withUser(app.buyElixir)).Methods("POST")
 	shop.HandleFunc("/getinventory", app.withUser(app.sendInventory)).Methods("GET")
 	shop.HandleFunc("/tobuy", app.withUser(app.canBuy)).Methods("GET")
-
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")

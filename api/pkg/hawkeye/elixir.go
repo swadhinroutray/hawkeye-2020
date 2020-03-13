@@ -35,6 +35,7 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 	currUser := app.getUserTest(r)
 	var elixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&elixir)
+	elixir.Elixir = 0
 	fmt.Println(elixir)
 	if currUser.ItemBool[elixir.Region] == false {
 		app.sendResponse(w, false, Success, "A potion has already been used on this question")
@@ -93,7 +94,7 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 
 	var elixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&elixir)
-
+	elixir.Elixir = 1
 	if currUser.ItemBool[elixir.Region] == false {
 		app.sendResponse(w, false, Success, "A potion has already been used on this question")
 		return
@@ -144,7 +145,7 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 	var fetchedElixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&fetchedElixir)
-
+	fetchedElixir.Elixir = 2
 	currUser := app.getUserTest(r)
 
 	if currUser.ItemBool[fetchedElixir.Region] == false {
