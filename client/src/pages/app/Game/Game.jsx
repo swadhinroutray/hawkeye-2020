@@ -239,6 +239,7 @@ margin:0 15px;
 	flex-direction:column;
 	align-items:center;
 	margin-bottom:40px;
+	overflow:hidden;
 .Navbar{
 	width:100%;
 	display:flex;
@@ -588,14 +589,14 @@ li,h1{
 		height: 100% ;
 		width:auto;
 	position: fixed;
-	top: 0;
+	top: 15%;
 	left: 0;
 	}
 	#rightbar{
 		height: 100% ;
 		width:auto;
 	position: fixed;
-	top: 0;
+	top: 15%;
 	right: 0;
 	}	
 

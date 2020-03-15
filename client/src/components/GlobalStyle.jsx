@@ -27,6 +27,9 @@ const GlobalStyle = createGlobalStyle`
 		padding:0 !important;
 		overflow: auto;
 	}
+	body::-webkit-scrollbar { 
+                display: none; 
+            }
 	body{
 		background-image: url(${bg});
 		background-repeat: no-repeat;
