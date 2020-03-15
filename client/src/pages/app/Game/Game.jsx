@@ -17,6 +17,7 @@ import Attempts from '../../../assets/Attempts.svg'
 import ShopIcon from '../../../assets/ShopIcon.svg'
 import { faWindowClose,faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 
  const Game = inject('loginStore')(
 	observer(({ loginStore,match }) => {
@@ -36,8 +37,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 		 (
 			
 			<GameWrapper>
-				
+				<img id='leftbar' src={leftBar} alt="leftbar"/>  />
+						<img id='rightbar' src={rightBar} alt="rightbar" />
 				<Provider  gameplayStore={GameplayModel} >
+				
 					<nav className="Navbar">
 					<div className="navbar-btn">
 							<a href="/regions"><img id="hawklogo" src={HAWK} alt="Hawk"/></a>
@@ -65,7 +68,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 							<HintsBox />
 							<AttemptsBox />
 							<InventoryBox loginStore={loginStore} match={match} inventory={inventory} getinventory={getinventory} />
-							{(!inventory) ? <div className='invertory-open' onClick={()=>{getinventory(true)}} ><span>Inventory</span></div>:null}
+							{(!inventory) ? <div className='invertory-open' onClick={()=>{getinventory(true)}} ><span>INVENTORY</span></div>:null}
 							{rules && (
 								<div className="Rules">
 									<h1>Rules</h1>
@@ -218,6 +221,7 @@ const AttemptsBox = inject('gameplayStore')(
 );
 
 const GameWrapper = styled.div`
+margin:0 15px;
 #heading{
 
 	margin-left:30px;
@@ -490,6 +494,7 @@ overflow-wrap:break-word;
 	overflow:hidden;
 	text-align:center;
 	vertical-align:text-bottom;
+	
 }
 .invertory-open span{
 	position:fixed;
@@ -497,6 +502,7 @@ overflow-wrap:break-word;
 	left:47%;
 	font-size:20px;
 	transform: translateX(-50%);
+	color:#FFF;
 }
 .inventory a{
 	margin:6px;
@@ -575,9 +581,24 @@ li,h1{
 		margin-top:5px;
 	}
 	
+	
 } 
 	
-	
+#leftbar{
+		height: 100% ;
+		width:auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+	}
+	#rightbar{
+		height: 100% ;
+		width:auto;
+	position: fixed;
+	top: 0;
+	right: 0;
+	}	
 
 `;
+
 export default Game;
