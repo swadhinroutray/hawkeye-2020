@@ -14,6 +14,10 @@ func (app *App) mountRoutes() {
 	auth.HandleFunc("/login", app.loginController).Methods("POST")
 	auth.HandleFunc("/logout", app.logoutController).Methods("POST")
 
+	//Admin Routes
+	admin := api.PathPrefix("/admin").Subrouter()
+	admin.HandleFunc("/unlocknextregions", app.withAdmin(app.unlockNextRegionForAll)).Methods("POST")
+
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
 	questions.HandleFunc("/fetch/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
@@ -22,6 +26,7 @@ func (app *App) mountRoutes() {
 	questions.HandleFunc("/addhint", app.withUser(app.addHint)).Methods("POST")
 	questions.HandleFunc("/hiddenhint", app.withUser(app.addHiddenHint)).Methods("POST")
 	questions.HandleFunc("/edithint/{region}/{level}/{id}", app.withUser(app.editHint)).Methods("POST")
+	questions.HandleFunc("/getsubmissions/{region}/{level}", app.withUser(app.fetchSubmissions)).Methods("GET")
 
 	//Elixir Routes
 	elixir := api.PathPrefix("/elixir").Subrouter()

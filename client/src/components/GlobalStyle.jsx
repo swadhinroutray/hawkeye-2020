@@ -12,9 +12,9 @@ const GlobalStyle = createGlobalStyle`
          url('nidsans-webfont.svg#nidus_sansregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 	html, body {
+		color:white;
 		font-family: 'Nidus Sans';
 		height: 100%;
 		margin:0 !important;
