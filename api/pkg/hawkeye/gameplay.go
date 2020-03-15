@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	
 )
 
 //FetchedQuestion ...
@@ -103,10 +104,9 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	level := currUser.Level[ansReq.Region]
 	fmt.Println(region)
 	fmt.Println(level)
-
 	//Fetch the Question that is going to be answered
-	var question Question
-	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"level": level, "region": region}).Decode(&question)
+	var answerQues Question
+	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"level": level, "region": region}).Decode(&answerQues)
 
 	if err != nil {
 		fmt.Println(err)
@@ -116,7 +116,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Check if answer is close, wrong or correct
-	matchResult := checkAnswer(sanitize(ansReq.Answer), question.Answer)
+	matchResult := checkAnswer(sanitize(ansReq.Answer), answerQues.Answer)
 
 	newSubmission := Submission{
 		ID:        primitive.NewObjectID(),
@@ -156,7 +156,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	//If a certain number of questions are answered in a region, unlock new region
 	if currUser.Level[region]+1 == RegionLimit {
-		app.unlockNextRegion(currUser, w, r)
+		app.unlockNextRegion(currUser, r)
 	}
 
 	//Update level of the region
@@ -179,12 +179,11 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (app *App) unlockNextRegion(currUser User, w http.ResponseWriter, r *http.Request) {
+func (app *App) unlockNextRegion(currUser User, r *http.Request) {
 	nextUnlock := currUser.UnlockedRegions + 1
 	if nextUnlock < 7 {
-
 		levelUnlock := fmt.Sprintf("level.%d", currUser.RegionUnlock[nextUnlock])
-		err := app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
+		app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
 			bson.M{
 				"$set": bson.M{
 					"unlocked":  nextUnlock,
@@ -192,12 +191,6 @@ func (app *App) unlockNextRegion(currUser User, w http.ResponseWriter, r *http.R
 				},
 			},
 		)
-
-		if err != nil {
-			app.log.Errorf("Database Error")
-			app.sendResponse(w, false, InternalServerError, nil)
-			return
-		}
 	}
 }
 
@@ -320,25 +313,25 @@ func (app *App) rankController(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, nil)
 		return
 	}
-
+	
 	var stats RankResponse
-
+	
 	if len(atPar) <= 0 {
-		stats.AtPar = 0
+	    stats.AtPar = 0
 	} else {
-		stats.AtPar = atPar[0].Count
+	    stats.AtPar = atPar[0].Count
 	}
-
-	if len(leading) <= 0 {
-		stats.Leading = 0
+	
+	if len(leading) <= 0{
+	    stats.Leading = 0
 	} else {
-		stats.Leading = leading[0].Count
+	    stats.Leading = leading[0].Count
 	}
-
+	
 	if len(trailing) <= 0 {
-		stats.Trailing = 0
+	    stats.Trailing = 0
 	} else {
-		stats.Trailing = trailing[0].Count
+	    stats.Trailing = trailing[0].Count
 	}
 
 	app.sendResponse(w, true, Success, stats)
