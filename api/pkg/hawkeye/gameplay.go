@@ -213,6 +213,46 @@ type Rank struct {
 	Count int `json:"count"`
 }
 
+func (app *App) fetchSubmissions(w http.ResponseWriter, r *http.Request) {
+	currUser, err := app.getCurrentUser(r)
+
+	params := mux.Vars(r)
+	level, errlvl := strconv.Atoi(params["level"])
+	region, errrgn := strconv.Atoi(params["region"])
+
+	if errlvl != nil || errrgn != nil {
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+
+	var submissions []Submission
+
+	cursor, err := app.db.Collection("users").Aggregate(r.Context(),
+		bson.A{
+			bson.M{"$match": bson.M{"_id": currUser.ID, "level": level, "region": region}},
+			bson.M{
+				"$project": bson.M{
+					"submissions": 1,
+				},
+			},
+		},
+	)
+
+	if err != nil {
+		app.log.Errorf("Database Error:%s", err.Error())
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+
+	if err := cursor.All(r.Context(), &submissions); err != nil {
+		app.log.Errorf("Internal Server Error:%s", err.Error())
+		return
+	}
+
+	app.sendResponse(w, true, Success, submissions)
+
+}
+
 func (app *App) rankController(w http.ResponseWriter, r *http.Request) {
 	currUser := app.getUserTest(r)
 
