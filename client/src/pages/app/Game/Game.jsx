@@ -95,7 +95,7 @@ const InventoryBox = inject('gameplayStore')(
 								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button onClick={()=>{gameplayStore.useUnlockHint();loginStore.getProfile()}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{gameplayStore.useRegionMultiplier();loginStore.getProfile()
 								}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div>Hangman</div><button>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div >Hangman</div><button onClick={()=>{gameplayStore.useHangman();loginStore.getProfile()}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div>Swadhin gay</div><button>USE</button></div></div>:null}
 								</div>: <div>no potions</div>:<div>potion already used</div>	}</div>
 								<a href="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
@@ -284,9 +284,17 @@ max-height:300px;
 .Hints{
 	display:flex;
 	flex-direction:column;
-	height:200px
+	height:180px;
+	
+	overflow-y:scroll;
 	
 }
+.Hints::-webkit-scrollbar { 
+                display: none; 
+            }
+.stats::-webkit-scrollbar { 
+                display: none; 
+            }
 .inventory{
 	border-top:2px solid #7FD1E0;
 	position:fixed;
@@ -371,7 +379,6 @@ overflow-wrap:break-word;
 	overflow-wrap:break-word;
 	padding:30px;
   
-	
 	padding-top:10px;
 	max-width:300px;
 }
@@ -388,7 +395,9 @@ overflow-wrap:break-word;
 .stats{
 	display:flex;
 	flex-direction:column;
-	height:230px;
+
+	overflow-y:scroll;
+	height:130px;
 	margin-top:30px;
 
 }

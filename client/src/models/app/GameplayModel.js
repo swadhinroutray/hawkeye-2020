@@ -132,6 +132,22 @@ class GameplayModel {
 			}
 		console.log(this.inventory)	
 		}
+		this.getHiddenHints()
+	}
+	getHiddenHints=()=>{
+		get(`/api/elixir/perks/${this.region}/${this.level}`).then(this.getHiddenHintsControl)
+	}
+	getHiddenHintsControl=(res)=>{
+		if(res.success){
+			if(res.data&&res.data.length>0){
+				if(this.hints[0]=="No hints yet"){
+					this.hints=[]
+				}
+				res.data.forEach((hint)=>{
+					this.hints.push(hint.hint)
+				})
+			}
+		}
 	}
 	useHangman(){
 		const hangmanData={
@@ -141,7 +157,7 @@ class GameplayModel {
 			question:this.questionId,
 			question_no:this.level
 		}
-		post('/api/elixir/hangman',hangmanData)
+		post('/api/elixir/hangman',hangmanData).then(this.useEliirControl)
 	}
 	useRegionMultiplier(){
 		const multiplierData={
@@ -156,7 +172,7 @@ class GameplayModel {
 	useEliirControl=(res)=>{
 		if(res.success){
 			this.getQuestion()
-			alert(res.data)
+			alert("potion applied successfully")
 		}
 	}
 	useUnlockHint(){
@@ -185,8 +201,8 @@ decorate(GameplayModel,{
 	submit:action,
 	getTries:action,
 	getStats:action,
-	useRegionMultiplier:action
-	
+	useRegionMultiplier:action,
+	getHiddenHints:action
 })
 const store=new GameplayModel()
 export default store;
