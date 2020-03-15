@@ -73,6 +73,7 @@ class LoginModel {
 				level,
 				invertory,
 				points,
+				itembool
 			} = res.data;
 
 			this.profile.id = id;
@@ -86,6 +87,7 @@ class LoginModel {
 			this.profile.banned = banned;
 			this.profile.invertory = invertory;
 			this.profile.points = points;
+			this.profile.itembool = itembool;
 			this.profileSet=true
 			this.setField('email', '');
 			this.setField('password', '');

@@ -16,7 +16,7 @@ class GameplayModel {
 	attempts= []
 	hints= []
 	stats= {atPar:0,trailing:0,leading:0}
-	hangman=""
+	
 	inventory=[]
 	locked=false
 	setCurrentAnswer(newValue) {
@@ -144,24 +144,30 @@ class GameplayModel {
 		post('/api/elixir/hangman',hangmanData)
 	}
 	useRegionMultiplier(){
-		const hangmanData={
-			elixir:2,
-			elixir_name:'Hangman',
+		const multiplierData={
+			elixir:1,
+			elixir_name:'Region Multiplier',
 			region:this.region,
 			question:this.questionId,
 			question_no:this.level
 		}
-		post('/api/elixir/regionmultiplier',hangmanData)
+		post('/api/elixir/regionmultiply',multiplierData).then(this.useEliirControl)
+	}
+	useEliirControl=(res)=>{
+		if(res.success){
+			this.getQuestion()
+			alert(res.data)
+		}
 	}
 	useUnlockHint(){
-		const hangmanData={
-			elixir:2,
-			elixir_name:'Hangman',
+		const unlockHintData={
+			elixir:0,
+			elixir_name:'Extra Hint',
 			region:this.region,
 			question:this.questionId,
 			question_no:this.level
 		}
-		post('/api/elixir/unlockhint',hangmanData)
+		post('/api/elixir/unlockhint',unlockHintData).then(this.useEliirControl)
 	}
 }
 decorate(GameplayModel,{
@@ -173,13 +179,13 @@ decorate(GameplayModel,{
 	attempts:observable,
 	hints:observable,
 	stats:observable,
-	hangman:observable,
 	inventory:observable,
 	locked:observable,
 	getQuestion:action,
 	submit:action,
 	getTries:action,
 	getStats:action,
+	useRegionMultiplier:action
 	
 })
 const store=new GameplayModel()

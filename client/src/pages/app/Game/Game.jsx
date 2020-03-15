@@ -34,7 +34,7 @@ import ShopIcon from '../../../assets/ShopIcon.svg'
 			
 			<GameWrapper>
 				
-				<Provider gameplayStore={GameplayModel}>
+				<Provider  gameplayStore={GameplayModel} >
 					<nav className="Navbar">
 					
 					<div className="navbar-btn" onClick={() => loginStore.logout()}>
@@ -57,7 +57,7 @@ import ShopIcon from '../../../assets/ShopIcon.svg'
 							<QuestionBox match={match} />
 							<HintsBox />
 							<AttemptsBox />
-							<InventoryBox inventory={inventory} getinventory={getinventory} />
+							<InventoryBox loginStore={loginStore} match={match} inventory={inventory} getinventory={getinventory} />
 							{(!inventory) ? <div className='invertory-open' onClick={()=>{getinventory(true)}} ><span>Inventory</span></div>:null}
 							{rules && (
 								<div className="Rules">
@@ -87,16 +87,17 @@ import ShopIcon from '../../../assets/ShopIcon.svg'
 
 const InventoryBox = inject('gameplayStore')(
 	observer(
-		({ gameplayStore,inventory,getinventory }) => 
+		({ loginStore,gameplayStore,inventory,getinventory,match }) => 
 			{return (inventory)? <div className="inventory"><div><div className="close" onClick={()=>{getinventory(false)}}>x</div>
 							
-							{gameplayStore.inventory? <div className="inventory-items">
+							{loginStore.profile.itembool[parseInt(match.params.id)] ? gameplayStore.inventory? <div className="inventory-items">
 								
-								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button onClick={()=>{gameplayStore.useUnlockHint();loginStore.getProfile()}}>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{gameplayStore.useRegionMultiplier();loginStore.getProfile()
+								}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div>Hangman</div><button>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div>Swadhin gay</div><button>USE</button></div></div>:null}
-								</div>:"no potions"}</div>
+								</div>: <div>no potions</div>:<div>potion already used</div>	}</div>
 								<a href="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
 								</div>:null
 								}
