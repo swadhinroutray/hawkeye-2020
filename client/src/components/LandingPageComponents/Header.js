@@ -52,6 +52,12 @@ const HeaderWrapper = styled.header`
 		}
 	}
 `;
+const Shop = styled.img`
+	height: 6vh;
+	@media (min-width: 768px) {
+		height: 9vh;
+	}
+`;
 const HawkLogo = styled.img`
 	float: left;
 	height: 6vh;

@@ -12,6 +12,7 @@ import {
 	leftBar,
 	rightBar,
 	backgroundMesh,
+	shopLogo,
 } from '../../assets/landing-assets/index';
 
 export const LandingPage = observer(() => {
