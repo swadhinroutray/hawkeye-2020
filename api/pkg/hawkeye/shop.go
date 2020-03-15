@@ -168,3 +168,29 @@ func (app *App) canBuy(w http.ResponseWriter, r *http.Request) {
 	app.log.Infof("Sending items that can be bought")
 	app.sendResponse(w, true, Success, curUser.ToBuy)
 }
+
+func (app *App) resetStore(w http.ResponseWriter, r *http.Request) {
+	currUser := app.getUserTest(r)
+
+	if currUser.Points < ResetStoreMinValue {
+		app.log.Infof("Not enough Points")
+		app.sendResponse(w, true, Success, "You do not have enough points")
+		return
+	}
+	arr := []int{2, 0, 2, 2}
+	filter := bson.M{
+		"_id": currUser.ID,
+	}
+	update := bson.M{
+		"$set": bson.M{"tobuy": arr, "points": currUser.Points - ResetStorePrice},
+	}
+	if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
+		app.log.Errorf("Databse Error %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.log.Infof("Store Reset for user!")
+	app.sendResponse(w, true, Success, "Store successfully reset")
+
+}

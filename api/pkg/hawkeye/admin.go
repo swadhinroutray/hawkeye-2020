@@ -28,5 +28,6 @@ func (app *App) unlockNextRegionForAll(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		app.unlockNextRegion(currUser, r)
 	}
 }

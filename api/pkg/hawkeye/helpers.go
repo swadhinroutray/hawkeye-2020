@@ -39,6 +39,8 @@ const (
 	UnlockHintPoints       = 100
 	HangmanHintPoints      = 100
 	RegionMultiplierPoints = 100
+	ResetStoreMinValue     = 1500
+	ResetStorePrice        = 800
 )
 
 //HTTP Status message ...
