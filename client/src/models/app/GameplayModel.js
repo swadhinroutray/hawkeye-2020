@@ -19,6 +19,7 @@ class GameplayModel {
 	
 	inventory=[]
 	locked=false
+	potionUsed=false
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
@@ -51,6 +52,9 @@ class GameplayModel {
 		else if(res.data=='Region Locked'){
 			this.locked=true;
 			alert("region locked")
+		}else{
+			this.locked=true;
+			alert("all questions answered")
 		}
 	}
 	
@@ -172,6 +176,7 @@ class GameplayModel {
 	useEliirControl=(res)=>{
 		if(res.success){
 			this.getQuestion()
+			this.potionUsed=true
 			alert("potion applied successfully")
 		}
 	}
@@ -197,9 +202,11 @@ decorate(GameplayModel,{
 	stats:observable,
 	inventory:observable,
 	locked:observable,
+	potionUsed:observable,
 	getQuestion:action,
 	submit:action,
 	getTries:action,
+
 	getStats:action,
 	useRegionMultiplier:action,
 	getHiddenHints:action

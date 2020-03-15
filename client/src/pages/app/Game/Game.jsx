@@ -15,6 +15,9 @@ import PullUp from '../../../assets/PullUp.svg'
 import ButtonBox from '../../../assets/ButtonBox.svg'
 import Attempts from '../../../assets/Attempts.svg'
 import ShopIcon from '../../../assets/ShopIcon.svg'
+import { faWindowClose,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
  const Game = inject('loginStore')(
 	observer(({ loginStore,match }) => {
 		useEffect(() => {
@@ -36,18 +39,22 @@ import ShopIcon from '../../../assets/ShopIcon.svg'
 				
 				<Provider  gameplayStore={GameplayModel} >
 					<nav className="Navbar">
-					
+					<div className="navbar-btn">
+							<a href="/regions"><img id="hawklogo" src={HAWK} alt="Hawk"/></a>
+						</div>
+						<div id='heading' >HAWKEYE</div>
+						<div className="nav-buttons">
+						<div className="navbar-btn" onClick={() => setrules(true)}>
+					<img id="rule-button" src={RulesIcon} alt="Rules"/>
+						</div>
 					<div className="navbar-btn" onClick={() => loginStore.logout()}>
 							<img src={LogoutIcon} alt="logout"/>
 						</div>
+						</div>
 						
-					<div className="navbar-btn" onClick={() => setrules(true)}>
-					<img id="rule-button" src={RulesIcon} alt="Rules"/>
-						</div>
-						<div id='heading' >HAWKEYE</div>
-						<div className="navbar-btn">
-							<a href="/regions"><img src={HAWK} alt="Hawk"/></a>
-						</div>
+					
+						
+						
 
 						{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}
 						
@@ -63,7 +70,7 @@ import ShopIcon from '../../../assets/ShopIcon.svg'
 								<div className="Rules">
 									<h1>Rules</h1>
 									<i className="btn-close" onClick={() => setrules(false)}>
-										x
+									<FontAwesomeIcon icon={faTimes} />
 									</i>
 									<div className="Rules-content">
 										<ol>
@@ -86,17 +93,24 @@ import ShopIcon from '../../../assets/ShopIcon.svg'
 );
 
 const InventoryBox = inject('gameplayStore')(
+	
 	observer(
-		({ loginStore,gameplayStore,inventory,getinventory,match }) => 
-			{return (inventory)? <div className="inventory"><div><div className="close" onClick={()=>{getinventory(false)}}>x</div>
+		(
+			
+			{ loginStore,gameplayStore,inventory,getinventory,match }) => 
+			{
+				return (inventory)? <div className="inventory"><div><div className="close" onClick={()=>{getinventory(false)}}><i className="btn-close" >
+				<FontAwesomeIcon icon={faTimes} />
+			</i>
+</div>
 							
-							{loginStore.profile.itembool[parseInt(match.params.id)] ? gameplayStore.inventory? <div className="inventory-items">
+							{loginStore.profile.itembool[parseInt(match.params.id)]&&(!gameplayStore.potionUsed) ? gameplayStore.inventory? <div className="inventory-items">
 								
 								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button onClick={()=>{gameplayStore.useUnlockHint();loginStore.getProfile()}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{gameplayStore.useRegionMultiplier();loginStore.getProfile()
 								}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div >Hangman</div><button onClick={()=>{gameplayStore.useHangman();loginStore.getProfile()}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div>Swadhin gay</div><button>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div>tbd</div><button>USE</button></div></div>:null}
 								</div>: <div>no potions</div>:<div>potion already used</div>	}</div>
 								<a href="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
 								</div>:null
@@ -131,9 +145,9 @@ const QuestionBox = inject('gameplayStore')(
 						{(gameplayStore.locked) ? <Redirect to="/login" /> : null}
 					</div>
 					<button onClick={() => gameplayStore.submit(match.params.id)}>SUBMIT</button>
-					<span className="AnswerStatus">
+					<div className="AnswerStatus">
 						<span>{gameplayStore.message}</span>
-					</span>
+					</div>
 				</div>
 			</div>
 		)
@@ -205,10 +219,17 @@ const AttemptsBox = inject('gameplayStore')(
 
 const GameWrapper = styled.div`
 #heading{
+
+	margin-left:30px;
 	color:#fff;
+	
+	font-size:5.5vh;
 	align-self: center;
-	font-size:5vh;
+	font-weight:bold;
+	font-family: 'Nidus Sans', sans-serif;
+	
 }
+
 
 	display:flex;
 	flex-direction:column;
@@ -217,9 +238,17 @@ const GameWrapper = styled.div`
 .Navbar{
 	width:100%;
 	display:flex;
-	flex-direction:row-reverse;
+	justify-content:space-between;
 	
 	
+}
+.nav-buttons{
+	display:flex;
+	justify-content:space-between;
+	
+}
+.navbar-btn{
+	padding-right:5px;
 }
 .crystal{
 	width:55px;
@@ -244,8 +273,9 @@ color:#fff;
 	height:30px;
 }
 .navbar-btn{
-	margin:10px 5px;
-	width:50px;
+	
+	margin:10px 0px;
+	width:40px;
 	height:50px;
 }
 .QuestionBox{
@@ -260,12 +290,13 @@ color:#fff;
 	width:300px;
 max-height:300px;
 	padding:30px;
+	padding-bottom:68px;
   
 	
 }
 
 .QuestionWrapper{
-	min-height:148px;
+	height:110px;
 	text-align:center;
 
 
@@ -275,6 +306,7 @@ max-height:300px;
 	width:100%;
 }
 .HintsHeader{
+	font-family: 'Nidus Sans', sans-serif;
 	text-align:center;
 	color: #fff;
 	font-size:30px;
@@ -305,21 +337,49 @@ max-height:300px;
 	left:0;
 	right:0;
 	background:#322264;
-
+	animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+	animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+	
 }
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0,40px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        transform: translate3d(0,40px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
 .close{
 	font-size:20px;
 	color: #fff;
 }
 .AnswerField input{
 	width:90%;
-	
+	height:23px;
 	
 	background-color: Transparent;
 	border-right:5px solid #7FD1E0;
 	border-left:5px solid #7FD1E0;
-	border-top:2px solid #7FD1E0;
-	border-bottom:2px solid #7FD1E0;
+	border-top:1px solid #7FD1E0;
+	border-bottom:1px solid #7FD1E0;
 }
 .AnswerWrapper button{
 	margin-top:10px;
@@ -342,15 +402,27 @@ max-height:300px;
 	text-align:center;
 }
 img{
-	max-width:50px;
-	max-height:50px;
+	width:40px;
+	height:40px;
+	margin:0 2px;
+}
+#hawklogo{
+	width:60px;
+	height:50px;
 }
 .Question{
+	overflow:hidden;
+	overflow-y:scroll;
+	font-family: 'Nidus Sans', sans-serif;
 	
 overflow-wrap:break-word;
 
 }
+.Question::-webkit-scrollbar { 
+                display: none; 
+            }
 .Level{
+	font-family: 'Nidus Sans', sans-serif;
 	color: #fff;
 	font-size:3vh;
 	letter-spacing:1px;
@@ -389,6 +461,7 @@ overflow-wrap:break-word;
 .Attemptsheader div{
 	color: #fff;
 	font-size:25px;
+	font-family: 'Nidus Sans', sans-serif;
 	width:50%;
 	text-align:center;
 }
@@ -451,40 +524,58 @@ overflow-wrap:break-word;
 }
 
 
-	.Navbar{
-		justify-content:center;
-	}
 	
 
 	
-
-
-
-
-
-/* @media only screen and (min-device-width : 768px) {
-	display: block;
-	.GameWrapper{
-		display:flex;
-	}
-	.QuestionBox{
-		background-size:450px,150px;
+.Rules{
+	position: fixed;
+	top:10%;
+	left:5%;
+	right:5%;
+	bottom:10%;
+	background:#322264;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	font-family:sans-serif;
+	border-right:5px solid #7FD1E0;
+	border-left:5px solid #7FD1E0;
+	border-top:1px solid #7FD1E0;
+	border-bottom:1px solid #7FD1E0;
+	border-radius:25px;
+	overflow:hidden;
+	overflow-y:scroll;
+	overflow-wrap:break-word;
 	
-	max-width:400px;
-	max-height:150px;
+}
+li,h1{
+	color: #fff !important;
+}
+.Rules i{
+	position:absolute;
+	top:2%;
+	right:2%;
+	font-size:30px;
 	
-	}
-	.ActualHints{
-	
+}
+.Rules::-webkit-scrollbar { 
+                display: none; 
+            }
+
+
+
+ @media only screen and (max-device-width : 330px) {
+	.QuestionBox, .ActualHints,.Attempts{
 		
-	padding-bottom:0;
-	min-width:400px;
-	;
-	padding-bottom: calc(100% * 0.6 / 5);
+		padding-left:10px;
+		padding-right:10px;
+	}
+	.stats{
+		height:125px;
+		margin-top:5px;
+	}
 	
-	max-height:150px;
-	
-} */
+} 
 	
 	
 

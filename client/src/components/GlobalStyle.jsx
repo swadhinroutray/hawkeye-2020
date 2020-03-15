@@ -9,7 +9,13 @@ const GlobalStyle = createGlobalStyle`
          url('nidsans-webfont.woff2') format('woff2'),
          url('nidsans-webfont.woff') format('woff'),
          url('nidsans-webfont.ttf') format('truetype'),
-         url('nidsans-webfont.svg#nidus_sansregular') format('svg');
+         url('nidsans-webfont.svg#nidus_sansregular') format('svg'),;
+		 src: url('webfont.eot'); /* IE9 Compat Modes */
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
     font-weight: normal;
     font-style: normal;
 }
