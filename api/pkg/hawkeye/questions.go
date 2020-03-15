@@ -154,6 +154,7 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 	app.sendResponse(w, true, Success, newHint)
 }
 
+//EditHintRequest ...
 type EditHintRequest struct {
 	Hint   *string `json:"hint"`
 	Active *bool   `json:"active"`
