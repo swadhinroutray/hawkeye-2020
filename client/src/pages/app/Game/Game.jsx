@@ -37,7 +37,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 		 (
 			
 			<GameWrapper>
-				<img id='leftbar' src={leftBar} alt="leftbar"/>  />
+				<img id='leftbar' src={leftBar} alt="leftbar"/>  
 						<img id='rightbar' src={rightBar} alt="rightbar" />
 				<Provider  gameplayStore={GameplayModel} >
 				
@@ -221,10 +221,10 @@ const AttemptsBox = inject('gameplayStore')(
 );
 
 const GameWrapper = styled.div`
-margin:0 15px;
+
 #heading{
 
-	margin-left:30px;
+	margin-left:15px;
 	color:#fff;
 	
 	font-size:5.5vh;
@@ -567,7 +567,11 @@ li,h1{
 .Rules::-webkit-scrollbar { 
                 display: none; 
             }
-
+			@media only screen and (min-device-width : 768px) {
+				#heading{
+				margin-left:40px ;
+				}
+			}
 
 
  @media only screen and (max-device-width : 330px) {
@@ -579,6 +583,9 @@ li,h1{
 	.stats{
 		height:125px;
 		margin-top:5px;
+	}
+	#heading{
+		margin-left:15px;
 	}
 	
 	
