@@ -239,7 +239,6 @@ margin:0 15px;
 	flex-direction:column;
 	align-items:center;
 	margin-bottom:40px;
-	overflow:hidden;
 .Navbar{
 	width:100%;
 	display:flex;
