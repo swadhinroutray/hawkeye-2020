@@ -131,18 +131,6 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Don't check this, because HangMan hints will also be added.
-
-	// filter := bson.M{
-	// 	"region": reqBody.Region,
-	// 	"level":  reqBody.Level,
-	// }
-	// if _, err := app.db.Collection("hiddenhints").Find(r.Context(), filter); err != nil {
-	// 	app.log.Errorf("Hint already exists")
-	// 	app.sendResponse(w, false, InternalServerError, "Hint already exists")
-	// 	return
-	// }
-
 	newHint := Hint{
 		ID:        primitive.NewObjectID(),
 		CreatedAt: time.Now(),
