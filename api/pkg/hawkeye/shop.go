@@ -20,19 +20,19 @@ func ElixirName(elixirtype int) (name string, elixirpoints int) {
 	case 0:
 		{
 			name = "Extra Hint"
-			elixirpoints = 100
+			elixirpoints = UnlockHintPoints
 			return name, elixirpoints //batao bhai kitna rakhna hai
 		}
 	case 1:
 		{
 			name = "Region Multiplier"
-			elixirpoints = 100
+			elixirpoints = RegionMultiplierPoints
 			return name, elixirpoints //batao bhai kitna rakhna hai
 		}
 	case 2:
 		{
 			name = "Hangman"
-			elixirpoints = 100
+			elixirpoints = HangmanHintPoints
 			return name, elixirpoints
 		}
 		//case 3: TBD

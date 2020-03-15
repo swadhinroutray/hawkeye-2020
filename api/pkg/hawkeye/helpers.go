@@ -34,8 +34,11 @@ const (
 
 //Setting Variables ...
 const (
-	ScoringGradient = 1.5
-	RegionLimit     = 15
+	ScoringGradient        = 1.5
+	RegionLimit            = 15
+	UnlockHintPoints       = 100
+	HangmanHintPoints      = 100
+	RegionMultiplierPoints = 100
 )
 
 //HTTP Status message ...
@@ -160,9 +163,9 @@ func (app *App) logElixir(r *http.Request, elixir FetchedElixir, used bool, boug
 
 func (app *App) removeInventory(r *http.Request, currUser User, elixir int) (ResponseMessage, bool) {
 	inventory := currUser.Inventory
-	i :=0
-	for i=0;i<len(inventory);i++{
-		if inventory[i].Elixir == elixir{
+	i := 0
+	for i = 0; i < len(inventory); i++ {
+		if inventory[i].Elixir == elixir {
 			inventory = append(inventory[:i], inventory[i+1:]...)
 			break
 		}
@@ -174,7 +177,6 @@ func (app *App) removeInventory(r *http.Request, currUser User, elixir int) (Res
 		bson.M{"$set": bson.M{"inventory": inventory}},
 	); err != nil {
 		app.log.Errorf("Internal Server Error: %v", err.Error())
-		//app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return InternalServerError, false
 	}
 	return Success, true
@@ -187,8 +189,8 @@ func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedEli
 			"$match": bson.M{"_id": currUser.ID, "inventory.elixir": elixir.Elixir},
 		},
 		bson.M{
-			"$project":bson.M{
-				"_id":1,
+			"$project": bson.M{
+				"_id": 1,
 			},
 		},
 	}
@@ -196,18 +198,15 @@ func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedEli
 	cursor, err := app.db.Collection("users").Aggregate(r.Context(), inventoryCheck)
 	if err != nil {
 		app.log.Errorf("Internal Server Error %s", err.Error())
-		//app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return InternalServerError, false
 	}
 	var fetchEli []FetchedElixir
 	if err := cursor.All(r.Context(), &fetchEli); err != nil {
 		app.log.Errorf("Internal Server Error: %s", err.Error())
-		//app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return InternalServerError, false
 	}
 	if len(fetchEli) == 0 {
 		app.log.Infof("You don't have this potion%v", fetchEli)
-		//app.sendResponse(w, false, Success, "You do not have any Region Multiplier potions")
 		return Success, false
 	}
 
