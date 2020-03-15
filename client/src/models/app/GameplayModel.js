@@ -67,7 +67,8 @@ class GameplayModel {
 			this.message = hawkResponses[res.data.split(' ')[0]];
 			setTimeout(this.clearMessage, 1000);
 			if (res.data === 'Correct Answer') {
-				setTimeout(this.getQuestion, 1000);		
+				setTimeout(this.getQuestion, 1000);	
+				
 			}
 		}
 	}
@@ -126,13 +127,35 @@ class GameplayModel {
 		console.log(this.inventory)	
 		}
 	}
-	getHangman(){
+	useHangman(){
 		const hangmanData={
 			elixir:2,
+			elixir_name:'Hangman',
 			region:this.region,
-			question:this.questionId
+			question:this.questionId,
+			question_no:this.level
 		}
 		post('/api/elixir/hangman',hangmanData)
+	}
+	useRegionMultiplier(){
+		const hangmanData={
+			elixir:2,
+			elixir_name:'Hangman',
+			region:this.region,
+			question:this.questionId,
+			question_no:this.level
+		}
+		post('/api/elixir/regionmultiplier',hangmanData)
+	}
+	useUnlockHint(){
+		const hangmanData={
+			elixir:2,
+			elixir_name:'Hangman',
+			region:this.region,
+			question:this.questionId,
+			question_no:this.level
+		}
+		post('/api/elixir/unlockhint',hangmanData)
 	}
 }
 decorate(GameplayModel,{

@@ -53,7 +53,7 @@ import PullUp from '../../../assets/PullUp.svg'
 							<QuestionBox match={match} />
 							<HintsBox />
 							<AttemptsBox />
-							<div className='slider' >lolll</div>
+							
 							<div className='invertory-open' ><div>INVENTORY</div></div>
 							{invertory && (
 								<div className="Rules">
@@ -243,7 +243,7 @@ overflow-wrap:break-word;
 	max-width:300px;
 }
 .invertory-open{
-	position:absolute;
+	position:fixed;
 	bottom: 0;
 	left:30px;
 	right:30px;
@@ -305,7 +305,7 @@ padding-bottom: calc(100% * 2.3 / 5);
 	max-width:400px;
 max-height:150px;
 margin-bottom:50px;
-padding-bottom: calc(100% * 4.5 / 8);
+padding-bottom: calc(100% * 4.8 / 8);
 }
 }
 

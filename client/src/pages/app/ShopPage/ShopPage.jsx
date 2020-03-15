@@ -215,7 +215,7 @@ const ItemsContainer = styled.div`
 		flex: 1.25;
 		margin: 0 1.5em;
 		.grid{
-			padding;0 5%;
+			padding:0 5%;
 		}
 	}
 	@media ${device.desktop} {
