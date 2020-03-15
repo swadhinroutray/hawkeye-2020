@@ -3,9 +3,11 @@ package hawkeye
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -162,4 +164,63 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 
 	app.log.Infof("New hidden hint added %v", newHint)
 	app.sendResponse(w, true, Success, newHint)
+}
+
+type EditHintRequest struct {
+	Hint   *string `json:"hint"`
+	Active *bool   `json:"active"`
+}
+
+func (app *App) editHint(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+
+	level, err1 := strconv.Atoi(params["level"])
+	region, err2 := strconv.Atoi(params["region"])
+	if err1 != nil || err2 != nil {
+		app.log.Infof("Bad request params")
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+
+	id, err := primitive.ObjectIDFromHex(params["id"])
+	if err != nil {
+		app.log.Infof("Bad request params %s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+
+	var reqBody EditHintRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	if err := app.validate.Struct(reqBody); err != nil {
+		app.sendValidationError(w, err)
+		return
+	}
+
+	update := make(bson.M)
+	if reqBody.Hint != nil {
+		update["hints.$.hint"] = reqBody.Hint
+	}
+	if reqBody.Active != nil {
+		update["hints.$.active"] = reqBody.Active
+	}
+
+	if _, err = app.db.Collection("questions").UpdateOne(
+		r.Context(),
+		bson.M{"level": level, "region": region, "hints._id": id},
+		bson.M{
+			"$set": update,
+		},
+	); err != nil {
+		app.log.Errorf("Database error %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.sendResponse(w, true, Success, "Success")
 }

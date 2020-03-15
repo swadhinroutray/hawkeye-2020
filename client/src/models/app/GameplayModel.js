@@ -77,10 +77,13 @@ class GameplayModel {
 	getTriesControl=(res)=> {
 		console.log(res.data.submissions)
 		if (res.success) {
+			if (res.data.submissions){
 			let submissions=res.data.submissions
 			submissions=submissions.filter(submission=>submission.region===this.region&&submission.level===this.level)
 			console.log(submissions)
+			
 			this.attempts.replace(submissions.map(sub=>sub.answer))
+			}
 		}
 		}
 	

@@ -21,7 +21,8 @@ func (app *App) mountRoutes() {
 	questions.HandleFunc("/answer", app.withUser(app.answerController)).Methods("POST")
 	questions.HandleFunc("/addhint", app.withUser(app.addHint)).Methods("POST")
 	questions.HandleFunc("/hiddenhint", app.withUser(app.addHiddenHint)).Methods("POST")
-	
+	questions.HandleFunc("/edithint/{region}/{level}/{id}", app.withUser(app.editHint)).Methods("POST")
+
 	//Elixir Routes
 	elixir := api.PathPrefix("/elixir").Subrouter()
 	elixir.HandleFunc("/unlockhint", app.withUser(app.unlockExtraHint)).Methods("POST")
