@@ -20,6 +20,7 @@ const AppRouter = ({ match }) => {
 				<Route path={'/game/:id'} component={Game}></Route>
 
 				<Route path={'/shop'} component={ShopPage}></Route>
+				<Route path={'/'} component={LandingPage}></Route>
 			</Switch>
 		</Provider>
 	);

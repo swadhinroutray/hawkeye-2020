@@ -1,4 +1,4 @@
-import {decorate, observable, action} from 'mobx';
+import {decorate, observable, action, computed} from 'mobx';
 import { get, post } from '../../utils/api';
 const hawkResponses = {
 	Correct: `Hawk approves!`,
@@ -18,7 +18,7 @@ class GameplayModel {
 	stats= {atPar:0,trailing:0,leading:0}
 	hangman=""
 	inventory=[]
-
+	locked=false
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
@@ -45,11 +45,15 @@ class GameplayModel {
 					this.hints.replace(['No hints yet']);
 				}
 			}
+			
 			this.getTries()
 		}
-		
+		else if(res.data=='Region Locked'){
+			this.locked=true;
+			alert("region locked")
+		}
 	}
-
+	
 	submit(region) {
 		console.log(region)
 		if (this.currentAnswer.length === 0) return;
@@ -170,10 +174,13 @@ decorate(GameplayModel,{
 	hints:observable,
 	stats:observable,
 	hangman:observable,
+	inventory:observable,
+	locked:observable,
 	getQuestion:action,
 	submit:action,
 	getTries:action,
-	getStats:action
+	getStats:action,
+	
 })
 const store=new GameplayModel()
 export default store;

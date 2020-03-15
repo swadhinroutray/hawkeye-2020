@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
 		height: 100%;
 		margin:0 !important;
 		padding:0 !important;
+		overflow: auto;
 	}
 	body{
 		background-image: url(${bg});
