@@ -5,8 +5,7 @@ import LoginPage from '../pages/app/LoginPage/LoginPage';
 import Game from '../pages/app/Game/Game';
 import { Route } from 'react-router-dom';
 import { Provider } from 'mobx-react';
-import { LandingPage } from '../pages/LandingPage';
-
+import { LandingPage } from '../pages/app/LandingPage';
 import store from '../models/app/LoginModel';
 import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';

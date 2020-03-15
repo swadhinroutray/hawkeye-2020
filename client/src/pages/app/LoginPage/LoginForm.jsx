@@ -1,9 +1,7 @@
-import React,{useEffect} from 'react'
-import {inject,observer} from 'mobx-react'
+import React, { useEffect } from 'react';
+import { inject, observer } from 'mobx-react';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-
-
 
 export const LoginForm = inject('loginStore')(
 	observer(({ loginStore }) => {
@@ -63,5 +61,3 @@ const LoginFormWrapper = styled.div`
 `;
 
 
-
-export default LoginForm 
