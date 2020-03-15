@@ -182,7 +182,7 @@ func (app *App) resetStore(w http.ResponseWriter, r *http.Request) {
 		"_id": currUser.ID,
 	}
 	update := bson.M{
-		"$set": bson.M{"tobuy": arr},
+		"$set": bson.M{"tobuy": arr, "points": currUser.Points - ResetStorePrice},
 	}
 	if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
 		app.log.Errorf("Databse Error %v", err.Error())
