@@ -30,7 +30,7 @@ $ ./Taskfile.sh genkeys
 
 
 ## Elixirs according to Index
-- 1. Extra Hint
-- 2. Region Multiplier
-- 3. Hangman
-- 4. TBD
+- 0 Extra Hint
+- 1 Region Multiplier
+- 2 Hangman
+- 3 TBD

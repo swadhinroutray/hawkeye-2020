@@ -13,15 +13,14 @@ import { ShopPage } from '../pages/app/ShopPage/ShopPage';
 
 const AppRouter = ({ match }) => {
 	return (
-		<Provider loginStore={store}>
+		<Provider loginStore={store} shopStore={ShopStore}>
 			<Switch>
 				<Route path={'/register'} component={RegisterPage}></Route>
 				<Route path={'/login'} component={LoginPage}></Route>
 				<Route path={'/home'} component={LandingPage}></Route>
 				<Route path={'/game/:id'} component={Game}></Route>
-				<Provider shopStore={ShopStore}>
-					<Route path={'/shop'} component={ShopPage}></Route>
-				</Provider>
+
+				<Route path={'/shop'} component={ShopPage}></Route>
 			</Switch>
 		</Provider>
 	);

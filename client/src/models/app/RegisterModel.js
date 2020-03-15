@@ -1,4 +1,4 @@
-import { observable, decorate, action, computed } from 'mobx';
+import { observable, decorate, action } from 'mobx';
 import {
 	validateRequired,
 	validateWithError,
@@ -75,7 +75,7 @@ class RegisterModel {
 		);
 		this.email.error = registerValidator['email'](this.email.value);
 		const regexp = new RegExp(
-			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 		);
 		if (!regexp.test(this.email.value)) {
 			this.email.error = 'Invalid Email Address';
