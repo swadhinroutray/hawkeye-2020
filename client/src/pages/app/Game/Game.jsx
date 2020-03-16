@@ -567,7 +567,7 @@ li,h1{
 .Rules::-webkit-scrollbar { 
                 display: none; 
             }
-			@media only screen and (min-device-width : 1025px) {
+			@media only screen and (min-device-width : 1174px) {
 				#heading{
 				margin-left:40px ;
 				}
@@ -582,22 +582,30 @@ li,h1{
 				}
 				.ActualHints{
 				position:absolute;
-				left:10%;
+				left:10vh;
 				top:28%;
 					
 				}
 				.Attempts{
 					position:absolute;
-					right:8%;
+					right:7vh;
 					top:30%;
 				}
 				.Hints{
-					
+					height: 130px;
 					width:220px;
 				}
 				.stats{
 					width:220px;
-				height: 300px;
+				height: 90px;
+				}
+			}
+			@media only screen and (min-device-width : 1346px) {
+				.ActualHints{
+					left:15vh;
+				}
+				.Attempts{
+					right:10vh;
 				}
 			}
 
