@@ -130,7 +130,7 @@ const QuestionBox = inject('gameplayStore')(
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
 					<div className="Level">Level {gameplayStore.level}</div>
-					<div className="Question">{gameplayStore.question}hgfwtwewee fdbf bgbd gfegegb bfdgfdgfd fbfdbfdbfd  vfdvfd dfsdt tw we twe we we rwerwe wer we wee tw tww tw twe twt wetweet</div>
+					<div className="Question">{gameplayStore.question}</div>
 				</div>
 				<div className="AnswerWrapper">
 					<div className="AnswerField">
