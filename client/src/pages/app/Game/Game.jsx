@@ -567,9 +567,37 @@ li,h1{
 .Rules::-webkit-scrollbar { 
                 display: none; 
             }
-			@media only screen and (min-device-width : 768px) {
+			@media only screen and (min-device-width : 1025px) {
 				#heading{
 				margin-left:40px ;
+				}
+				.GameWrapper{
+					display:flex;
+				}
+				.QuestionBox{
+					position:fixed;
+					top:25%;
+					left:50%;
+					transform:translateX(-45%);
+				}
+				.ActualHints{
+				position:absolute;
+				left:10%;
+				top:28%;
+					
+				}
+				.Attempts{
+					position:absolute;
+					right:8%;
+					top:30%;
+				}
+				.Hints{
+					
+					width:220px;
+				}
+				.stats{
+					width:220px;
+				height: 300px;
 				}
 			}
 
