@@ -13,6 +13,8 @@ func (app *App) mountRoutes() {
 	auth.HandleFunc("/register", app.registerController).Methods("POST")
 	auth.HandleFunc("/login", app.loginController).Methods("POST")
 	auth.HandleFunc("/logout", app.logoutController).Methods("POST")
+	auth.HandleFunc("/forgotpassword", app.forgotPassword).Methods("POST")
+	auth.HandleFunc("/resetpassword", app.resetPassword).Methods("POST")
 
 	//Admin Routes
 	admin := api.PathPrefix("/admin").Subrouter()
