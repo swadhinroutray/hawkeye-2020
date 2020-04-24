@@ -2,8 +2,11 @@ package hawkeye
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/rand"
 	"net/http"
+	"net/smtp"
+	"os"
 	"strings"
 	"time"
 
@@ -184,10 +187,26 @@ func (app *App) profileController(w http.ResponseWriter, r *http.Request) {
 	app.sendResponse(w, true, Success, user)
 }
 
-func (app *App) sendMail(token string) {
-	//TODO: Send this in an email...
-	app.log.Infof("https://hawkeye.iecsemanipal.com/client/resetpassword?token=%s", token)
-	return
+func (app *App) sendMail(token string, to string) error {
+	from := os.Getenv("EMAIL")
+	pass := os.Getenv("EMAIL_PASSWORD")
+	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://hawkeye.iecsemanipal.com/client/resetpassword?token=%s", token)
+
+	msg := []byte("To: " + to + "\r\n" +
+		"Subject: Hawkeye Password Reset | IECSE Manipal\r\n" + body +
+		"\r\n")
+
+	auth := smtp.PlainAuth("", from, pass, "smtp.gmail.com")
+
+	err := smtp.SendMail("smtp.gmail.com:587", auth, from, []string{to}, msg)
+
+	if err != nil {
+		app.log.Infof("Error:%s", err)
+		return err
+	}
+
+	app.log.Infof("Email sent:%s", to)
+	return nil
 }
 
 // ForgotPasswordRequest ...
@@ -196,7 +215,6 @@ type ForgotPasswordRequest struct {
 }
 
 func (app *App) forgotPassword(w http.ResponseWriter, r *http.Request) {
-	//currUser := app.getUserTest(r)
 
 	var forgotReq ForgotPasswordRequest
 
@@ -213,7 +231,11 @@ func (app *App) forgotPassword(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.sendMail(currUser.Token)
+	if err := app.sendMail(currUser.Token, forgotReq.Email); err != nil {
+		app.log.Errorf("Error:%s", err)
+		app.sendResponse(w, false, InternalServerError, "Unable to send mail")
+		return
+	}
 	app.sendResponse(w, true, Success, "Email sent")
 }
 
@@ -225,11 +247,7 @@ type ResetPasswordRequest struct {
 }
 
 func (app *App) resetPassword(w http.ResponseWriter, r *http.Request) {
-	//currUser := app.getUserTest(r)
-
 	var resetReq ResetPasswordRequest
-
-	//err := json.newDecoder(r.Body).Decode(&resetReq)
 
 	if err := json.NewDecoder(r.Body).Decode(&resetReq); err != nil {
 		app.sendDecodeError(w, err)
