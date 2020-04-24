@@ -1,10 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import DescriptionBg from '../../assets/landing-assets/DescriptView.svg';
 import { startButton } from '../../assets/landing-assets/index.js';
 import { observer, inject } from 'mobx-react';
+import { Redirect } from 'react-router';
+import { LandingPage } from '../../pages/app/LandingPage';
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore }) => {
+		const [regionClicked,setRegionClicked]=useState(false)
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />
@@ -24,10 +27,12 @@ export const RegionInfo = inject('LandingStore')(
 				<div>
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
-				<Start onClick={() => console.log('Start')}>
+				<Start onClick={() => {alert(`/game/${(LandingStore.currentRegion+1)}`)
+					setRegionClicked(true)}}>
 					{/* <img src={startButton} alt="" /> */}
 					Start
 				</Start>
+				{regionClicked&&<Redirect to={`/game/${(LandingStore.currentRegion+1)}`} />}
 			</InfoWrapper>
 		);
 	}),
