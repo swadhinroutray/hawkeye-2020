@@ -75,8 +75,8 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	regionOrder := rand.Perm(7)[0:7]
-	levels := [7]int{0, 0, 0, 0, 0, 0, 0}
+	regionOrder := rand.Perm(5)[0:5]
+	levels := [5]int{0, 0, 0, 0, 0}
 	levels[regionOrder[0]] = 1
 
 	newUser := User{
@@ -97,7 +97,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Multiplier:       10,
 		Points:           0,
 		RegionUnlock:     regionOrder,
-		ItemBool:         [7]bool{true, true, true, true, true, true, true},
+		ItemBool:         [5]bool{true, true, true, true, true},
 		ToBuy:            []int{2, 2, 2, 1},
 		History:          []Elixir{},
 		RegionMultiplier: -1,

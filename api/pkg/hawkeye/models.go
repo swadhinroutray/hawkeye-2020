@@ -20,7 +20,7 @@ type User struct { //TODO: Fix number of items
 	College  string `bson:"college"  json:"college"`
 
 	AnswerCount      int          `bson:"answer_count" json:"-"`
-	Level            [7]int       `bson:"level"  json:"level"` //Levels across multiple regions
+	Level            [5]int       `bson:"level"  json:"level"` //Levels across multiple regions
 	Submissions      []Submission `bson:"submissions" json:"submissions"`
 	Access           int          `bson:"access" json:"access"`
 	Banned           bool         `bson:"banned" json:"banned"`
@@ -29,7 +29,7 @@ type User struct { //TODO: Fix number of items
 	Multiplier       int          `bson:"multiplier" json:"multiplier"` //How many points user gets on answering questions.
 	RegionUnlock     []int        `bson:"regionunlock" json:"-"`
 	UnlockedRegions  int          `bson:"unlocked" json:"unlocked"`
-	ItemBool         [7]bool      `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
+	ItemBool         [5]bool      `bson:"itembool" json:"itembool"` // Check wether an item has already been used on a question
 	ToBuy            []int        `bson:"tobuy"  json:"tobuy"`      //How many left to be bough for ech usr, if you have doubt call sanchit and ask
 	History          []Elixir     `bson:"history" json:"history"`
 	Token            string       `bson:"token" json:"-"`
