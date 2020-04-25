@@ -92,6 +92,17 @@ type AnswerRequest struct {
 	Region int    `json:"region" bson:"region"`
 }
 
+func (app *App) checkKeywords(answer string, keywords []string) bool {
+	i := 0
+	for i = 0; i < len(keywords); i++ {
+		matchResult := checkAnswer(sanitize(answer), keywords[i])
+		if matchResult == CorrectAnswer || matchResult == CloseAnswer {
+			return true
+		}
+	}
+	return false
+}
+
 func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	currUser := app.getUserTest(r)
@@ -137,6 +148,14 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if matchResult == WrongAnswer {
+
+		keyClose := app.checkKeywords(ansReq.Answer, answerQues.Keywords)
+
+		if keyClose {
+			app.sendResponse(w, true, Success, "Close Answer")
+			return
+		}
+
 		app.sendResponse(w, true, Success, "Wrong Answer")
 		return
 	}

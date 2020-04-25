@@ -42,11 +42,12 @@ type Question struct {
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
 
-	Level    int    `bson:"level"    json:"level"`
-	Region   int    `bson:"region"   json:"region"`
-	Question string `bson:"question" json:"question"`
-	Answer   string `bson:"answer"   json:"answer,omitempty"`
-	AddInfo  string `bson:"add_info" json:"addInfo,omitempty"`
+	Level    int      `bson:"level"    json:"level"`
+	Region   int      `bson:"region"   json:"region"`
+	Question string   `bson:"question" json:"question"`
+	Answer   string   `bson:"answer"   json:"answer,omitempty"`
+	AddInfo  string   `bson:"add_info" json:"addInfo,omitempty"`
+	Keywords []string `bson:"keywords" json:"keywords"`
 
 	Hints []Hint `bson:"hints" json:"hints"`
 }

@@ -15,11 +15,12 @@ import (
 
 // AddQuestionRequest ...
 type AddQuestionRequest struct {
-	Region   int    `json:"region" bson:"region"`
-	Level    int    `json:"level" bson:"level"`
-	Question string `bson:"question" json:"question"`
-	Answer   string `bson:"answer"   json:"answer,omitempty"`
-	AddInfo  string `bson:"add_info" json:"addInfo,omitempty"`
+	Region   int      `json:"region" bson:"region"`
+	Level    int      `json:"level" bson:"level"`
+	Question string   `bson:"question" json:"question"`
+	Answer   string   `bson:"answer"   json:"answer,omitempty"`
+	AddInfo  string   `bson:"add_info" json:"addInfo,omitempty"`
+	Keywords []string `bson:"keywords" json:"keywords"`
 }
 
 func (app *App) addQuestion(w http.ResponseWriter, r *http.Request) {
@@ -53,6 +54,7 @@ func (app *App) addQuestion(w http.ResponseWriter, r *http.Request) {
 		Answer:    sanitize(strings.TrimSpace(quesBody.Answer)),
 		AddInfo:   quesBody.AddInfo,
 		Hints:     []Hint{},
+		Keywords:  quesBody.Keywords,
 	}
 
 	res, err := app.db.Collection("questions").InsertOne(r.Context(), newQues)
