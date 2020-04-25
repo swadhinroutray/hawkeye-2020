@@ -1,23 +1,21 @@
 import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
 import DescriptionBg from '../../assets/landing-assets/DescriptView.svg';
-import { startButton } from '../../assets/landing-assets/index.js';
+import { startButton } from '../../assets/landing-assets';
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { LandingPage } from '../../pages/app/LandingPage';
 import  GameplayModel  from '../../models/app/GameplayModel';
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore }) => {
-		const [regionClicked,setRegionClicked]=useState(false)
+		
 	useEffect(()=>{
-		console.log(regionClicked)
-if(regionClicked===true){
+	
 
-	setRegionClicked(false)
-}
 GameplayModel.locked=false;
 
-	},[regionClicked,GameplayModel])
+	},[GameplayModel])
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />
@@ -37,12 +35,12 @@ GameplayModel.locked=false;
 				<div>
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
-				<Start onClick={() => {
-					setRegionClicked(true)}}>
-					{/* <img src={startButton} alt="" /> */}
-					Start
-				</Start>
-				{regionClicked&&<Redirect to={`/game/${(LandingStore.currentRegion)}`} />}
+				<Link to={`/game/${LandingStore.currentRegion}`}>
+					<Start>
+						<img src={startButton} alt="" />
+						Start
+					</Start>
+				</Link>
 			</InfoWrapper>
 		);
 	}),
@@ -51,7 +49,6 @@ const InfoWrapper = styled.div`
 	text-transform: uppercase;
 	width: 90%;
 	margin: auto;
-	text-align: left;
 	position: relative;
 	color: turquoise;
 	font-size: 0.8em;
@@ -77,19 +74,18 @@ const Background = styled.img`
 
 const Start = styled.div`
 	color: turquoise;
-	padding: 5px;
+	padding: 8px 5px;
 	text-align: center;
 	position: relative;
 	width: 50%;
 	margin: 8px auto 15px auto;
-	border: 1px solid turquoise;
 
 	> img {
-		z-index: 20;
+		z-index: 200;
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 10vh;
+		width: 100%;
 		height: 100%;
 	}
 `;

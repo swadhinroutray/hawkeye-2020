@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { hawkLogo, shopLogo, logoutLogo } from '../../assets/landing-assets';
 
 export const Header = () => {
@@ -8,13 +9,25 @@ export const Header = () => {
 			<HawkLogo src={hawkLogo} alt="hawk-logo" />
 			<h1>HAWKEYE</h1>
 			<div>
-				<img src={shopLogo} alt="shop-icon" />
-				<img src={logoutLogo} alt="shop-icon" />
+				<Link to="/shop">
+					<Icon src={shopLogo} alt="shop-icon" />
+				</Link>
+				<Link to="/">
+					<Icon src={logoutLogo} alt="shop-icon" />
+				</Link>
 			</div>
 		</HeaderWrapper>
 	);
 };
+const Icon = styled.img`
+	margin: auto;
+	height: 5vh;
+	align-self: flex-end;
 
+	@media (min-width: 768px) {
+		height: 7vh;
+	}
+`;
 const HeaderWrapper = styled.header`
 	position: relative;
 	display: grid;
@@ -29,15 +42,7 @@ const HeaderWrapper = styled.header`
 	> div {
 		grid-column: 3;
 		display: flex;
-		> img {
-			margin: auto;
-			height: 5vh;
-			align-self: flex-end;
-
-			:first-of-type {
-				margin-right: 7px;
-			}
-		}
+		justify-content: space-evenly;
 	}
 
 	@media (min-width: 768px) {
@@ -52,12 +57,7 @@ const HeaderWrapper = styled.header`
 		}
 	}
 `;
-const Shop = styled.img`
-	height: 6vh;
-	@media (min-width: 768px) {
-		height: 9vh;
-	}
-`;
+
 const HawkLogo = styled.img`
 	float: left;
 	height: 6vh;
