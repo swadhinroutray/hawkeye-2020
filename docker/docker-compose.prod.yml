@@ -1,0 +1,55 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ../api
+      dockerfile: ../docker/api.prod.Dockerfile
+    restart: unless-stopped
+    networks:
+      - network
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    env_file:
+      - ../.env
+    environment:
+      WAIT_HOSTS: db:27017,redis:6379
+
+  client:
+    build:
+      context: ../client
+      dockerfile: ../docker/client.prod.Dockerfile
+    restart: unless-stopped
+    networks:
+      - network
+    ports:
+      - 80:80
+    env_file:
+      - ../.env
+    volumes:
+      - ./hawkeye.template:/etc/nginx/conf.d/hawkeye.template
+
+  db:
+    image: mongo
+    command: [--auth]
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - network
+
+  redis:
+    image: redis
+    restart: unless-stopped
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge

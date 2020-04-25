@@ -11,7 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	
 )
 
 //FetchedQuestion ...
@@ -93,6 +92,17 @@ type AnswerRequest struct {
 	Region int    `json:"region" bson:"region"`
 }
 
+func (app *App) checkKeywords(answer string, keywords []string) bool {
+	i := 0
+	for i = 0; i < len(keywords); i++ {
+		matchResult := checkAnswer(sanitize(answer), keywords[i])
+		if matchResult == CorrectAnswer || matchResult == CloseAnswer {
+			return true
+		}
+	}
+	return false
+}
+
 func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	currUser := app.getUserTest(r)
@@ -138,6 +148,14 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if matchResult == WrongAnswer {
+
+		keyClose := app.checkKeywords(ansReq.Answer, answerQues.Keywords)
+
+		if keyClose {
+			app.sendResponse(w, true, Success, "Close Answer")
+			return
+		}
+
 		app.sendResponse(w, true, Success, "Wrong Answer")
 		return
 	}
@@ -181,7 +199,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 func (app *App) unlockNextRegion(currUser User, r *http.Request) {
 	nextUnlock := currUser.UnlockedRegions + 1
-	if nextUnlock < 7 {
+	if nextUnlock < 5 {
 		levelUnlock := fmt.Sprintf("level.%d", currUser.RegionUnlock[nextUnlock])
 		app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
 			bson.M{
@@ -313,25 +331,25 @@ func (app *App) rankController(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, nil)
 		return
 	}
-	
+
 	var stats RankResponse
-	
+
 	if len(atPar) <= 0 {
-	    stats.AtPar = 0
+		stats.AtPar = 0
 	} else {
-	    stats.AtPar = atPar[0].Count
+		stats.AtPar = atPar[0].Count
 	}
-	
-	if len(leading) <= 0{
-	    stats.Leading = 0
+
+	if len(leading) <= 0 {
+		stats.Leading = 0
 	} else {
-	    stats.Leading = leading[0].Count
+		stats.Leading = leading[0].Count
 	}
-	
+
 	if len(trailing) <= 0 {
-	    stats.Trailing = 0
+		stats.Trailing = 0
 	} else {
-	    stats.Trailing = trailing[0].Count
+		stats.Trailing = trailing[0].Count
 	}
 
 	app.sendResponse(w, true, Success, stats)

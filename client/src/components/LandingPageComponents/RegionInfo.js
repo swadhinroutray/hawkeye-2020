@@ -1,42 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import DescriptionBg from '../../assets/landing-assets/DescriptView.svg';
 import { Link } from 'react-router-dom';
 import { startButton } from '../../assets/landing-assets';
 import { observer, inject } from 'mobx-react';
+import { Redirect } from 'react-router';
+import { LandingPage } from '../../pages/app/LandingPage';
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore }) => {
+		const [regionClicked, setRegionClicked] = useState(false);
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />
-				<Info>
-					<div>
-						REGION: {LandingStore.regionInfo[LandingStore.currentRegion].name}
-					</div>
-					<div>
-						LOCATION:{' '}
-						{LandingStore.regionInfo[LandingStore.currentRegion].location}
-					</div>
-					<div>
-						YEAR: {LandingStore.regionInfo[LandingStore.currentRegion].year}AD
-					</div>
-					<div>
-						DATE: {LandingStore.regionInfo[LandingStore.currentRegion].date}
-					</div>
-					<div>
-						TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
-					</div>
-				</Info>
-
-				<Link
-					style={{ textDecoration: 'none' }}
-					to={`/game/${LandingStore.currentRegion}`}
+				<div>
+					REGION: {LandingStore.regionInfo[LandingStore.currentRegion].name}
+				</div>
+				<div>
+					LOCATION:{' '}
+					{LandingStore.regionInfo[LandingStore.currentRegion].location}
+				</div>
+				<div>
+					YEAR: {LandingStore.regionInfo[LandingStore.currentRegion].year}AD
+				</div>
+				<div>
+					DATE: {LandingStore.regionInfo[LandingStore.currentRegion].date}
+				</div>
+				<div>
+					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
+				</div>
+				<Start
+					onClick={() => {
+						alert(`/game/${LandingStore.currentRegion + 1}`);
+						setRegionClicked(true);
+					}}
 				>
-					<Start onClick={() => console.log('Start')}>
-						<img src={startButton} alt="" />
-						Start
-					</Start>
-				</Link>
+					{/* <img src={startButton} alt="" /> */}
+					Start
+				</Start>
+				{regionClicked && (
+					<Redirect to={`/game/${LandingStore.currentRegion + 1}`} />
+				)}
 			</InfoWrapper>
 		);
 	}),

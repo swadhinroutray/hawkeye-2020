@@ -2,8 +2,11 @@ package hawkeye
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/rand"
 	"net/http"
+	"net/smtp"
+	"os"
 	"strings"
 	"time"
 
@@ -72,8 +75,8 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	regionOrder := rand.Perm(7)[0:7]
-	levels := [7]int{0, 0, 0, 0, 0, 0, 0}
+	regionOrder := rand.Perm(5)[0:5]
+	levels := [5]int{0, 0, 0, 0, 0}
 	levels[regionOrder[0]] = 1
 
 	newUser := User{
@@ -83,6 +86,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Name:      strings.TrimSpace(reqBody.Name),
 		Username:  strings.TrimSpace(reqBody.Username),
 		Password:  string(hash),
+		Token:     primitive.NewObjectID().Hex(),
 		Email:     strings.TrimSpace(reqBody.Email),
 		Mobile:    strings.TrimSpace(reqBody.Mobile),
 		College:   strings.TrimSpace(reqBody.College),
@@ -93,7 +97,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Multiplier:       10,
 		Points:           0,
 		RegionUnlock:     regionOrder,
-		ItemBool:         [7]bool{true, true, true, true, true, true, true},
+		ItemBool:         [5]bool{true, true, true, true, true},
 		ToBuy:            []int{2, 2, 2, 1},
 		History:          []Elixir{},
 		RegionMultiplier: -1,
@@ -181,4 +185,92 @@ func (app *App) profileController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	app.sendResponse(w, true, Success, user)
+}
+
+func (app *App) sendMail(token string, to string) error {
+	from := os.Getenv("EMAIL")
+	pass := os.Getenv("EMAIL_PASSWORD")
+	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://hawkeye.iecsemanipal.com/client/resetpassword?token=%s", token)
+
+	msg := []byte("To: " + to + "\r\n" +
+		"Subject: Hawkeye Password Reset | IECSE Manipal\r\n" + body +
+		"\r\n")
+
+	auth := smtp.PlainAuth("", from, pass, "smtp.gmail.com")
+
+	err := smtp.SendMail("smtp.gmail.com:587", auth, from, []string{to}, msg)
+
+	if err != nil {
+		app.log.Infof("Error:%s", err)
+		return err
+	}
+
+	app.log.Infof("Email sent:%s", to)
+	return nil
+}
+
+// ForgotPasswordRequest ...
+type ForgotPasswordRequest struct {
+	Email string `json:"email" bson:"email"`
+}
+
+func (app *App) forgotPassword(w http.ResponseWriter, r *http.Request) {
+
+	var forgotReq ForgotPasswordRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&forgotReq); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	var currUser User
+
+	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"email": forgotReq.Email}).Decode(&currUser); err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, Success, "Can't Find User")
+		return
+	}
+
+	if err := app.sendMail(currUser.Token, forgotReq.Email); err != nil {
+		app.log.Errorf("Error:%s", err)
+		app.sendResponse(w, false, InternalServerError, "Unable to send mail")
+		return
+	}
+	app.sendResponse(w, true, Success, "Email sent")
+}
+
+// ResetPasswordRequest ...
+type ResetPasswordRequest struct {
+	Password  string `json:"password" bson:"password"`
+	Password2 string `json:"password2" bson:"password2"`
+	Token     string `json:"token" bson:"token"`
+}
+
+func (app *App) resetPassword(w http.ResponseWriter, r *http.Request) {
+	var resetReq ResetPasswordRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&resetReq); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	hash, err := bcrypt.GenerateFromPassword([]byte(strings.TrimSpace(resetReq.Password)), bcrypt.DefaultCost)
+	if err != nil {
+		app.log.Errorf("Bcrypt hash failed %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	newToken := primitive.NewObjectID().Hex()
+
+	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"token": resetReq.Token},
+		bson.M{
+			"$set": bson.M{
+				"token":    newToken,
+				"password": string(hash),
+			},
+		},
+	)
+
+	app.sendResponse(w, true, Success, "Password reset successfully")
 }

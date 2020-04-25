@@ -25,7 +25,8 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 			if(!loginStore.profileSet){
 			loginStore.getProfile()
 			}
-			GameplayModel.getQuestion(match.params.id);
+			console.log(match.params.id)
+			GameplayModel.getQuestion(parseInt(match.params.id));
 			loginStore.getInventory()
 			loginStore.clearErrors();
 			
@@ -219,7 +220,15 @@ const AttemptsBox = inject('gameplayStore')(
 		}
 	)
 );
-
+const size = {
+	mobileS: '320px',
+	mobileM: '375px',
+	mobileL: '425px',
+	tablet: '768px',
+	laptop: '1024px',
+	laptopL: '1440px',
+	desktop: '1560px',
+};
 const GameWrapper = styled.div`
 
 #heading{
@@ -286,7 +295,7 @@ color:#fff;
 	
 	display:flex;
 	flex-direction:column;
-	
+	justify-content:center;
 	align-items:center;
 	
 	background-image:url(${Qbox});
@@ -301,6 +310,9 @@ max-height:300px;
 
 .QuestionWrapper{
 	height:110px;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
 	text-align:center;
 
 
@@ -378,7 +390,8 @@ max-height:300px;
 .AnswerField input{
 	width:90%;
 	height:23px;
-	
+	padding:3px 1px;
+	text-align:center;
 	background-color: Transparent;
 	border-right:5px solid #7FD1E0;
 	border-left:5px solid #7FD1E0;
@@ -390,7 +403,7 @@ max-height:300px;
 	background-image:url(${ButtonBox});
 	background-color:transparent;
 	background-repeat:no-repeat;
-	background-size:cover;
+	background-size:100% 100%;
 	border:none;
 	padding:7px;
 	height:30px;
@@ -415,6 +428,7 @@ img{
 	height:50px;
 }
 .Question{
+	justify-self:flex-end;
 	overflow:hidden;
 	overflow-y:scroll;
 	font-family: 'Nidus Sans', sans-serif;
@@ -530,7 +544,9 @@ overflow-wrap:break-word;
 }
 
 
-	
+.Rules li{
+	margin-top:2rem;
+}	
 
 	
 .Rules{
@@ -543,11 +559,9 @@ overflow-wrap:break-word;
 	display:flex;
 	flex-direction:column;
 	align-items:center;
+
 	font-family:sans-serif;
-	border-right:5px solid #7FD1E0;
-	border-left:5px solid #7FD1E0;
-	border-top:1px solid #7FD1E0;
-	border-bottom:1px solid #7FD1E0;
+	
 	border-radius:25px;
 	overflow:hidden;
 	overflow-y:scroll;
@@ -577,7 +591,7 @@ li,h1{
 				.QuestionBox{
 					position:fixed;
 					top:25%;
-					left:50%;
+					left:48%;
 					transform:translateX(-45%);
 				}
 				.ActualHints{
@@ -602,17 +616,43 @@ li,h1{
 			}
 			@media only screen and (min-device-width : 1346px) {
 				.ActualHints{
-					left:15vh;
+					left:10vh;
+					zoom:1.2;
 				}
 				.Attempts{
 					right:10vh;
+					zoom:1.2;
+				}
+				.QuestionBox{
+					zoom:1.2;
+				}
+				.Rules{
+					left:30%;
+					right:30%
+				}
+			}
+			@media only screen and (min-device-width : ${size.laptopL}) {
+				.QuestionBox, .ActualHints,.Attempts{
+zoom:1.3
+				}
+				.nav-buttons,#hawklogo,#heading{
+					zoom:1.5;
+				}
+			}
+			@media only screen and (min-device-width : ${size.desktop}) {
+				.QuestionBox, .ActualHints,.Attempts{
+zoom:1.5
 				}
 			}
 
-
+			@media only screen and (max-device-width : 375px) {
+				.QuestionBox, .ActualHints,.Attempts{
+zoom:0.85
+				}
+			}
  @media only screen and (max-device-width : 330px) {
 	.QuestionBox, .ActualHints,.Attempts{
-		
+		zoom:0.9;
 		padding-left:10px;
 		padding-right:10px;
 	}
