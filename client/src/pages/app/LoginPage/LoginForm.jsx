@@ -10,7 +10,7 @@ export const LoginForm = inject('loginStore')(
 		}, []);
 		return (
 			<LoginFormWrapper>
-				<h1 className="hawkeye">Hawkeye</h1>
+				<h1 className="login-head">LOGIN</h1>
 				<div className="form">
 					<Field required name="email" placeholder="Email" />
 					<Field
@@ -22,18 +22,21 @@ export const LoginForm = inject('loginStore')(
 					<button className="btn-login" onClick={() => loginStore.login()}>
 						Login
 					</button>
-					<Link className="link-register" to="/app/register">
+					
+				</div>
+				<Link className="link-register" to="/register">
 						Create an account
 					</Link>
-				</div>
+					<Link className="link-forgot" to="/forgot">
+						Forgot Password
+					</Link>
 				{loginStore.loggedIn ? <Redirect to="/regions" /> : null}
 			</LoginFormWrapper>
 		);
 	})
 );
-const FieldWrapper=styled.div`
-`;
-const Field = inject('loginStore')(
+
+export const Field = inject('loginStore')(
 	observer(
 		({
 			loginStore,
@@ -42,7 +45,7 @@ const Field = inject('loginStore')(
 			required = false,
 			...restProps
 		}) => (
-			<FieldWrapper required={required}>
+			<div required={required}>
 				<input
 					type={type}
 					name={name}
@@ -51,13 +54,60 @@ const Field = inject('loginStore')(
 					onChange={e => loginStore.setField(name, e.target.value)}
 				/>
 				<span>{loginStore.formData[name].error}</span>
-			</FieldWrapper>
+			</div>
 		)
 	)
 );
 
-const LoginFormWrapper = styled.div`
+export const LoginFormWrapper = styled.div`
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	width:60vw;
+	margin:5% 19vw;
+	border: 3px solid #3abdb7;
+	padding:2vh 1vw;
+	font-size:1.3rem;
 	
+	input{
+		
+		background:none;
+		border:none;
+		border-bottom: 1px solid #ccc;
+    border-radius: 5px;
+	margin-top:0.3rem;
+	margin-bottom:1rem;
+	width:50vw;
+	font-size:1.3rem;
+	:hover{
+		border-bottom: 1px solid #3abdb7;
+	}
+	:focus{
+		border-bottom: 1px solid #3abdb7;
+}
+	}
+	
+	button{
+		border:none;
+		border: 3px solid #3abdb7;
+		background:none;
+		font-size:1.3rem;
+		padding:0.2rem 0.8rem;;
+
+	}
+	.link-register,.link-forgot{
+		margin-top:1rem;
+	
+	}
+	@media only screen and (max-device-width:1048px){
+		width:90vw;
+	margin:5% 5vw;
+	padding:0 0;
+	padding-bottom:3vh;
+	input{
+		width:80vw;
+	}
+	}
 `;
 
 

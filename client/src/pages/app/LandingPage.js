@@ -16,6 +16,7 @@ import {
 } from '../../assets/landing-assets/index';
 
 export const LandingPage = observer(() => {
+	
 	return (
 		<Provider LandingStore={store}>
 			<Page>

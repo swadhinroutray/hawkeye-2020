@@ -89,17 +89,21 @@ class LoginModel {
 			this.profile.points = points;
 			this.profile.itembool = itembool;
 			this.profileSet=true
+			this.loggedIn=true
 			this.setField('email', '');
 			this.setField('password', '');
 			return;
 		}
 		this.profileSetError=true
+		
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
 		else if (res.message === 'UNAUTHORIZED'){
 			this.formData.password.error = 'Incorrect password';
 			
 		
+		}else{
+			console.log("error")
 		}
 	}
 

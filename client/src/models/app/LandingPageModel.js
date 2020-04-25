@@ -12,7 +12,7 @@ class Region {
 	}
 }
 class LandingPageModel {
-	currentRegion = 1;
+	currentRegion = 4;
 	regionInfo = [];
 
 	constructor() {

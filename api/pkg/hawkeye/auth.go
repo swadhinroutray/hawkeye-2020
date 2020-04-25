@@ -190,7 +190,7 @@ func (app *App) profileController(w http.ResponseWriter, r *http.Request) {
 func (app *App) sendMail(token string, to string) error {
 	from := os.Getenv("EMAIL")
 	pass := os.Getenv("EMAIL_PASSWORD")
-	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://hawkeye.iecsemanipal.com/client/resetpassword?token=%s", token)
+	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://localhost:3030/resetpassword?token=%s", token)
 
 	msg := []byte("To: " + to + "\r\n" +
 		"Subject: Hawkeye Password Reset | IECSE Manipal\r\n" + body +

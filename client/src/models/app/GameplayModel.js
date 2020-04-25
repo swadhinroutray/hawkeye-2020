@@ -25,10 +25,10 @@ class GameplayModel {
 	}
 	
 	getQuestion=(region)=> {
-		if(this.region===0){
+		this.locked=false
 		this.region=parseInt(region);
-		}
-		
+	
+		console.log(this.region)
 	get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);
 	}
 
@@ -37,6 +37,7 @@ class GameplayModel {
 		console.log(res)
 		if (res.success) {
 			if (res.data.question) {
+				
 				this.questionId=res.data.id
 				this.question = res.data.question;
 				this.level = res.data.level;

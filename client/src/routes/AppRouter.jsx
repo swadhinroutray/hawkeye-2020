@@ -9,6 +9,8 @@ import { LandingPage } from '../pages/app/LandingPage';
 import store from '../models/app/LoginModel';
 import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';
+import ForgotPass from '../pages/app/ForgotAndReset/ForgotPass'
+import ResetPass from '../pages/app/ForgotAndReset/ResetPass'
 
 const AppRouter = ({ match }) => {
 	return (
@@ -16,6 +18,8 @@ const AppRouter = ({ match }) => {
 			<Switch>
 				<Route path={'/register'} component={RegisterPage}></Route>
 				<Route path={'/login'} component={LoginPage}></Route>
+				<Route path={'/forgot'} component={ForgotPass}></Route>
+				<Route path={'/reset'} component={ResetPass}></Route>
 				<Route path={'/home'} component={LandingPage}></Route>
 				<Route path={'/game/:id'} component={Game}></Route>
 

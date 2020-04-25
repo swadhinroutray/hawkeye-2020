@@ -1,13 +1,23 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
 import DescriptionBg from '../../assets/landing-assets/DescriptView.svg';
 import { startButton } from '../../assets/landing-assets/index.js';
 import { observer, inject } from 'mobx-react';
 import { Redirect } from 'react-router';
 import { LandingPage } from '../../pages/app/LandingPage';
+import  GameplayModel  from '../../models/app/GameplayModel';
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore }) => {
 		const [regionClicked,setRegionClicked]=useState(false)
+	useEffect(()=>{
+		console.log(regionClicked)
+if(regionClicked===true){
+
+	setRegionClicked(false)
+}
+GameplayModel.locked=false;
+
+	},[regionClicked,GameplayModel])
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />
@@ -27,12 +37,12 @@ export const RegionInfo = inject('LandingStore')(
 				<div>
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
-				<Start onClick={() => {alert(`/game/${(LandingStore.currentRegion+1)}`)
+				<Start onClick={() => {
 					setRegionClicked(true)}}>
 					{/* <img src={startButton} alt="" /> */}
 					Start
 				</Start>
-				{regionClicked&&<Redirect to={`/game/${(LandingStore.currentRegion+1)}`} />}
+				{regionClicked&&<Redirect to={`/game/${(LandingStore.currentRegion)}`} />}
 			</InfoWrapper>
 		);
 	}),

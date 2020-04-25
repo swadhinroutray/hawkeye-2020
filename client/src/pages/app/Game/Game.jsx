@@ -25,7 +25,15 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 			if(!loginStore.profileSet){
 			loginStore.getProfile()
 			}
-			console.log(match.params.id)
+			if((loginStore.profileSetError&&(!loginStore.loggedIn))){
+				alert("redirect")
+			}
+			
+				console.log(GameplayModel.locked)
+				console.log(loginStore.profileSetError)
+				console.log(loginStore.profileSet)
+			
+			console.log(parseInt(match.params.id))
 			GameplayModel.getQuestion(parseInt(match.params.id));
 			loginStore.getInventory()
 			loginStore.clearErrors();
@@ -60,7 +68,10 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 						
 						
 
-						{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}
+						{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect  to={{
+              pathname: '/login',
+               
+            }}  /> : null}
 						
 					</nav>
 					<div className="GameContent">
@@ -146,7 +157,7 @@ const QuestionBox = inject('gameplayStore')(
 								if (code == 13) gameplayStore.submit(match.params.id);
 							}}
 						></input>
-						{(gameplayStore.locked) ? <Redirect to="/login" /> : null}
+						{(gameplayStore.locked)&&(()=>{gameplayStore.locked=false; return true}) ? (<Redirect to="/login" />) : null}
 					</div>
 					<button onClick={() => gameplayStore.submit(match.params.id)}>SUBMIT</button>
 					<div className="AnswerStatus">
@@ -188,7 +199,7 @@ const AttemptsBox = inject('gameplayStore')(
 						<div
 						id="attemptsHead"
 							className={attempts ? 'selected' : ''}
-					AttemptsH		onClick={() => setAttempts(true)}
+							onClick={() => setAttempts(true)}
 						>
 							Attempts
 						</div>

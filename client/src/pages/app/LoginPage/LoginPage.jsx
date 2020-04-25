@@ -5,18 +5,27 @@ import { LoginForm } from './LoginForm';
  const LoginPage = () => {
 	return (
 		<LoginPageWrapper>
+			<h1 className="hawkeye">Hawkeye</h1>
 			<LoginForm />
 		</LoginPageWrapper>
 	);
 };
 
-const LoginPageWrapper = styled.div`
+export const LoginPageWrapper = styled.div`
 height: 100vh;
 text-align: center;
-h1 {
+.hawkeye{
+	font-family: 'Nidus Sans';
+	font-size:3.2rem;
+	font-weight: 400;
+	letter-spacing:0.1em;
+	color: white
+}
+.login-head {
 	font-family: 'Nidus Sans';
 	color: white;
-	letter-spacing: 0.1em;
+	font-size:2rem;
+	letter-spacing:0.1em;
 	font-weight: 400;
 }
 `;

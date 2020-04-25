@@ -168,7 +168,7 @@ const RegisterForm = inject('registerStore')(
 			</div>
 			<button onClick={() => registerStore.register()}>SUBMIT</button>
 			<span className="message">{registerStore['message'].value}</span>
-			<Link className="link-register" to="/app/login">
+			<Link className="link-register" to="/login">
 				Back to login
 			</Link>
 		</RegisterFormWrapper>
