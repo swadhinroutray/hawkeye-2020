@@ -103,6 +103,17 @@ func (app *App) checkKeywords(answer string, keywords []string) bool {
 	return false
 }
 
+func (app *App) logSubmission(currUser User, newSubmission Submission, r *http.Request) {
+	updateOptions := options.FindOneAndUpdate()
+	updateOptions.SetSort(bson.M{"created_at": -1})
+	app.db.Collection("users").FindOneAndUpdate(r.Context(),
+		bson.M{"_id": currUser.ID},
+
+		bson.M{"$push": bson.M{"submissions": newSubmission}},
+		updateOptions,
+	)
+}
+
 func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	currUser := app.getUserTest(r)
@@ -138,31 +149,28 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		Status: matchResult,
 	}
 
-	updateOptions := options.FindOneAndUpdate()
-	updateOptions.SetSort(bson.M{"created_at": -1})
-	app.db.Collection("users").FindOneAndUpdate(r.Context(),
-		bson.M{"_id": currUser.ID},
-
-		bson.M{"$push": bson.M{"submissions": newSubmission}},
-		updateOptions,
-	)
-
 	if matchResult == WrongAnswer {
 
 		keyClose := app.checkKeywords(ansReq.Answer, answerQues.Keywords)
 
 		if keyClose {
+			newSubmission.Status = CloseAnswer
+			app.logSubmission(currUser, newSubmission, r)
 			app.sendResponse(w, true, Success, "Close Answer")
 			return
 		}
 
+		app.logSubmission(currUser, newSubmission, r)
 		app.sendResponse(w, true, Success, "Wrong Answer")
 		return
 	}
 	if matchResult == CloseAnswer {
+		app.logSubmission(currUser, newSubmission, r)
 		app.sendResponse(w, true, Success, "Close Answer")
 		return
 	}
+
+	app.logSubmission(currUser, newSubmission, r)
 
 	//Only gets here if the answer is correct
 	newMult := currUser.Multiplier

@@ -44,6 +44,14 @@ func (app *App) addQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//var sanitizedKeywords []string
+
+	i := 0
+
+	for i = 0; i < len(quesBody.Keywords); i++ {
+		quesBody.Keywords[i] = sanitize(quesBody.Keywords[i])
+	}
+
 	newQues := Question{
 		ID:        primitive.NewObjectID(),
 		CreatedAt: time.Now(),
