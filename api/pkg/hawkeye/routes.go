@@ -22,12 +22,12 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/addquestion", app.withAdmin(app.addQuestion)).Methods("POST")
 	admin.HandleFunc("/addhint", app.withAdmin(app.addHint)).Methods("POST")
 	admin.HandleFunc("/edithint/{region}/{level}/{id}", app.withAdmin(app.editHint)).Methods("POST")
+	admin.HandleFunc("/hiddenhint", app.withAdmin(app.addHiddenHint)).Methods("POST")
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
 	questions.HandleFunc("/fetch/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
 	questions.HandleFunc("/answer", app.withUser(app.answerController)).Methods("POST")
-	questions.HandleFunc("/hiddenhint", app.withUser(app.addHiddenHint)).Methods("POST")
 	questions.HandleFunc("/getsubmissions/{region}/{level}", app.withUser(app.fetchSubmissions)).Methods("GET")
 
 	//Elixir Routes
