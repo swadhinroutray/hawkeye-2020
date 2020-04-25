@@ -1,33 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 import DescriptionBg from '../../assets/landing-assets/DescriptView.svg';
-import { startButton } from '../../assets/landing-assets/index.js';
+import { Link } from 'react-router-dom';
+import { startButton } from '../../assets/landing-assets';
 import { observer, inject } from 'mobx-react';
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore }) => {
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />
-				<div>
-					REGION: {LandingStore.regionInfo[LandingStore.currentRegion].name}
-				</div>
-				<div>
-					LOCATION:{' '}
-					{LandingStore.regionInfo[LandingStore.currentRegion].location}
-				</div>
-				<div>
-					YEAR: {LandingStore.regionInfo[LandingStore.currentRegion].year}AD
-				</div>
-				<div>
-					DATE: {LandingStore.regionInfo[LandingStore.currentRegion].date}
-				</div>
-				<div>
-					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
-				</div>
-				<Start onClick={() => console.log('Start')}>
-					{/* <img src={startButton} alt="" /> */}
-					Start
-				</Start>
+				<Info>
+					<div>
+						REGION: {LandingStore.regionInfo[LandingStore.currentRegion].name}
+					</div>
+					<div>
+						LOCATION:{' '}
+						{LandingStore.regionInfo[LandingStore.currentRegion].location}
+					</div>
+					<div>
+						YEAR: {LandingStore.regionInfo[LandingStore.currentRegion].year}AD
+					</div>
+					<div>
+						DATE: {LandingStore.regionInfo[LandingStore.currentRegion].date}
+					</div>
+					<div>
+						TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
+					</div>
+				</Info>
+
+				<Link
+					style={{ textDecoration: 'none' }}
+					to={`/game/${LandingStore.currentRegion}`}
+				>
+					<Start onClick={() => console.log('Start')}>
+						<img src={startButton} alt="" />
+						Start
+					</Start>
+				</Link>
 			</InfoWrapper>
 		);
 	}),
@@ -36,7 +45,6 @@ const InfoWrapper = styled.div`
 	text-transform: uppercase;
 	width: 90%;
 	margin: auto;
-	text-align: left;
 	position: relative;
 	color: turquoise;
 	font-size: 0.8em;
@@ -50,7 +58,10 @@ const InfoWrapper = styled.div`
 		margin-top: 40%;
 	}
 `;
-
+const Info = styled.div`
+	text-align: left;
+	margin: auto;
+`;
 const Background = styled.img`
 	height: 100%;
 	width: 100%;
@@ -62,19 +73,18 @@ const Background = styled.img`
 
 const Start = styled.div`
 	color: turquoise;
-	padding: 5px;
+	padding: 8px 5px;
 	text-align: center;
 	position: relative;
 	width: 50%;
 	margin: 8px auto 15px auto;
-	border: 1px solid turquoise;
 
 	> img {
-		z-index: 20;
+		z-index: 200;
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 10vh;
+		width: 100%;
 		height: 100%;
 	}
 `;
