@@ -12,7 +12,7 @@ export const Header = () => {
 				<Link to="/shop">
 					<Icon src={shopLogo} alt="shop-icon" />
 				</Link>
-				<Link>
+				<Link to="/">
 					<Icon src={logoutLogo} alt="shop-icon" />
 				</Link>
 			</div>
@@ -57,12 +57,7 @@ const HeaderWrapper = styled.header`
 		}
 	}
 `;
-const Shop = styled.img`
-	height: 5vh;
-	@media (min-width: 768px) {
-		height: 7vh;
-	}
-`;
+
 const HawkLogo = styled.img`
 	float: left;
 	height: 6vh;

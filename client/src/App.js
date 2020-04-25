@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppRouter } from './routes/AppRouter';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyle } from './components/GlobalStyle';
 function App() {
 	return (

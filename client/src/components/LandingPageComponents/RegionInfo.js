@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import DescriptionBg from '../../assets/landing-assets/DescriptView.svg';
-import { Link } from 'react-router-dom';
 import { startButton } from '../../assets/landing-assets';
 import { observer, inject } from 'mobx-react';
-import { Redirect } from 'react-router';
-import { LandingPage } from '../../pages/app/LandingPage';
+import { Link } from 'react-router-dom';
+
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore }) => {
-		const [regionClicked, setRegionClicked] = useState(false);
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />
@@ -28,18 +26,12 @@ export const RegionInfo = inject('LandingStore')(
 				<div>
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
-				<Start
-					onClick={() => {
-						alert(`/game/${LandingStore.currentRegion + 1}`);
-						setRegionClicked(true);
-					}}
-				>
-					{/* <img src={startButton} alt="" /> */}
-					Start
-				</Start>
-				{regionClicked && (
-					<Redirect to={`/game/${LandingStore.currentRegion + 1}`} />
-				)}
+				<Link to={`/game/${LandingStore.currentRegion}`}>
+					<Start>
+						<img src={startButton} alt="" />
+						Start
+					</Start>
+				</Link>
 			</InfoWrapper>
 		);
 	}),
@@ -61,10 +53,7 @@ const InfoWrapper = styled.div`
 		margin-top: 40%;
 	}
 `;
-const Info = styled.div`
-	text-align: left;
-	margin: auto;
-`;
+
 const Background = styled.img`
 	height: 100%;
 	width: 100%;

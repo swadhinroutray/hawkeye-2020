@@ -5,15 +5,18 @@ import {
 	validateRequired,
 	validateWithError,
 } from '../../utils/validation';
-import {get,post} from '../../utils/api'
-class LoginModel {	
-    formData= {email:{value:"",error:""},password:{value:"",error:""}}
-	loggedIn= false
-	profile= {}
-	profileSet= false
-	profileSetError= false
+import { get, post } from '../../utils/api';
+class LoginModel {
+	formData = {
+		email: { value: '', error: '' },
+		password: { value: '', error: '' },
+	};
+	loggedIn = false;
+	profile = {};
+	profileSet = false;
+	profileSetError = false;
 
-    setField(field, newValue) {
+	setField(field, newValue) {
 		this.formData[field].value = newValue;
 		let err = '';
 
@@ -55,12 +58,11 @@ class LoginModel {
 		post('/api/auth/login', postData).then(this.loginControl);
 	}
 
-    loginControl=(res) =>{
-		console.log(res)
+	loginControl = res => {
+		console.log(res);
+
 		if (res.success) {
-			
 			this.loggedIn = true;
-			console.log(res.data)
 			const {
 				id,
 				name,
@@ -73,7 +75,7 @@ class LoginModel {
 				level,
 				invertory,
 				points,
-				itembool
+				itembool,
 			} = res.data;
 
 			this.profile.id = id;
@@ -88,67 +90,60 @@ class LoginModel {
 			this.profile.invertory = invertory;
 			this.profile.points = points;
 			this.profile.itembool = itembool;
-			this.profileSet=true
+			this.profileSet = true;
 			this.setField('email', '');
 			this.setField('password', '');
 			return;
 		}
-		this.profileSetError=true
+		this.profileSetError = true;
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		else if (res.message === 'UNAUTHORIZED'){
+		else if (res.message === 'UNAUTHORIZED') {
 			this.formData.password.error = 'Incorrect password';
-			
-		
 		}
-	}
+	};
 
 	logout() {
-		post('/api/auth/logout').then(this.logoutControl)
+		post('/api/auth/logout').then(this.logoutControl);
 	}
 
 	logoutControl = res => {
 		if (res.success) {
 			this.loggedIn = false;
-			this.profileSet=false;
-			this.profileSetError=true;
+			this.profileSet = false;
+			this.profileSetError = true;
 		}
 	};
 
 	getProfile() {
-
-		get('/api/users/getprofile').then(this.loginControl)
-
+		get('/api/users/getprofile').then(this.loginControl);
 	}
-	getInventory(){
-		get('/api/shop/getinventory').then(this.inventoryControl)
+	getInventory() {
+		get('/api/shop/getinventory').then(this.inventoryControl);
 	}
-	inventoryControl=(res)=>{
-		if(res.success){
-			this.profile.inventory=res.data
+	inventoryControl = res => {
+		if (res.success) {
+			this.profile.inventory = res.data;
 		}
-	}
+	};
 }
 
+decorate(LoginModel, {
+	formData: observable,
+	loggedIn: observable,
+	profile: observable,
+	profileSet: observable,
+	profileSetError: observable,
+	setField: action,
+	clearErrors: action,
+	validateAll: action,
+	login: action,
+	getInventory: action,
+});
 
+const store = new LoginModel();
 
-decorate(LoginModel,{
-    formData:observable,
-    loggedIn:observable,
-    profile:observable,
-	profileSet:observable,
-	profileSetError:observable,
-    setField:action,
-    clearErrors:action,
-    validateAll:action,
-	login:action,
-	getInventory:action
-})
-
-const store=new LoginModel()
-
-const loginValidator= {
-
+const loginValidator = {
 	email: email =>
 		chainValidations(
 			validateRequired(email, 'Email'),

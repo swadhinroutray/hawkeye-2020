@@ -1,12 +1,6 @@
-import React from 'react'
+import BlueCrystal from './BlueCrystal';
+import PurpleCrystal from './PurpleCrystal';
+import RedCrystal from './RedCrystal';
+import YellowCrystal from './YellowCrystal';
 
-function index() {
-    return (
-        <div>
-            unimplemented
-        </div>
-    )
-}
-
-export default index
-
+export { BlueCrystal, PurpleCrystal, RedCrystal, YellowCrystal };

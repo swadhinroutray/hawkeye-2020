@@ -1,5 +1,5 @@
 import { observable, decorate, action } from 'mobx';
-import { hologramImg, regionImg, waves } from '../../assets/landing-assets';
+import { hologramImg, regionImg } from '../../assets/landing-assets';
 
 class Region {
 	constructor(img, name, year, location, date, time) {

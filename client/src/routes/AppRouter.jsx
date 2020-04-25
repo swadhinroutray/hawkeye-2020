@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch } from 'react-router';
 import { RegisterPage } from '../pages/app/RegisterPage/RegisterPage';
 import LoginPage from '../pages/app/LoginPage/LoginPage';

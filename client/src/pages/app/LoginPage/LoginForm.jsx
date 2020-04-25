@@ -22,26 +22,19 @@ export const LoginForm = inject('loginStore')(
 					<button className="btn-login" onClick={() => loginStore.login()}>
 						Login
 					</button>
-					<Link className="link-register" to="/app/register">
+					<Link className="link-register" to="/register">
 						Create an account
 					</Link>
 				</div>
 				{loginStore.loggedIn ? <Redirect to="/regions" /> : null}
 			</LoginFormWrapper>
 		);
-	})
+	}),
 );
-const FieldWrapper=styled.div`
-`;
+const FieldWrapper = styled.div``;
 const Field = inject('loginStore')(
 	observer(
-		({
-			loginStore,
-			type = 'text',
-			name,
-			required = false,
-			...restProps
-		}) => (
+		({ loginStore, type = 'text', name, required = false, ...restProps }) => (
 			<FieldWrapper required={required}>
 				<input
 					type={type}
@@ -52,12 +45,8 @@ const Field = inject('loginStore')(
 				/>
 				<span>{loginStore.formData[name].error}</span>
 			</FieldWrapper>
-		)
-	)
+		),
+	),
 );
 
-const LoginFormWrapper = styled.div`
-	
-`;
-
-
+const LoginFormWrapper = styled.div``;

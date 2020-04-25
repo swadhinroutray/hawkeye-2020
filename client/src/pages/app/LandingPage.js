@@ -8,12 +8,7 @@ import {
 	Hologram,
 	Waves,
 } from '../../components/LandingPageComponents';
-import {
-	leftBar,
-	rightBar,
-	backgroundMesh,
-	shopLogo,
-} from '../../assets/landing-assets/index';
+import { leftBar, rightBar, backgroundMesh } from '../../assets/landing-assets';
 
 export const LandingPage = observer(() => {
 	return (
@@ -31,7 +26,7 @@ export const LandingPage = observer(() => {
 							type="range"
 							name="region-selector"
 							min="0"
-							max="70"
+							max="59"
 							onChange={e =>
 								store.changeRegion(Math.floor(e.target.value / 10))
 							}
