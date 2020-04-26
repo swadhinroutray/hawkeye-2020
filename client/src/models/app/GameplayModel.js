@@ -16,7 +16,7 @@ class GameplayModel {
 	attempts = [];
 	hints = [];
 	stats = { atPar: 0, trailing: 0, leading: 0 };
-
+	itembool = [];
 	inventory = [];
 	locked = false;
 	potionUsed = false;
@@ -76,6 +76,7 @@ class GameplayModel {
 			this.message = hawkResponses[res.data.split(' ')[0]];
 			setTimeout(this.clearMessage, 1000);
 			if (res.data === 'Correct Answer') {
+				this.potionUsed = false;
 				setTimeout(this.getQuestion, 1000);
 			}
 		}
@@ -92,6 +93,7 @@ class GameplayModel {
 	getTriesControl = res => {
 		console.log(res.data.submissions);
 		if (res.success) {
+			this.itembool = res.data.itembool;
 			if (res.data.submissions) {
 				let submissions = res.data.submissions;
 				submissions = submissions.filter(
@@ -125,6 +127,7 @@ class GameplayModel {
 		get('/api/shop/getinventory').then(this.inventoryControl);
 	};
 	inventoryControl = res => {
+		console.log(res);
 		if (res.success) {
 			this.inventory = [];
 			if (res.data.length > 0) {

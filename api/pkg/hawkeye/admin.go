@@ -19,15 +19,24 @@ func (app *App) unlockNextRegionForAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	errorUsers := []string{}
+
 	for cur.Next(r.Context()) {
 		var currUser User
 		err := cur.Decode(&currUser)
 		if err != nil {
 			app.log.Errorf("Internal Server Error %v", err.Error())
-			app.sendResponse(w, false, InternalServerError, nil)
-			return
+			//app.sendResponse(w, false, InternalServerError, nil)
+			//return
+			errorUsers = append(errorUsers, currUser.ID.Hex())
 		}
 
 		app.unlockNextRegion(currUser, r)
 	}
+
+	if len(errorUsers) > 0 {
+		app.sendResponse(w, false, InternalServerError, errorUsers)
+		return
+	}
+	app.sendResponse(w, true, Success, nil)
 }
