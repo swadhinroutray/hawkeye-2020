@@ -27,8 +27,8 @@ async function addQuestions (region, level){
         }
     ));
 
-    console.log("HERE GOES NOTHING")
-    console.log(loginCookie)
+    //console.log("HERE GOES NOTHING")
+    //console.log(loginCookie)
 
     fetch('http://localhost:8080/api/admin/addquestion',
         {
