@@ -26,7 +26,7 @@ class GameplayModel {
 	
 	getQuestion=(region)=> {
 		this.locked=false
-		if(region){
+		if(region||region===0){
 		this.region=parseInt(region);
 		}
 	
@@ -177,10 +177,15 @@ class GameplayModel {
 		post('/api/elixir/regionmultiply',multiplierData).then(this.useEliirControl)
 	}
 	useEliirControl=(res)=>{
+		console.log("came")
+		console.log(res)
 		if(res.success){
+			
 			this.getQuestion()
 			this.potionUsed=true
 			alert("potion applied successfully")
+		}else{
+			alert("no hidden hint yet")
 		}
 	}
 	useUnlockHint(){
@@ -191,6 +196,7 @@ class GameplayModel {
 			question:this.questionId,
 			question_no:this.level
 		}
+		console.log("clicked")
 		post('/api/elixir/unlockhint',unlockHintData).then(this.useEliirControl)
 	}
 }

@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import { observer, Provider } from 'mobx-react';
 import store from '../../models/app/LandingPageModel';
+import GameplayModel from '../../models/app/GameplayModel'
 import {
 	RegionInfo,
 	Header,
@@ -11,7 +12,10 @@ import {
 import { leftBar, rightBar, backgroundMesh } from '../../assets/landing-assets';
 
 export const LandingPage = observer(() => {
-	
+	useEffect(()=>{
+GameplayModel.locked=false
+console.log(GameplayModel.locked)
+	},[GameplayModel])
 	return (
 		<Provider LandingStore={store}>
 			<Page>

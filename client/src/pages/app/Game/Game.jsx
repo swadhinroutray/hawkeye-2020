@@ -22,10 +22,9 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
  const Game = inject('loginStore')(
 	observer(({ loginStore,match }) => {
 		useEffect(() => {
-			if(!loginStore.profileSet){
-				GameplayModel.locked=false;
+			
 			loginStore.getProfile()
-			}
+			
 			if((loginStore.profileSetError&&(!loginStore.loggedIn))){
 				alert("redirect")
 			}
