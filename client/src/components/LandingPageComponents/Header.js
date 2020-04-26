@@ -2,23 +2,35 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { hawkLogo, shopLogo, logoutLogo } from '../../assets/landing-assets';
+import { observer, inject } from 'mobx-react';
 
-export const Header = () => {
-	return (
-		<HeaderWrapper>
-			<HawkLogo src={hawkLogo} alt="hawk-logo" />
-			<h1>HAWKEYE</h1>
-			<div>
-				<Link to="/shop">
-					<Icon src={shopLogo} alt="shop-icon" />
-				</Link>
-				<Link to="/">
-					<Icon src={logoutLogo} alt="shop-icon" />
-				</Link>
-			</div>
-		</HeaderWrapper>
-	);
-};
+export const Header = inject('LoginStore')(
+	observer(({ LoginStore }) => {
+		return (
+			<HeaderWrapper>
+				<HawkLogo src={hawkLogo} alt="hawk-logo" />
+				<h1>HAWKEYE</h1>
+				<div>
+					<Link to="/shop">
+						<Icon src={shopLogo} alt="shop-icon" />
+					</Link>
+
+					{!LoginStore.loggedIn ? (
+						<Link to="/login">
+							<Icon src={logoutLogo} alt="shop-icon" />
+						</Link>
+					) : (
+						<Icon
+							src={logoutLogo}
+							alt="shop-icon"
+							onClick={() => LoginStore.logout()}
+						/>
+					)}
+				</div>
+			</HeaderWrapper>
+		);
+	}),
+);
 const Icon = styled.img`
 	margin: auto;
 	height: 5vh;

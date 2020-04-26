@@ -9,8 +9,8 @@ import { LandingPage } from '../pages/app/LandingPage';
 import store from '../models/app/LoginModel';
 import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';
-import ForgotPass from '../pages/app/ForgotAndReset/ForgotPass'
-import ResetPass from '../pages/app/ForgotAndReset/ResetPass'
+import { ForgotPass } from '../pages/app/ForgotAndReset/ForgotPass';
+import { ResetPass } from '../pages/app/ForgotAndReset/ResetPass';
 
 const AppRouter = ({ match }) => {
 	return (
