@@ -15,7 +15,7 @@ genkeys() {
 }
 
 dbshell() {
-    source ./.env && docker exec -it hawkeye2020_db_1_b5f1a6956791 \
+    source ./.env && docker exec -it hawkeye2020_db_1 \
     mongo -u $DB_USER \
     -p $DB_PASSWORD \
     --authenticationDatabase $DB_NAME
