@@ -26,7 +26,9 @@ class GameplayModel {
 	
 	getQuestion=(region)=> {
 		this.locked=false
+		if(region){
 		this.region=parseInt(region);
+		}
 	
 		console.log(this.region)
 	get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);

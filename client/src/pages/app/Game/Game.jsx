@@ -23,6 +23,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 	observer(({ loginStore,match }) => {
 		useEffect(() => {
 			if(!loginStore.profileSet){
+				GameplayModel.locked=false;
 			loginStore.getProfile()
 			}
 			if((loginStore.profileSetError&&(!loginStore.loggedIn))){
