@@ -42,13 +42,14 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 
 		const [rules, setrules] = useState(false);
 		const [inventory, getinventory] = useState(false);
+
 		return loginStore.profileSet ?
 		 (
 			
 			<GameWrapper>
 				<img id='leftbar' src={leftBar} alt="leftbar"/>  
 						<img id='rightbar' src={rightBar} alt="rightbar" />
-				<Provider  gameplayStore={GameplayModel} >
+				<Provider  gameplayStore={GameplayModel}  >
 				
 					<nav className="Navbar">
 					<div className="navbar-btn">
@@ -76,10 +77,10 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 					</nav>
 					<div className="GameContent">
 						<div className="GameWrapper">
-							<QuestionBox match={match} />
+							<QuestionBox getinventory={getinventory} loginStore={loginStore} match={match} />
 							<HintsBox />
 							<AttemptsBox />
-							<InventoryBox loginStore={loginStore} match={match} inventory={inventory} getinventory={getinventory} />
+							<InventoryBox loginStore={loginStore}  match={match} inventory={inventory} getinventory={getinventory} />
 							{(!inventory) ? <div className='invertory-open' onClick={()=>{getinventory(true)}} ><span>INVENTORY</span></div>:null}
 							{rules && (
 								<div className="Rules">
@@ -114,12 +115,18 @@ const InventoryBox = inject('gameplayStore')(
 			
 			{ loginStore,gameplayStore,inventory,getinventory,match }) => 
 			{
+				console.log(gameplayStore.potionUsed+"lol")
+				console.log(loginStore.profile.itembool[parseInt(match.params.id)]+"lol")
+				useEffect(()=>{
+					gameplayStore.getInventory()
+				},[gameplayStore])
 				return (inventory)? <div className="inventory"><div><div className="close" onClick={()=>{getinventory(false)}}><i className="btn-close" >
 				<FontAwesomeIcon icon={faTimes} />
 			</i>
 </div>
+
 							
-							{loginStore.profile.itembool[parseInt(match.params.id)]&&(!gameplayStore.potionUsed) ? gameplayStore.inventory? <div className="inventory-items">
+							{gameplayStore.itembool[parseInt(match.params.id)]&&(!gameplayStore.potionUsed) ? gameplayStore.inventory? <div className="inventory-items">
 								
 								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button onClick={()=>{gameplayStore.useUnlockHint();loginStore.getProfile()}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{gameplayStore.useRegionMultiplier();loginStore.getProfile()
@@ -138,7 +145,7 @@ const InventoryBox = inject('gameplayStore')(
 
 const QuestionBox = inject('gameplayStore')(
 	observer(
-		({ gameplayStore,match }) => (
+		({ gameplayStore,match,loginStore ,getinventory}) => (
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
 					<div className="Level">Level {gameplayStore.level}</div>
@@ -159,7 +166,7 @@ const QuestionBox = inject('gameplayStore')(
 						></input>
 						{(gameplayStore.locked)&&(()=>{gameplayStore.locked=false; return true}) ? (<Redirect to="/login" />) : null}
 					</div>
-					<button onClick={() => gameplayStore.submit(match.params.id)}>SUBMIT</button>
+					<button onClick={() => {getinventory(false);loginStore.getProfile();gameplayStore.submit(match.params.id)}}>SUBMIT</button>
 					<div className="AnswerStatus">
 						<span>{gameplayStore.message}</span>
 					</div>
