@@ -11,7 +11,7 @@ import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';
 import ForgotPass from '../pages/app/ForgotAndReset/ForgotPass'
 import ResetPass from '../pages/app/ForgotAndReset/ResetPass'
-
+import AdminRouter from './AdminRouter'
 const AppRouter = ({ match }) => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
@@ -24,6 +24,7 @@ const AppRouter = ({ match }) => {
 				<Route path={'/game/:id'} component={Game}></Route>
 
 				<Route path={'/shop'} component={ShopPage}></Route>
+				<Route path="/___overwatch" component={AdminRouter} />
 				<Route path={'/'} component={LandingPage}></Route>
 			</Switch>
 		</Provider>

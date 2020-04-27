@@ -116,7 +116,7 @@ const InventoryBox = inject('gameplayStore')(
 			{ loginStore,gameplayStore,inventory,getinventory,match }) => 
 			{
 				console.log(gameplayStore.potionUsed+"lol")
-				console.log(loginStore.profile.itembool[parseInt(match.params.id)]+"lol")
+			
 				useEffect(()=>{
 					gameplayStore.getInventory()
 				},[gameplayStore])
@@ -306,6 +306,7 @@ color:#fff;
 .navbar-btn{
 	
 	margin:10px 0px;
+	margin-right:1rem;
 	width:40px;
 	height:50px;
 }
@@ -496,7 +497,7 @@ overflow-wrap:break-word;
 }
 .Attemptsheader div{
 	color: #fff;
-	font-size:25px;
+	font-size:23px;
 	font-family: 'Nidus Sans', sans-serif;
 	width:50%;
 	text-align:center;
@@ -620,7 +621,7 @@ li,h1{
 				}
 				.Attempts{
 					position:absolute;
-					right:7vh;
+					right:10vh;
 					top:30%;
 				}
 				.Hints{
@@ -634,43 +635,45 @@ li,h1{
 			}
 			@media only screen and (min-device-width : 1346px) {
 				.ActualHints{
-					left:10vh;
-					zoom:1.2;
+					
+					transform:scale(1.2);
 				}
 				.Attempts{
-					right:10vh;
-					zoom:1.2;
+					
+					transform:scale(1.2);
 				}
 				.QuestionBox{
-					zoom:1.2;
+					left:36%;
+					transform:scale(1.2)
 				}
 				.Rules{
 					left:30%;
-					right:30%
+					right:30%;
 				}
 			}
 			@media only screen and (min-device-width : ${size.laptopL}) {
 				.QuestionBox, .ActualHints,.Attempts{
-zoom:1.3
+					
+					transform:scale(1.3);
 				}
 				.nav-buttons,#hawklogo,#heading{
-					zoom:1.5;
+					transform:scale(1.5);
 				}
 			}
 			@media only screen and (min-device-width : ${size.desktop}) {
 				.QuestionBox, .ActualHints,.Attempts{
-zoom:1.5
+					transform:scale(1.5);
 				}
 			}
 
 			@media only screen and (max-device-width : 375px) {
 				.QuestionBox, .ActualHints,.Attempts{
-zoom:0.85
+					transform:scale(0.85);
 				}
 			}
  @media only screen and (max-device-width : 330px) {
 	.QuestionBox, .ActualHints,.Attempts{
-		zoom:0.9;
+		transform:scale(0.9);
 		padding-left:10px;
 		padding-right:10px;
 	}
