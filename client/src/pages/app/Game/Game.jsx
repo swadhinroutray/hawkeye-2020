@@ -3,10 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import  GameplayModel  from '../../../models/app/GameplayModel';
-import YellowCrystal from '../../../components/YellowCrystal';
-import BlueCrystal from '../../../components/BlueCrystal';
-import PurpleCrystal from '../../../components/PurpleCrystal';
-import RedCrystal from '../../../components/RedCrystal';
+import {AttemptsBox,HintsBox,QuestionBox,InventoryBox} from '../../../components/GamePageComponents'
 import Qbox from '../../../assets/Qbox.svg';
 import LogoutIcon from '../../../assets/LogoutIcon.svg'
 import RulesIcon from '../../../assets/RulesIcon.svg'
@@ -108,136 +105,13 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 	})
 );
 
-const InventoryBox = inject('gameplayStore')(
-	
-	observer(
-		(
-			
-			{ gameplayStore,inventory,getinventory,match }) => 
-			{
-				
-				useEffect(()=>{
-					gameplayStore.getInventory()
-				},[gameplayStore])
-				return (inventory)? <div className="inventory"><div><div className="close" onClick={()=>{getinventory(false)}}><i className="btn-close" >
-				<FontAwesomeIcon icon={faTimes} />
-			</i>
-</div>
-
-							
-							{gameplayStore.itembool[parseInt(match.params.id)]&&(!gameplayStore.potionUsed) ? (gameplayStore.inventory)? <div className="inventory-items">
-								
-								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useUnlockHint()}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useRegionMultiplier()
-								}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div >Hangman</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useHangman()}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div >Skip Question</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory(); gameplayStore.useSkipQuestion()}}>USE</button></div></div>:null}
-								</div>: <div>no potions</div>:<div>potion already used</div>	}</div>
-								<a href="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
-								</div>:null
-								}
-
-								
-		)
-)
-	
-
-const QuestionBox = inject('gameplayStore')(
-	observer(
-		({ gameplayStore,match,loginStore ,getinventory}) => (
-			<div className="QuestionBox">
-				<div className="QuestionWrapper">
-					<div className="Level">Level {gameplayStore.level}</div>
-					<div className="Question">{gameplayStore.question}</div>
-				</div>
-				<div className="AnswerWrapper">
-					<div className="AnswerField">
-						<input
-							name="answer"
-							type="text"
-							placeholder="Answer here"
-							value={gameplayStore.currentAnswer}
-							onChange={e => gameplayStore.setCurrentAnswer(e.target.value)}
-							onKeyPress={e => {
-								const code = e.keyCode || e.which;
-								if (code == 13) {getinventory(false);
-									gameplayStore.submit(match.params.id);}
-							}}
-						></input>
-						{(gameplayStore.locked)&&(()=>{gameplayStore.locked=false; return true}) ? (<Redirect to="/login" />) : null}
-					</div>
-					<button onClick={() => {getinventory(false);loginStore.getProfile();gameplayStore.submit(match.params.id)}}>SUBMIT</button>
-					<div className="AnswerStatus">
-						<span>{gameplayStore.message}</span>
-					</div>
-				</div>
-			</div>
-		)
-	)
-);
 
 
 
-const HintsBox = inject('gameplayStore')(
-	observer(
-		({ gameplayStore}) => (
-			<div className="HintsBox ActualHints">
-				<div className="HintsHeader">Hints</div>
-				<div className="Hints">
-					{gameplayStore.hints.map((hint, i) => (
-						<span className="Hint" key={i}>
-							{hint}
-						</span>
-					))}
-				</div>
-			</div>
-		)
-	)
-);
 
-const AttemptsBox = inject('gameplayStore')(
-	observer(
-		({ gameplayStore}) => {
-			const [attempts, setAttempts] = useState(true);
 
-			return (
-				<div className="HintsBox Attempts">
-					<div className="Attemptsheader">
-						<div
-						id="attemptsHead"
-							className={attempts ? 'selected' : ''}
-							onClick={() => setAttempts(true)}
-						>
-							Attempts
-						</div>
-						<div
-						id="statsHead"
-							className={!attempts ? 'selected' : ''}
-							onClick={() => setAttempts(false)}
-						>
-							Stats
-						</div>
-					</div>
-					<div className="stats">
-						{attempts ? (
-							gameplayStore.attempts.map((hint, i) => (
-								<span className="Hint" key={i}>
-									{hint}
-								</span>
-							))
-						) : (
-							<>
-								<span className="Hint">At Par: {gameplayStore.stats.atPar}</span>
-								<span className="Hint">Leading: {gameplayStore.stats.leading}</span>
-								<span className="Hint">Trailing: {gameplayStore.stats.trailing}</span>
-							</>
-						)}
-					</div>
-				</div>
-			);
-		}
-	)
-);
+
+
 const size = {
 	mobileS: '320px',
 	mobileM: '375px',
