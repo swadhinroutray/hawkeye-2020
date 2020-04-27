@@ -38,8 +38,8 @@ func ElixirName(elixirtype int) (name string, elixirpoints int) {
 		//case 3: TBD
 	default:
 		{
-			name = "Wrong ID"
-			elixirpoints = -1
+			name = "Skip Question"
+			elixirpoints = SkipQuestionPoints
 			return name, elixirpoints
 		}
 	}

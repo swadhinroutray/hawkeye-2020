@@ -67,7 +67,7 @@ func (app *App) getHiddenHints(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err != nil {
-		app.log.Errorf("Internal Server Erro: %s", err.Error())
+		app.log.Errorf("Internal Server Error: %s", err.Error())
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return
 	}
@@ -317,4 +317,63 @@ func in(arr []int, n int, val int) bool {
 		}
 	}
 	return false
+}
+
+func (app *App) skipQuestion(w http.ResponseWriter, r *http.Request) {
+	var fetchedElixir FetchedElixir
+	json.NewDecoder(r.Body).Decode(&fetchedElixir)
+	fetchedElixir.Elixir = 3
+	currUser := app.getUserTest(r)
+
+	// Check Eligibilty
+	if currUser.ItemBool[fetchedElixir.Region] == false {
+		app.sendResponse(w, false, Success, "A potion has already been used on this question")
+		return
+	}
+
+	// Check Inventory
+	message, status := app.checkInventory(r, currUser, fetchedElixir)
+	if !status {
+		app.sendResponse(w, false, message, "You do not have this Elixir")
+		return
+	}
+
+	SetField := fmt.Sprintf("level.%d", fetchedElixir.Region)
+
+	//Change level without awarding points
+	fmt.Println(fetchedElixir.QuestionNo)
+	if _, err := app.db.Collection("users").UpdateOne(
+		r.Context(),
+		bson.M{"_id": currUser.ID},
+		bson.M{"$set": bson.M{
+			SetField: fetchedElixir.QuestionNo + 1,
+		}},
+	); err != nil {
+		app.log.Errorf("Internal Server Error: %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	//Set Itembool to false, so that no other elixir can be used on this question
+	// itemBool := fmt.Sprintf("itembool.%d", fetchedElixir.Region)
+
+	// app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
+	// 	bson.M{
+	// 		"$set": bson.M{
+	// 			itemBool: false,
+	// 		},
+	// 	})
+
+	// Log the elixir
+	app.logElixir(r, fetchedElixir, true, false)
+
+	// Remove elixir from inventory
+	message, status = app.removeInventory(r, currUser, 3)
+
+	if !status {
+		app.sendResponse(w, false, message, nil)
+		return
+	}
+
+	app.sendResponse(w, true, Success, "Question skipped successfully")
 }

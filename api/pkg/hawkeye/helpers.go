@@ -41,6 +41,7 @@ const (
 	RegionMultiplierPoints = 100
 	ResetStoreMinValue     = 1500
 	ResetStorePrice        = 800
+	SkipQuestionPoints     = 100
 )
 
 //HTTP Status message ...
