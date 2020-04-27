@@ -1,5 +1,6 @@
 import { decorate, observable, action } from 'mobx';
 import { get, post } from '../../utils/api';
+
 const hawkResponses = {
 	Correct: `Hawk approves!`,
 	Wrong: `Hawk disapproves.`,
@@ -30,12 +31,12 @@ class GameplayModel {
 			this.region = parseInt(region);
 		}
 
-		console.log(this.region);
+		
 		get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);
 	};
 
 	getQuestionControl = res => {
-		console.log(res);
+	
 		if (res.success) {
 			if (res.data.question) {
 				this.questionId = res.data.id;
@@ -56,10 +57,11 @@ class GameplayModel {
 			this.locked = true;
 			alert('all questions answered');
 		}
+	
 	};
 
 	submit(region) {
-		console.log(region);
+		
 		if (this.currentAnswer.length === 0) return;
 		post(`/api/question/answer`, {
 			answer: this.currentAnswer,
@@ -70,7 +72,7 @@ class GameplayModel {
 	}
 
 	submitControl = res => {
-		console.log(hawkResponses[res.data.split(' ')[0]]);
+		
 		if (res.success) {
 			this.currentAnswer = '';
 			this.message = hawkResponses[res.data.split(' ')[0]];
@@ -91,7 +93,7 @@ class GameplayModel {
 	};
 
 	getTriesControl = res => {
-		console.log(res.data.submissions);
+		
 		if (res.success) {
 			this.itembool = res.data.itembool;
 			if (res.data.submissions) {
@@ -101,7 +103,7 @@ class GameplayModel {
 						submission.region === this.region &&
 						submission.level === this.level,
 				);
-				console.log(submissions);
+			
 
 				this.attempts.replace(submissions.map(sub => sub.answer));
 			}
@@ -114,12 +116,12 @@ class GameplayModel {
 	};
 
 	getStatsControl = res => {
-		console.log(res);
+		
 		if (res.success) {
 			this.stats.atPar = res.data.atPar;
 			this.stats.leading = res.data.leading;
 			this.stats.trailing = res.data.trailing;
-			console.log(this.stats);
+		
 		}
 		this.getInventory();
 	};
@@ -127,10 +129,11 @@ class GameplayModel {
 		get('/api/shop/getinventory').then(this.inventoryControl);
 	};
 	inventoryControl = res => {
-		console.log(res);
+	
 		if (res.success) {
 			this.inventory = [];
-			if (res.data.length > 0) {
+			if (res.data&&res.data.length > 0) {
+				
 				res.data.forEach(item => {
 					let newItem = item;
 					newItem.region = this.region;
@@ -140,7 +143,7 @@ class GameplayModel {
 			} else {
 				this.inventory.push(['No hints yet']);
 			}
-			console.log(this.inventory);
+			
 		}
 		this.getHiddenHints();
 	};
@@ -179,8 +182,20 @@ class GameplayModel {
 			question: this.questionId,
 			question_no: this.level,
 		};
-		post('/api/elixir/skipquestion', hangmanData).then(this.useEliirControl);
+		post('/api/elixir/skipquestion', hangmanData).then(this.useSkipQuestionControl);
 	}
+	useSkipQuestionControl = res => {
+		
+		if (res.success) {
+			this.getQuestion();
+			this.potionUsed = false;
+			alert('potion applied successfully');
+		} else {
+			alert('no hidden hint yet');
+		}
+		
+		
+	};
 	useRegionMultiplier() {
 		const multiplierData = {
 			elixir: 1,
@@ -194,8 +209,7 @@ class GameplayModel {
 		);
 	}
 	useEliirControl = res => {
-		console.log('came');
-		console.log(res);
+		
 		if (res.success) {
 			this.getQuestion();
 			this.potionUsed = true;
@@ -203,6 +217,8 @@ class GameplayModel {
 		} else {
 			alert('no hidden hint yet');
 		}
+		
+		
 	};
 	useUnlockHint() {
 		const unlockHintData = {
@@ -212,7 +228,7 @@ class GameplayModel {
 			question: this.questionId,
 			question_no: this.level,
 		};
-		console.log('clicked');
+		
 		post('/api/elixir/unlockhint', unlockHintData).then(this.useEliirControl);
 	}
 }

@@ -12,7 +12,7 @@ class ShopModel {
 		'Get an extra hint for a question of your choice',
 		'Add a 1.5 multiplier for a region that has been unlocked for you',
 		"Ever played Hangman? This is exactly what you're thinking right now. Get some letters of the final answer for a question of your choice",
-		'',
+		'Stuck with some question for a really long time? Here’s an elixir that lets you skip it!',
 	];
 	itemCost = [200, 300, 400, 500];
 	selected = 0;

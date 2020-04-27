@@ -354,15 +354,14 @@ func (app *App) skipQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Set Itembool to false, so that no other elixir can be used on this question
-	// itemBool := fmt.Sprintf("itembool.%d", fetchedElixir.Region)
+	itemBool := fmt.Sprintf("itembool.%d", fetchedElixir.Region)
 
-	// app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
-	// 	bson.M{
-	// 		"$set": bson.M{
-	// 			itemBool: false,
-	// 		},
-	// 	})
+	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
+		bson.M{
+			"$set": bson.M{
+				itemBool: true,
+			},
+		})
 
 	// Log the elixir
 	app.logElixir(r, fetchedElixir, true, false)

@@ -16,6 +16,7 @@ import { leftBar, rightBar, backgroundMesh } from '../../assets/landing-assets';
 export const LandingPage = observer(() => {
 	useEffect(() => {
 		GameplayModel.locked = false;
+		
 		console.log(GameplayModel.locked);
 	}, []);
 	return (

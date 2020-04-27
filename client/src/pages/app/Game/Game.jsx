@@ -29,14 +29,11 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 				alert("redirect")
 			}
 			
-				console.log(GameplayModel.locked)
-				console.log(loginStore.profileSetError)
-				console.log(loginStore.profileSet)
-			
-			console.log(parseInt(match.params.id))
 			GameplayModel.getQuestion(parseInt(match.params.id));
 			loginStore.getInventory()
+			
 			loginStore.clearErrors();
+			GameplayModel.clearMessage()
 			
 		}, [loginStore,match,GameplayModel]);
 
@@ -116,10 +113,9 @@ const InventoryBox = inject('gameplayStore')(
 	observer(
 		(
 			
-			{ loginStore,gameplayStore,inventory,getinventory,match }) => 
+			{ gameplayStore,inventory,getinventory,match }) => 
 			{
-				console.log(gameplayStore.potionUsed+"lol")
-			
+				
 				useEffect(()=>{
 					gameplayStore.getInventory()
 				},[gameplayStore])
@@ -129,13 +125,13 @@ const InventoryBox = inject('gameplayStore')(
 </div>
 
 							
-							{gameplayStore.itembool[parseInt(match.params.id)]&&(!gameplayStore.potionUsed) ? gameplayStore.inventory? <div className="inventory-items">
+							{gameplayStore.itembool[parseInt(match.params.id)]&&(!gameplayStore.potionUsed) ? (gameplayStore.inventory)? <div className="inventory-items">
 								
-								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button onClick={()=>{gameplayStore.useUnlockHint();loginStore.getProfile()}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{gameplayStore.useRegionMultiplier();loginStore.getProfile()
+								{gameplayStore.inventory.some(obj=>obj.elixir==0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div>Extrahint</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useUnlockHint()}}>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useRegionMultiplier()
 								}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div >Hangman</div><button onClick={()=>{gameplayStore.useHangman();loginStore.getProfile()}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div >Skip Question</div><button onClick={()=>{gameplayStore.useSkipQuestion();loginStore.getProfile()}}>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div >Hangman</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useHangman()}}>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div >Skip Question</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory(); gameplayStore.useSkipQuestion()}}>USE</button></div></div>:null}
 								</div>: <div>no potions</div>:<div>potion already used</div>	}</div>
 								<a href="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
 								</div>:null
@@ -164,7 +160,8 @@ const QuestionBox = inject('gameplayStore')(
 							onChange={e => gameplayStore.setCurrentAnswer(e.target.value)}
 							onKeyPress={e => {
 								const code = e.keyCode || e.which;
-								if (code == 13) gameplayStore.submit(match.params.id);
+								if (code == 13) {getinventory(false);
+									gameplayStore.submit(match.params.id);}
 							}}
 						></input>
 						{(gameplayStore.locked)&&(()=>{gameplayStore.locked=false; return true}) ? (<Redirect to="/login" />) : null}
@@ -251,7 +248,7 @@ const size = {
 	desktop: '1560px',
 };
 const GameWrapper = styled.div`
-
+font-family: 'Nidus Sans', sans-serif;
 #heading{
 
 	margin-left:15px;
@@ -291,10 +288,16 @@ const GameWrapper = styled.div`
 .inventory-item{
 	margin-top:10px;
 	display:flex;
+
+}
+.Hint{
+	font-size:13px;
 }
 .inventory-item-content button{
 font-size:10px;
-
+:hover{
+	cursor:pointer;
+}
 background-image:url(${ButtonBox});
 	background-color:transparent;
 	background-repeat:no-repeat;
@@ -305,14 +308,16 @@ color:#fff;
 	height:30px;
 }
 .navbar-btn img{
-	
+	:hover{
+	cursor:pointer;
+}
 	margin:2vh 3vw 0rem 0rem;
 	
 	width:40px;
 	height:50px;
 }
 .QuestionBox{
-	
+	font-family: 'Nidus Sans', sans-serif;
 	display:flex;
 	flex-direction:column;
 	justify-content:center;
@@ -346,15 +351,16 @@ max-height:300px;
 	text-align:center;
 	color: #fff;
 	font-size:30px;
-	letter-spacing:1px;
+	
 	
 }
 .Hints{
 	display:flex;
 	flex-direction:column;
 	height:180px;
-	
+	text-align:center;
 	overflow-y:scroll;
+	font-size:13px;
 	
 }
 .Hints::-webkit-scrollbar { 
@@ -365,9 +371,14 @@ max-height:300px;
             }
 .inventory{
 	border-top:2px solid #7FD1E0;
+	border-right:2px solid #7FD1E0;
+	border-left:2px solid #7FD1E0;
+	
 	position:fixed;
 	display:flex;
 	justify-content:space-between;
+	
+	
 	bottom: 0;
 	min-height:20vh;
 	left:0;
@@ -406,6 +417,10 @@ max-height:300px;
 .close{
 	font-size:20px;
 	color: #fff;
+	margin:3px;
+	:hover{
+	cursor:pointer;
+}
 }
 .AnswerField input{
 	width:90%;
@@ -419,6 +434,9 @@ max-height:300px;
 	border-bottom:1px solid #7FD1E0;
 }
 .AnswerWrapper button{
+	:hover{
+	cursor:pointer;
+}
 	margin-top:10px;
 	background-image:url(${ButtonBox});
 	background-color:transparent;
@@ -429,7 +447,7 @@ max-height:300px;
 	height:30px;
 	width:82px;
 	margin-bottom:5px;
-	font-size:13px;
+	font-size:9px;
 	
 }
 .selected{
@@ -452,7 +470,7 @@ img{
 	overflow:hidden;
 	overflow-y:scroll;
 	font-family: 'Nidus Sans', sans-serif;
-	
+	font-size:13px;
 overflow-wrap:break-word;
 
 }
@@ -463,13 +481,13 @@ overflow-wrap:break-word;
 	font-family: 'Nidus Sans', sans-serif;
 	color: #fff;
 	font-size:3vh;
-	letter-spacing:1px;
+	
 }
 .ActualHints{
 	
 	background-image:url(${Qbox});
 	background-repeat:no-repeat;
-	
+
 	
 	overflow:hidden;
 
@@ -497,6 +515,9 @@ overflow-wrap:break-word;
 	
 }
 .Attemptsheader div{
+	:hover{
+		cursor:pointer;
+	}
 	color: #fff;
 	font-size:23px;
 	font-family: 'Nidus Sans', sans-serif;
@@ -513,6 +534,9 @@ overflow-wrap:break-word;
 
 }
 .invertory-open{
+	:hover{
+	cursor:pointer;
+}
 	position:fixed;
 	bottom: 0;
 	left:50%;
@@ -542,7 +566,7 @@ overflow-wrap:break-word;
 	margin:6px;
 	width:60px;
 }
-
+overflow-x:hidden;
 .slider {
 	background:white;
 	position:fixed;
@@ -598,10 +622,27 @@ li,h1{
 	font-size:30px;
 	
 }
+.inventory-items{
+	display:flex;
+	flex-direction:column;
+	
+	
+}
+
 .Rules::-webkit-scrollbar { 
                 display: none; 
             }
-			@media only screen and (min-device-width : 1174px) {
+			@media  (min-device-width : 1174px) {
+				.inventory{
+	left:35%;
+	right:35%;
+
+	
+	
+}
+.Attemptsheader div{
+	font-size:20px;
+}
 				.game-play{
 					display:flex;
 					align-items:center;
@@ -637,7 +678,7 @@ li,h1{
 				height: 90px;
 				}
 			}
-			@media only screen and (min-device-width : 1346px) {
+			@media  (min-device-width : 1346px) {
 				.ActualHints{
 					
 					transform:scale(1.2);
@@ -648,14 +689,14 @@ li,h1{
 				}
 				.QuestionBox{
 					
-					transform:scale(1.2)
+					transform:scale(1.3)
 				}
 				.Rules{
 					left:30%;
 					right:30%;
 				}
 			}
-			@media only screen and (min-device-width : ${size.laptopL}) {
+			@media   (min-device-width : ${size.laptopL}) {
 				.QuestionBox, .ActualHints,.Attempts{
 					
 					transform:scale(1.3);
@@ -664,18 +705,18 @@ li,h1{
 					transform:scale(1.5);
 				}
 			}
-			@media only screen and (min-device-width : ${size.desktop}) {
+			@media  (min-device-width : ${size.desktop}) {
 				.QuestionBox, .ActualHints,.Attempts{
 					transform:scale(1.5);
 				}
 			}
 
-			@media only screen and (max-device-width : 375px) {
+			@media  (max-device-width : 375px) {
 				.QuestionBox, .ActualHints,.Attempts{
 					transform:scale(0.85);
 				}
 			}
- @media only screen and (max-device-width : 330px) {
+ @media  (max-device-width : 330px) {
 	.QuestionBox, .ActualHints,.Attempts{
 		transform:scale(0.9);
 		padding-left:10px;
