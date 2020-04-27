@@ -3,10 +3,26 @@ import styled from 'styled-components';
 import { LoginFormWrapper } from '../LoginPage/LoginForm';
 import { LoginPageWrapper } from '../LoginPage/LoginPage';
 import { observer, inject } from 'mobx-react';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 
 export const ResetPass = inject('loginStore')(
 	observer(({ loginStore, location }) => {
+=======
+import { Link,Redirect } from 'react-router-dom';
+
+export const ResetPass = inject('loginStore')(
+	observer(({ loginStore, location }) => {
+		const [primaryCheck,setPrimarCheck]=useState(false)
+		useEffect(() => {
+			if(!primaryCheck){
+				setPrimarCheck(false)
+			loginStore.getProfile()
+
+		}
+			loginStore.clearErrors();
+		}, [loginStore]);
+>>>>>>> 762c45dd43fd5778275f591ee8640e8c9babc105
 		return (
 			<LoginPageWrapper>
 				<h1 className="hawkeye">Hawkeye</h1>
@@ -62,6 +78,10 @@ export const ResetPass = inject('loginStore')(
 						</form>
 					</LoginFormWrapper>
 				)}
+<<<<<<< HEAD
+=======
+				{loginStore.loggedIn ? <Redirect to="/" /> : null}
+>>>>>>> 762c45dd43fd5778275f591ee8640e8c9babc105
 			</LoginPageWrapper>
 		);
 	}),
