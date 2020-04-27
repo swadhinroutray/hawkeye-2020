@@ -98,7 +98,7 @@ const RegisterForm = inject('registerStore')(
 		const [primaryCheck,setPrimarCheck]=useState(false)
 		useEffect(() => {
 			if(!primaryCheck){
-				setPrimarCheck(false)
+				setPrimarCheck(true)
 			loginStore.getProfile()
 
 		}

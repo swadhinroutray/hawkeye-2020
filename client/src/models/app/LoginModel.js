@@ -111,7 +111,7 @@ class LoginModel {
 
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		else if (res.message === 'UNAUTHORIZED') {
+		else if (res.message === 'UNAUTHORIZED'&&this.formData.password.value.length) {
 			this.formData.password.error = 'Incorrect password';
 		} else {
 			console.log('error');

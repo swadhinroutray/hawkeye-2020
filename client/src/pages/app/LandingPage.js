@@ -35,7 +35,7 @@ export const LandingPage = observer(() => {
 								type="range"
 								name="region-selector"
 								min="0"
-								max="59"
+								max="49"
 								onChange={e =>
 									store.changeRegion(Math.floor(e.target.value / 10))
 								}
@@ -47,7 +47,7 @@ export const LandingPage = observer(() => {
 						<RegionInfo />
 						<Waves />
 					</Wrapper>
-					<Events>TODAY'S LIST OF EVENTS</Events>
+					
 				</Page>
 			</Provider>
 		</Provider>

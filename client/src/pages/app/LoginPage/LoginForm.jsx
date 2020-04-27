@@ -8,11 +8,14 @@ export const LoginForm = inject('loginStore')(
 		const [primaryCheck,setPrimarCheck]=useState(false)
 		useEffect(() => {
 			if(!primaryCheck){
-				setPrimarCheck(false)
+				setPrimarCheck(true)
 			loginStore.getProfile()
+			loginStore.clearErrors();
 
 		}
+		
 			loginStore.clearErrors();
+		
 		}, [loginStore]);
 		return (
 			<LoginFormWrapper>
