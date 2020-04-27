@@ -35,11 +35,7 @@ export const LoginForm = inject('loginStore')(
 				<Link className="link-forgot" to="/forgot">
 					Forgot Password
 				</Link>
-<<<<<<< HEAD
 				{loginStore.loggedIn ? <Redirect to="/regions" /> : null}
-=======
-				{loginStore.loggedIn ? <Redirect to="/" /> : null}
->>>>>>> 25d0c139943428f6eb9c0e9055603c5d79580ba9
 			</LoginFormWrapper>
 		);
 	}),
