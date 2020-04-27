@@ -77,10 +77,13 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 					</nav>
 					<div className="GameContent">
 						<div className="GameWrapper">
+							<div className="game-play">
 							<QuestionBox getinventory={getinventory} loginStore={loginStore} match={match} />
 							<HintsBox />
 							<AttemptsBox />
+							</div>
 							<InventoryBox loginStore={loginStore}  match={match} inventory={inventory} getinventory={getinventory} />
+						
 							{(!inventory) ? <div className='invertory-open' onClick={()=>{getinventory(true)}} ><span>INVENTORY</span></div>:null}
 							{rules && (
 								<div className="Rules">
@@ -275,12 +278,10 @@ const GameWrapper = styled.div`
 }
 .nav-buttons{
 	display:flex;
-	justify-content:space-between;
+	
 	
 }
-.navbar-btn{
-	padding-right:5px;
-}
+
 .crystal{
 	width:55px;
 	height:55px;
@@ -303,10 +304,10 @@ color:#fff;
 	width:70px;
 	height:30px;
 }
-.navbar-btn{
+.navbar-btn img{
 	
-	margin:10px 0px;
-	margin-right:1rem;
+	margin:2vh 3vw 0rem 0rem;
+	
 	width:40px;
 	height:50px;
 }
@@ -601,28 +602,31 @@ li,h1{
                 display: none; 
             }
 			@media only screen and (min-device-width : 1174px) {
+				.game-play{
+					display:flex;
+					align-items:center;
+					height:70vh;
+					left:5%;
+					right:5%;
+					justify-content:space-between;
+					position:fixed;
+				}
 				#heading{
 				margin-left:40px ;
 				}
-				.GameWrapper{
-					display:flex;
-				}
+				
 				.QuestionBox{
-					position:fixed;
-					top:25%;
-					left:48%;
-					transform:translateX(-45%);
+					order:2;
+					
 				}
 				.ActualHints{
-				position:absolute;
-				left:10vh;
-				top:28%;
+			
+				order:1
+				
 					
 				}
 				.Attempts{
-					position:absolute;
-					right:10vh;
-					top:30%;
+					order:3;
 				}
 				.Hints{
 					height: 130px;
@@ -643,7 +647,7 @@ li,h1{
 					transform:scale(1.2);
 				}
 				.QuestionBox{
-					left:36%;
+					
 					transform:scale(1.2)
 				}
 				.Rules{
