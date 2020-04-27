@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router';
+import { Switch, Redirect } from 'react-router';
 import { RegisterPage } from '../pages/app/RegisterPage/RegisterPage';
 import LoginPage from '../pages/app/LoginPage/LoginPage';
 import Game from '../pages/app/Game/Game';
@@ -9,9 +9,9 @@ import { LandingPage } from '../pages/app/LandingPage';
 import store from '../models/app/LoginModel';
 import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';
-import ForgotPass from '../pages/app/ForgotAndReset/ForgotPass'
-import ResetPass from '../pages/app/ForgotAndReset/ResetPass'
-import AdminRouter from './AdminRouter'
+import {ForgotPass} from '../pages/app/ForgotAndReset/ForgotPass'
+import {ResetPass} from '../pages/app/ForgotAndReset/ResetPass'
+
 const AppRouter = ({ match }) => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
@@ -20,12 +20,12 @@ const AppRouter = ({ match }) => {
 				<Route path={'/login'} component={LoginPage}></Route>
 				<Route path={'/forgot'} component={ForgotPass}></Route>
 				<Route path={'/reset'} component={ResetPass}></Route>
-				<Route path={'/home'} component={LandingPage}></Route>
+				<Route path={'/regions'} component={LandingPage}></Route>
 				<Route path={'/game/:id'} component={Game}></Route>
 
 				<Route path={'/shop'} component={ShopPage}></Route>
-				<Route path="/___overwatch" component={AdminRouter} />
-				<Route path={'/'} component={LandingPage}></Route>
+				
+				<Route path={'/'} component={LoginPage}></Route>
 			</Switch>
 		</Provider>
 	);

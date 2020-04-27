@@ -1,22 +1,35 @@
 import { isEmail } from 'validator';
-import { decorate, observable, action, computed } from 'mobx';
+import { decorate, observable, action } from 'mobx';
 import {
 	chainValidations,
 	validateRequired,
 	validateWithError,
 } from '../../utils/validation';
-import {get,post} from '../../utils/api'
-class LoginModel {	
-    formData= {email:{value:"",error:""},password:{value:"",error:""}}
-	loggedIn= false
-	profile= {}
-	profileSet= false
-	profileSetError= false
+import { get, post } from '../../utils/api';
+class LoginModel {
+	formData = {
+		email: { value: '', error: '' },
+		password: { value: '', error: '' },
+	};
+	loggedIn = false;
+	profile = {};
+	profileSet = false;
+	profileSetError = false;
 
-    setField(field, newValue) {
+	isForgotLoading = false;
+	forgotEmailSent = false;
+
+	isResetLoading = false;
+	resetSuccess = false;
+	passwordError = '';
+	resetForm = {
+		resetPassword: { value: '', err: '' },
+		confirmPassword: { value: '', err: '' },
+	};
+
+	setField(field, newValue) {
 		this.formData[field].value = newValue;
 		let err = '';
-
 		if (loginValidator[field](newValue)) err = loginValidator[field](newValue);
 		this.formData[field].error = err;
 	}
@@ -55,12 +68,11 @@ class LoginModel {
 		post('/api/auth/login', postData).then(this.loginControl);
 	}
 
-    loginControl=(res) =>{
-		console.log(res)
+	loginControl = res => {
+		console.log(res);
 		if (res.success) {
 			
-			this.loggedIn = true;
-			console.log(res.data)
+			console.log(res.data);
 			const {
 				id,
 				name,
@@ -73,7 +85,7 @@ class LoginModel {
 				level,
 				invertory,
 				points,
-				itembool
+				itembool,
 			} = res.data;
 
 			this.profile.id = id;
@@ -88,71 +100,169 @@ class LoginModel {
 			this.profile.invertory = invertory;
 			this.profile.points = points;
 			this.profile.itembool = itembool;
-			this.profileSet=true
-			this.loggedIn=true
+			this.profileSet = true;
+			this.loggedIn = true;
 			this.setField('email', '');
 			this.setField('password', '');
+			this.loggedIn = true;
 			return;
 		}
-		this.profileSetError=true
-		
+		this.profileSetError = true;
+
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		else if (res.message === 'UNAUTHORIZED'){
+		else if (res.message === 'UNAUTHORIZED') {
 			this.formData.password.error = 'Incorrect password';
-			
-		
-		}else{
-			console.log("error")
+		} else {
+			console.log('error');
 		}
-	}
+	};
 
 	logout() {
-		post('/api/auth/logout').then(this.logoutControl)
+		post('/api/auth/logout').then(this.logoutControl);
 	}
 
 	logoutControl = res => {
 		if (res.success) {
 			this.loggedIn = false;
-			this.profileSet=false;
-			this.profileSetError=true;
+			this.profileSet = false;
+			this.profileSetError = true;
+			console.log('Logged out');
+		}
+	};
+
+	forgotPassword() {
+		this.formData.email.error = loginValidator['email'](
+			this.formData.email.value,
+		);
+
+		if (this.formData.email.error !== '') {
+			console.log('err');
+			return;
+		}
+
+		this.isForgotLoading = true;
+
+		const { email } = this.formData;
+		const postData = { email: email.value };
+
+		post('/api/auth/forgotpassword', postData).then(this.forgotControl);
+	}
+	forgotControl = res => {
+		console.log(res);
+		if (res.success) {
+			console.log('Sent');
+			this.forgotEmailSent = true;
+		} else {
+			console.log('Errr');
+		}
+		this.isForgotLoading = false;
+	};
+
+	setPassword(field, newValue) {
+		this.passwordError = '';
+		this.resetForm[field].value = newValue;
+		if (loginValidator['password'](newValue))
+			this.resetForm[field].error = loginValidator['password'](newValue);
+	}
+	resetPassword(resetToken) {
+		this.isResetLoading = true;
+
+		//Validate both password fields
+		this.resetForm.resetPassword.error = loginValidator['password'](
+			this.resetForm.resetPassword.value,
+		);
+		this.resetForm.confirmPassword.error = loginValidator['password'](
+			this.resetForm.confirmPassword.value,
+		);
+
+		if (
+			[
+				this.resetForm.resetPassword.error,
+				this.resetForm.confirmPassword.error,
+			].some(err => err !== '')
+		) {
+			this.isResetLoading = false;
+			return;
+		}
+
+		//Check if they match
+		if (
+			this.resetForm.resetPassword.value !==
+			this.resetForm.confirmPassword.value
+		) {
+			this.passwordError = 'The two passwords do not match.';
+			this.isResetLoading = false;
+			return;
+		}
+
+		let postData = {
+			password: this.resetForm.resetPassword.value,
+			password2: this.resetForm.confirmPassword.value,
+			token: resetToken,
+		};
+
+		try {
+			post('/api/auth/resetpassword', postData).then(this.resetControl);
+		} catch (err) {
+			this.passwordError = 'An error has occurred';
+			console.log(err);
+		} finally {
+			this.isResetLoading = false;
+			this.resetForm = {
+				resetPassword: { value: '', err: '' },
+				confirmPassword: { value: '', err: '' },
+			};
+		}
+	}
+
+	resetControl = res => {
+		if (res.success) {
+			//On success, show that the password has been reset and show link Login page
+			this.resetSuccess = true;
+		} else {
+			this.passwordError = 'Something went wrong.';
 		}
 	};
 
 	getProfile() {
-
-		get('/api/users/getprofile').then(this.loginControl)
-
+		get('/api/users/getprofile').then(this.loginControl);
 	}
-	getInventory(){
-		get('/api/shop/getinventory').then(this.inventoryControl)
+	getInventory() {
+		get('/api/shop/getinventory').then(this.inventoryControl);
 	}
-	inventoryControl=(res)=>{
-		if(res.success){
-			this.profile.inventory=res.data
+	inventoryControl = res => {
+		if (res.success) {
+			this.profile.inventory = res.data;
 		}
-	}
+	};
 }
 
+decorate(LoginModel, {
+	formData: observable,
+	loggedIn: observable,
 
+	profile: observable,
+	profileSet: observable,
+	profileSetError: observable,
+	setField: action,
+	clearErrors: action,
+	validateAll: action,
+	login: action,
+	getInventory: action,
 
-decorate(LoginModel,{
-    formData:observable,
-    loggedIn:observable,
-    profile:observable,
-	profileSet:observable,
-	profileSetError:observable,
-    setField:action,
-    clearErrors:action,
-    validateAll:action,
-	login:action,
-	getInventory:action
-})
+	isForgotLoading: observable,
+	forgotEmailSent: observable,
 
-const store=new LoginModel()
+	isResetLoading: observable,
+	resetSuccess: observable,
+	resetForm: observable,
+	passwordError: observable,
+});
 
-const loginValidator= {
+const store = new LoginModel();
 
+const loginValidator = {
 	email: email =>
 		chainValidations(
 			validateRequired(email, 'Email'),

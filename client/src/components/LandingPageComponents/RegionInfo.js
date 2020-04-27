@@ -1,21 +1,15 @@
-import React,{useState,useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DescriptionBg from '../../assets/landing-assets/DescriptView.svg';
 import { startButton } from '../../assets/landing-assets';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
-import { LandingPage } from '../../pages/app/LandingPage';
-import  GameplayModel  from '../../models/app/GameplayModel';
+import GameplayModel from '../../models/app/GameplayModel';
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore }) => {
-		
-	useEffect(()=>{
-	
-
-GameplayModel.locked=false;
-
-	},[GameplayModel])
+		useEffect(() => {
+			GameplayModel.locked = false;
+		}, []);
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />

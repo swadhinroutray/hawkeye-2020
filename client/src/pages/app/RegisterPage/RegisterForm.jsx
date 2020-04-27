@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
-
+import { Link ,Redirect} from 'react-router-dom';
+import loginStore from '../../../models/app/LoginModel'
 const RegisterFormWrapper = styled.div`
 	color: #fff;
 	border: 3px solid #3abdb7;
@@ -93,7 +93,19 @@ const RegisterFormWrapper = styled.div`
 	}
 `;
 const RegisterForm = inject('registerStore')(
-	observer(({ registerStore }) => (
+	observer(({ registerStore }) => {
+		
+		const [primaryCheck,setPrimarCheck]=useState(false)
+		useEffect(() => {
+			if(!primaryCheck){
+				setPrimarCheck(false)
+			loginStore.getProfile()
+
+		}
+			loginStore.clearErrors();
+		}, [loginStore]);
+		return (
+
 		<RegisterFormWrapper>
 			<h1 className="header">REGISTER</h1>
 			<h6 className="subhead">Create a new account</h6>
@@ -171,8 +183,9 @@ const RegisterForm = inject('registerStore')(
 			<Link className="link-register" to="/login">
 				Back to login
 			</Link>
+			{loginStore.loggedIn ? <Redirect to="/" /> : null}
 		</RegisterFormWrapper>
-	)),
+	)}),
 );
 
 export default RegisterForm;

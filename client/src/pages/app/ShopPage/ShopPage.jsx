@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import ShopItem from './ShopItem';
@@ -400,6 +400,7 @@ class ShopPage extends Component {
 				<Link className="back" to="/regions">
 					<BackButton />
 				</Link>
+				{this.props.loginStore.loggedIn ? <Redirect to="/login" /> : null}
 			</ShopPageContainer>
 		);
 	}

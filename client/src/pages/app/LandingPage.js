@@ -1,8 +1,10 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { observer, Provider } from 'mobx-react';
 import store from '../../models/app/LandingPageModel';
-import GameplayModel from '../../models/app/GameplayModel'
+import GameplayModel from '../../models/app/GameplayModel';
+import LoginStore from '../../models/app/LoginModel';
+
 import {
 	RegionInfo,
 	Header,
@@ -12,38 +14,41 @@ import {
 import { leftBar, rightBar, backgroundMesh } from '../../assets/landing-assets';
 
 export const LandingPage = observer(() => {
-	useEffect(()=>{
-GameplayModel.locked=false
-console.log(GameplayModel.locked)
-	},[GameplayModel])
+	useEffect(() => {
+		GameplayModel.locked = false;
+		console.log(GameplayModel.locked);
+	}, []);
 	return (
-		<Provider LandingStore={store}>
-			<Page>
-				<Header />
-				<Wrapper>
-					<RegionSelector>
-						<LeftBar src={leftBar} />
-						<RightBar src={rightBar} />
-						<h5>WELCOME WAYNE</h5>
-						<h4>SELECT YOUR REGION</h4>
-						<Hologram />
-						<Slider
-							type="range"
-							name="region-selector"
-							min="0"
-							max="59"
-							onChange={e =>
-								store.changeRegion(Math.floor(e.target.value / 10))
-							}
-						/>
-						<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
-					</RegionSelector>
+		<Provider LoginStore={LoginStore}>
+			<Provider LandingStore={store}>
+				<Page>
+					<Header />
+					<Wrapper>
+						<RegionSelector>
+							<LeftBar src={leftBar} />
+							<RightBar src={rightBar} />
+							<h5>WELCOME {LoginStore.profile.username?.toUpperCase()}</h5>
+							<h4>SELECT YOUR REGION</h4>
+							<Hologram />
+							<Slider
+								type="range"
+								name="region-selector"
+								min="0"
+								max="59"
+								onChange={e =>
+									store.changeRegion(Math.floor(e.target.value / 10))
+								}
+								value={store.currentRegion * 10}
+							/>
+							<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
+						</RegionSelector>
 
-					<RegionInfo />
-					<Waves />
-				</Wrapper>
-				<Events>TODAY'S LIST OF EVENTS</Events>
-			</Page>
+						<RegionInfo />
+						<Waves />
+					</Wrapper>
+					<Events>TODAY'S LIST OF EVENTS</Events>
+				</Page>
+			</Provider>
 		</Provider>
 	);
 });
