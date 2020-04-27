@@ -135,7 +135,7 @@ const InventoryBox = inject('gameplayStore')(
 								{gameplayStore.inventory.some(obj=>obj.elixir==1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div>RegionMultiplier</div><button onClick={()=>{gameplayStore.useRegionMultiplier();loginStore.getProfile()
 								}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div >Hangman</div><button onClick={()=>{gameplayStore.useHangman();loginStore.getProfile()}}>USE</button></div></div>:null}
-								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div>tbd</div><button>USE</button></div></div>:null}
+								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div >Skip Question</div><button onClick={()=>{gameplayStore.useSkipQuestion();loginStore.getProfile()}}>USE</button></div></div>:null}
 								</div>: <div>no potions</div>:<div>potion already used</div>	}</div>
 								<a href="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
 								</div>:null

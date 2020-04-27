@@ -171,6 +171,16 @@ class GameplayModel {
 		};
 		post('/api/elixir/hangman', hangmanData).then(this.useEliirControl);
 	}
+	useSkipQuestion() {
+		const hangmanData = {
+			elixir: 3,
+			elixir_name: 'Skip Question',
+			region: this.region,
+			question: this.questionId,
+			question_no: this.level,
+		};
+		post('/api/elixir/skipquestion', hangmanData).then(this.useEliirControl);
+	}
 	useRegionMultiplier() {
 		const multiplierData = {
 			elixir: 1,
