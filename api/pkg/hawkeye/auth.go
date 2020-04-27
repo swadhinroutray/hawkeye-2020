@@ -98,7 +98,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Points:           0,
 		RegionUnlock:     regionOrder,
 		ItemBool:         [5]bool{true, true, true, true, true},
-		ToBuy:            []int{2, 2, 2, 1},
+		ToBuy:            []int{2, 1, 2, 1},
 		History:          []Elixir{},
 		RegionMultiplier: -1,
 		Submissions:      []Submission{},

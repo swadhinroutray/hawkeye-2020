@@ -33,4 +33,4 @@ $ ./Taskfile.sh genkeys
 - 0 Extra Hint
 - 1 Region Multiplier
 - 2 Hangman
-- 3 TBD
+- 3 Skip Question
