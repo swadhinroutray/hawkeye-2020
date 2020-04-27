@@ -21,8 +21,8 @@ async function addQuestions (region, level){
             },
             
             body: JSON.stringify({
-                'email': process.env.ADMIN_EMAIL,
-                'password': process.env.ADMIN_PASS
+                'email': "swadhin@gmail.com",
+                'password': "abcd"
             })
         }
     ));
