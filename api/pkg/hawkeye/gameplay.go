@@ -205,21 +205,6 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (app *App) unlockNextRegion(currUser User, r *http.Request) {
-	nextUnlock := currUser.UnlockedRegions + 1
-	if nextUnlock < 5 {
-		levelUnlock := fmt.Sprintf("level.%d", currUser.RegionUnlock[nextUnlock])
-		app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
-			bson.M{
-				"$set": bson.M{
-					"unlocked":  nextUnlock,
-					levelUnlock: 1,
-				},
-			},
-		)
-	}
-}
-
 //RankResponse ...
 type RankResponse struct {
 	AtPar    int `json:"atPar"`
