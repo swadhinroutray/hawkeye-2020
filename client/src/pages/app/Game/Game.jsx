@@ -22,9 +22,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 			
 			loginStore.getProfile()
 			
-			if((loginStore.profileSetError&&(!loginStore.loggedIn))){
-				alert("redirect")
-			}
+			
 			
 			GameplayModel.getQuestion(parseInt(match.params.id));
 			loginStore.getInventory()
@@ -122,17 +120,19 @@ const size = {
 	desktop: '1560px',
 };
 const GameWrapper = styled.div`
-font-family: 'Nidus Sans', sans-serif;
+@font-face {font-family: "Futura PT Heavy"; src: url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.eot"); src: url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.woff") format("woff"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.svg#Futura PT Heavy") format("svg"); }
+@font-face {font-family: "Futura PT Medium"; src: url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.eot"); src: url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.woff") format("woff"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.svg#Futura PT Medium") format("svg"); }
 #heading{
-
+	
 	margin-left:15px;
 	color:#fff;
 	
-	font-size:5.5vh;
+	font-size:5.8vh;
 	align-self: center;
 	font-weight:bold;
-	font-family: 'Nidus Sans', sans-serif;
+
 	
+	font-family: "Futura PT Heavy"
 }
 
 
@@ -160,15 +160,22 @@ font-family: 'Nidus Sans', sans-serif;
 	margin-top:0;
 }
 .inventory-item{
+	font-size:18px;
+	font-family: "Futura PT Medium";
 	margin-top:10px;
 	display:flex;
 
 }
+.crystal svg{
+	font-size:5rem!important;
+}
 .Hint{
 	font-size:13px;
+	text-align:center;
 }
 .inventory-item-content button{
-font-size:10px;
+font-size:13px;
+font-family: "Futura PT Medium";
 :hover{
 	cursor:pointer;
 }
@@ -191,7 +198,7 @@ color:#fff;
 	height:50px;
 }
 .QuestionBox{
-	font-family: 'Nidus Sans', sans-serif;
+	font-family: "Futura PT Medium";
 	display:flex;
 	flex-direction:column;
 	justify-content:center;
@@ -221,7 +228,7 @@ max-height:300px;
 	width:100%;
 }
 .HintsHeader{
-	font-family: 'Nidus Sans', sans-serif;
+	font-family: "Futura PT Heavy";
 	text-align:center;
 	color: #fff;
 	font-size:30px;
@@ -252,7 +259,7 @@ max-height:300px;
 	display:flex;
 	justify-content:space-between;
 	
-	
+	font-family: "Futura PT Medium";
 	bottom: 0;
 	min-height:20vh;
 	left:0;
@@ -291,10 +298,15 @@ max-height:300px;
 .close{
 	font-size:20px;
 	color: #fff;
-	margin:3px;
+	margin:1px;
+	text-align:right;
 	:hover{
 	cursor:pointer;
 }
+}
+#inventory-right{
+	display:flex;
+	flex-direction:row-reverse;
 }
 .AnswerField input{
 	width:90%;
@@ -306,6 +318,7 @@ max-height:300px;
 	border-left:5px solid #7FD1E0;
 	border-top:1px solid #7FD1E0;
 	border-bottom:1px solid #7FD1E0;
+	font-family: "Futura PT Medium"
 }
 .AnswerWrapper button{
 	:hover{
@@ -322,12 +335,14 @@ max-height:300px;
 	width:82px;
 	margin-bottom:5px;
 	font-size:9px;
+	font-family: "Futura PT Medium"
 	
 }
 .selected{
 	
 }
 .AnswerWrapper{
+	font-family: "Futura PT Medium";
 	text-align:center;
 }
 img{
@@ -343,8 +358,8 @@ img{
 	justify-self:flex-end;
 	overflow:hidden;
 	overflow-y:scroll;
-	font-family: 'Nidus Sans', sans-serif;
-	font-size:13px;
+	font-family: "Futura PT Medium";
+	font-size:15px;
 overflow-wrap:break-word;
 
 }
@@ -352,7 +367,7 @@ overflow-wrap:break-word;
                 display: none; 
             }
 .Level{
-	font-family: 'Nidus Sans', sans-serif;
+	font-family: "Futura PT Heavy";
 	color: #fff;
 	font-size:3vh;
 	
@@ -372,6 +387,7 @@ overflow-wrap:break-word;
 	
 }
 .Attempts{
+	font-family: "Futura PT Medium";
 	background-image:url(${Attempts});
 	background-repeat:no-repeat;
 	
@@ -394,11 +410,12 @@ overflow-wrap:break-word;
 	}
 	color: #fff;
 	font-size:23px;
-	font-family: 'Nidus Sans', sans-serif;
+	font-family: "Futura PT Heavy";
 	width:50%;
 	text-align:center;
 }
 .stats{
+	font-family: "Futura PT Medium";
 	display:flex;
 	flex-direction:column;
 
@@ -408,6 +425,7 @@ overflow-wrap:break-word;
 
 }
 .invertory-open{
+	font-family: "Futura PT Medium";
 	:hover{
 	cursor:pointer;
 }
@@ -437,8 +455,9 @@ overflow-wrap:break-word;
 	color:#FFF;
 }
 .inventory a{
-	margin:6px;
+	margin:20px 0;
 	width:60px;
+	text-align:right;
 }
 overflow-x:hidden;
 .slider {
@@ -544,6 +563,7 @@ li,h1{
 					order:3;
 				}
 				.Hints{
+					font-family: "Futura PT Medium";
 					height: 130px;
 					width:220px;
 				}
@@ -597,6 +617,7 @@ li,h1{
 		padding-right:10px;
 	}
 	.stats{
+
 		height:125px;
 		margin-top:5px;
 	}

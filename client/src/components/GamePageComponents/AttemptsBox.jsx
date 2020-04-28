@@ -13,14 +13,14 @@ export const AttemptsBox = inject('gameplayStore')(
 							className={attempts ? 'selected' : ''}
 							onClick={() => setAttempts(true)}
 						>
-							Attempts
+							ATTEMPTS
 						</div>
 						<div
 						id="statsHead"
 							className={!attempts ? 'selected' : ''}
 							onClick={() => setAttempts(false)}
 						>
-							Stats
+							STATS
 						</div>
 					</div>
 					<div className="stats">

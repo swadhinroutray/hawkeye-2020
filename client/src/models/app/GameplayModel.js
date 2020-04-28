@@ -70,7 +70,7 @@ class GameplayModel {
 		this.attempts.unshift(this.currentAnswer);
 		this.attempts.replace(this.attempts.slice(0, 10));
 	}
-
+	
 	submitControl = res => {
 		
 		if (res.success) {
@@ -106,6 +106,7 @@ class GameplayModel {
 			
 
 				this.attempts.replace(submissions.map(sub => sub.answer));
+				this.attempts=this.attempts.reverse()
 			}
 		}
 		this.getStats();
@@ -124,6 +125,7 @@ class GameplayModel {
 		
 		}
 		this.getInventory();
+		setTimeout(this.getHiddenHints, 1000);
 	};
 	getInventory = () => {
 		get('/api/shop/getinventory').then(this.inventoryControl);
@@ -145,7 +147,7 @@ class GameplayModel {
 			}
 			
 		}
-		this.getHiddenHints();
+		
 	};
 	getHiddenHints = () => {
 		get(`/api/elixir/perks/${this.region}/${this.level}`).then(
@@ -158,6 +160,7 @@ class GameplayModel {
 				if (this.hints[0] === 'No hints yet') {
 					this.hints = [];
 				}
+				console.log(res.data)
 				res.data.forEach(hint => {
 					this.hints.push(hint.hint);
 				});

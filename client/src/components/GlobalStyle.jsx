@@ -19,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
 }
+
+
 	html, body {
 		color:white;
 		font-family: 'Nidus Sans';
