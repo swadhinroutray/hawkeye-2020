@@ -5,7 +5,6 @@ func (app *App) mountRoutes() {
 
 	api.HandleFunc("/hello", app.HelloWork).Methods("GET")
 	api.HandleFunc("/allusers", app.GetUser).Methods("GET")
-	//api.HandleFunc("/random", app.RegionString).Methods("GET")
 	api.HandleFunc("/adduser", app.AddUser).Methods("POST")
 
 	//Authentication Routes
@@ -38,11 +37,13 @@ func (app *App) mountRoutes() {
 	elixir.HandleFunc("/perks/{region}/{level}", app.withUser(app.getHiddenHints)).Methods("GET")
 	elixir.HandleFunc("/skipquestion", app.withUser(app.skipQuestion)).Methods("POST")
 
+	//Shop Routes
 	shop := api.PathPrefix("/shop").Subrouter()
 	shop.HandleFunc("/buy/{elixirid}", app.withUser(app.buyElixir)).Methods("POST")
 	shop.HandleFunc("/getinventory", app.withUser(app.sendInventory)).Methods("GET")
 	shop.HandleFunc("/tobuy", app.withUser(app.canBuy)).Methods("GET")
 	shop.HandleFunc("/resetstore", app.withUser(app.resetStore)).Methods("GET")
+
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")

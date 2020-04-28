@@ -61,6 +61,7 @@ func (app *App) loadConfig() {
 		fmt.Println("Failed to decode Hash Key")
 		os.Exit(0)
 	}
+
 	if len(hashKey) != 32 {
 		fmt.Println("Hash key wrong length")
 		os.Exit(0)
@@ -120,6 +121,7 @@ func (app *App) connectToMongo() {
 }
 func (app *App) buildLogger() {
 	var cfg zap.Config
+
 	if app.config.production {
 		cfg = zap.NewProductionConfig()
 	} else {
@@ -166,8 +168,7 @@ func (app *App) Start() {
 
 	go func() {
 		if err := server.ListenAndServe(); err != nil {
-			//app.log.Fatal(err.Error())
-			fmt.Println(err.Error())
+			app.log.Fatal(err.Error())
 		}
 	}()
 
