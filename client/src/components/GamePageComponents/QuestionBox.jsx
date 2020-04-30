@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer} from 'mobx-react';
 import { Redirect } from 'react-router';
-export const QuestionBox = inject('gameplayStore')(
+export const QuestionBox = inject('gameplayStore','loginStore')(
 	observer(
 		({ gameplayStore,match,loginStore ,getinventory}) => (
 			<div className="QuestionBox">
@@ -30,6 +30,7 @@ export const QuestionBox = inject('gameplayStore')(
 						<span>{gameplayStore.message}</span>
 					</div>
 				</div>
+				<div id="points" style={{fontSize:"0.9rem"}}>Current Points:{gameplayStore.points}</div>
 			</div>
 		)
 	)

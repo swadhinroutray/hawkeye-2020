@@ -21,6 +21,7 @@ class GameplayModel {
 	inventory = [];
 	locked = false;
 	potionUsed = false;
+	points=0;
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
@@ -96,6 +97,7 @@ class GameplayModel {
 		
 		if (res.success) {
 			this.itembool = res.data.itembool;
+			this.points=res.data.points
 			if (res.data.submissions) {
 				let submissions = res.data.submissions;
 				submissions = submissions.filter(
@@ -250,7 +252,8 @@ decorate(GameplayModel, {
 	getQuestion: action,
 	submit: action,
 	getTries: action,
-
+	points:observable,
+	itembool:observable,
 	getStats: action,
 	useRegionMultiplier: action,
 	getHiddenHints: action,

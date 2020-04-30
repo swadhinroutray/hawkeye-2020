@@ -11,7 +11,7 @@ import HAWK from '../../../assets/HAWK.svg'
 import PullUp from '../../../assets/PullUp.svg'
 import ButtonBox from '../../../assets/ButtonBox.svg'
 import Attempts from '../../../assets/Attempts.svg'
-import ShopIcon from '../../../assets/ShopIcon.svg'
+import ReactLoading from 'react-loading';
 import { faWindowClose,faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {leftBar,rightBar} from '../../../assets/landing-assets/index'
@@ -34,7 +34,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 
 		const [rules, setrules] = useState(false);
 		const [inventory, getinventory] = useState(false);
-
+		
 		return loginStore.profileSet ?
 		 (
 			
@@ -70,7 +70,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
-							<QuestionBox getinventory={getinventory} loginStore={loginStore} match={match} />
+							<QuestionBox getinventory={getinventory}  match={match} />
 							<HintsBox />
 							<AttemptsBox />
 							</div>
@@ -99,7 +99,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 					
 				</Provider>
 			</GameWrapper>
-	):(<div>loading{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}</div>)
+	):( <GameWrapper><ReactLoading type={"spin"} color={"#3abdb7"} className="loading"/>{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}</GameWrapper>)
 	})
 );
 
@@ -642,7 +642,9 @@ li,h1{
 	top: 15%;
 	right: 0;
 	}	
-
+.loading{
+margin:50vh auto;
+}
 `;
 
 export default Game;
