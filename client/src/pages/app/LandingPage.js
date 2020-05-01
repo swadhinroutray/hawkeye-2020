@@ -4,7 +4,7 @@ import { observer, Provider } from 'mobx-react';
 import store from '../../models/app/LandingPageModel';
 import GameplayModel from '../../models/app/GameplayModel';
 import LoginStore from '../../models/app/LoginModel';
-
+import {Redirect} from 'react-router-dom'
 import {
 	RegionInfo,
 	Header,

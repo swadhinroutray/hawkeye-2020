@@ -337,6 +337,7 @@ const ItemDescription = styled.div`
 
 class ShopPage extends Component {
 	componentDidMount() {
+		this.props.loginStore.getProfile()
 		this.props.shopStore.loadToBuy();
 	}
 	render() {
@@ -400,7 +401,10 @@ class ShopPage extends Component {
 				<Link className="back" to="/regions">
 					<BackButton />
 				</Link>
-				{this.props.loginStore.loggedIn ? <Redirect to="/login" /> : null}
+				{(this.props.loginStore.profileSetError&&(!this.props.loginStore.loggedIn)) ? <Redirect  to={{
+              pathname: '/login',
+               
+            }}  /> : null}
 			</ShopPageContainer>
 		);
 	}
