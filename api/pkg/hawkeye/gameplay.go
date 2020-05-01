@@ -185,6 +185,12 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		app.unlockNextRegion(currUser, r)
 	}
 
+	regionMult := 1.0
+
+	if currUser.RegionMultiplier == ansReq.Region {
+		regionMult = 1.5
+	}
+
 	//Update level of the region
 	levelSon := fmt.Sprintf("level.%d", ansReq.Region)
 	itemBool := fmt.Sprintf("itembool.%d", ansReq.Region)
@@ -193,7 +199,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		bson.M{"_id": currUser.ID},
 		bson.M{
 			"$set": bson.M{
-				"points":       currUser.Points + currUser.Multiplier,
+				"points":       int(float64(currUser.Points+currUser.Multiplier) * regionMult),
 				"answer_count": currUser.AnswerCount + 1,
 				"multiplier":   newMult,
 				levelSon:       currUser.Level[ansReq.Region] + 1,
