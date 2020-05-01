@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components';
 import { Link ,Redirect} from 'react-router-dom';
 import loginStore from '../../../models/app/LoginModel'
+import {LoginFormWrapper} from '../LoginPage/LoginForm'
 const RegisterFormWrapper = styled.div`
 	color: #fff;
 	border: 3px solid #3abdb7;
@@ -106,9 +107,9 @@ const RegisterForm = inject('registerStore')(
 		}, [loginStore]);
 		return (
 
-		<RegisterFormWrapper>
-			<h1 className="header">REGISTER</h1>
-			<h6 className="subhead">Create a new account</h6>
+		<LoginFormWrapper class="register">
+			<h1 className="login-head">REGISTER</h1>
+			
 
 			<div className="input-field">
 				<input
@@ -178,13 +179,13 @@ const RegisterForm = inject('registerStore')(
 				/>
 				<span>{registerStore['college'].error}</span>
 			</div>
-			<button onClick={() => registerStore.register()}>SUBMIT</button>
+			<button onClick={() => registerStore.register()}>Submit</button>
 			<span className="message">{registerStore['message'].value}</span>
 			<Link className="link-register" to="/login">
 				Back to login
 			</Link>
 			{loginStore.loggedIn ? <Redirect to="/" /> : null}
-		</RegisterFormWrapper>
+		</LoginFormWrapper>
 	)}),
 );
 

@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { Field, LoginFormWrapper } from '../LoginPage/LoginForm';
 import { LoginPageWrapper } from '../LoginPage/LoginPage';
 import { Redirect } from 'react-router-dom';
+import HAWK from '../../../assets/HAWK.svg'
+import iecse from '../../../assets/iecse.svg'
 export const ForgotPass = inject('loginStore')(
 	observer(({ loginStore }) => {
 		const [primaryCheck,setPrimarCheck]=useState(false)
@@ -17,14 +19,18 @@ export const ForgotPass = inject('loginStore')(
 		}, [loginStore]);
 		return (
 			<LoginPageWrapper>
-				<h1 className="hawkeye">Hawkeye</h1>
+				<div id="headers">
+					<img id="hawklogo" src={HAWK} alt="Hawk"/>
+				<div className="hawkeye">Hawkeye</div>
+				<a href="https://iecsemanipal.com/"><img id="iecselogo" src={iecse} alt="iecse"/></a>
+				</div>
 
 				{loginStore.forgotEmailSent ? (
 					<LoginFormWrapper>
 						<Email>A recovery link has been sent to your email.</Email>
 					</LoginFormWrapper>
-				) : (
-					<LoginFormWrapper>
+				) : (<div id="loginStuff">
+					<LoginFormWrapper >
 						<h1 className="login-head">Forgot Password</h1>
 						{loginStore.isForgotLoading ? (
 							'Loading...'
@@ -43,6 +49,7 @@ export const ForgotPass = inject('loginStore')(
 						)}
 						{loginStore.loggedIn ? <Redirect to="/" /> : null}
 					</LoginFormWrapper>
+					</div>
 				)}
 			</LoginPageWrapper>
 		);

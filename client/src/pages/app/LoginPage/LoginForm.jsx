@@ -2,6 +2,8 @@ import React, { useEffect,useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import ShopHud from '../../../assets/ShopHud.svg';
+import ButtonBox from '../../../assets/ButtonBox.svg'
 
 export const LoginForm = inject('loginStore')(
 	observer(({ loginStore }) => {
@@ -65,12 +67,13 @@ export const LoginFormWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 60vw;
-	margin: 5% 19vw;
-	border: 3px solid #3abdb7;
-	padding: 2vh 1vw;
-	font-size: 1.3rem;
+	width: 40vw;
+	
 
+	padding: 4vh 1vw;
+	font-size: 1.3rem;
+background:url(${ShopHud}) center center;
+background-size:100% 100%;
 	input {
 		background: none;
 		border: none;
@@ -78,8 +81,14 @@ export const LoginFormWrapper = styled.div`
 		border-radius: 5px;
 		margin-top: 0.3rem;
 		margin-bottom: 1rem;
-		width: 50vw;
-		font-size: 1.3rem;
+		width:30vw;
+		font-size: 1rem;
+		padding:0.5rem;
+		background-color: Transparent;
+	border-right:5px solid #7FD1E0;
+	border-left:5px solid #7FD1E0;
+	border-top:1px solid #7FD1E0;
+	border-bottom:1px solid #7FD1E0;
 		:hover {
 			border-bottom: 1px solid #3abdb7;
 		}
@@ -90,10 +99,11 @@ export const LoginFormWrapper = styled.div`
 
 	button {
 		border: none;
-		border: 3px solid #3abdb7;
-		background: none;
-		font-size: 1.3rem;
-		padding: 0.2rem 0.8rem;
+		
+		background: url(${ButtonBox}) center center;
+		background-size:100% 100%;
+		font-size: 1rem;
+		padding: 0.4rem 1rem;
 	}
 	.link-register,
 	.link-forgot {
@@ -101,11 +111,11 @@ export const LoginFormWrapper = styled.div`
 	}
 	@media only screen and (max-device-width: 1048px) {
 		width: 90vw;
-		margin: 5% 5vw;
+		margin: 30% 5vw;
 		padding: 0 0;
 		padding-bottom: 3vh;
 		input {
-			width: 80vw;
+			width: 70vw;
 		}
 	}
 `;
