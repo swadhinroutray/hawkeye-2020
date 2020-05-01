@@ -21,7 +21,7 @@ class GameplayModel {
 	inventory = [];
 	locked = false;
 	potionUsed = false;
-	points=0;
+	points = 0;
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
@@ -31,13 +31,11 @@ class GameplayModel {
 		if (region || region === 0) {
 			this.region = parseInt(region);
 		}
-
-		
+		console.log(this.region);
 		get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);
 	};
 
 	getQuestionControl = res => {
-	
 		if (res.success) {
 			if (res.data.question) {
 				this.questionId = res.data.id;
@@ -58,11 +56,9 @@ class GameplayModel {
 			this.locked = true;
 			alert('all questions answered');
 		}
-	
 	};
 
 	submit(region) {
-		
 		if (this.currentAnswer.length === 0) return;
 		post(`/api/question/answer`, {
 			answer: this.currentAnswer,
@@ -71,9 +67,8 @@ class GameplayModel {
 		this.attempts.unshift(this.currentAnswer);
 		this.attempts.replace(this.attempts.slice(0, 10));
 	}
-	
+
 	submitControl = res => {
-		
 		if (res.success) {
 			this.currentAnswer = '';
 			this.message = hawkResponses[res.data.split(' ')[0]];
@@ -94,10 +89,9 @@ class GameplayModel {
 	};
 
 	getTriesControl = res => {
-		
 		if (res.success) {
 			this.itembool = res.data.itembool;
-			this.points=res.data.points
+			this.points = res.data.points;
 			if (res.data.submissions) {
 				let submissions = res.data.submissions;
 				submissions = submissions.filter(
@@ -105,10 +99,9 @@ class GameplayModel {
 						submission.region === this.region &&
 						submission.level === this.level,
 				);
-			
 
 				this.attempts.replace(submissions.map(sub => sub.answer));
-				this.attempts=this.attempts.reverse()
+				this.attempts = this.attempts.reverse();
 			}
 		}
 		this.getStats();
@@ -119,12 +112,10 @@ class GameplayModel {
 	};
 
 	getStatsControl = res => {
-		
 		if (res.success) {
 			this.stats.atPar = res.data.atPar;
 			this.stats.leading = res.data.leading;
 			this.stats.trailing = res.data.trailing;
-		
 		}
 		this.getInventory();
 		setTimeout(this.getHiddenHints, 1000);
@@ -133,11 +124,9 @@ class GameplayModel {
 		get('/api/shop/getinventory').then(this.inventoryControl);
 	};
 	inventoryControl = res => {
-	
 		if (res.success) {
 			this.inventory = [];
-			if (res.data&&res.data.length > 0) {
-				
+			if (res.data && res.data.length > 0) {
 				res.data.forEach(item => {
 					let newItem = item;
 					newItem.region = this.region;
@@ -147,9 +136,7 @@ class GameplayModel {
 			} else {
 				this.inventory.push(['No hints yet']);
 			}
-			
 		}
-		
 	};
 	getHiddenHints = () => {
 		get(`/api/elixir/perks/${this.region}/${this.level}`).then(
@@ -162,7 +149,7 @@ class GameplayModel {
 				if (this.hints[0] === 'No hints yet') {
 					this.hints = [];
 				}
-				console.log(res.data)
+				console.log(res.data);
 				res.data.forEach(hint => {
 					this.hints.push(hint.hint);
 				});
@@ -187,10 +174,11 @@ class GameplayModel {
 			question: this.questionId,
 			question_no: this.level,
 		};
-		post('/api/elixir/skipquestion', hangmanData).then(this.useSkipQuestionControl);
+		post('/api/elixir/skipquestion', hangmanData).then(
+			this.useSkipQuestionControl,
+		);
 	}
 	useSkipQuestionControl = res => {
-		
 		if (res.success) {
 			this.getQuestion();
 			this.potionUsed = false;
@@ -198,8 +186,6 @@ class GameplayModel {
 		} else {
 			alert('no hidden hint yet');
 		}
-		
-		
 	};
 	useRegionMultiplier() {
 		const multiplierData = {
@@ -214,7 +200,6 @@ class GameplayModel {
 		);
 	}
 	useEliirControl = res => {
-		
 		if (res.success) {
 			this.getQuestion();
 			this.potionUsed = true;
@@ -222,8 +207,6 @@ class GameplayModel {
 		} else {
 			alert('no hidden hint yet');
 		}
-		
-		
 	};
 	useUnlockHint() {
 		const unlockHintData = {
@@ -233,7 +216,7 @@ class GameplayModel {
 			question: this.questionId,
 			question_no: this.level,
 		};
-		
+
 		post('/api/elixir/unlockhint', unlockHintData).then(this.useEliirControl);
 	}
 }
@@ -252,8 +235,8 @@ decorate(GameplayModel, {
 	getQuestion: action,
 	submit: action,
 	getTries: action,
-	points:observable,
-	itembool:observable,
+	points: observable,
+	itembool: observable,
 	getStats: action,
 	useRegionMultiplier: action,
 	getHiddenHints: action,

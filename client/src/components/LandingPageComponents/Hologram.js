@@ -8,7 +8,6 @@ export const Hologram = inject('LandingStore')(
 		return (
 			<HologramWrapper>
 				<RegionImg
-					// src={LandingStore.regionImages[LandingStore.currentRegion]}
 					src={LandingStore.regionInfo[LandingStore.currentRegion].img}
 					alt="region"
 				/>

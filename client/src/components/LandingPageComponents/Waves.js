@@ -22,7 +22,7 @@ const Map = styled.img`
 	width: 90%;
 	margin: auto;
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		display: none;
 	}
 `;

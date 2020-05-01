@@ -11,33 +11,30 @@ export const Header = inject('LoginStore')(
 				<HawkLogo src={hawkLogo} alt="hawk-logo" />
 				<h1>HAWKEYE</h1>
 				<div>
-					<Link to="/shop">
+					<Link
+						to="/shop"
+						style={{ textDecoration: 'none', margin: 0, padding: 0 }}
+					>
 						<Icon src={shopLogo} alt="shop-icon" />
 					</Link>
-
-					{!LoginStore.loggedIn ? (
-						<Link to="/login">
-							<Icon src={logoutLogo} alt="shop-icon" />
-						</Link>
-					) : (
-						<Icon
-							src={logoutLogo}
-							alt="shop-icon"
-							onClick={() => LoginStore.logout()}
-						/>
-					)}
+					<Icon
+						src={logoutLogo}
+						alt="logout-icon"
+						onClick={() => LoginStore.logout()}
+					/>
 				</div>
 			</HeaderWrapper>
 		);
 	}),
 );
 const Icon = styled.img`
-	margin: auto;
-	height: 5vh;
-	align-self: flex-end;
-
+	height: 4vh;
+	cursor: pointer;
+	@media (min-width: 321px) {
+		height: 6vh;
+	}
 	@media (min-width: 768px) {
-		height: 7vh;
+		height: 8vh;
 	}
 `;
 const HeaderWrapper = styled.header`
@@ -50,34 +47,36 @@ const HeaderWrapper = styled.header`
 	> h1 {
 		margin: 0;
 		grid-column: 2/3;
-	}
-	> div {
-		grid-column: 3;
-		display: flex;
-		justify-content: space-evenly;
-	}
+		font-size: 1.7em;
 
-	@media (min-width: 768px) {
-		> h1 {
+		@media (min-width: 321px) {
+			font-size: 2em;
+		}
+		@media (min-width: 768px) {
 			margin-top: 3vh;
 			font-size: 3em;
 		}
-		> div {
-			> img {
-				height: 8vh;
-			}
-		}
+	}
+
+	> div {
+		grid-column: 3/4;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
 	}
 `;
 
 const HawkLogo = styled.img`
 	float: left;
-	height: 6vh;
+	height: 5vh;
 	margin-left: 10%;
 	grid-column: 1/2;
 	align-items: center;
 
 	align-self: flex-end;
+	@media (min-width: 321px) {
+		height: 6vh;
+	}
 	@media (min-width: 768px) {
 		height: 9vh;
 	}

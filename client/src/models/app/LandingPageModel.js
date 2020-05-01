@@ -1,5 +1,11 @@
 import { observable, decorate, action } from 'mobx';
-import { hologramImg, regionImg } from '../../assets/landing-assets';
+import {
+	regionImg,
+	AOC,
+	Streaks,
+	Enigma,
+	NS,
+} from '../../assets/landing-assets';
 
 class Region {
 	constructor(img, name, year, location, date, time) {
@@ -26,7 +32,7 @@ class LandingPageModel {
 				'12AM-12PM',
 			),
 			new Region(
-				hologramImg,
+				Enigma,
 				'SCOTLAND YARD',
 				1945,
 				'LONDON',
@@ -34,38 +40,15 @@ class LandingPageModel {
 				'12AM-12PM',
 			),
 			new Region(
-				regionImg,
+				Streaks,
 				'new horizons',
 				1977,
 				'brooklyn',
 				'26-28 MARCH',
 				'12AM-12PM',
 			),
-			new Region(
-				hologramImg,
-				'hmayra',
-				2022,
-				'toronto',
-				'26-28 MARCH',
-				'12AM-12PM',
-			),
-			new Region(
-				regionImg,
-				'Nuketown',
-				2068,
-				'compton',
-				'26-28 MARCH',
-				'12AM-12PM',
-			),
-			new Region(
-				hologramImg,
-				'somewhere',
-				3000,
-				'seoul',
-				'26-28 MARCH',
-				'12AM-12PM',
-			),
-			new Region(regionImg, 'B1-23', 3022, 'OSLO', '26-28 MARCH', '12AM-12PM'),
+			new Region(NS, 'hmayra', 2022, 'toronto', '26-28 MARCH', '12AM-12PM'),
+			new Region(AOC, 'Nuketown', 2068, 'compton', '26-28 MARCH', '12AM-12PM'),
 		);
 	}
 	changeRegion = regionNumber => {

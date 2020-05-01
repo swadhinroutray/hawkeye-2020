@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,23 +7,21 @@ import ButtonBox from '../../../assets/ButtonBox.svg'
 
 export const LoginForm = inject('loginStore')(
 	observer(({ loginStore }) => {
-		const [primaryCheck,setPrimarCheck]=useState(false)
+		const [primaryCheck, setPrimarCheck] = useState(false);
 		useEffect(() => {
-			if(!primaryCheck){
-				setPrimarCheck(true)
-			loginStore.getProfile()
-			loginStore.clearErrors();
+			if (!primaryCheck) {
+				setPrimarCheck(true);
+				loginStore.getProfile();
+				loginStore.clearErrors();
+			}
 
-		}
-		
 			loginStore.clearErrors();
-		
 		}, [loginStore]);
 		return (
 			<LoginFormWrapper>
 				<h1 className="login-head">LOGIN</h1>
 				<div className="form">
-					<Field required name="email" placeholder="Email" />
+					<Field required name="email" placeholder="Email" autoFocus />
 					<Field
 						required
 						type="password"

@@ -53,7 +53,7 @@ const InfoWrapper = styled.div`
 		width: 100%;
 		padding: 15% 7%;
 		font-size: 1em;
-		margin-top: 40%;
+		margin-top: 50%;
 	}
 `;
 

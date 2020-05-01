@@ -11,6 +11,10 @@ import hawkLogo from './HawkLogo.svg';
 import shopLogo from './ShopIcon.svg';
 import logoutLogo from './LogoutIcon.svg';
 import map from './Map.svg';
+import AOC from './AOC.svg';
+import Enigma from './Enigma.svg';
+import NS from './NS.svg';
+import Streaks from './Streaks.svg';
 export {
 	leftBar,
 	rightBar,
@@ -25,4 +29,8 @@ export {
 	shopLogo,
 	logoutLogo,
 	map,
+	AOC,
+	Enigma,
+	Streaks,
+	NS,
 };

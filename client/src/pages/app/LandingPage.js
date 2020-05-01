@@ -16,8 +16,7 @@ import { leftBar, rightBar, backgroundMesh } from '../../assets/landing-assets';
 export const LandingPage = observer(() => {
 	useEffect(() => {
 		GameplayModel.locked = false;
-		
-		console.log(GameplayModel.locked);
+		LoginStore.getProfile();
 	}, []);
 	return (
 		<Provider LoginStore={LoginStore}>
@@ -47,7 +46,6 @@ export const LandingPage = observer(() => {
 						<RegionInfo />
 						<Waves />
 					</Wrapper>
-					
 				</Page>
 			</Provider>
 		</Provider>
@@ -181,25 +179,4 @@ const RightBar = styled.img`
 	position: absolute;
 	top: 0;
 	right: 4px;
-`;
-
-const Events = styled.footer`
-	float: bottom;
-	width: 100%;
-	bottom: 0;
-	margin: 0;
-	background-image: linear-gradient(
-		to right,
-		rgb(64, 200, 208, 1),
-		rgb(64, 200, 208, 0.4)
-	);
-	font-size: 0.9em;
-	box-sizing: border-box;
-	padding: 1px;
-	color: white;
-
-	@media (min-width: 768px) {
-		font-size: 1.2em;
-		padding: 6px;
-	}
 `;

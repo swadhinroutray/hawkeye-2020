@@ -9,9 +9,9 @@ import { LandingPage } from '../pages/app/LandingPage';
 import store from '../models/app/LoginModel';
 import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';
-import {ForgotPass} from '../pages/app/ForgotAndReset/ForgotPass'
-import {ResetPass} from '../pages/app/ForgotAndReset/ResetPass'
-import AddQuestion from '../pages/app/Admin/AddQuestion'
+import { ForgotPass } from '../pages/app/ForgotAndReset/ForgotPass';
+import { ResetPass } from '../pages/app/ForgotAndReset/ResetPass';
+import { PrivateRoute } from './PrivateRoute';
 
 const AppRouter = ({ match }) => {
 	return (
@@ -21,12 +21,12 @@ const AppRouter = ({ match }) => {
 				<Route path={'/login'} component={LoginPage}></Route>
 				<Route path={'/forgot'} component={ForgotPass}></Route>
 				<Route path={'/reset'} component={ResetPass}></Route>
-				<Route path={'/regions'} component={LandingPage}></Route>
-				<Route path={'/game/:id'} component={Game}></Route>
-				<Route path={'/shop'} component={ShopPage}></Route>
 				<Route path={'/admin/addquestion'} component={AddQuestion}></Route>
+				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
+				<PrivateRoute path={'/game/:id'} component={Game}></PrivateRoute>
+				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
+
 				<Route path={'/'} component={LoginPage}></Route>
-				
 			</Switch>
 		</Provider>
 	);
