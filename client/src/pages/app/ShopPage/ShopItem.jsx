@@ -93,15 +93,15 @@ class ShopItem extends Component {
 								selected={shopStore.getSelected === number ? true : false}
 							/>
 						) : (
-							<RedCrystal
-								selected={shopStore.getSelected === number ? true : false}
-							/>
-						)}
+										<RedCrystal
+											selected={shopStore.getSelected === number ? true : false}
+										/>
+									)}
 					</div>
 					<div className="content">
 						Crystal {number + 1}
 						<div className="subtext">
-							Owned: {this.props.loginStore.profile.invertory}
+							Owned: {shopStore.owned[number]}
 						</div>
 					</div>
 				</div>

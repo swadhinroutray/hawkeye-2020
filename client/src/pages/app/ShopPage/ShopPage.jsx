@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import ShopItem from './ShopItem';
@@ -73,6 +73,20 @@ const ShopPageContainer = styled.div`
 		font-weight: 100;
 		font-size: 21px;
 	}
+	.reset{
+		background-image: url(${buy});
+		background-size: cover;
+		box-sizing: border-box;
+		width: fit-content;
+		text-align: center;
+		letter-spacing:3px;
+		padding: 10px 50px 15px 30px;
+		margin: 10px auto;
+		
+	}
+	.reset-blocked{
+		opacity: 30%;	
+	}
 	.back {
 		display: block;
 		width: 45px;
@@ -145,6 +159,9 @@ const ShopPageContainer = styled.div`
 			flex: 1.125;
 			align-self: center;
 		}
+		.item-container{
+			flex: 1.25;
+		}
 		.header {
 			padding: 0;
 			.icon {
@@ -166,6 +183,9 @@ const ShopPageContainer = styled.div`
 		.filler {
 			flex: 1;
 			align-self: center;
+		}
+		.item-container{
+			flex: 1.125;
 		}
 		.header {
 			> h1 {
@@ -212,14 +232,14 @@ const ItemsContainer = styled.div`
 		}
 	}
 	@media ${device.laptop} {
-		flex: 1.25;
+		
 		margin: 0 1.5em;
 		.grid{
 			padding:0 5%;
 		}
 	}
 	@media ${device.desktop} {
-		flex: 1.125;
+		
 		margin: 0 10px;
 		letter-spacing: 10px;
 		.grid {
@@ -337,11 +357,16 @@ const ItemDescription = styled.div`
 
 class ShopPage extends Component {
 	componentDidMount() {
+		this.props.loginStore.getProfile();
+		this.props.shopStore.getProfile();
+		this.props.shopStore.getOwned();
 		this.props.shopStore.loadToBuy();
 	}
 	render() {
 		const store = this.props.shopStore;
-
+		if (!this.props.loginStore.loggedIn) {
+			return <Redirect to='/login' />
+		}
 		return (
 			<ShopPageContainer>
 				<Details1 />
@@ -357,23 +382,30 @@ class ShopPage extends Component {
 					</Link>
 				</div>
 				<h1 className="subhead">Shop</h1>
-				<h3>total Points: {this.props.loginStore.profile.points}</h3>
+				<h3>total Points: {this.props.shopStore.points}</h3>
 				<div className="wrapper">
 					<div className="filler">
 						<Map />
 						<Waves />
 					</div>
 
-					<ItemsContainer>
-						<div className="title">pick an item</div>
-						<div className="grid">
-							<ShopItem number={0} />
-							<ShopItem number={1} />
-							<ShopItem number={2} />
-							<ShopItem number={3} />
-						</div>
-					</ItemsContainer>
-
+					<div className="item-container">
+						<ItemsContainer>
+							<div className="title">pick an item</div>
+							<div className="grid">
+								<ShopItem number={0} />
+								<ShopItem number={1} />
+								<ShopItem number={2} />
+								<ShopItem number={3} />
+							</div>
+						</ItemsContainer>
+						{store.points > store.resetMinimumPointsReq ? (
+							<div className='reset' onClick={store.resetStore.bind(store)}>
+								<span>reset store</span>
+							</div>) : (
+								<div className='reset reset-blocked'>reset store</div>
+							)}
+					</div>
 					<ItemDescription>
 						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
 						<div className="desc">
@@ -392,15 +424,18 @@ class ShopPage extends Component {
 								buy
 							</div>
 						) : (
-							<div className="buy buy-blocked">buy</div>
-						)}
+								<div className="buy buy-blocked">buy</div>
+							)}
 						<span className="message">{store.message}</span>
 					</ItemDescription>
 				</div>
 				<Link className="back" to="/regions">
 					<BackButton />
 				</Link>
-				{this.props.loginStore.loggedIn ? <Redirect to="/login" /> : null}
+				{(this.props.loginStore.profileSetError && (!this.props.loginStore.loggedIn)) ? <Redirect to={{
+					pathname: '/login',
+
+				}} /> : null}
 			</ShopPageContainer>
 		);
 	}

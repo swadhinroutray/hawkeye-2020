@@ -4,18 +4,23 @@ class ShopModel {
 	//0 Extra Hint
 	//1 Region Multiplier
 	//2 Hangman
-	//3
+	//3 skip Question
+
 	initValues = [2, 2, 2, 1];
+	points = 0;
 	message = '';
 	toBuy = [2, 2, 2, 1];
+	resetMinimumPointsReq = 1500;
+	resetPoints = 800;
 	itemDescriptions = [
 		'Get an extra hint for a question of your choice',
 		'Add a 1.5 multiplier for a region that has been unlocked for you',
 		"Ever played Hangman? This is exactly what you're thinking right now. Get some letters of the final answer for a question of your choice",
 		'Stuck with some question for a really long time? Here’s an elixir that lets you skip it!',
 	];
-	itemCost = [200, 300, 400, 500];
+	itemCost = [100, 100, 100, 100];
 	selected = 0;
+	owned = [0, 0, 0, 0];
 	get getSelected() {
 		return this.selected;
 	}
@@ -31,7 +36,38 @@ class ShopModel {
 			}
 		});
 	}
-
+	getProfile() {
+		get('/api/users/getprofile').then(this.getProfileControl);
+	}
+	getProfileControl = res => {
+		if (res.success) {
+			this.points = res.data.points;
+		}
+	}
+	getOwned() {
+		get('/api/shop/remaining').then(this.getOwnedControl);
+	}
+	getOwnedControl = res => {
+		// console.log(res);
+		if (res.success) {
+			this.owned = res.data;
+		}
+	}
+	resetStore() {
+		get('/api/shop/resetstore').then(this.resetControl);
+	}
+	resetControl = res => {
+		console.log(res);
+		if (res.success) {
+			if (res.data === 'You do not have enough points')
+				this.message = res.data;
+			if (res.data === 'Store successfully reset') {
+				this.message = 'Store successfully reset';
+				this.toBuy = this.initValues;
+				this.points -= this.resetPoints;
+			}
+		}
+	}
 	//ADD BOUGHT ITEM TO INVENTORY NOT DONE
 	buyItem() {
 		post('api/shop/buy/' + this.selected, {}).then(res => {
@@ -39,6 +75,8 @@ class ShopModel {
 				if (res.data === 'A new potion has been addedto your inventory') {
 					this.message = 'A new elixir has been added to your inventory';
 					this.toBuy[this.selected] -= 1;
+					this.points -= this.itemCost[this.selected];
+
 					return;
 				}
 				if (res.data === "You don't have enough points!") {
@@ -50,6 +88,7 @@ class ShopModel {
 			}
 		});
 	}
+
 }
 
 decorate(ShopModel, {
@@ -59,9 +98,12 @@ decorate(ShopModel, {
 	itemCost: observable,
 	itemDescriptions: observable,
 	getSelected: computed,
+	getOwned: action,
+	getProfile: action,
 	updateSelected: action,
 	loadToBuy: action,
 	buyItem: action,
+	resetStore: action,
 });
 
 const store = new ShopModel();

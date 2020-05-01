@@ -12,7 +12,7 @@ import PullUp from '../../../assets/PullUp.svg'
 import ButtonBox from '../../../assets/ButtonBox.svg'
 import Attempts from '../../../assets/Attempts.svg'
 import ReactLoading from 'react-loading';
-import { faWindowClose,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 
@@ -120,8 +120,6 @@ const size = {
 	desktop: '1560px',
 };
 const GameWrapper = styled.div`
-@font-face {font-family: "Futura PT Heavy"; src: url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.eot"); src: url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.woff") format("woff"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/bf059209ee8579497a5184db40bb5076.svg#Futura PT Heavy") format("svg"); }
-@font-face {font-family: "Futura PT Medium"; src: url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.eot"); src: url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.woff") format("woff"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/3c6b0199ae7b57966132e83c939d77e2.svg#Futura PT Medium") format("svg"); }
 #heading{
 	
 	margin-left:15px;

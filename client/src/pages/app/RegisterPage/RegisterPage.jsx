@@ -3,24 +3,28 @@ import styled from 'styled-components';
 import store from '../../../models/app/RegisterModel';
 import RegisterForm from './RegisterForm';
 import { Provider } from 'mobx-react';
+import {LoginPageWrapper} from '../LoginPage/LoginPage'
+import HAWK from '../../../assets/HAWK.svg'
+import iecse from '../../../assets/iecse.svg'
+import Face from '../../../assets/Face.svg'
+import Finger from '../../../assets/Finger.svg'
 
-const RegisterPageWrapper = styled.div`
-	height: 100vh;
-	text-align: center;
-
-	h1 {
-		font-family: 'Nidus Sans';
-		color: white;
-		letter-spacing: 0.1em;
-		font-weight: 400;
-	}
-`;
 
 export const RegisterPage = () => (
-	<RegisterPageWrapper>
-		<h1>Hawkeye</h1>
-		<Provider registerStore={store}>
+	<LoginPageWrapper>
+		<div id="headers" class="RegisterHeaders" >
+					<img id="hawklogo" src={HAWK} alt="Hawk"/>
+				<div className="hawkeye">Hawkeye</div>
+				<a href="https://iecsemanipal.com/"><img id="iecselogo" src={iecse} alt="iecse"/></a>
+				</div>
+				<div id="loginStuff">
+			<img id="finger" src={Finger} alt="Finger"/>
+			<Provider registerStore={store}>
 			<RegisterForm />
 		</Provider>
-	</RegisterPageWrapper>
+
+			<img id="face" src={Face} alt="Face"/>
+			</div>
+		
+	</LoginPageWrapper>
 );

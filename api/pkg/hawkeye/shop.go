@@ -194,3 +194,16 @@ func (app *App) resetStore(w http.ResponseWriter, r *http.Request) {
 	app.sendResponse(w, true, Success, "Store successfully reset")
 
 }
+
+func (app *App) getRemainingElixirs(w http.ResponseWriter, r *http.Request) {
+	currUser := app.getUserTest(r)
+
+	inventory := currUser.Inventory
+	arr := []int{0, 0, 0, 0}
+
+	for i := 0; i < len(inventory); i++ {
+		arr[inventory[i].Elixir]++
+	}
+	app.sendResponse(w, true, Success, arr)
+
+}

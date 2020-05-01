@@ -4,7 +4,8 @@ import { LoginFormWrapper } from '../LoginPage/LoginForm';
 import { LoginPageWrapper } from '../LoginPage/LoginPage';
 import { observer, inject } from 'mobx-react';
 import { Link,Redirect } from 'react-router-dom';
-
+import HAWK from '../../../assets/HAWK.svg'
+import iecse from '../../../assets/iecse.svg'
 export const ResetPass = inject('loginStore')(
 	observer(({ loginStore, location }) => {
 		const [primaryCheck,setPrimarCheck]=useState(false)
@@ -17,17 +18,22 @@ export const ResetPass = inject('loginStore')(
 			loginStore.clearErrors();
 		}, [loginStore]);
 		return (
-			<LoginPageWrapper>
-				<h1 className="hawkeye">Hawkeye</h1>
+			<LoginPageWrapper >
+				<div id="headers">
+					<img id="hawklogo" src={HAWK} alt="Hawk"/>
+				<div className="hawkeye">Hawkeye</div>
+				<a href="https://iecsemanipal.com/"><img id="iecselogo" src={iecse} alt="iecse"/></a>
+				</div>
 				{loginStore.resetSuccess ? (
-					<LoginFormWrapper>
+					<LoginFormWrapper >
 						<ResetConfirmation>Your Password has been reset!</ResetConfirmation>
 						<Link to="/login" style={{ textDecoration: 'none' }}>
 							<LoginLink>Login</LoginLink>
 						</Link>
 					</LoginFormWrapper>
 				) : (
-					<LoginFormWrapper>
+					<div id="loginStuff">
+					<LoginFormWrapper >
 						<h1 className="login-head">Reset Password</h1>
 						<form
 							onSubmit={e => {
@@ -70,6 +76,7 @@ export const ResetPass = inject('loginStore')(
 							</div>
 						</form>
 					</LoginFormWrapper>
+					</div>
 				)}
 				{loginStore.loggedIn ? <Redirect to="/" /> : null}
 			</LoginPageWrapper>
