@@ -12,6 +12,8 @@ import { ShopPage } from '../pages/app/ShopPage/ShopPage';
 import {ForgotPass} from '../pages/app/ForgotAndReset/ForgotPass'
 import {ResetPass} from '../pages/app/ForgotAndReset/ResetPass'
 import AddQuestion from '../pages/app/Admin/AddQuestion'
+import Leaderboard from '../pages/app/Admin/Leaderboard'
+
 
 const AppRouter = ({ match }) => {
 	return (
@@ -25,7 +27,8 @@ const AppRouter = ({ match }) => {
 				<Route path={'/game/:id'} component={Game}></Route>
 				<Route path={'/shop'} component={ShopPage}></Route>
 				<Route path={'/admin/addquestion'} component={AddQuestion}></Route>
-				<Route path={'/'} component={LoginPage}></Route>
+				<Route path={'/admin/leaderboard'} component={Leaderboard}></Route>
+				<Route exact path={'/'} component={LoginPage}></Route>
 				
 			</Switch>
 		</Provider>
