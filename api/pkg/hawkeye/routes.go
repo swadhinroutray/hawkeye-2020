@@ -43,7 +43,7 @@ func (app *App) mountRoutes() {
 	shop.HandleFunc("/getinventory", app.withUser(app.sendInventory)).Methods("GET")
 	shop.HandleFunc("/tobuy", app.withUser(app.canBuy)).Methods("GET")
 	shop.HandleFunc("/resetstore", app.withUser(app.resetStore)).Methods("GET")
-
+	shop.HandleFunc("/remaining", app.withUser(app.getRemainingElixirs)).Methods("GET")
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")
