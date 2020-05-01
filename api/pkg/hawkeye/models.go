@@ -7,7 +7,7 @@ import (
 )
 
 //User (Collection)...
-type User struct { //TODO: Fix number of items
+type User struct {
 	ID        primitive.ObjectID `bson:"_id"        json:"id"`
 	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updatedAt"`
@@ -97,15 +97,3 @@ type Elixir struct {
 	Region     int                `bson:"region" json:"region"`     //When bought it is initialised to -1
 	Question   int                `bson:"question" json:"question"` //When bought it is initialised to -1
 }
-
-/*What potions are we keeping?
-- Region Multiplier
-- Hangman
-- Extra Hint
--
-*/
-
-/*
-	Every five questions, we have a multiplier for the next one
-
-*/

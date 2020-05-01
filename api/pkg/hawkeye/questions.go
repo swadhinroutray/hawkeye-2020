@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 // AddQuestionRequest ...
@@ -222,4 +223,72 @@ func (app *App) editHint(w http.ResponseWriter, r *http.Request) {
 	}
 
 	app.sendResponse(w, true, Success, "Success")
+}
+
+func (app *App) levelQuestion(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	lvl, err := strconv.Atoi(params["lvl"])
+	region, err := strconv.Atoi(params["region"])
+	app.log.Infof("Lvl questions %d", lvl)
+	app.log.Infof("Region questions %d", region)
+
+	if err != nil {
+		app.log.Infof("Bad request params %s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+
+	var question Question
+	filter := bson.M{
+		"level":  lvl,
+		"region": region,
+	}
+	err = app.db.Collection("questions").FindOne(r.Context(), filter).Decode(&question)
+	if err == mongo.ErrNoDocuments {
+		app.log.Infof("Tried to fetch question that does not exist")
+		app.sendResponse(w, false, BadRequest, "Question does not exist")
+		return
+	}
+
+	if err != nil {
+		app.log.Errorf("Database error %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.log.Infof("Fetched question %s", question)
+	app.sendResponse(w, true, Success, question)
+}
+
+func (app *App) regionQuestions(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	region, err := strconv.Atoi(params["region"])
+	app.log.Infof("Region questions %d", region)
+
+	if err != nil {
+		app.log.Infof("Bad request params %s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+	filter := bson.M{
+		"region": region,
+	}
+	findOpts := options.Find()
+	findOpts.SetSort(bson.M{"level": 1})
+
+	cur, err := app.db.Collection("questions").Find(r.Context(), filter, findOpts)
+	if err != nil {
+		app.log.Errorf("Database error %s", err)
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	var allQuestions []Question
+	if err := cur.All(r.Context(), &allQuestions); err != nil {
+		app.log.Errorf("Database error %s", err)
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.sendResponse(w, true, Success, allQuestions)
 }

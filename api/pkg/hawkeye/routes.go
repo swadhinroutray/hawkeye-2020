@@ -22,6 +22,11 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/addhint", app.withAdmin(app.addHint)).Methods("POST")
 	admin.HandleFunc("/edithint/{region}/{level}/{id}", app.withAdmin(app.editHint)).Methods("POST")
 	admin.HandleFunc("/hiddenhint", app.withAdmin(app.addHiddenHint)).Methods("POST")
+	admin.HandleFunc("/user/all", app.withAdmin(app.listUsers)).Methods("GET")
+	admin.HandleFunc("/user/ban/{id}", app.withAdmin(app.banUser)).Methods("PUT")
+	admin.HandleFunc("/user/unban/{id}", app.withAdmin(app.unbanUser)).Methods("PUT")
+	admin.HandleFunc("/question/{lvl}/{region}", app.withAdmin(app.levelQuestion)).Methods("GET")
+	admin.HandleFunc("/question/{region}", app.withAdmin(app.regionQuestions)).Methods("GET")
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
