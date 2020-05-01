@@ -11,6 +11,7 @@ import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';
 import { ForgotPass } from '../pages/app/ForgotAndReset/ForgotPass';
 import { ResetPass } from '../pages/app/ForgotAndReset/ResetPass';
+import AddQuestion from '../pages/app/Admin/AddQuestion';
 import { PrivateRoute } from './PrivateRoute';
 
 const AppRouter = ({ match }) => {
@@ -21,12 +22,13 @@ const AppRouter = ({ match }) => {
 				<Route path={'/login'} component={LoginPage}></Route>
 				<Route path={'/forgot'} component={ForgotPass}></Route>
 				<Route path={'/reset'} component={ResetPass}></Route>
-				<Route path={'/admin/addquestion'} component={AddQuestion}></Route>
-				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
 				<PrivateRoute path={'/game/:id'} component={Game}></PrivateRoute>
 				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
-
-				<Route path={'/'} component={LoginPage}></Route>
+				<PrivateRoute
+					path={'/admin/addquestion'}
+					component={AddQuestion}
+				></PrivateRoute>
+				<PrivateRoute path={'/'} component={LoginPage}></PrivateRoute>
 			</Switch>
 		</Provider>
 	);

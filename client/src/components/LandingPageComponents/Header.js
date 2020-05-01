@@ -11,10 +11,7 @@ export const Header = inject('LoginStore')(
 				<HawkLogo src={hawkLogo} alt="hawk-logo" />
 				<h1>HAWKEYE</h1>
 				<div>
-					<Link
-						to="/shop"
-						style={{ textDecoration: 'none', margin: 0, padding: 0 }}
-					>
+					<Link to="/shop">
 						<Icon src={shopLogo} alt="shop-icon" />
 					</Link>
 					<Icon
@@ -47,36 +44,34 @@ const HeaderWrapper = styled.header`
 	> h1 {
 		margin: 0;
 		grid-column: 2/3;
-		font-size: 1.7em;
+	}
+	> div {
+		grid-column: 3;
+		display: flex;
+		justify-content: space-evenly;
+	}
 
-		@media (min-width: 321px) {
-			font-size: 2em;
-		}
-		@media (min-width: 768px) {
+	@media (min-width: 768px) {
+		> h1 {
 			margin-top: 3vh;
 			font-size: 3em;
 		}
-	}
-
-	> div {
-		grid-column: 3/4;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
+		> div {
+			> img {
+				height: 8vh;
+			}
+		}
 	}
 `;
 
 const HawkLogo = styled.img`
 	float: left;
-	height: 5vh;
+	height: 6vh;
 	margin-left: 10%;
 	grid-column: 1/2;
 	align-items: center;
 
 	align-self: flex-end;
-	@media (min-width: 321px) {
-		height: 6vh;
-	}
 	@media (min-width: 768px) {
 		height: 9vh;
 	}

@@ -43,6 +43,7 @@ class RegisterModel {
 	};
 	setField = (field, val) => {
 		this[field].value = val;
+		// console.log(field, 'val', val);
 		let err = '';
 		if (field === 'confirmPass') {
 			err = registerValidator[field](val, this.password.value);
@@ -99,7 +100,27 @@ class RegisterModel {
 			mobile: this.mobile.value,
 			college: this.college.value,
 		};
-
+		/*fetch('/api/auth/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		}).then(res => {
+			console.log(res);
+			// if (res.status === 200) {
+			// 	this.setMessage('Registered Succesfully!!');
+			// 	return;
+			// }
+			// if (res.statusText === 'Conflict') {
+			// 	for (let err of res.data) {
+			// 		if (err.field === 'username' && err.error === 'usernameexists')
+			// 			this.username.error = 'Username already in use';
+			// 		else if (err.field === 'email' && err.error === 'emailexists')
+			// 			this.email.error = 'Email already registered';
+			// 	}
+			// }
+		});*/
 		post(`/api/auth/register`, postData).then(res => {
 			console.log(res);
 
