@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -53,4 +55,51 @@ func (app *App) unlockNextRegionForAll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	app.sendResponse(w, true, Success, nil)
+}
+
+//Make Admin
+func (app *App) makeAdmin(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	id, err := primitive.ObjectIDFromHex(params["id"])
+	if err != nil {
+		app.log.Infof("Bad request params %s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+
+	if _, err = app.db.Collection("users").UpdateOne(
+		r.Context(),
+		bson.M{"_id": id},
+		bson.M{"$set": bson.M{"access": 1}},
+	); err != nil {
+		app.log.Errorf("Database error %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.sendResponse(w, true, Success, "Successfully made Admin")
+}
+
+func (app *App) dismissAdmin(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	id, err := primitive.ObjectIDFromHex(params["id"])
+	if err != nil {
+		app.log.Infof("Bad request params %s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+
+	if _, err = app.db.Collection("users").UpdateOne(
+		r.Context(),
+		bson.M{"_id": id},
+		bson.M{"$set": bson.M{"access": 0}},
+	); err != nil {
+		app.log.Errorf("Database error %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.sendResponse(w, true, Success, "Successfully dismissed Admin")
 }

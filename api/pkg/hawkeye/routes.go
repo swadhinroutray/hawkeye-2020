@@ -3,9 +3,7 @@ package hawkeye
 func (app *App) mountRoutes() {
 	api := app.router.PathPrefix("/api").Subrouter()
 
-	api.HandleFunc("/hello", app.HelloWork).Methods("GET")
-	api.HandleFunc("/allusers", app.GetUser).Methods("GET")
-	api.HandleFunc("/adduser", app.AddUser).Methods("POST")
+	api.HandleFunc("/hello", app.withAdmin(app.HelloWork)).Methods("GET")
 
 	//Authentication Routes
 	auth := api.PathPrefix("/auth").Subrouter()
@@ -22,6 +20,13 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/addhint", app.withAdmin(app.addHint)).Methods("POST")
 	admin.HandleFunc("/edithint/{region}/{level}/{id}", app.withAdmin(app.editHint)).Methods("POST")
 	admin.HandleFunc("/hiddenhint", app.withAdmin(app.addHiddenHint)).Methods("POST")
+	admin.HandleFunc("/user/all", app.withAdmin(app.listUsers)).Methods("GET")
+	admin.HandleFunc("/user/ban/{id}", app.withAdmin(app.banUser)).Methods("PUT")
+	admin.HandleFunc("/user/unban/{id}", app.withAdmin(app.unbanUser)).Methods("PUT")
+	admin.HandleFunc("/question/{lvl}/{region}", app.withAdmin(app.levelQuestion)).Methods("GET")
+	admin.HandleFunc("/question/{region}", app.withAdmin(app.regionQuestions)).Methods("GET")
+	admin.HandleFunc("/makeadmin/{id}", app.withAdmin(app.makeAdmin)).Methods("POST")
+	admin.HandleFunc("/dismissadmin/{id}", app.withAdmin(app.dismissAdmin)).Methods("POST")
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
@@ -43,7 +48,7 @@ func (app *App) mountRoutes() {
 	shop.HandleFunc("/getinventory", app.withUser(app.sendInventory)).Methods("GET")
 	shop.HandleFunc("/tobuy", app.withUser(app.canBuy)).Methods("GET")
 	shop.HandleFunc("/resetstore", app.withUser(app.resetStore)).Methods("GET")
-
+	shop.HandleFunc("/remaining", app.withUser(app.getRemainingElixirs)).Methods("GET")
 	//User Routes
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")
