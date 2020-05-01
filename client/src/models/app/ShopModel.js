@@ -10,15 +10,15 @@ class ShopModel {
 	points = 0;
 	message = '';
 	toBuy = [2, 2, 2, 1];
-	resetMinimumPointsReq = 100;
-	resetPoints = 90;
+	resetMinimumPointsReq = 1500;
+	resetPoints = 800;
 	itemDescriptions = [
 		'Get an extra hint for a question of your choice',
 		'Add a 1.5 multiplier for a region that has been unlocked for you',
 		"Ever played Hangman? This is exactly what you're thinking right now. Get some letters of the final answer for a question of your choice",
 		'Stuck with some question for a really long time? Here’s an elixir that lets you skip it!',
 	];
-	itemCost = [20, 30, 40, 50];
+	itemCost = [100, 100, 100, 100];
 	selected = 0;
 	owned = [0, 0, 0, 0];
 	get getSelected() {
