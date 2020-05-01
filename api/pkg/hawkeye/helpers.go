@@ -39,6 +39,7 @@ const (
 	UnlockHintPoints       = 100
 	HangmanHintPoints      = 100
 	RegionMultiplierPoints = 100
+	RegionMultiplierValue  = 1.5
 	ResetStoreMinValue     = 1500
 	ResetStorePrice        = 800
 	SkipQuestionPoints     = 100

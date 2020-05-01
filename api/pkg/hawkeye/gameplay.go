@@ -188,7 +188,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	regionMult := 1.0
 
 	if currUser.RegionMultiplier == ansReq.Region {
-		regionMult = 1.5
+		regionMult = RegionMultiplierValue
 	}
 
 	//Update level of the region
