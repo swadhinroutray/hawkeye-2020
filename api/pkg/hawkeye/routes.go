@@ -3,9 +3,7 @@ package hawkeye
 func (app *App) mountRoutes() {
 	api := app.router.PathPrefix("/api").Subrouter()
 
-	api.HandleFunc("/hello", app.HelloWork).Methods("GET")
-	api.HandleFunc("/allusers", app.GetUser).Methods("GET")
-	api.HandleFunc("/adduser", app.AddUser).Methods("POST")
+	api.HandleFunc("/hello", app.withAdmin(app.HelloWork)).Methods("GET")
 
 	//Authentication Routes
 	auth := api.PathPrefix("/auth").Subrouter()
@@ -27,6 +25,8 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/user/unban/{id}", app.withAdmin(app.unbanUser)).Methods("PUT")
 	admin.HandleFunc("/question/{lvl}/{region}", app.withAdmin(app.levelQuestion)).Methods("GET")
 	admin.HandleFunc("/question/{region}", app.withAdmin(app.regionQuestions)).Methods("GET")
+	admin.HandleFunc("/makeadmin/{id}", app.withAdmin(app.makeAdmin)).Methods("POST")
+	admin.HandleFunc("/dismissadmin/{id}", app.withAdmin(app.dismissAdmin)).Methods("POST")
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
