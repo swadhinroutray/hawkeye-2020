@@ -24,11 +24,10 @@ const AppRouter = ({ match }) => {
 				<Route path={'/reset'} component={ResetPass}></Route>
 				<PrivateRoute path={'/game/:id'} component={Game}></PrivateRoute>
 				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
-				<PrivateRoute
-					path={'/admin/addquestion'}
-					component={AddQuestion}
-				></PrivateRoute>
-				<PrivateRoute path={'/'} component={LoginPage}></PrivateRoute>
+				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
+
+				<Route path={'/admin/addquestion'} component={AddQuestion}></Route>
+				<Route path={'/'} component={LoginPage}></Route>
 			</Switch>
 		</Provider>
 	);
