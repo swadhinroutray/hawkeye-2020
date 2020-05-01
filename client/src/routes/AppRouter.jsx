@@ -14,6 +14,8 @@ import { ResetPass } from '../pages/app/ForgotAndReset/ResetPass';
 import AddQuestion from '../pages/app/Admin/AddQuestion';
 import { PrivateRoute } from './PrivateRoute';
 
+import Leaderboard from '../pages/app/Admin/Leaderboard';
+
 const AppRouter = ({ match }) => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
@@ -27,7 +29,8 @@ const AppRouter = ({ match }) => {
 				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
 
 				<Route path={'/admin/addquestion'} component={AddQuestion}></Route>
-				<Route path={'/'} component={LoginPage}></Route>
+				<Route path={'/admin/leaderboard'} component={Leaderboard}></Route>
+				<Route exact path={'/'} component={LoginPage}></Route>
 			</Switch>
 		</Provider>
 	);

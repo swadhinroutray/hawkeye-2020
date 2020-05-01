@@ -103,3 +103,42 @@ func (app *App) dismissAdmin(w http.ResponseWriter, r *http.Request) {
 
 	app.sendResponse(w, true, Success, "Successfully dismissed Admin")
 }
+
+// func (app *App) getUserSubmissions(w http.ResponseWriter, r *http.Request) {
+// 	params := mux.Vars(r)
+
+// 	id, err := primitive.ObjectIDFromHex(params["id"])
+// 	if err != nil {
+// 		app.log.Infof("Bad request params %s", err.Error())
+// 		app.sendResponse(w, false, BadRequest, nil)
+// 		return
+// 	}
+
+// 	var submissions []Submission
+
+// 	filter := bson.A{
+// 		bson.M{"$match": bson.M{"_id": id}},
+// 		bson.M{
+// 			"$project": bson.M{
+// 				"submissions": 1,
+// 			},
+// 		},
+// 	}
+// 	// findOpts := options.Find()
+// 	// findOpts.SetSort(bson.M{"created_at": -1})
+
+// 	cur, err := app.db.Collection("users").Aggregate(r.Context(), filter)
+// 	if err != nil {
+// 		app.log.Errorf("Database error %s", err)
+// 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+// 		return
+// 	}
+
+// 	if err := cur.All(r.Context(), &submissions); err != nil {
+// 		app.log.Errorf("Database error %s", err)
+// 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+// 		return
+// 	}
+
+// 	app.sendResponse(w, true, Success, submissions)
+// }

@@ -93,7 +93,7 @@ type Elixir struct {
 	UsedAt     time.Time          `bson:"used_at" json:"UsedAt"`
 	Elixir     int                `bson:"elixir" json:"elixir"`
 	ElixirName string             `bson:"elixir_name" json:"elixir_name"`
-	Active     bool               `bson:"active"  json:"active"`    //WHY?
+	Active     bool               `bson:"active"  json:"active"`
 	Region     int                `bson:"region" json:"region"`     //When bought it is initialised to -1
 	Question   int                `bson:"question" json:"question"` //When bought it is initialised to -1
 }

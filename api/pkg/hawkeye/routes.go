@@ -27,6 +27,7 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/question/{region}", app.withAdmin(app.regionQuestions)).Methods("GET")
 	admin.HandleFunc("/makeadmin/{id}", app.withAdmin(app.makeAdmin)).Methods("POST")
 	admin.HandleFunc("/dismissadmin/{id}", app.withAdmin(app.dismissAdmin)).Methods("POST")
+	//admin.HandleFunc("/getsubmissions/{id}", app.withAdmin(app.getUserSubmissions)).Methods("GET")
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
