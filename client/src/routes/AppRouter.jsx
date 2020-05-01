@@ -11,6 +11,7 @@ import ShopStore from '../models/app/ShopModel';
 import { ShopPage } from '../pages/app/ShopPage/ShopPage';
 import {ForgotPass} from '../pages/app/ForgotAndReset/ForgotPass'
 import {ResetPass} from '../pages/app/ForgotAndReset/ResetPass'
+import AddQuestion from '../pages/app/Admin/AddQuestion'
 
 const AppRouter = ({ match }) => {
 	return (
@@ -22,10 +23,10 @@ const AppRouter = ({ match }) => {
 				<Route path={'/reset'} component={ResetPass}></Route>
 				<Route path={'/regions'} component={LandingPage}></Route>
 				<Route path={'/game/:id'} component={Game}></Route>
-
 				<Route path={'/shop'} component={ShopPage}></Route>
-				
+				<Route path={'/admin/addquestion'} component={AddQuestion}></Route>
 				<Route path={'/'} component={LoginPage}></Route>
+				
 			</Switch>
 		</Provider>
 	);

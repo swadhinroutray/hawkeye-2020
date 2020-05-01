@@ -12,7 +12,7 @@ import PullUp from '../../../assets/PullUp.svg'
 import ButtonBox from '../../../assets/ButtonBox.svg'
 import Attempts from '../../../assets/Attempts.svg'
 import ReactLoading from 'react-loading';
-import { faWindowClose,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 
