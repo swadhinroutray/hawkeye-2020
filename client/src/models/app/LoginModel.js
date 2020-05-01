@@ -71,7 +71,7 @@ class LoginModel {
 	loginControl = res => {
 		console.log(res);
 		if (res.success) {
-			
+
 			console.log(res.data);
 			const {
 				id,
@@ -83,7 +83,7 @@ class LoginModel {
 				access,
 				banned,
 				level,
-				invertory,
+				inventory,
 				points,
 				itembool,
 			} = res.data;
@@ -97,7 +97,7 @@ class LoginModel {
 			this.profile.level = level;
 			this.profile.access = access;
 			this.profile.banned = banned;
-			this.profile.invertory = invertory;
+			this.profile.invertory = inventory;
 			this.profile.points = points;
 			this.profile.itembool = itembool;
 			this.profileSet = true;
@@ -111,7 +111,7 @@ class LoginModel {
 
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		else if (res.message === 'UNAUTHORIZED'&&this.formData.password.value.length) {
+		else if (res.message === 'UNAUTHORIZED' && this.formData.password.value.length) {
 			this.formData.password.error = 'Incorrect password';
 		} else {
 			console.log('error');
