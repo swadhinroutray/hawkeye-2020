@@ -4,12 +4,12 @@ import { observer, Provider } from 'mobx-react';
 import store from '../../models/app/LandingPageModel';
 import GameplayModel from '../../models/app/GameplayModel';
 import LoginStore from '../../models/app/LoginModel';
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import {
 	RegionInfo,
 	Header,
 	Hologram,
-	Waves,
+	Map,
 } from '../../components/LandingPageComponents';
 import { leftBar, rightBar, backgroundMesh } from '../../assets/landing-assets';
 
@@ -22,6 +22,7 @@ export const LandingPage = observer(() => {
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={store}>
 				<Page>
+					{!LoginStore.loggedIn && <Redirect to="/login" />}
 					<Header />
 					<Wrapper>
 						<RegionSelector>
@@ -39,12 +40,12 @@ export const LandingPage = observer(() => {
 									store.changeRegion(Math.floor(e.target.value / 10))
 								}
 								value={store.currentRegion * 10}
-							/>
+							></Slider>
 							<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
 						</RegionSelector>
 
 						<RegionInfo />
-						<Waves />
+						<Map />
 					</Wrapper>
 				</Page>
 			</Provider>
@@ -61,7 +62,7 @@ const Page = styled.div`
 	text-align: center;
 	letter-spacing: 0.1em;
 	color: white;
-	font-family: 'Nidus Sans', sans-serif;
+	font-family: 'Futura PT Medium';
 	background-image: url(${backgroundMesh});
 	background-size: cover;
 
@@ -93,11 +94,12 @@ const Page = styled.div`
 const Wrapper = styled.div`
 	padding: 5px 20px;
 	position: relative;
+	overflow: hidden;
 
 	@media (min-width: 768px) {
 		display: grid;
-		grid-template-columns: 30% auto 30%;
-		justify-items: stretch;
+		grid-template-columns: 30fr auto 30fr;
+		/* justify-items: center; */
 	}
 `;
 
@@ -113,6 +115,7 @@ const Slider = styled.input`
 	width: 60%;
 	height: 8px;
 	background: turquoise;
+	padding: 0;
 	outline: none;
 	border-radius: 5px;
 	-webkit-transition: 0.2s;
@@ -122,13 +125,13 @@ const Slider = styled.input`
 	@media (min-width: 768px) {
 		margin-top: 8vh;
 		width: 90%;
-		height: 18px;
+		height: 16px;
 	}
 	::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
 		width: 26px;
-		height: 12px;
+		height: 14px;
 		background: #00ced1;
 		border-radius: 5px;
 		cursor: pointer;
@@ -141,7 +144,7 @@ const Slider = styled.input`
 
 	::-moz-range-thumb {
 		width: 26px;
-		height: 12px;
+		height: 14px;
 		background: #4caf50;
 		border-radius: 5px;
 		cursor: pointer;
@@ -154,17 +157,22 @@ const Slider = styled.input`
 `;
 const Year = styled.div`
 	border: 1px solid turquoise;
-	width: 30%;
-	padding: 5px 10px;
+	width: 40%;
+	padding: 1vh 2vw;
 	color: turquoise;
 	font-size: 1.2em;
-	font-weight: 600;
+	font-weight: 500;
 	margin: 0 auto 2vh auto;
-
+	@media (min-width: 425px) {
+		width: 30%;
+	}
 	@media (min-width: 768px) {
 		margin-top: 3vh;
 		width: 50%;
 		font-size: 1.7em;
+	}
+	@media (min-width: 1024px) {
+		width: 60%;
 	}
 `;
 

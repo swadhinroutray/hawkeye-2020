@@ -4,7 +4,7 @@ import { RegisterPage } from '../pages/app/RegisterPage/RegisterPage';
 import LoginPage from '../pages/app/LoginPage/LoginPage';
 import Game from '../pages/app/Game/Game';
 import { Route } from 'react-router-dom';
-import { Provider } from 'mobx-react';
+import { Provider, observer } from 'mobx-react';
 import { LandingPage } from '../pages/app/LandingPage';
 import store from '../models/app/LoginModel';
 import ShopStore from '../models/app/ShopModel';
@@ -25,12 +25,20 @@ const AppRouter = ({ match }) => {
 				<Route path={'/login'} component={LoginPage}></Route>
 				<Route path={'/forgot'} component={ForgotPass}></Route>
 				<Route path={'/reset'} component={ResetPass}></Route>
+
 				<PrivateRoute path={'/game/:id'} component={Game}></PrivateRoute>
 				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
 				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
-				<AdminRoute path={'/admin/addquestion'} component={AddQuestion}></AdminRoute>
-				<AdmintRoute path={'/admin/addhints'} component={AddHints}></AdmintRoute>
-				<AdminRoute path={'/admin/leaderboard'} component={Leaderboard}></AdminRoute>
+
+				<AdminRoute
+					path={'/admin/addquestion'}
+					component={AddQuestion}
+				></AdminRoute>
+				<AdminRoute path={'/admin/addhints'} component={AddHints}></AdminRoute>
+				<AdminRoute
+					path={'/admin/leaderboard'}
+					component={Leaderboard}
+				></AdminRoute>
 				<Route exact path={'/'} component={LoginPage}></Route>
 			</Switch>
 		</Provider>

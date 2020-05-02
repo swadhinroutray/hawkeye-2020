@@ -19,7 +19,8 @@ export const Hologram = inject('LandingStore')(
 );
 const HologramWrapper = styled.div`
 	overflow: hidden;
-	height: 28vh;
+	height: 26vh;
+	text-align: center;
 
 	@media (min-width: 768px) {
 		height: 40vh;
@@ -27,11 +28,16 @@ const HologramWrapper = styled.div`
 `;
 const RegionImg = styled.img`
 	height: 14vh;
-	z-index: 5;
+	z-index: 10;
 	position: relative;
-	margin: 2vh auto 0 auto;
+	top: 1vh;
 	@media (min-width: 768px) {
 		height: 22vh;
+		top: 3vh;
+	}
+	@media (min-width: 1024px) {
+		height: 22vh;
+		top: 4vh;
 	}
 `;
 const HologramImg = styled.img`
@@ -40,6 +46,7 @@ const HologramImg = styled.img`
 	transform: translateY(-25px);
 	margin: auto;
 	z-index: 2;
+
 	@media (min-width: 768px) {
 		height: 22vh;
 	}

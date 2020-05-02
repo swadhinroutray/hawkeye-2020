@@ -71,7 +71,6 @@ class LoginModel {
 	loginControl = res => {
 		console.log(res);
 		if (res.success) {
-
 			console.log(res.data);
 			const {
 				id,
@@ -111,7 +110,10 @@ class LoginModel {
 
 		if (res.message === 'CONFLICT')
 			this.formData.email.error = 'Email is not registered';
-		else if (res.message === 'UNAUTHORIZED' && this.formData.password.value.length) {
+		else if (
+			res.message === 'UNAUTHORIZED' &&
+			this.formData.password.value.length
+		) {
 			this.formData.password.error = 'Incorrect password';
 		} else {
 			console.log('error');

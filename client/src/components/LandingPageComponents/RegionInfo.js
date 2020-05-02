@@ -13,20 +13,20 @@ export const RegionInfo = inject('LandingStore')(
 		return (
 			<InfoWrapper className="info">
 				<Background src={DescriptionBg} />
-				<div>
+				<div className="info">
 					REGION: {LandingStore.regionInfo[LandingStore.currentRegion].name}
 				</div>
-				<div>
+				<div className="info">
 					LOCATION:{' '}
 					{LandingStore.regionInfo[LandingStore.currentRegion].location}
 				</div>
-				<div>
+				<div className="info">
 					YEAR: {LandingStore.regionInfo[LandingStore.currentRegion].year}AD
 				</div>
-				<div>
+				<div className="info">
 					DATE: {LandingStore.regionInfo[LandingStore.currentRegion].date}
 				</div>
-				<div>
+				<div className="info">
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
 				<Link to={`/game/${LandingStore.currentRegion}`}>
@@ -43,17 +43,28 @@ const InfoWrapper = styled.div`
 	text-transform: uppercase;
 	width: 90%;
 	margin: auto;
+	align-self: center;
 	position: relative;
 	color: turquoise;
 	font-size: 0.8em;
-	padding: 15px 12%;
+	font-family: 'Futura PT Medium';
+
+	padding: 15px 2vw;
 	box-sizing: border-box;
 
+	@media (min-width: 450px) {
+		width: 70%;
+	}
 	@media (min-width: 768px) {
 		width: 100%;
 		padding: 15% 7%;
 		font-size: 1em;
-		margin-top: 50%;
+	}
+	@media (min-width: 1024px) {
+		width: 80%;
+	}
+	> .info {
+		margin-bottom: 3px;
 	}
 `;
 

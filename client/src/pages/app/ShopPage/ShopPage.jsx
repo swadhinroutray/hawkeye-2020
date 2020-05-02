@@ -73,19 +73,18 @@ const ShopPageContainer = styled.div`
 		font-weight: 100;
 		font-size: 21px;
 	}
-	.reset{
+	.reset {
 		background-image: url(${buy});
 		background-size: cover;
 		box-sizing: border-box;
 		width: fit-content;
 		text-align: center;
-		letter-spacing:3px;
+		letter-spacing: 3px;
 		padding: 10px 50px 15px 30px;
 		margin: 10px auto;
-		
 	}
-	.reset-blocked{
-		opacity: 30%;	
+	.reset-blocked {
+		opacity: 30%;
 	}
 	.back {
 		display: block;
@@ -159,7 +158,7 @@ const ShopPageContainer = styled.div`
 			flex: 1.125;
 			align-self: center;
 		}
-		.item-container{
+		.item-container {
 			flex: 1.25;
 		}
 		.header {
@@ -184,7 +183,7 @@ const ShopPageContainer = styled.div`
 			flex: 1;
 			align-self: center;
 		}
-		.item-container{
+		.item-container {
 			flex: 1.125;
 		}
 		.header {
@@ -232,14 +231,12 @@ const ItemsContainer = styled.div`
 		}
 	}
 	@media ${device.laptop} {
-		
 		margin: 0 1.5em;
-		.grid{
-			padding:0 5%;
+		.grid {
+			padding: 0 5%;
 		}
 	}
 	@media ${device.desktop} {
-		
 		margin: 0 10px;
 		letter-spacing: 10px;
 		.grid {
@@ -365,7 +362,7 @@ class ShopPage extends Component {
 	render() {
 		const store = this.props.shopStore;
 		if (!this.props.loginStore.loggedIn) {
-			return <Redirect to='/login' />
+			return <Redirect to="/login" />;
 		}
 		return (
 			<ShopPageContainer>
@@ -400,11 +397,12 @@ class ShopPage extends Component {
 							</div>
 						</ItemsContainer>
 						{store.points > store.resetMinimumPointsReq ? (
-							<div className='reset' onClick={store.resetStore.bind(store)}>
+							<div className="reset" onClick={store.resetStore.bind(store)}>
 								<span>reset store</span>
-							</div>) : (
-								<div className='reset reset-blocked'>reset store</div>
-							)}
+							</div>
+						) : (
+							<div className="reset reset-blocked">reset store</div>
+						)}
 					</div>
 					<ItemDescription>
 						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
@@ -424,18 +422,22 @@ class ShopPage extends Component {
 								buy
 							</div>
 						) : (
-								<div className="buy buy-blocked">buy</div>
-							)}
+							<div className="buy buy-blocked">buy</div>
+						)}
 						<span className="message">{store.message}</span>
 					</ItemDescription>
 				</div>
 				<Link className="back" to="/regions">
 					<BackButton />
 				</Link>
-				{(this.props.loginStore.profileSetError && (!this.props.loginStore.loggedIn)) ? <Redirect to={{
-					pathname: '/login',
-
-				}} /> : null}
+				{this.props.loginStore.profileSetError &&
+				!this.props.loginStore.loggedIn ? (
+					<Redirect
+						to={{
+							pathname: '/login',
+						}}
+					/>
+				) : null}
 			</ShopPageContainer>
 		);
 	}
