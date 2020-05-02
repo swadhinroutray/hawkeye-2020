@@ -46,6 +46,10 @@ export const LandingPage = observer(() => {
 						<RegionInfo />
 						<Waves />
 					</Wrapper>
+					{(LoginStore.profileSetError&&(!LoginStore.loggedIn)) ? <Redirect  to={{
+              pathname: '/login',
+               
+            }}  /> : null}
 				</Page>
 			</Provider>
 		</Provider>

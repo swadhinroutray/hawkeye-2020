@@ -374,7 +374,7 @@ class ShopPage extends Component {
 					<Link className="icon" to="">
 						<RulesIcon />
 					</Link>
-					<Link className="icon" to="">
+					<Link className="icon" onClick={()=>{this.props.loginStore.logout()}} to="">
 						<LogoutIcon />
 					</Link>
 				</div>
