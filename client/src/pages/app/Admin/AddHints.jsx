@@ -1,4 +1,5 @@
 import React from 'react'
+import './style.css';
 
 class AddHints extends React.Component {
     constructor(){
@@ -45,10 +46,10 @@ class AddHints extends React.Component {
     render(){
         return (
             <div>
-                <div className="">
+                <div>
                     <input type="text" placeholder="Enter Hint" onChange={(event) => this.setState({hint:event.target.value})} />
                 </div>
-                <div className="">
+                <div>
                     <input type="text" placeholder="Enter Region, between [0, 4]" onChange={(event) => this.setState({region: parseInt(event.target.value)})} />
                 </div>
                 <div>

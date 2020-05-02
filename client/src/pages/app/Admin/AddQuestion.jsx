@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import './style.css'
 
 function submitForm(state){
     fetch('/api/admin/addquestion', {
@@ -31,13 +32,13 @@ const AddQuestion = () => {
     return (
         <div>
             
-            <div className="">
+            <div >
                 <input type="text" placeholder="Enter Question" onChange={(event) => setQuestion(event.target.value)} />
             </div>
-            <div className="">
+            <div >
                 <input type="text" placeholder="Enter Answer" onChange={(event) => setAnswer(event.target.value)} />
             </div>
-            <div className="s">
+            <div >
                 <input type="text" placeholder="Enter Region, between [0, 4]" onChange={(event) => setRegion(parseInt(event.target.value))} />
             </div>
             <div>

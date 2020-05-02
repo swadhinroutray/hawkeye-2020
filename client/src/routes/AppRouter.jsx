@@ -12,8 +12,9 @@ import { ShopPage } from '../pages/app/ShopPage/ShopPage';
 import { ForgotPass } from '../pages/app/ForgotAndReset/ForgotPass';
 import { ResetPass } from '../pages/app/ForgotAndReset/ResetPass';
 import AddQuestion from '../pages/app/Admin/AddQuestion';
+import AddHints from '../pages/app/Admin/AddHints';
 import { PrivateRoute } from './PrivateRoute';
-
+import { AdminRoute } from './AdminRoute';
 import Leaderboard from '../pages/app/Admin/Leaderboard';
 
 const AppRouter = ({ match }) => {
@@ -27,9 +28,9 @@ const AppRouter = ({ match }) => {
 				<PrivateRoute path={'/game/:id'} component={Game}></PrivateRoute>
 				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
 				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
-
-				<Route path={'/admin/addquestion'} component={AddQuestion}></Route>
-				<Route path={'/admin/leaderboard'} component={Leaderboard}></Route>
+				<AdminRoute path={'/admin/addquestion'} component={AddQuestion}></AdminRoute>
+				<AdmintRoute path={'/admin/addhints'} component={AddHints}></AdmintRoute>
+				<AdminRoute path={'/admin/leaderboard'} component={Leaderboard}></AdminRoute>
 				<Route exact path={'/'} component={LoginPage}></Route>
 			</Switch>
 		</Provider>

@@ -1,0 +1,23 @@
+input {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+    width:30vw;
+    font-size: 1rem;
+    padding:0.5rem;
+    background-color: Transparent;
+    border-right:5px solid #7FD1E0;
+    border-left:5px solid #7FD1E0;
+    border-top:1px solid #7FD1E0;
+    border-bottom:1px solid #7FD1E0;
+}
+
+button {
+    background: url(`../../../../../assets/ButtonBox.svg`) center center;
+    background-size:100% 100%;
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+}
