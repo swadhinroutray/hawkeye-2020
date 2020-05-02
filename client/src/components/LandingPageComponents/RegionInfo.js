@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import GameplayModel from '../../models/app/GameplayModel';
 export const RegionInfo = inject('LandingStore')(
-	observer(({ LandingStore }) => {
+	observer(({ LandingStore,LoginStore }) => {
 		useEffect(() => {
 			GameplayModel.locked = false;
 		}, []);
@@ -29,12 +29,18 @@ export const RegionInfo = inject('LandingStore')(
 				<div>
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
-				<Link to={`/game/${LandingStore.currentRegion}`}>
+				{(LoginStore.profile.level&&LoginStore.profile.level[LandingStore.currentRegion]>0)?<Link to={`/game/${LandingStore.currentRegion}`}>
 					<Start>
 						<img src={startButton} alt="" />
 						Start
 					</Start>
-				</Link>
+				</Link>:<span >
+					<Start>
+						<img src={startButton} alt="" />
+						Locked
+					</Start>
+				</span>}
+				
 			</InfoWrapper>
 		);
 	}),

@@ -43,7 +43,7 @@ export const LandingPage = observer(() => {
 							<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
 						</RegionSelector>
 
-						<RegionInfo />
+					<RegionInfo LoginStore={LoginStore} />
 						<Waves />
 					</Wrapper>
 					{(LoginStore.profileSetError&&(!LoginStore.loggedIn)) ? <Redirect  to={{
