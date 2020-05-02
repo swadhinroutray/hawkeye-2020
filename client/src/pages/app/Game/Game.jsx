@@ -43,7 +43,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 						<img id='rightbar' src={rightBar} alt="rightbar" />
 				<Provider  gameplayStore={GameplayModel}  >
 				
-					<nav className="Navbar">
+					<div className="Navbar">
 					<div className="navbar-btn">
 							<a href="/regions"><img id="hawklogo" src={HAWK} alt="Hawk"/></a>
 						</div>
@@ -66,7 +66,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
                
             }}  /> : null}
 						
-					</nav>
+					</div>
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
@@ -120,6 +120,7 @@ const size = {
 	desktop: '1560px',
 };
 const GameWrapper = styled.div`
+overflow:hidden;
 #heading{
 	
 	
