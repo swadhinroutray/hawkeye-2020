@@ -364,9 +364,6 @@ class ShopPage extends Component {
 	}
 	render() {
 		const store = this.props.shopStore;
-		if (!this.props.loginStore.loggedIn) {
-			return <Redirect to='/login' />
-		}
 		return (
 			<ShopPageContainer>
 				<Details1 />
