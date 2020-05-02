@@ -43,11 +43,11 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 						<img id='rightbar' src={rightBar} alt="rightbar" />
 				<Provider  gameplayStore={GameplayModel}  >
 				
-					<nav className="Navbar">
+					<div className="Navbar">
 					<div className="navbar-btn">
 							<a href="/regions"><img id="hawklogo" src={HAWK} alt="Hawk"/></a>
 						</div>
-						<div id='heading' >HAWKEYE</div>
+						<div id='heading' ><a style={{color:"white",textDecoration:"none"}} href="/regions">HAWKEYE</a></div>
 						<div className="nav-buttons">
 						<div className="navbar-btn" onClick={() => setrules(true)}>
 					<img id="rule-button" src={RulesIcon} alt="Rules"/>
@@ -66,7 +66,7 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
                
             }}  /> : null}
 						
-					</nav>
+					</div>
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
@@ -120,15 +120,16 @@ const size = {
 	desktop: '1560px',
 };
 const GameWrapper = styled.div`
+overflow:hidden;
 #heading{
 	
-	margin-left:15px;
+	
 	color:#fff;
 	
 	font-size:5.8vh;
 	align-self: center;
 	font-weight:bold;
-
+margin-top:1vh;
 	
 	font-family: "Futura PT Heavy"
 }
@@ -190,7 +191,7 @@ color:#fff;
 	:hover{
 	cursor:pointer;
 }
-	margin:2vh 3vw 0rem 0rem;
+	margin:2vh 1vw 0rem 0rem;
 	
 	width:40px;
 	height:50px;
@@ -204,10 +205,10 @@ color:#fff;
 	
 	background-image:url(${Qbox});
 	background-repeat:no-repeat;
+	background-size:100% 100%;
 	width:300px;
 max-height:300px;
 	padding:30px;
-	padding-bottom:68px;
   
 	
 }
@@ -579,6 +580,9 @@ li,h1{
 					
 					transform:scale(1.2);
 				}
+				#heading{
+					transform:scale(1.4);
+				}
 				.QuestionBox{
 					
 					transform:scale(1.3)
@@ -594,7 +598,7 @@ li,h1{
 					transform:scale(1.3);
 				}
 				.nav-buttons,#hawklogo,#heading{
-					transform:scale(1.5);
+					transform:scale(1.8);
 				}
 			}
 			@media  (min-device-width : ${size.desktop}) {
@@ -609,16 +613,15 @@ li,h1{
 				}
 			}
  @media  (max-device-width : 330px) {
-	.QuestionBox, .ActualHints,.Attempts{
-		transform:scale(0.9);
-		padding-left:10px;
-		padding-right:10px;
+	 #hawklogo{
+		margin-right:0;
 	}
-	.stats{
-
-		height:125px;
-		margin-top:5px;
+	
+	 .ActualHints,.Attempts{
+		transform:scale(0.8);
+		
 	}
+	
 	#heading{
 		margin-left:15px;
 	}

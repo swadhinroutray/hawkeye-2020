@@ -103,7 +103,7 @@ background-size:100% 100%;
 		background: url(${ButtonBox}) center center;
 		background-size:100% 100%;
 		font-size: 1rem;
-		padding: 0.4rem 1rem;
+		padding: 0.8rem 1.4rem;
 	}
 	.link-register,
 	.link-forgot {

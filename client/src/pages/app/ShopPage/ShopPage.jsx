@@ -361,9 +361,6 @@ class ShopPage extends Component {
 	}
 	render() {
 		const store = this.props.shopStore;
-		if (!this.props.loginStore.loggedIn) {
-			return <Redirect to="/login" />;
-		}
 		return (
 			<ShopPageContainer>
 				<Details1 />
@@ -374,7 +371,13 @@ class ShopPage extends Component {
 					<Link className="icon" to="">
 						<RulesIcon />
 					</Link>
-					<Link className="icon" to="">
+					<Link
+						className="icon"
+						onClick={() => {
+							this.props.loginStore.logout();
+						}}
+						to=""
+					>
 						<LogoutIcon />
 					</Link>
 				</div>

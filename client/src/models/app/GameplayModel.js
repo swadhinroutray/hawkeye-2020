@@ -162,7 +162,7 @@ class GameplayModel {
 				if (this.hints[0] === 'No hints yet') {
 					this.hints = [];
 				}
-				console.log(res.data)
+				
 				res.data.forEach(hint => {
 					this.hints.push(hint.hint);
 				});

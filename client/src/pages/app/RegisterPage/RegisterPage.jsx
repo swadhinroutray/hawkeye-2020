@@ -14,7 +14,7 @@ export const RegisterPage = () => (
 	<LoginPageWrapper>
 		<div id="headers" class="RegisterHeaders" >
 					<img id="hawklogo" src={HAWK} alt="Hawk"/>
-				<div className="hawkeye">Hawkeye</div>
+				<div className="hawkeye">HAWKEYE</div>
 				<a href="https://iecsemanipal.com/"><img id="iecselogo" src={iecse} alt="iecse"/></a>
 				</div>
 				<div id="loginStuff">

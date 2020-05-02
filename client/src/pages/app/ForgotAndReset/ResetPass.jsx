@@ -21,7 +21,7 @@ export const ResetPass = inject('loginStore')(
 			<LoginPageWrapper >
 				<div id="headers">
 					<img id="hawklogo" src={HAWK} alt="Hawk"/>
-				<div className="hawkeye">Hawkeye</div>
+				<div className="hawkeye">HAWKEYE</div>
 				<a href="https://iecsemanipal.com/"><img id="iecselogo" src={iecse} alt="iecse"/></a>
 				</div>
 				{loginStore.resetSuccess ? (

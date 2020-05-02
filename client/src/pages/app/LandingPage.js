@@ -43,10 +43,16 @@ export const LandingPage = observer(() => {
 							></Slider>
 							<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
 						</RegionSelector>
-
-						<RegionInfo />
+						<RegionInfo LoginStore={LoginStore} />
 						<Map />
 					</Wrapper>
+					{LoginStore.profileSetError && !LoginStore.loggedIn ? (
+						<Redirect
+							to={{
+								pathname: '/login',
+							}}
+						/>
+					) : null}
 				</Page>
 			</Provider>
 		</Provider>
