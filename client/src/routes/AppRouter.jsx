@@ -25,12 +25,12 @@ const AppRouter = ({ match }) => {
 				<Route path={'/login'} component={LoginPage}></Route>
 				<Route path={'/forgot'} component={ForgotPass}></Route>
 				<Route path={'/reset'} component={ResetPass}></Route>
-				<PrivateRoute path={'/game/:id'} component={Game}></PrivateRoute>
+				<Route path={'/game/:id'} component={Game}></Route>
 				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
 				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
-				<AdminRoute path={'/admin/addquestion'} component={AddQuestion}></AdminRoute>
-				<AdmintRoute path={'/admin/addhints'} component={AddHints}></AdmintRoute>
-				<AdminRoute path={'/admin/leaderboard'} component={Leaderboard}></AdminRoute>
+				<AdminRoute path={'/admin/addquestion'} component={AddQuestion}/>
+				<AdminRoute path={'/admin/addhints'} component={AddHints}/>
+				<AdminRoute path={'/admin/leaderboard'} component={Leaderboard}/>
 				<Route exact path={'/'} component={LoginPage}></Route>
 			</Switch>
 		</Provider>

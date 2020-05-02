@@ -59,7 +59,7 @@ class LoginModel {
 		this.validateAll();
 
 		if (this.hasErrors()) {
-			console.log('err');
+			
 			return;
 		}
 		const { email, password } = this.formData;
@@ -69,10 +69,10 @@ class LoginModel {
 	}
 
 	loginControl = res => {
-		console.log(res);
+	
 		if (res.success) {
 
-			console.log(res.data);
+			
 			const {
 				id,
 				name,
@@ -113,9 +113,7 @@ class LoginModel {
 			this.formData.email.error = 'Email is not registered';
 		else if (res.message === 'UNAUTHORIZED' && this.formData.password.value.length) {
 			this.formData.password.error = 'Incorrect password';
-		} else {
-			console.log('error');
-		}
+		} 
 	};
 
 	logout() {
@@ -127,7 +125,7 @@ class LoginModel {
 			this.loggedIn = false;
 			this.profileSet = false;
 			this.profileSetError = true;
-			console.log('Logged out');
+			
 		}
 	};
 
@@ -137,7 +135,7 @@ class LoginModel {
 		);
 
 		if (this.formData.email.error !== '') {
-			console.log('err');
+			
 			return;
 		}
 
@@ -149,13 +147,11 @@ class LoginModel {
 		post('/api/auth/forgotpassword', postData).then(this.forgotControl);
 	}
 	forgotControl = res => {
-		console.log(res);
+		
 		if (res.success) {
-			console.log('Sent');
+		
 			this.forgotEmailSent = true;
-		} else {
-			console.log('Errr');
-		}
+		} 
 		this.isForgotLoading = false;
 	};
 
@@ -206,7 +202,7 @@ class LoginModel {
 			post('/api/auth/resetpassword', postData).then(this.resetControl);
 		} catch (err) {
 			this.passwordError = 'An error has occurred';
-			console.log(err);
+	
 		} finally {
 			this.isResetLoading = false;
 			this.resetForm = {
