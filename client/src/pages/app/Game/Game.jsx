@@ -187,12 +187,13 @@ color:#fff;
 	width:70px;
 	height:30px;
 }
+
 .navbar-btn img{
 	:hover{
 	cursor:pointer;
 }
-	margin:2vh 1vw 0rem 0rem;
-	
+
+margin:2vh 1vw 0 0;
 	width:40px;
 	height:50px;
 }
@@ -598,7 +599,14 @@ li,h1{
 					transform:scale(1.3);
 				}
 				.nav-buttons,#hawklogo,#heading{
-					transform:scale(1.8);
+					transform:scale(1.5);
+					
+				}
+				.nav-buttons img{
+					margin:2vh 2vw 0 0;
+				}
+				#hawklogo{
+					margin:2vh 0 0 1vw;
 				}
 			}
 			@media  (min-device-width : ${size.desktop}) {
