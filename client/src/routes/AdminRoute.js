@@ -7,7 +7,7 @@ export const AdminRoute = observer(({ component: Component }) => {
 	return (
 		<Route
 			render={props =>
-				LoginStore.profileSetError && !LoginStore.loggedIn && !LoginStore.access==1 ? (
+				LoginStore.profileSetError && !LoginStore.loggedIn && !LoginStore.profile.access==1 ? (
 					<Redirect to="/login" />
 				) : (
 					<Component {...props} />
