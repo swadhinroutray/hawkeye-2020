@@ -177,7 +177,13 @@ func (app *App) resetStore(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, true, Success, "You do not have enough points")
 		return
 	}
-	arr := []int{2, 0, 2, 1}
+	var arr []int
+	if currUser.RegionMultiplier != -1 {
+		arr = []int{2, 0, 2, 1}
+	} else {
+		arr = []int{2, 1, 2, 1}
+	}
+
 	filter := bson.M{
 		"_id": currUser.ID,
 	}
