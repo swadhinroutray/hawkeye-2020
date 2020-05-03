@@ -82,6 +82,7 @@ class LoginModel {
 				inventory,
 				points,
 				itembool,
+				regionmultiplier
 			} = res.data;
 
 			this.profile.id = id;
@@ -96,6 +97,7 @@ class LoginModel {
 			this.profile.invertory = inventory;
 			this.profile.points = points;
 			this.profile.itembool = itembool;
+			this.profile.regionmultiplier = regionmultiplier;
 			this.profileSet = true;
 			this.loggedIn = true;
 			this.setField('email', '');

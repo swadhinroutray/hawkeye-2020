@@ -29,23 +29,33 @@ export const RegionInfo = inject('LandingStore')(
 				<div className="info">
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
+				{(LoginStore.profile.regionmultiplier&&LoginStore.profile.regionmultiplier)===LandingStore.currentRegion?<div className="info">
+					Region Multiplier Applied
+				</div>:null}
+				
 				{LoginStore.profile.level &&
 				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
 				LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
 					<Link to={`/game/${LandingStore.currentRegion}`}>
 						<Start>
-							<img src={startButton} alt="" />
+						
 							Start
 						</Start>
 					</Link>
-				) : (
+				) :LoginStore.profile.level &&LoginStore.profile.level[LandingStore.currentRegion] === 16 ?(<span>
+					<Start>
+						
+						Conquered
+					</Start>
+				</span>):(
 					<span>
 						<Start>
-							<img src={startButton} alt="" />
+							
 							Locked
 						</Start>
 					</span>
 				)}
+				
 			</InfoWrapper>
 		);
 	}),
@@ -95,13 +105,7 @@ const Start = styled.div`
 	position: relative;
 	width: 50%;
 	margin: 8px auto 15px auto;
-
-	> img {
-		z-index: 200;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
+background:url(${startButton}) no-repeat center center;
+background-size:100% 100%;
+	
 `;

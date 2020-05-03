@@ -15,7 +15,8 @@ import ReactLoading from 'react-loading';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {leftBar,rightBar} from '../../../assets/landing-assets/index'
-
+import {Link} from 'react-router-dom'
+import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
  const Game = inject('loginStore')(
 	observer(({ loginStore,match }) => {
 		useEffect(() => {
@@ -70,7 +71,9 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
+							
 							<QuestionBox getinventory={getinventory}  match={match} />
+							
 							<HintsBox />
 							<AttemptsBox />
 							</div>
@@ -98,6 +101,9 @@ import {leftBar,rightBar} from '../../../assets/landing-assets/index'
 					</div>
 					
 				</Provider>
+				<Link className="back" to="/regions">
+					<BackButton />
+				</Link>
 			</GameWrapper>
 	):( <GameWrapper><ReactLoading type={"spin"} color={"#3abdb7"} className="loading"/>{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}</GameWrapper>)
 	})
@@ -138,7 +144,7 @@ margin-top:1vh;
 	display:flex;
 	flex-direction:column;
 	align-items:center;
-	margin-bottom:40px;
+	margin-bottom:50px;
 .Navbar{
 	width:100%;
 	display:flex;
@@ -525,7 +531,13 @@ li,h1{
 .Rules::-webkit-scrollbar { 
                 display: none; 
             }
-			@media  (min-width : 1174px) {
+			#Objects{
+				transform: translateX(-17%);
+				width:3rem;
+				height:3rem;
+				
+			}
+			@media  (min-width : 1181px) {
 				.inventory{
 	left:35%;
 	right:35%;
@@ -540,10 +552,10 @@ li,h1{
 					display:flex;
 					align-items:center;
 					height:70vh;
-					left:5%;
-					right:5%;
+					position:relative;
+					
 					justify-content:space-between;
-					position:fixed;
+					width: 90vw;
 				}
 				#heading{
 				margin-left:40px ;
@@ -572,7 +584,7 @@ li,h1{
 				height: 90px;
 				}
 			}
-			@media  (min-width : ${size.laptop}) {
+			@media  (min-width : 1181px) {
 				.ActualHints{
 					
 					transform:scale(1.2);

@@ -10,12 +10,14 @@ export const AttemptsBox = inject('gameplayStore')(
 					<div className="Attemptsheader">
 						<div
 						id="attemptsHead"
+						style={attempts?{color:"#3ABDB7"}:{}}
 							className={attempts ? 'selected' : ''}
 							onClick={() => setAttempts(true)}
 						>
 							ATTEMPTS
 						</div>
 						<div
+						style={!attempts?{color:"#3ABDB7"}:{}}
 						id="statsHead"
 							className={!attempts ? 'selected' : ''}
 							onClick={() => setAttempts(false)}
