@@ -205,7 +205,7 @@ const ShopPageContainer = styled.div`
 `;
 
 const ItemsContainer = styled.div`
-	padding: 1em;
+	padding: 1em 0.5em;
 	background-image: url(${ShopHud});
 	background-size: cover;
 	margin-bottom: 20px;
@@ -229,12 +229,14 @@ const ItemsContainer = styled.div`
 	@media ${device.tablet} {
 		margin-bottom: 15px;
 		.title {
-			margin-top: 0.4em;
+			margin-top: 0.2em;
 			font-size: 28px;
 		}
+		padding: 2em 1em 7em;
 	}
 	@media ${device.laptop} {
 		margin: 0 1.5em;
+		padding: 1em;
 		.grid {
 			padding: 0 5%;
 		}
@@ -411,7 +413,7 @@ class ShopPage extends Component {
 							)}
 					</div>
 					<ItemDescription>
-						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
+						<div className="crystal-name">{store.elixirName[store.getSelected]}</div>
 						<div className="desc">
 							{store.itemDescriptions[store.getSelected]}
 						</div>

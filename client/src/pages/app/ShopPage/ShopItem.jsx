@@ -32,6 +32,7 @@ const ShopItemContainer = styled.div`
 	margin: 10px;
 	.image {
 		width: 80px;
+		margin:0 auto;
 	}
 	.content {
 		font-size: 15px;
@@ -99,7 +100,7 @@ class ShopItem extends Component {
 									)}
 					</div>
 					<div className="content">
-						Crystal {number + 1}
+						{shopStore.elixirName[number]}
 						<div className="subtext">
 							Owned: {shopStore.owned[number]}
 						</div>

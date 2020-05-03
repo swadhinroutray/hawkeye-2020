@@ -6,12 +6,13 @@ class ShopModel {
 	//2 Hangman
 	//3 skip Question
 
-	initValues = [2, 2, 2, 1];
+	initValues = [2, 1, 2, 1];
 	points = 0;
 	message = '';
-	toBuy = [2, 2, 2, 1];
+	toBuy = [2, 1, 2, 2];
 	resetMinimumPointsReq = 1500;
 	resetPoints = 800;
+	elixirName = ["Extra hint", 'Region Multiplier', 'Hangman elixir', 'Skip Question'];
 	itemDescriptions = [
 		'Get an extra hint for a question of your choice',
 		'Add a 1.5 multiplier for a region that has been unlocked for you',
@@ -65,6 +66,9 @@ class ShopModel {
 				this.message = 'Store successfully reset';
 				this.toBuy = this.initValues;
 				this.points -= this.resetPoints;
+				this.loadToBuy();
+				this.getProfile();
+				this.getOwned();
 			}
 		}
 	}
@@ -76,7 +80,7 @@ class ShopModel {
 					this.message = 'A new elixir has been added to your inventory';
 					this.toBuy[this.selected] -= 1;
 					this.points -= this.itemCost[this.selected];
-
+					this.owned[this.selected]++;
 					return;
 				}
 				if (res.data === "You don't have enough points!") {
