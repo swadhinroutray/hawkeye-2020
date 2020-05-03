@@ -144,7 +144,7 @@ margin-top:1vh;
 	display:flex;
 	flex-direction:column;
 	align-items:center;
-	margin-bottom:40px;
+	margin-bottom:50px;
 .Navbar{
 	width:100%;
 	display:flex;
@@ -532,8 +532,10 @@ li,h1{
                 display: none; 
             }
 			#Objects{
+				transform: translateX(-17%);
 				width:3rem;
-				height:3rem
+				height:3rem;
+				
 			}
 			@media  (min-width : 1181px) {
 				.inventory{
