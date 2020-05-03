@@ -366,7 +366,7 @@ class ShopPage extends Component {
 				<Details1 />
 				<Details2 />
 				<div className="header">
-					<h1>Hawkeye</h1>
+					<h1>HAWKEYE</h1>
 
 					<Link className="icon" to="">
 						<RulesIcon />
@@ -382,16 +382,16 @@ class ShopPage extends Component {
 					</Link>
 				</div>
 				<h1 className="subhead">Shop</h1>
-				<h3>total Points: {this.props.shopStore.points}</h3>
+				<h3>Your Points: {this.props.shopStore.points}</h3>
 				<div className="wrapper">
 					<div className="filler">
 						<Map />
-						<Waves />
+						{/* <Waves /> */}
 					</div>
 
 					<div className="item-container">
 						<ItemsContainer>
-							<div className="title">pick an item</div>
+							<div className="title">Choose an Item</div>
 							<div className="grid">
 								<ShopItem number={0} />
 								<ShopItem number={1} />
@@ -401,10 +401,10 @@ class ShopPage extends Component {
 						</ItemsContainer>
 						{store.points > store.resetMinimumPointsReq ? (
 							<div className="reset" onClick={store.resetStore.bind(store)}>
-								<span>reset store</span>
+								<span>Reset Store</span>
 							</div>
 						) : (
-							<div className="reset reset-blocked">reset store</div>
+							<div className="reset reset-blocked">Reset Store</div>
 						)}
 					</div>
 					<ItemDescription>
@@ -417,15 +417,15 @@ class ShopPage extends Component {
 								Cost: {store.itemCost[store.getSelected]} Points
 							</span>
 							<span className="left">
-								left: {store.toBuy[store.getSelected]}
+								Left: {store.toBuy[store.getSelected]}
 							</span>
 						</div>
 						{store.toBuy[store.getSelected] !== 0 ? (
 							<div className="buy" onClick={store.buyItem.bind(store)}>
-								buy
+								Buy
 							</div>
 						) : (
-							<div className="buy buy-blocked">buy</div>
+							<div className="buy buy-blocked">Buy</div>
 						)}
 						<span className="message">{store.message}</span>
 					</ItemDescription>

@@ -2,13 +2,7 @@ import React, {useState,useEffect} from 'react'
 import { get } from '../../../utils/api';
 import UserCard from '../../../components/UserCards'
 import Pagination from '../../../components/Pagination'
-import styled from 'styled-components'
-const headr = styled.h1`
-    text-align:center;
-    font-family: 'Raleway', sans-serif;
-    font-size: 30px;
-    margin-bottom: -5px;
-`;
+
 
 function Leaderboard() {
     const [users, getUsers] = useState([]);
