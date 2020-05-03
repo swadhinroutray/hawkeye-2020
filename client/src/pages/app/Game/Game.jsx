@@ -195,7 +195,7 @@ color:#fff;
 
 margin:2vh 1vw 0 0;
 	width:40px;
-	height:50px;
+	height:70px;
 }
 .QuestionBox{
 	font-family: "Futura PT Medium";
@@ -352,7 +352,7 @@ img{
 }
 #hawklogo{
 	width:60px;
-	height:40px;
+	height:70px;
 }
 .Question{
 	justify-self:flex-end;
@@ -598,7 +598,7 @@ li,h1{
 					
 					transform:scale(1.3);
 				}
-				.nav-buttons,#hawklogo,#heading{
+				.nav-buttons,#heading{
 					transform:scale(1.5);
 					
 				}

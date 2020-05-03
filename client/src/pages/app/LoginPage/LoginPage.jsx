@@ -72,6 +72,11 @@ font-family: "Futura PT Heavy";
 	margin-bottom:5rem;
 }
 }
+@media only screen and (max-device-width:${size.mobileS}){
+	.RegisterHeaders{
+	margin-bottom:7rem;
+}
+}
 @media only screen and (max-device-width:${size.laptop}){
 	.hawkeye{
 	
