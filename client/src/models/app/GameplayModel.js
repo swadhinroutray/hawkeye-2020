@@ -37,7 +37,7 @@ class GameplayModel {
 	};
 
 	getQuestionControl = res => {
-	
+	console.log(res)
 		if (res.success) {
 			if (res.data.question) {
 				this.questionId = res.data.id;

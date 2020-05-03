@@ -132,12 +132,12 @@ overflow:hidden;
 	
 	color:#fff;
 	
-	font-size:5.8vh;
+	font-size:5.3vh;
 	align-self: center;
 	font-weight:bold;
 margin-top:1vh;
 	
-	font-family: "Futura PT Heavy"
+
 }
 
 
@@ -151,6 +151,9 @@ margin-top:1vh;
 	justify-content:space-between;
 	
 	
+}
+.back{
+	z-index:-100;
 }
 .nav-buttons{
 	display:flex;

@@ -205,7 +205,7 @@ const ShopPageContainer = styled.div`
 `;
 
 const ItemsContainer = styled.div`
-	padding: 1em 0.5em;
+	padding: 1em;
 	background-image: url(${ShopHud});
 	background-size: cover;
 	margin-bottom: 20px;
@@ -229,14 +229,12 @@ const ItemsContainer = styled.div`
 	@media ${device.tablet} {
 		margin-bottom: 15px;
 		.title {
-			margin-top: 0.2em;
+			margin-top: 0.4em;
 			font-size: 28px;
 		}
-		padding: 2em 1em 7em;
 	}
 	@media ${device.laptop} {
 		margin: 0 1.5em;
-		padding: 1em;
 		.grid {
 			padding: 0 5%;
 		}
@@ -409,11 +407,11 @@ class ShopPage extends Component {
 								<span>Reset Store</span>
 							</div>
 						) : (
-								<div className="reset reset-blocked">Reset Store</div>
-							)}
+							<div className="reset reset-blocked">Reset Store</div>
+						)}
 					</div>
 					<ItemDescription>
-						<div className="crystal-name">{store.elixirName[store.getSelected]}</div>
+						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
 						<div className="desc">
 							{store.itemDescriptions[store.getSelected]}
 						</div>
@@ -430,8 +428,8 @@ class ShopPage extends Component {
 								Buy
 							</div>
 						) : (
-								<div className="buy buy-blocked">Buy</div>
-							)}
+							<div className="buy buy-blocked">Buy</div>
+						)}
 						<span className="message">{store.message}</span>
 					</ItemDescription>
 				</div>
@@ -439,13 +437,13 @@ class ShopPage extends Component {
 					<BackButton />
 				</Link>
 				{this.props.loginStore.profileSetError &&
-					!this.props.loginStore.loggedIn ? (
-						<Redirect
-							to={{
-								pathname: '/login',
-							}}
-						/>
-					) : null}
+				!this.props.loginStore.loggedIn ? (
+					<Redirect
+						to={{
+							pathname: '/login',
+						}}
+					/>
+				) : null}
 			</ShopPageContainer>
 		);
 	}
