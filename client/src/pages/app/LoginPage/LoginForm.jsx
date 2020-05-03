@@ -104,14 +104,17 @@ background-size:100% 100%;
 		background-size:100% 100%;
 		font-size: 1rem;
 		padding: 0.8rem 1.4rem;
+		:hover{
+			cursor:pointer;
+		}
 	}
 	.link-register,
 	.link-forgot {
 		margin-top: 1rem;
 	}
-	@media only screen and (max-device-width: 1048px) {
+	@media (max-width: 1048px) {
 		width: 90vw;
-		margin: 30% 5vw;
+		margin: 0 5vw;
 		padding: 0 0;
 		padding-bottom: 3vh;
 		input {

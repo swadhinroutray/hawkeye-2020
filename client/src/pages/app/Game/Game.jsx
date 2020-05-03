@@ -525,7 +525,7 @@ li,h1{
 .Rules::-webkit-scrollbar { 
                 display: none; 
             }
-			@media  (min-device-width : 1174px) {
+			@media  (min-width : 1174px) {
 				.inventory{
 	left:35%;
 	right:35%;
@@ -572,7 +572,7 @@ li,h1{
 				height: 90px;
 				}
 			}
-			@media  (min-device-width : 1346px) {
+			@media  (min-width : ${size.laptop}) {
 				.ActualHints{
 					
 					transform:scale(1.2);
@@ -593,7 +593,7 @@ li,h1{
 					right:30%;
 				}
 			}
-			@media   (min-device-width : ${size.laptopL}) {
+			@media   (min-width : ${size.laptopL}) {
 				.QuestionBox, .ActualHints,.Attempts{
 					
 					transform:scale(1.3);
@@ -609,18 +609,18 @@ li,h1{
 					margin:2vh 0 0 1vw;
 				}
 			}
-			@media  (min-device-width : ${size.desktop}) {
+			@media  (min-width : ${size.desktop}) {
 				.QuestionBox, .ActualHints,.Attempts{
 					transform:scale(1.5);
 				}
 			}
 
-			@media  (max-device-width : 375px) {
+			@media  (max-width : 375px) {
 				.QuestionBox, .ActualHints,.Attempts{
 					transform:scale(0.85);
 				}
 			}
- @media  (max-device-width : 330px) {
+ @media  (max-width : 330px) {
 	 #hawklogo{
 		margin-right:0;
 	}

@@ -19,6 +19,7 @@ import Finger from '../../../assets/Finger.svg'
 			<LoginForm />
 			<img id="face" src={Face} alt="Face"/>
 			</div>
+			
 		</LoginPageWrapper>
 	);
 };
@@ -35,6 +36,9 @@ export const LoginPageWrapper = styled.div`
 height: 100vh;
 text-align: center;
 font-family: "Futura PT Heavy";
+display:grid;
+grid-template-rows:10% auto;
+
 .hawkeye{
 	
 	font-size:3.2rem;
@@ -64,29 +68,19 @@ font-family: "Futura PT Heavy";
 	display:flex;
 	justify-content:space-between;
 }
-.RegisterHeaders{
-	margin-bottom:4rem;
-}
-@media only screen and (max-device-width:${size.mobileM}){
-	.RegisterHeaders{
-	margin-bottom:5rem;
-}
-}
-@media only screen and (max-device-width:${size.mobileS}){
-	.RegisterHeaders{
-	margin-bottom:7rem;
-}
-}
-@media only screen and (max-device-width:${size.laptop}){
+
+@media  (max-width:${size.laptop}){
+
 	.hawkeye{
 	
 	font-size:3rem;
 
 
 }
-.RegisterHeaders{
-	margin-bottom:3rem;
-}
+
+
+
+
 #finger,#face{
 display:none;
 }
@@ -102,7 +96,7 @@ display:none;
 	height:20rem;
 }
 #loginStuff{
-	height:80vh;
+	
 	display:flex;
 	justify-content:space-around;
 	align-items: center;
