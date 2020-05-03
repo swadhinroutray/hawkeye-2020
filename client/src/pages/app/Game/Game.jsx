@@ -2,8 +2,8 @@ import { inject, observer, Provider } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
-import  GameplayModel  from '../../../models/app/GameplayModel';
-import {AttemptsBox,HintsBox,QuestionBox,InventoryBox} from '../../../components/GamePageComponents'
+import GameplayModel from '../../../models/app/GameplayModel';
+import { AttemptsBox, HintsBox, QuestionBox, InventoryBox } from '../../../components/GamePageComponents'
 import Qbox from '../../../assets/Qbox.svg';
 import LogoutIcon from '../../../assets/LogoutIcon.svg'
 import RulesIcon from '../../../assets/RulesIcon.svg'
@@ -14,98 +14,98 @@ import Attempts from '../../../assets/Attempts.svg'
 import ReactLoading from 'react-loading';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {leftBar,rightBar} from '../../../assets/landing-assets/index'
-import {Link} from 'react-router-dom'
+import { leftBar, rightBar } from '../../../assets/landing-assets/index'
+import { Link } from 'react-router-dom'
 import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
- const Game = inject('loginStore')(
-	observer(({ loginStore,match }) => {
+const Game = inject('loginStore')(
+	observer(({ loginStore, match }) => {
 		useEffect(() => {
-			
+
 			loginStore.getProfile()
-			
-			
-			
+
+
+
 			GameplayModel.getQuestion(parseInt(match.params.id));
 			loginStore.getInventory()
-			
+
 			loginStore.clearErrors();
 			GameplayModel.clearMessage()
-			
-		}, [loginStore,match,GameplayModel]);
+
+		}, [loginStore, match, GameplayModel]);
 
 		const [rules, setrules] = useState(false);
 		const [inventory, getinventory] = useState(false);
-		
-		return loginStore.profileSet ?
-		 (
-			
-			<GameWrapper>
-				<img id='leftbar' src={leftBar} alt="leftbar"/>  
-						<img id='rightbar' src={rightBar} alt="rightbar" />
-				<Provider  gameplayStore={GameplayModel}  >
-				
-					<div className="Navbar">
-					<div className="navbar-btn">
-							<a href="/regions"><img id="hawklogo" src={HAWK} alt="Hawk"/></a>
-						</div>
-						<div id='heading' ><a style={{color:"white",textDecoration:"none"}} href="/regions">HAWKEYE</a></div>
-						<div className="nav-buttons">
-						<div className="navbar-btn" onClick={() => setrules(true)}>
-					<img id="rule-button" src={RulesIcon} alt="Rules"/>
-						</div>
-					<div className="navbar-btn" onClick={() => loginStore.logout()}>
-							<img src={LogoutIcon} alt="logout"/>
-						</div>
-						</div>
-						
-					
-						
-						
 
-						{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect  to={{
-              pathname: '/login',
-               
-            }}  /> : null}
-						
-					</div>
-					<div className="GameContent">
-						<div className="GameWrapper">
-							<div className="game-play">
-							
-							<QuestionBox getinventory={getinventory}  match={match} />
-							
-							<HintsBox />
-							<AttemptsBox />
+		return loginStore.profileSet ?
+			(
+
+				<GameWrapper>
+					<img id='leftbar' src={leftBar} alt="leftbar" />
+					<img id='rightbar' src={rightBar} alt="rightbar" />
+					<Provider gameplayStore={GameplayModel}  >
+
+						<div className="Navbar">
+							<div className="navbar-btn">
+								<a href="/regions"><img id="hawklogo" src={HAWK} alt="Hawk" /></a>
 							</div>
-							<InventoryBox loginStore={loginStore}  match={match} inventory={inventory} getinventory={getinventory} />
-						
-							{(!inventory) ? <div className='invertory-open' onClick={()=>{getinventory(true)}} ><span>INVENTORY</span></div>:null}
-							{rules && (
-								<div className="Rules">
-									<h1>Rules</h1>
-									<i className="btn-close" onClick={() => setrules(false)}>
-									<FontAwesomeIcon icon={faTimes} />
-									</i>
-									<div className="Rules-content">
-										<ol>
-											<li>Rule</li>
-											<li>Rule</li>
-											<li>Rule</li>
-											<li>Rule</li>
-										</ol>
-									</div>
-									<ul></ul>
+							<div id='heading' ><a style={{ color: "white", textDecoration: "none" }} href="/regions">HAWKEYE</a></div>
+							<div className="nav-buttons">
+								<div className="navbar-btn" onClick={() => setrules(true)}>
+									<img id="rule-button" src={RulesIcon} alt="Rules" />
 								</div>
-							)}
+								<div className="navbar-btn" onClick={() => loginStore.logout()}>
+									<img src={LogoutIcon} alt="logout" />
+								</div>
+							</div>
+
+
+
+
+
+							{(loginStore.profileSetError && (!loginStore.loggedIn)) ? <Redirect to={{
+								pathname: '/login',
+
+							}} /> : null}
+
 						</div>
-					</div>
-					
-				</Provider>
-				<Link className="back" to="/regions">
-					<BackButton />
-				</Link>
-			</GameWrapper>
-	):( <GameWrapper><ReactLoading type={"spin"} color={"#3abdb7"} className="loading"/>{(loginStore.profileSetError&&(!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}</GameWrapper>)
+						<div className="GameContent">
+							<div className="GameWrapper">
+								<div className="game-play">
+
+									<QuestionBox getinventory={getinventory} match={match} />
+
+									<HintsBox />
+									<AttemptsBox />
+								</div>
+								<InventoryBox loginStore={loginStore} match={match} inventory={inventory} getinventory={getinventory} />
+
+								{(!inventory) ? <div className='invertory-open' onClick={() => { getinventory(true) }} ><span>INVENTORY</span></div> : null}
+								{rules && (
+									<div className="Rules">
+										<h1>Rules</h1>
+										<i className="btn-close" onClick={() => setrules(false)}>
+											<FontAwesomeIcon icon={faTimes} />
+										</i>
+										<div className="Rules-content">
+											<ol>
+												<li>Rule</li>
+												<li>Rule</li>
+												<li>Rule</li>
+												<li>Rule</li>
+											</ol>
+										</div>
+										<ul></ul>
+									</div>
+								)}
+							</div>
+						</div>
+
+					</Provider>
+					<Link className="back" to="/regions">
+						<BackButton />
+					</Link>
+				</GameWrapper>
+			) : (<GameWrapper><ReactLoading type={"spin"} color={"#3abdb7"} className="loading" />{(loginStore.profileSetError && (!loginStore.loggedIn)) ? <Redirect to="/login" /> : null}</GameWrapper>)
 	})
 );
 

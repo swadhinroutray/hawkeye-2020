@@ -11,7 +11,7 @@ import {
 	Hologram,
 	Map,
 } from '../../components/LandingPageComponents';
-import { leftBar, rightBar, backgroundMesh } from '../../assets/landing-assets';
+import { leftBar, rightBar } from '../../assets/landing-assets';
 
 export const LandingPage = observer(() => {
 	useEffect(() => {
@@ -68,31 +68,34 @@ const Page = styled.div`
 	text-align: center;
 	letter-spacing: 0.1em;
 	color: white;
-	font-family: 'Futura PT Medium';
-	background-image: url(${backgroundMesh});
-	background-size: cover;
+	font-family: 'Nidus Sans';
+	
 
 	h5 {
 		font-weight: 400;
-		font-size: 0.9em;
+		font-size: 1.2em;
 		margin: 8px 0;
+		color:#fff;
+		font-family:'Nidus Sans';
 	}
 	h4 {
+		font-family:'Nidus Sans';
 		font-weight: 600;
-		font-size: 1.1em;
+		font-size: 1.7em;
 		margin-top: 5px;
+		color: #fff;
 	}
 
 	@media (min-width: 768px) {
 		background-repeat: repeat;
 		h5 {
 			font-weight: 500;
-			font-size: 1.4em;
+			font-size: 1.8em;
 			margin: 3vh 0 0 0;
 		}
 		h4 {
 			font-weight: 600;
-			font-size: 1.5em;
+			font-size: 2em;
 			margin: 2vh 0 3vh 0;
 		}
 	}

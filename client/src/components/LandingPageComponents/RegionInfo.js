@@ -29,33 +29,33 @@ export const RegionInfo = inject('LandingStore')(
 				<div className="info">
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
-				{(LoginStore.profile.regionmultiplier&&LoginStore.profile.regionmultiplier)===LandingStore.currentRegion?<div className="info">
+				{(LoginStore.profile.regionmultiplier && LoginStore.profile.regionmultiplier) === LandingStore.currentRegion ? <div className="info">
 					Region Multiplier Applied
-				</div>:null}
-				
+				</div> : null}
+
 				{LoginStore.profile.level &&
-				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
-					<Link to={`/game/${LandingStore.currentRegion}`}>
-						<Start>
-						
-							Start
+					LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
+					LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
+						<Link to={`/game/${LandingStore.currentRegion}`}>
+							<Start>
+
+								Start
 						</Start>
-					</Link>
-				) :LoginStore.profile.level &&LoginStore.profile.level[LandingStore.currentRegion] === 16 ?(<span>
-					<Start>
-						
-						Conquered
+						</Link>
+					) : LoginStore.profile.level && LoginStore.profile.level[LandingStore.currentRegion] === 16 ? (<span>
+						<Start>
+
+							Conquered
 					</Start>
-				</span>):(
-					<span>
-						<Start>
-							
-							Locked
+					</span>) : (
+							<span>
+								<Start>
+
+									Locked
 						</Start>
-					</span>
-				)}
-				
+							</span>
+						)}
+
 			</InfoWrapper>
 		);
 	}),
@@ -68,7 +68,7 @@ const InfoWrapper = styled.div`
 	position: relative;
 	color: turquoise;
 	font-size: 0.8em;
-	font-family: 'Futura PT Medium';
+	font-family: 'Nidus Sans';
 
 	padding: 15px 2vw;
 	box-sizing: border-box;

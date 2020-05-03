@@ -28,7 +28,7 @@ const Icon = styled.img`
 	height: 4vh;
 	cursor: pointer;
 	@media (min-width: 321px) {
-		height: 6vh;
+		height: 5vh;
 	}
 	@media (min-width: 768px) {
 		height: 8vh;
@@ -36,13 +36,17 @@ const Icon = styled.img`
 `;
 const HeaderWrapper = styled.header`
 	position: relative;
+	font-family: Nidus Sans;
 	display: grid;
 	grid-template-columns: 25% 50% 25%;
 	align-items: center;
 	width: 100%;
 	padding-top: 5px;
 	> h1 {
+		font-size: 36px;
 		margin: 0;
+		color:#fff;
+		font-size:
 		grid-column: 2/3;
 	}
 	> div {
@@ -54,7 +58,7 @@ const HeaderWrapper = styled.header`
 	@media (min-width: 768px) {
 		> h1 {
 			margin-top: 3vh;
-			font-size: 3em;
+			font-size: 56px;
 		}
 		> div {
 			> img {
@@ -62,17 +66,22 @@ const HeaderWrapper = styled.header`
 			}
 		}
 	}
+	@media ((min-width: 1520px)){
+		>h1{
+			font-size: 72px;
+		}
+	}
 `;
 
 const HawkLogo = styled.img`
 	float: left;
-	height: 6vh;
+	height: 5vh;
 	margin-left: 10%;
 	grid-column: 1/2;
 	align-items: center;
 
 	align-self: flex-end;
 	@media (min-width: 768px) {
-		height: 9vh;
+		height: 8vh;
 	}
 `;

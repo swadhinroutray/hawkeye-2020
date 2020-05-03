@@ -7,7 +7,7 @@ export const Map = () => {
 };
 
 const MapImg = styled.img`
-	height: 35vh;
+	height: 25vw;
 	align-self: center;
 	width: 100%;
 	order: -1;

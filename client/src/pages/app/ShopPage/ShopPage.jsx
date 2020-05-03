@@ -135,6 +135,7 @@ const ShopPageContainer = styled.div`
 			.icon {
 				width: 55px;
 				margin: auto 15px;
+				
 			}
 		}
 		.subhead {
@@ -158,7 +159,7 @@ const ShopPageContainer = styled.div`
 		.filler {
 			display: block;
 			margin: 0 1em;
-			flex: 1.125;
+			flex: 1;
 			align-self: center;
 		}
 		.item-container {
@@ -166,8 +167,12 @@ const ShopPageContainer = styled.div`
 		}
 		.header {
 			padding: 0;
+			h1{
+				transform:translateX(30%);
+			}
 			.icon {
 				cursor: pointer;
+				transform: translateX(30vw);
 			}
 		}
 		.subhead {
@@ -176,14 +181,15 @@ const ShopPageContainer = styled.div`
 		h3 {
 			font-size: 38px;
 		}
-		.buy {
+		.buy , .back{
 			cursor: pointer;
 		}
 	}
 	@media ${device.desktop} {
+		max-width: 96%;
 		letter-spacing: 15px;
 		.filler {
-			flex: 1;
+			flex: 1.125;
 			align-self: center;
 		}
 		.item-container {
@@ -200,6 +206,7 @@ const ShopPageContainer = styled.div`
 		.back {
 			margin-top: 20px;
 			width: 80px;
+			cursor: pointer;
 		}
 	}
 `;
@@ -234,13 +241,14 @@ const ItemsContainer = styled.div`
 		}
 	}
 	@media ${device.laptop} {
-		margin: 0 1.5em;
+		margin: 0 1.5em 2em;
+		padding: 1em;
 		.grid {
 			padding: 0 5%;
 		}
 	}
 	@media ${device.desktop} {
-		margin: 0 10px;
+		margin: 0 10px 40px;
 		letter-spacing: 10px;
 		.grid {
 			grid-row-gap: 30px;
@@ -407,8 +415,8 @@ class ShopPage extends Component {
 								<span>Reset Store</span>
 							</div>
 						) : (
-							<div className="reset reset-blocked">Reset Store</div>
-						)}
+								<div className="reset reset-blocked">Reset Store</div>
+							)}
 					</div>
 					<ItemDescription>
 						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
@@ -428,8 +436,8 @@ class ShopPage extends Component {
 								Buy
 							</div>
 						) : (
-							<div className="buy buy-blocked">Buy</div>
-						)}
+								<div className="buy buy-blocked">Buy</div>
+							)}
 						<span className="message">{store.message}</span>
 					</ItemDescription>
 				</div>
@@ -437,13 +445,13 @@ class ShopPage extends Component {
 					<BackButton />
 				</Link>
 				{this.props.loginStore.profileSetError &&
-				!this.props.loginStore.loggedIn ? (
-					<Redirect
-						to={{
-							pathname: '/login',
-						}}
-					/>
-				) : null}
+					!this.props.loginStore.loggedIn ? (
+						<Redirect
+							to={{
+								pathname: '/login',
+							}}
+						/>
+					) : null}
 			</ShopPageContainer>
 		);
 	}

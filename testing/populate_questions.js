@@ -22,8 +22,8 @@ async function addQuestions(region, level) {
       },
 
       body: JSON.stringify({
-        email: "chakradharvasurama@gmail.com",
-        password: "asdfg321",
+        email: "email@blah.com",
+        password: "password",
       }),
     })
   );
