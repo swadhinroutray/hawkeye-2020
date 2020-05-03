@@ -57,7 +57,7 @@ export const Field = inject('loginStore')(
 					{...restProps}
 					onChange={e => loginStore.setField(name, e.target.value)}
 				/>
-				<span>{loginStore.formData[name].error}</span>
+				<div>{loginStore.formData[name].error}</div>
 			</div>
 		),
 	),

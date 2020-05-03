@@ -119,7 +119,7 @@ const RegisterForm = inject('registerStore')(
 					onChange={e => registerStore.setField('name', e.target.value)}
 					// value={registerStore['name'].value}
 				/>
-				<span>{registerStore['name'].error}</span>
+				<div>{registerStore['name'].error}</div>
 			</div>
 			<div className="input-field">
 				<input
@@ -129,7 +129,7 @@ const RegisterForm = inject('registerStore')(
 					onChange={e => registerStore.setField('username', e.target.value)}
 					// value={registerStore['username'].value}
 				/>
-				<span>{registerStore['username'].error}</span>
+				<div>{registerStore['username'].error}</div>
 			</div>
 			<div className="input-field">
 				<input
@@ -139,7 +139,7 @@ const RegisterForm = inject('registerStore')(
 					onChange={e => registerStore.setField('email', e.target.value)}
 					// value={registerStore['email'].value}
 				/>
-				<span>{registerStore['email'].error}</span>
+				<div>{registerStore['email'].error}</div>
 			</div>
 			<div className="input-field">
 				<input
@@ -149,7 +149,7 @@ const RegisterForm = inject('registerStore')(
 					onChange={e => registerStore.setField('password', e.target.value)}
 					// value={registerStore['password'].value}
 				/>
-				<span>{registerStore['password'].error}</span>
+				<div>{registerStore['password'].error}</div>
 			</div>
 			<div className="input-field">
 				<input
@@ -159,7 +159,7 @@ const RegisterForm = inject('registerStore')(
 					onChange={e => registerStore.setField('confirmPass', e.target.value)}
 					// value={registerStore['confirmPass'].value}
 				/>
-				<span>{registerStore['confirmPass'].error}</span>
+				<div>{registerStore['confirmPass'].error}</div>
 			</div>
 			<div className="input-field">
 				<input
@@ -168,7 +168,7 @@ const RegisterForm = inject('registerStore')(
 					required={true}
 					onChange={e => registerStore.setField('mobile', e.target.value)}
 				/>
-				<span>{registerStore['mobile'].error}</span>
+				<div>{registerStore['mobile'].error}</div>
 			</div>
 			<div className="input-field">
 				<input
@@ -177,14 +177,16 @@ const RegisterForm = inject('registerStore')(
 					onChange={e => registerStore.setField('college', e.target.value)}
 					// value={registerStore['college'].error}
 				/>
-				<span>{registerStore['college'].error}</span>
+				<div>{registerStore['college'].error}</div>
 			</div>
 			<button onClick={() => registerStore.register()}>Submit</button>
-			<span className="message">{registerStore['message'].value}</span>
+			<div className="message">{registerStore['message'].value}</div>
 			<Link className="link-register" to="/login">
 				Back to login
 			</Link>
 			{loginStore.loggedIn ? <Redirect to="/" /> : null}
+			{registerStore.successful ? <Redirect to="/login" /> : null}
+			
 		</LoginFormWrapper>
 	)}),
 );

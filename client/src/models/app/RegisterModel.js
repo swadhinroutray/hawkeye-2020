@@ -38,6 +38,7 @@ class RegisterModel {
 		value: '',
 		error: '',
 	};
+	successful=false
 	setMessage = val => {
 		this.message = val;
 	};
@@ -126,6 +127,8 @@ class RegisterModel {
 
 			if (res.success) {
 				this.setMessage('Registered successfully!');
+				this.successful=true;
+				alert('Registered successfully!')
 				return;
 			}
 			if (res.message === 'CONFLICT') {
@@ -151,6 +154,7 @@ decorate(RegisterModel, {
 	mobile: observable,
 	college: observable,
 	message: observable,
+	successful:observable,
 	setField: action,
 	setMessage: action,
 	validateAll: action,
