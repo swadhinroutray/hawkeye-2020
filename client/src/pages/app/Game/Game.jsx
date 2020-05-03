@@ -369,6 +369,9 @@ img{
 overflow-wrap:break-word;
 
 }
+.AnswerStatus{
+	height:20px;
+}
 .Question::-webkit-scrollbar { 
                 display: none; 
             }

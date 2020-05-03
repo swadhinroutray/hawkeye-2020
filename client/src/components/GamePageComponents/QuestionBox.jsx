@@ -27,7 +27,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 					</div>
 					<button onClick={() => {getinventory(false);loginStore.getProfile();gameplayStore.submit(match.params.id)}}>SUBMIT</button>
 					<div className="AnswerStatus">
-						<span>{gameplayStore.message}</span>
+						<div>{gameplayStore.message}</div>
 					</div>
 				</div>
 				<div id="points" style={{fontSize:"0.9rem"}}>Current Points:{gameplayStore.points}</div>
