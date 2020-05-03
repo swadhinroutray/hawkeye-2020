@@ -96,6 +96,8 @@ decorate(ShopModel, {
 	selected: observable,
 	message: observable,
 	itemCost: observable,
+	points: observable,
+	owned: observable,
 	itemDescriptions: observable,
 	getSelected: computed,
 	getOwned: action,
