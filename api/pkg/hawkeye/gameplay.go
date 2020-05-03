@@ -199,7 +199,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		bson.M{"_id": currUser.ID},
 		bson.M{
 			"$set": bson.M{
-				"points":       int(float64(currUser.Points+currUser.Multiplier) * regionMult),
+				"points":       currUser.Points + int(float64(currUser.Multiplier)*regionMult),
 				"answer_count": currUser.AnswerCount + 1,
 				"multiplier":   newMult,
 				levelSon:       currUser.Level[ansReq.Region] + 1,

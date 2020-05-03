@@ -27,7 +27,7 @@ const AddQuestion = () => {
     const [region, setRegion] = useState(0)
     const [keywords, setKeyword] = useState([])
     const [tempkeyword, setTempKeyword] = useState('')
-    
+    const [alert, setAlert] = useState('')
 
     return (
         <div>
@@ -65,7 +65,7 @@ const AddQuestion = () => {
             <br />
             
             <button onClick={() => submitForm({question:question, answer:answer, level:level, region:region, keywords: keywords})}>Add Question</button>
-            
+
         </div>
     )
 }
