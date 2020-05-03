@@ -7,15 +7,14 @@ export const PrivateRoute = inject('loginStore')(
 	observer(({ component: Component, ...rest }) => {
 		return (
 			<Route
-				{...rest}
-				render={props =>
-					loginStore.loggedIn ? (
-						<Component {...props} />
-					) : (
-						<Redirect to="/login" />
-					)
-				}
-			></Route>
+			render={props =>
+				loginStore.profileSetError && !loginStore.loggedIn ? (
+					<Redirect to="/login" />
+				) : (
+					<Component {...props} />
+				)
+			}
+		></Route>
 		);
 	}),
 );
