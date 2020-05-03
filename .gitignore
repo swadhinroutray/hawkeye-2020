@@ -7,3 +7,5 @@ node_modules/
 # Binaries
 api/hawkeye
 api/genkeys
+
+./win_taskfile.bat

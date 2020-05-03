@@ -407,8 +407,8 @@ class ShopPage extends Component {
 								<span>Reset Store</span>
 							</div>
 						) : (
-							<div className="reset reset-blocked">Reset Store</div>
-						)}
+								<div className="reset reset-blocked">Reset Store</div>
+							)}
 					</div>
 					<ItemDescription>
 						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
@@ -428,8 +428,8 @@ class ShopPage extends Component {
 								Buy
 							</div>
 						) : (
-							<div className="buy buy-blocked">Buy</div>
-						)}
+								<div className="buy buy-blocked">Buy</div>
+							)}
 						<span className="message">{store.message}</span>
 					</ItemDescription>
 				</div>
@@ -437,13 +437,13 @@ class ShopPage extends Component {
 					<BackButton />
 				</Link>
 				{this.props.loginStore.profileSetError &&
-				!this.props.loginStore.loggedIn ? (
-					<Redirect
-						to={{
-							pathname: '/login',
-						}}
-					/>
-				) : null}
+					!this.props.loginStore.loggedIn ? (
+						<Redirect
+							to={{
+								pathname: '/login',
+							}}
+						/>
+					) : null}
 			</ShopPageContainer>
 		);
 	}
