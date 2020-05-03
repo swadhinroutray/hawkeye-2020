@@ -35,7 +35,7 @@ const size = {
 export const LoginPageWrapper = styled.div`
 height: 100vh;
 text-align: center;
-font-family: "Futura PT Heavy";
+
 display:grid;
 grid-template-rows:10% auto;
 

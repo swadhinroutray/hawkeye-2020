@@ -131,12 +131,12 @@ overflow:hidden;
 	
 	
 	color:#fff;
+	letter-spacing:2px;
 	
-	font-size:5.3vh;
 	align-self: center;
 	font-weight:bold;
 margin-top:1vh;
-	
+font-size:2rem;
 
 }
 
@@ -551,6 +551,7 @@ li,h1{
 	
 	
 }
+
 .Attemptsheader div{
 	font-size:20px;
 }
@@ -642,13 +643,13 @@ li,h1{
 	 #hawklogo{
 		margin-right:0;
 	}
-	
 	 .ActualHints,.Attempts{
 		transform:scale(0.8);
 		
 	}
 	
 	#heading{
+		font-size:1.5rem;
 		margin-left:15px;
 	}
 	
