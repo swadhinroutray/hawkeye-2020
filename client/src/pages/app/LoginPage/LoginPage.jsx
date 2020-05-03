@@ -65,7 +65,7 @@ font-family: "Futura PT Heavy";
 	justify-content:space-between;
 }
 .RegisterHeaders{
-	margin-bottom:1rem;
+	margin-bottom:4rem;
 }
 @media only screen and (max-device-width:${size.mobileM}){
 	.RegisterHeaders{
