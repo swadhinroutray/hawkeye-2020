@@ -82,6 +82,9 @@ const ShopPageContainer = styled.div`
 		letter-spacing: 3px;
 		padding: 10px 50px 15px 30px;
 		margin: 10px auto;
+		:hover{
+			cursor: pointer;
+		}
 	}
 	.reset-blocked {
 		opacity: 30%;
