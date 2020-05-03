@@ -39,7 +39,8 @@ class RegisterModel {
 		error: '',
 	};
 	setMessage = val => {
-		this.message = val;
+		this.message.value
+			= val;
 	};
 	setField = (field, val) => {
 		this[field].value = val;
@@ -83,6 +84,7 @@ class RegisterModel {
 		}
 
 		//add regex for both
+
 		this.mobile.error = registerValidator['mobile'](this.mobile.value);
 	};
 	register = () => {

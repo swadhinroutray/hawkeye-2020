@@ -1,9 +1,9 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components';
-import { Link ,Redirect} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import loginStore from '../../../models/app/LoginModel'
-import {LoginFormWrapper} from '../LoginPage/LoginForm'
+import { LoginFormWrapper } from '../LoginPage/LoginForm'
 const RegisterFormWrapper = styled.div`
 	color: #fff;
 	border: 3px solid #3abdb7;
@@ -28,8 +28,8 @@ const RegisterFormWrapper = styled.div`
 	.input-field {
 		::after {
 			${({ required }) =>
-				required &&
-				css`
+		required &&
+		css`
 					content: '*';
 				`}
 			position: absolute;
@@ -95,98 +95,100 @@ const RegisterFormWrapper = styled.div`
 `;
 const RegisterForm = inject('registerStore')(
 	observer(({ registerStore }) => {
-		
-		const [primaryCheck,setPrimarCheck]=useState(false)
-		useEffect(() => {
-			if(!primaryCheck){
-				setPrimarCheck(true)
-			loginStore.getProfile()
 
-		}
+		const [primaryCheck, setPrimarCheck] = useState(false)
+		useEffect(() => {
+			if (!primaryCheck) {
+				setPrimarCheck(true)
+				loginStore.getProfile()
+
+			}
 			loginStore.clearErrors();
 		}, [loginStore]);
 		return (
 
-		<LoginFormWrapper class="register">
-			<h1 className="login-head">REGISTER</h1>
-			
+			<LoginFormWrapper class="register">
+				<h1 className="login-head">REGISTER</h1>
 
-			<div className="input-field">
-				<input
-					type="text"
-					placeholder="Name"
-					required={true}
-					onChange={e => registerStore.setField('name', e.target.value)}
+
+				<div className="input-field">
+					<input
+						type="text"
+						placeholder="Name"
+						required={true}
+						onChange={e => registerStore.setField('name', e.target.value)}
 					// value={registerStore['name'].value}
-				/>
-				<span>{registerStore['name'].error}</span>
-			</div>
-			<div className="input-field">
-				<input
-					type="text"
-					placeholder="Username"
-					required={true}
-					onChange={e => registerStore.setField('username', e.target.value)}
+					/>
+					<span>{registerStore['name'].error}</span>
+				</div>
+				<div className="input-field">
+					<input
+						type="text"
+						placeholder="Username"
+						required={true}
+						onChange={e => registerStore.setField('username', e.target.value)}
 					// value={registerStore['username'].value}
-				/>
-				<span>{registerStore['username'].error}</span>
-			</div>
-			<div className="input-field">
-				<input
-					type="email"
-					placeholder="Email Id"
-					required={true}
-					onChange={e => registerStore.setField('email', e.target.value)}
+					/>
+					<span>{registerStore['username'].error}</span>
+				</div>
+				<div className="input-field">
+					<input
+						type="email"
+						placeholder="Email Id"
+						required={true}
+						onChange={e => registerStore.setField('email', e.target.value)}
 					// value={registerStore['email'].value}
-				/>
-				<span>{registerStore['email'].error}</span>
-			</div>
-			<div className="input-field">
-				<input
-					type="password"
-					placeholder="Password"
-					required={true}
-					onChange={e => registerStore.setField('password', e.target.value)}
+					/>
+					<span>{registerStore['email'].error}</span>
+				</div>
+				<div className="input-field">
+					<input
+						type="password"
+						placeholder="Password"
+						required={true}
+						onChange={e => registerStore.setField('password', e.target.value)}
 					// value={registerStore['password'].value}
-				/>
-				<span>{registerStore['password'].error}</span>
-			</div>
-			<div className="input-field">
-				<input
-					type="password"
-					placeholder="Confirm Password"
-					required={true}
-					onChange={e => registerStore.setField('confirmPass', e.target.value)}
+					/>
+					<span>{registerStore['password'].error}</span>
+				</div>
+				<div className="input-field">
+					<input
+						type="password"
+						placeholder="Confirm Password"
+						required={true}
+						onChange={e => registerStore.setField('confirmPass', e.target.value)}
 					// value={registerStore['confirmPass'].value}
-				/>
-				<span>{registerStore['confirmPass'].error}</span>
-			</div>
-			<div className="input-field">
-				<input
-					type="text"
-					placeholder="Mobile No."
-					required={true}
-					onChange={e => registerStore.setField('mobile', e.target.value)}
-				/>
-				<span>{registerStore['mobile'].error}</span>
-			</div>
-			<div className="input-field">
-				<input
-					type="text"
-					placeholder="College"
-					onChange={e => registerStore.setField('college', e.target.value)}
+					/>
+					<span>{registerStore['confirmPass'].error}</span>
+				</div>
+				<div className="input-field">
+					<input
+						type="text"
+						placeholder="Mobile No."
+						required={true}
+						onChange={e => registerStore.setField('mobile', e.target.value)}
+					/>
+					<span>{registerStore['mobile'].error}</span>
+				</div>
+				<div className="input-field">
+					<input
+						type="text"
+						placeholder="College"
+						onChange={e => registerStore.setField('college', e.target.value)}
 					// value={registerStore['college'].error}
-				/>
-				<span>{registerStore['college'].error}</span>
-			</div>
-			<button onClick={() => registerStore.register()}>Submit</button>
-			<span className="message">{registerStore['message'].value}</span>
-			<Link className="link-register" to="/login">
-				Back to login
+					/>
+					<span>{registerStore['college'].error}</span>
+				</div>
+				<button onClick={() => registerStore.register()}>Submit</button>
+				<span className="message">{registerStore['message'].value}</span>
+				{registerStore['message'].value === 'Registered successfully!' ? <Redirect to='/login' /> : null}
+				<Link className="link-register" to="/login">
+					Back to login
 			</Link>
-			{loginStore.loggedIn ? <Redirect to="/" /> : null}
-		</LoginFormWrapper>
-	)}),
+				{loginStore.loggedIn ? <Redirect to="/" /> : null}
+			</LoginFormWrapper>
+		)
+	}),
 );
 
 export default RegisterForm;
