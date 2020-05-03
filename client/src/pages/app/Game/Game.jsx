@@ -193,7 +193,7 @@ color:#fff;
 	cursor:pointer;
 }
 
-margin:2vh 1vw 0 0;
+margin:1vh 1vw 0 0;
 	width:40px;
 	height:70px;
 }
