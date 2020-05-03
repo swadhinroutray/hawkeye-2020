@@ -29,6 +29,10 @@ export const RegionInfo = inject('LandingStore')(
 				<div className="info">
 					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
 				</div>
+				{(LoginStore.profile.regionmultiplier&&LoginStore.profile.regionmultiplier)===LandingStore.currentRegion?<div className="info">
+					Region Multiplier Applied
+				</div>:null}
+				
 				{LoginStore.profile.level &&
 				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
 				LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
@@ -51,6 +55,7 @@ export const RegionInfo = inject('LandingStore')(
 						</Start>
 					</span>
 				)}
+				
 			</InfoWrapper>
 		);
 	}),
