@@ -7,6 +7,7 @@ import RedCrystal from '../RedCrystal';
 import ShopIcon from '../../assets/ShopIcon.svg'
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom'
 export const InventoryBox = inject('gameplayStore')(
 	
 	observer(
@@ -28,13 +29,13 @@ export const InventoryBox = inject('gameplayStore')(
 								}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==2) ?<div className="inventory-item"><div className='crystal'><PurpleCrystal/></div><div className="inventory-item-content"><div > Hangman</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useHangman()}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir==3) ?<div className="inventory-item"><div className='crystal'><RedCrystal/></div><div className="inventory-item-content"><div > Skip Question</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory(); gameplayStore.useSkipQuestion()}}>USE</button></div></div>:null}
-								</div>: <div>no potions</div>:<div style={{textAlign:"center",marginLeft:"1rem"}}>potion already used</div>	}</div>
+								</div>: <div>No Potions</div>:<div style={{textAlign:"center",marginLeft:"1rem"}}>A potion has been used on this question already! </div>	}</div>
 								<div id="inventory-right">
 								<div className="close" onClick={()=>{getinventory(false)}}><i className="btn-close" >
 				<FontAwesomeIcon icon={faTimes} />
 			</i>
 </div>
-								<a href="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
+								<a href ="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
 								
 </div>
 								</div>:null
