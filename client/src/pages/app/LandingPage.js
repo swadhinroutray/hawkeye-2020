@@ -35,7 +35,7 @@ export const LandingPage = observer(() => {
 								type="range"
 								name="region-selector"
 								min="0"
-								max="42"
+								max="41"
 								onChange={e =>
 									store.changeRegion(Math.floor(e.target.value / 10))
 								}

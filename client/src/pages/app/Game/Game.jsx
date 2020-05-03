@@ -352,7 +352,7 @@ img{
 }
 #hawklogo{
 	width:60px;
-	height:50px;
+	height:40px;
 }
 .Question{
 	justify-self:flex-end;
