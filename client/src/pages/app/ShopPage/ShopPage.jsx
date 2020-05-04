@@ -402,7 +402,7 @@ class ShopPage extends Component {
 
 					<div className="item-container">
 						<ItemsContainer>
-							<div className="title">Choose an Item</div>
+							<div className="title">Choose an Elixir</div>
 							<div className="grid">
 								<ShopItem number={0} />
 								<ShopItem number={1} />

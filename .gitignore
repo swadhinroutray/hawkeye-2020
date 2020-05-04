@@ -8,4 +8,3 @@ node_modules/
 api/hawkeye
 api/genkeys
 
-./win_taskfile.bat

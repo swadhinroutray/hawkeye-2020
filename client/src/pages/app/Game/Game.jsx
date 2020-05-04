@@ -152,9 +152,7 @@ font-size:2rem;
 	
 	
 }
-.back{
-	
-}
+
 .nav-buttons{
 	display:flex;
 	
