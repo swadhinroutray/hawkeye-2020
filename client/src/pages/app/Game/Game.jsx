@@ -152,9 +152,7 @@ font-size:2rem;
 	
 	
 }
-/* .back{
-	z-index:-100;
-} */
+
 .nav-buttons{
 	display:flex;
 	
@@ -263,7 +261,7 @@ max-height:300px;
 	border-top:2px solid #7FD1E0;
 	border-right:2px solid #7FD1E0;
 	border-left:2px solid #7FD1E0;
-	
+	z-index:100;
 	position:fixed;
 	display:flex;
 	justify-content:space-between;
