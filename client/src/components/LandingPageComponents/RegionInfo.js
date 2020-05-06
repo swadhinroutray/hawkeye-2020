@@ -28,12 +28,12 @@ export const RegionInfo = inject('LandingStore')(
 
 				{LoginStore.profile.level &&
 				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
+				LoginStore.profile.level[LandingStore.currentRegion] !== 11 ? (
 					<Link to={`/game/${LandingStore.currentRegion}`}>
 						<Start>Start</Start>
 					</Link>
 				) : LoginStore.profile.level &&
-				  LoginStore.profile.level[LandingStore.currentRegion] === 16 ? (
+				  LoginStore.profile.level[LandingStore.currentRegion] === 11 ? (
 					<span>
 						<Start>Conquered</Start>
 					</span>
