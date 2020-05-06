@@ -18,7 +18,7 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/unlocknextregions", app.withAdmin(app.unlockNextRegionForAll)).Methods("POST")
 	admin.HandleFunc("/addquestion", app.withAdmin(app.addQuestion)).Methods("POST")
 	admin.HandleFunc("/addhint", app.withAdmin(app.addHint)).Methods("POST")
-	admin.HandleFunc("/edithint/{region}/{level}/{id}", app.withAdmin(app.editHint)).Methods("POST")
+	admin.HandleFunc("/edithint/{level}/{hintnum}", app.withAdmin(app.editHint)).Methods("POST")
 	admin.HandleFunc("/hiddenhint", app.withAdmin(app.addHiddenHint)).Methods("POST")
 	admin.HandleFunc("/user/all", app.withAdmin(app.listUsers)).Methods("GET")
 	admin.HandleFunc("/user/ban/{id}", app.withAdmin(app.banUser)).Methods("PUT")

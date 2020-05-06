@@ -1,13 +1,26 @@
 import React from 'react'
 import './style.css';
+import styled from 'styled-components'
 
+const StyledForm = styled.div`
+    display:list-item;
+    list-style-type:none;
+    margin-top :30px;
+    font-size:20px;
+    margin-left:auto;
+    margin-right:auto;
+    display:list-item;
+    list-style-type:none;
+    
+`
 class AddHints extends React.Component {
     constructor(){
         super()
         this.state = {
             'region': 0,
             'level': 0,
-            'hint': ''
+            'hint': '',
+            'hintnum': 0
         }
         this.addHint = this.addHint.bind(this)
         this.addHiddenHint = this.addHiddenHint.bind(this)
@@ -22,7 +35,8 @@ class AddHints extends React.Component {
             body: JSON.stringify({
                 region: this.state.region,
                 level: this.state.level,
-                hint: this.state.hint
+                hint: this.state.hint,
+                hintnum: this.state.hintnum,
             })
         }).then(resp => resp.json)
         .then(data => console.log(data))
@@ -45,21 +59,23 @@ class AddHints extends React.Component {
 
     render(){
         return (
-            <div>
+            <StyledForm>
                 <div>
-                    <input type="text" placeholder="Enter Hint" onChange={(event) => this.setState({hint:event.target.value})} />
+                   Hint: <input type="text" placeholder="Enter Hint" onChange={(event) => this.setState({hint:event.target.value})} />
                 </div>
                 <div>
-                    <input type="text" placeholder="Enter Region, between [0, 4]" onChange={(event) => this.setState({region: parseInt(event.target.value)})} />
+                   Region: <input type="text" placeholder="Enter Region, between [0, 4]" onChange={(event) => this.setState({region: parseInt(event.target.value)})} />
                 </div>
                 <div>
-                    <input type="text" placeholder="Enter Level, between [1,15]" onChange={(event) => this.setState({level: parseInt(event.target.value)})} />
+                   Level: <input type="text" placeholder="Enter Level, between [1,15]" onChange={(event) => this.setState({level: parseInt(event.target.value)})} />
                 </div>
-
+                <div>
+                    Hint Number: <input type="text" placeholder="Hint number, between [1,3]" onChange={(event) => this.setState({hintnum: parseInt(event.target.value)})} />
+                </div>
                 <button onClick={()=>this.addHint()}>Add Hint</button>
                 <button onClick={()=>this.addHiddenHint()}>Add Hidden Hint</button>
 
-            </div>
+            </StyledForm>
         )
     }
 }

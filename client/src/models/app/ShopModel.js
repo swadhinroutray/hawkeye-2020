@@ -12,7 +12,7 @@ class ShopModel {
 	toBuy = [2, 1, 2, 2];
 	resetMinimumPointsReq = 1500;
 	resetPoints = 800;
-	elixirName = ["Extra hint", 'Region Multiplier', 'Hangman elixir', 'Skip Question'];
+	elixirName = ["Extra Hint", 'Region Multiplier', 'Hangman Elixir', 'Skip Question'];
 	itemDescriptions = [
 		'Get an extra hint for a question of your choice',
 		'Add a 1.5 multiplier for a region that has been unlocked for you',

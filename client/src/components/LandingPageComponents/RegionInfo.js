@@ -47,7 +47,6 @@ export const RegionInfo = inject('LandingStore')(
 	}),
 );
 const InfoWrapper = styled.div`
-	/* text-transform: uppercase; */
 	width: 90%;
 	margin: auto;
 	align-self: center;
