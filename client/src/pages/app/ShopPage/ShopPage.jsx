@@ -10,7 +10,6 @@ import { ReactComponent as LogoutIcon } from '../../../assets/LogoutIcon.svg';
 import ShopHud from '../../../assets/ShopHud.svg';
 import DescHud from '../../../assets/DescHud.svg';
 import { ReactComponent as Map } from '../../../assets/Map.svg';
-import { ReactComponent as Waves } from '../../../assets/Waves.svg';
 
 import buy from '../../../assets/buybuttonbg.svg';
 import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
@@ -82,7 +81,7 @@ const ShopPageContainer = styled.div`
 		letter-spacing: 3px;
 		padding: 10px 50px 15px 30px;
 		margin: 10px auto;
-		:hover{
+		:hover {
 			cursor: pointer;
 		}
 	}
@@ -135,7 +134,6 @@ const ShopPageContainer = styled.div`
 			.icon {
 				width: 55px;
 				margin: auto 15px;
-				
 			}
 		}
 		.subhead {
@@ -167,8 +165,8 @@ const ShopPageContainer = styled.div`
 		}
 		.header {
 			padding: 0;
-			h1{
-				transform:translateX(30%);
+			h1 {
+				transform: translateX(30%);
 			}
 			.icon {
 				cursor: pointer;
@@ -181,7 +179,8 @@ const ShopPageContainer = styled.div`
 		h3 {
 			font-size: 38px;
 		}
-		.buy , .back{
+		.buy,
+		.back {
 			cursor: pointer;
 		}
 	}
@@ -415,8 +414,8 @@ class ShopPage extends Component {
 								<span>Reset Store</span>
 							</div>
 						) : (
-								<div className="reset reset-blocked">Reset Store</div>
-							)}
+							<div className="reset reset-blocked">Reset Store</div>
+						)}
 					</div>
 					<ItemDescription>
 						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
@@ -436,8 +435,8 @@ class ShopPage extends Component {
 								Buy
 							</div>
 						) : (
-								<div className="buy buy-blocked">Buy</div>
-							)}
+							<div className="buy buy-blocked">Buy</div>
+						)}
 						<span className="message">{store.message}</span>
 					</ItemDescription>
 				</div>
@@ -445,13 +444,13 @@ class ShopPage extends Component {
 					<BackButton />
 				</Link>
 				{this.props.loginStore.profileSetError &&
-					!this.props.loginStore.loggedIn ? (
-						<Redirect
-							to={{
-								pathname: '/login',
-							}}
-						/>
-					) : null}
+				!this.props.loginStore.loggedIn ? (
+					<Redirect
+						to={{
+							pathname: '/login',
+						}}
+					/>
+				) : null}
 			</ShopPageContainer>
 		);
 	}

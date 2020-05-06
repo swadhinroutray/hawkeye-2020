@@ -43,10 +43,9 @@ const HeaderWrapper = styled.header`
 	width: 100%;
 	padding-top: 5px;
 	> h1 {
-		font-size: 36px;
+		font-size: 32px;
 		margin: 0;
-		color:#fff;
-		font-size:
+		color: #fff;
 		grid-column: 2/3;
 	}
 	> div {
@@ -54,7 +53,11 @@ const HeaderWrapper = styled.header`
 		display: flex;
 		justify-content: space-evenly;
 	}
-
+	@media (min-width: 425px) {
+		> h1 {
+			font-size: 36px;
+		}
+	}
 	@media (min-width: 768px) {
 		> h1 {
 			margin-top: 3vh;
@@ -66,8 +69,8 @@ const HeaderWrapper = styled.header`
 			}
 		}
 	}
-	@media ((min-width: 1520px)){
-		>h1{
+	@media (min-width: 1520px) {
+		> h1 {
 			font-size: 72px;
 		}
 	}
