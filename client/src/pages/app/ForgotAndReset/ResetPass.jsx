@@ -25,12 +25,14 @@ export const ResetPass = inject('loginStore')(
 				<a href="https://iecsemanipal.com/"><img id="iecselogo" src={iecse} alt="iecse"/></a>
 				</div>
 				{loginStore.resetSuccess ? (
+					<div id="loginStuff">
 					<LoginFormWrapper >
 						<ResetConfirmation>Your Password has been reset!</ResetConfirmation>
 						<Link to="/login" style={{ textDecoration: 'none' }}>
-							<LoginLink>Login</LoginLink>
+							<LoginLink>Back To Login</LoginLink>
 						</Link>
 					</LoginFormWrapper>
+					</div>
 				) : (
 					<div id="loginStuff">
 					<LoginFormWrapper >
@@ -73,6 +75,9 @@ export const ResetPass = inject('loginStore')(
 										Submit
 									</button>
 								)}
+								<Link to="/login" >
+					<div>	Back To Login</div>	
+						</Link>
 							</div>
 						</form>
 					</LoginFormWrapper>
@@ -87,8 +92,10 @@ export const ResetPass = inject('loginStore')(
 const ResetConfirmation = styled.div`
 	text-align: center;
 	margin-top: 20px;
+	width:90%;
+	overflow-wrap:break-word;
 `;
-const LoginLink = styled.div`
+export const LoginLink = styled.div`
 	margin-top: 10px;
 	border: 2px solid #3abdb7;
 	padding: 8px 12px;

@@ -40,10 +40,10 @@ display:grid;
 grid-template-rows:10% auto;
 
 .hawkeye{
-	
+	margin:0.5rem 0;
 	font-size:3.2rem;
-	font-weight: 400;
-
+	font-weight: 600;
+	letter-spacing:5px;
 	color: white
 }
 .login-head {
@@ -69,6 +69,7 @@ grid-template-rows:10% auto;
 	justify-content:space-between;
 }
 
+
 @media  (max-width:${size.laptop}){
 
 	.hawkeye{
@@ -81,14 +82,23 @@ grid-template-rows:10% auto;
 
 
 
+
 #finger,#face{
 display:none;
 }
 #hawklogo,#iecselogo{
-	width:2rem;
-	height:2rem;
+	width:2.5rem;
+	height:2.5rem;
 
 	margin:1rem 0.5rem;
+}
+}
+@media  (max-width:${size.mobileM}){
+
+.hawkeye{
+margin:1rem 0;
+font-size:2rem;
+
 }
 }
 #finger,#face{
