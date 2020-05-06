@@ -36,7 +36,7 @@ const Icon = styled.img`
 `;
 const HeaderWrapper = styled.header`
 	position: relative;
-	font-family: Nidus Sans;
+	font-family: 'nidus_sansregular';
 	display: grid;
 	grid-template-columns: 25% 50% 25%;
 	align-items: center;

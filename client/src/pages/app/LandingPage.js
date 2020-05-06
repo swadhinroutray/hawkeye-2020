@@ -22,7 +22,7 @@ export const LandingPage = observer(() => {
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={store}>
 				<Page>
-					{!LoginStore.loggedIn && <Redirect to="/login" />}
+					
 					<Header />
 					<Wrapper>
 						<RegionSelector>
@@ -68,17 +68,17 @@ const Page = styled.div`
 	text-align: center;
 	letter-spacing: 0.1em;
 	color: white;
-	font-family: 'Nidus Sans';
+	font-family: 'nidus_sansregular';
 
 	h5 {
 		font-weight: 400;
 		font-size: 1.2em;
 		margin: 8px 0;
 		color: #fff;
-		font-family: 'Nidus Sans';
+		font-family: 'nidus_sansregular';
 	}
 	h4 {
-		font-family: 'Nidus Sans';
+		font-family: 'nidus_sansregular';
 		font-weight: 600;
 		font-size: 1.7em;
 		margin-top: 5px;

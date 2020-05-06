@@ -53,7 +53,7 @@ const InfoWrapper = styled.div`
 	position: relative;
 	color: turquoise;
 	font-size: 1em;
-	font-family: 'Nidus Sans';
+	font-family: 'nidus_sansregular';
 
 	padding: 15px 2vw;
 	box-sizing: border-box;
