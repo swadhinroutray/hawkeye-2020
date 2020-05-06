@@ -26,9 +26,11 @@ export const ForgotPass = inject('loginStore')(
 				</div>
 
 				{loginStore.forgotEmailSent ? (
+					<div id = "loginStuff">
 					<LoginFormWrapper>
 						<Email>A recovery link has been sent to your email.</Email>
 					</LoginFormWrapper>
+					</div>
 				) : (<div id="loginStuff">
 					<LoginFormWrapper >
 						<h1 className="login-head">Forgot Password</h1>

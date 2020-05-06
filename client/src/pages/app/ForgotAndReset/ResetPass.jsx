@@ -25,12 +25,16 @@ export const ResetPass = inject('loginStore')(
 				<a href="https://iecsemanipal.com/"><img id="iecselogo" src={iecse} alt="iecse"/></a>
 				</div>
 				{loginStore.resetSuccess ? (
+					<div id="loginStuff">
 					<LoginFormWrapper >
+					
 						<ResetConfirmation>Your Password has been reset!</ResetConfirmation>
 						<Link to="/login" style={{ textDecoration: 'none' }}>
 							<LoginLink>Login</LoginLink>
 						</Link>
+						
 					</LoginFormWrapper>
+					</div>
 				) : (
 					<div id="loginStuff">
 					<LoginFormWrapper >
