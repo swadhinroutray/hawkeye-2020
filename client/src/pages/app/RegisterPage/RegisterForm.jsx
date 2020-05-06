@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { Link, Redirect } from 'react-router-dom';
 import loginStore from '../../../models/app/LoginModel';
 import { LoginFormWrapper } from '../LoginPage/LoginForm';
-
+import ReactRecaptcha from 'react-google-recaptcha';
 const RegisterForm = inject('registerStore')(
 	observer(({ registerStore }) => {
 		const [primaryCheck, setPrimarCheck] = useState(false);
@@ -14,6 +14,7 @@ const RegisterForm = inject('registerStore')(
 			}
 			loginStore.clearErrors();
 		}, [loginStore, primaryCheck]);
+		const recaptchaRef = React.createRef();
 		return (
 			<LoginFormWrapper class="register">
 				<h1 className="login-head">REGISTER</h1>
@@ -82,13 +83,24 @@ const RegisterForm = inject('registerStore')(
 				<div className="input-field">
 					<select
 						name="college"
+						defaultValue="Select College"
 						onChange={e => registerStore.setField('college', e.target.value)}
 					>
+						<option value="Select College" disabled>
+							Select College
+						</option>
 						<option value="MIT">MIT</option>
 						<option value="Other Colleges">Other Colleges</option>
 					</select>
 					<div className="error">{registerStore['college'].error}</div>
 				</div>
+				<ReactRecaptcha
+					ref={recaptchaRef}
+					sitekey={'6LfJLYgUAAAAAJkUPkyvjR5fFsjqldnKPT6707D1'}
+					onChange={value => {
+						registerStore.setToken(value);
+					}}
+				/>
 				<button onClick={() => registerStore.register()}>Submit</button>
 				<div className="message">{registerStore['message'].value}</div>
 				<Link className="link-register" to="/login">

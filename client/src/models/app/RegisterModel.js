@@ -39,6 +39,7 @@ class RegisterModel {
 		error: '',
 	};
 	successful = false;
+	token = '';
 	setMessage = val => {
 		this.message.value = val;
 	};
@@ -65,7 +66,9 @@ class RegisterModel {
 			this.college,
 		].some(field => field.error.length > 0);
 	};
-
+	setToken = value => {
+		this.token = value;
+	};
 	validateAll = () => {
 		this.name.error = registerValidator['name'](this.name.value);
 		this.username.error = registerValidator['username'](this.username.value);
@@ -101,6 +104,7 @@ class RegisterModel {
 			email: this.email.value.trim(),
 			mobile: this.mobile.value.trim(),
 			college: this.college.value.trim(),
+			token: this.token,
 		};
 		/*fetch('/api/auth/register', {
 			method: 'POST',
@@ -157,6 +161,7 @@ decorate(RegisterModel, {
 	message: observable,
 	successful: observable,
 	setField: action,
+	setToken: action,
 	setMessage: action,
 	validateAll: action,
 	register: action,

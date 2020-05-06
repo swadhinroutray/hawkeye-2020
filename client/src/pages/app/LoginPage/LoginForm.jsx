@@ -17,6 +17,11 @@ export const LoginForm = inject('loginStore')(
 
 			loginStore.clearErrors();
 		}, [loginStore, primaryCheck]);
+		document.addEventListener('keyup', event => {
+			if (event.keyCode === 13) {
+				loginStore.login();
+			}
+		});
 		return (
 			<LoginFormWrapper>
 				<h1 className="login-head">LOGIN</h1>
@@ -118,7 +123,8 @@ export const LoginFormWrapper = styled.div`
 
 	button {
 		border: none;
-		-webkit-user-select: none; /* Safari */
+		-webkit-user-select: none;
+		color: #fff;
 		-ms-user-select: none;
 		user-select: none;
 		background: url(${ButtonBox}) center center;
