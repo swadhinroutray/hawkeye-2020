@@ -78,9 +78,10 @@ func (app *App) addQuestion(w http.ResponseWriter, r *http.Request) {
 
 //AddHintRequest ...
 type AddHintRequest struct {
-	Region int    `json:"region" bson:"region"`
-	Level  int    `json:"level" bson:"level"`
-	Hint   string `json:"hint" bson:"hint"`
+	Region  int    `json:"region" bson:"region"`
+	Level   int    `json:"level" bson:"level"`
+	Hint    string `json:"hint" bson:"hint"`
+	HintNum int    `bson:"hintnum"    json:"hintnum"`
 }
 
 func (app *App) addHint(w http.ResponseWriter, r *http.Request) {
@@ -110,10 +111,11 @@ func (app *App) addHint(w http.ResponseWriter, r *http.Request) {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 
-		Level:  reqBody.Level,
-		Region: reqBody.Region,
-		Hint:   strings.TrimSpace(reqBody.Hint),
-		Active: false,
+		HintNum: reqBody.HintNum,
+		Level:   reqBody.Level,
+		Region:  reqBody.Region,
+		Hint:    strings.TrimSpace(reqBody.Hint),
+		Active:  false,
 	}
 
 	filter = bson.M{"level": reqBody.Level, "region": reqBody.Region}
@@ -147,11 +149,12 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 
-		Level:  reqBody.Level,
-		Region: reqBody.Region,
-		Hint:   strings.TrimSpace(reqBody.Hint),
-		Active: false,
-		Users:  []string{""},
+		HintNum: 0,
+		Level:   reqBody.Level,
+		Region:  reqBody.Region,
+		Hint:    strings.TrimSpace(reqBody.Hint),
+		Active:  false,
+		Users:   []string{""},
 	}
 
 	//filter := bson.M{"level": reqBody.Level, "region": reqBody.Region}
@@ -176,19 +179,19 @@ func (app *App) editHint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	level, err1 := strconv.Atoi(params["level"])
-	region, err2 := strconv.Atoi(params["region"])
+	hintnum, err2 := strconv.Atoi(params["hintnum"])
 	if err1 != nil || err2 != nil {
 		app.log.Infof("Bad request params")
 		app.sendResponse(w, false, BadRequest, nil)
 		return
 	}
 
-	id, err := primitive.ObjectIDFromHex(params["id"])
-	if err != nil {
-		app.log.Infof("Bad request params %s", err.Error())
-		app.sendResponse(w, false, BadRequest, nil)
-		return
-	}
+	// hintnum, err := primitive.ObjectIDFromHex(params["hintnum"])
+	// if err != nil {
+	// 	app.log.Infof("Bad request params %s", err.Error())
+	// 	app.sendResponse(w, false, BadRequest, nil)
+	// 	return
+	// }
 
 	var reqBody EditHintRequest
 
@@ -210,9 +213,9 @@ func (app *App) editHint(w http.ResponseWriter, r *http.Request) {
 		update["hints.$.active"] = reqBody.Active
 	}
 
-	if _, err = app.db.Collection("questions").UpdateOne(
+	if _, err := app.db.Collection("questions").UpdateMany(
 		r.Context(),
-		bson.M{"level": level, "region": region, "hints._id": id},
+		bson.M{"level": level, "hints.hintnum": hintnum},
 		bson.M{
 			"$set": update,
 		},
