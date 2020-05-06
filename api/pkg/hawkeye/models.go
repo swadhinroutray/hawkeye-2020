@@ -81,10 +81,10 @@ type Submission struct {
 	Points   int                `bson:"points"   json:"points"`
 }
 
-//Region ...
-type Region struct {
-	ID        primitive.ObjectID `bson:"_id"          json:"id"`
-	CreatedAt time.Time          `bson:"created_at" json:"createdAt"`
+//CountUnlockRegion ...
+type CountUnlockRegion struct {
+	ID           primitive.ObjectID `bson:"_id"          json:"id"`
+	CountRegions int                `bson:"countRegions" json:"-"`
 }
 
 //Elixir (Collection) ...

@@ -149,7 +149,7 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 
-		HintNum: 0,
+		HintNum: reqBody.HintNum,
 		Level:   reqBody.Level,
 		Region:  reqBody.Region,
 		Hint:    strings.TrimSpace(reqBody.Hint),
