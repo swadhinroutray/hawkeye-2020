@@ -41,7 +41,7 @@ grid-template-rows:10% auto;
 
 .hawkeye{
 	margin:0.5rem 0;
-	font-size:3.2rem;
+	font-size:3rem;
 	font-weight: 600;
 	letter-spacing:5px;
 	color: white
