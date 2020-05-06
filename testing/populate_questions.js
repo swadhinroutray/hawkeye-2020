@@ -53,7 +53,7 @@ async function loopAdd() {
   var i;
   for (i = 0; i < 5; i++) {
     var j;
-    for (j = 1; j <= 15; j++) {
+    for (j = 1; j <= 10; j++) {
       addQuestions(i, j);
       await new Promise((resolve) => setTimeout(resolve, 25));
     }
