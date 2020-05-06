@@ -39,13 +39,13 @@ func (app *App) fetchQuestion(w http.ResponseWriter, r *http.Request) {
 	}
 	currUser := app.getUserTest(r)
 
-	// quesLevel := 0
+	quesLevel := 0
 
-	// if currUser.AnswerCount == 0 {
-	// 	quesLevel = 0
-	// } else {
-	// 	quesLevel = currUser.Level[region]
-	// }
+	if currUser.AnswerCount == 0 {
+		quesLevel = 0
+	} else {
+		quesLevel = currUser.Level[region]
+	}
 
 	if currUser.Level[region] <= 0 {
 		app.sendResponse(w, false, Success, "Region Locked")
@@ -54,7 +54,7 @@ func (app *App) fetchQuestion(w http.ResponseWriter, r *http.Request) {
 
 	questSpec := bson.A{
 		bson.M{
-			"$match": bson.M{"region": region, "level": currUser.Level[region]},
+			"$match": bson.M{"region": region, "level": quesLevel},
 		},
 		bson.M{
 			"$project": bson.M{
@@ -131,6 +131,9 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	region := ansReq.Region
 	level := currUser.Level[ansReq.Region]
+	if currUser.AnswerCount == 0 {
+		level = 0
+	}
 	fmt.Println(region)
 	fmt.Println(level)
 	//Fetch the Question that is going to be answered
@@ -202,11 +205,11 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	//Update level of the region
 	levelSon := fmt.Sprintf("level.%d", ansReq.Region)
 
-	// levelChange := 1
+	levelChange := 1
 
-	// if currUser.AnswerCount == 0 {
-	// 	levelChange = 0
-	// }
+	if currUser.AnswerCount == 0 {
+		levelChange = 0
+	}
 
 	itemBool := fmt.Sprintf("itembool.%d", ansReq.Region)
 	//Update points, answer count and multiplier, change item bool to true
@@ -217,7 +220,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 				"points":       currUser.Points + int(float64(currUser.Multiplier)*regionMult),
 				"answer_count": currUser.AnswerCount + 1,
 				"multiplier":   newMult,
-				levelSon:       currUser.Level[ansReq.Region] + 1,
+				levelSon:       currUser.Level[ansReq.Region] + levelChange,
 				itemBool:       true,
 			},
 		},

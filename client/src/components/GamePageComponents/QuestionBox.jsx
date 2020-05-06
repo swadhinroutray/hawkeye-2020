@@ -7,6 +7,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
 					<div className="Level">LEVEL {gameplayStore.level}</div>
+					<br/>
 					<div className="Question">{gameplayStore.question}</div>
 				</div>
 				<div className="AnswerWrapper">
