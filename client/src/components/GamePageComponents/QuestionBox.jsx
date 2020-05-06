@@ -7,6 +7,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
 					<div className="Level">LEVEL {gameplayStore.level}</div>
+					<br/>
 					<div className="Question">{gameplayStore.question}</div>
 				</div>
 				<div className="AnswerWrapper">
@@ -19,7 +20,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 							onChange={e => gameplayStore.setCurrentAnswer(e.target.value)}
 							onKeyPress={e => {
 								const code = e.keyCode || e.which;
-								if (code == 13) {getinventory(false);
+								if (code === 13) {getinventory(false);
 									gameplayStore.submit(match.params.id);}
 							}}
 						></input>

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Switch, Redirect } from 'react-router';
+import { Switch } from 'react-router';
 import { RegisterPage } from '../pages/app/RegisterPage/RegisterPage';
 import LoginPage from '../pages/app/LoginPage/LoginPage';
 import Game from '../pages/app/Game/Game';
 import { Route } from 'react-router-dom';
-import { Provider, observer } from 'mobx-react';
+import { Provider } from 'mobx-react';
 import { LandingPage } from '../pages/app/LandingPage';
 import store from '../models/app/LoginModel';
 import ShopStore from '../models/app/ShopModel';
@@ -17,7 +17,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { AdminRoute } from './AdminRoute';
 import Leaderboard from '../pages/app/Admin/Leaderboard';
 
-const AppRouter = ({ match }) => {
+const AppRouter = () => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
 			<Switch>

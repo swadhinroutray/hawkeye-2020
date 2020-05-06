@@ -12,7 +12,7 @@ export class RedCrystal extends Component {
 						}
 					</style>
 				</defs>
-				<title>{'RedSelect'}</title>
+
 				<g
 					style={{
 						isolation: 'isolate',

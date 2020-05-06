@@ -45,7 +45,7 @@ const ShopPageContainer = styled.div`
 		padding: 0;
 		> h1 {
 			display: inline-block;
-			margin: 0.15em auto 0.5em;
+			margin: 0.15em auto auto 0.5em;
 			font-size: 36px;
 			font-weight: 600;
 			letter-spacing: 0.15em;
@@ -418,7 +418,9 @@ class ShopPage extends Component {
 						)}
 					</div>
 					<ItemDescription>
-						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
+						<div className="crystal-name">
+							{store.elixirName[store.getSelected]}
+						</div>
 						<div className="desc">
 							{store.itemDescriptions[store.getSelected]}
 						</div>

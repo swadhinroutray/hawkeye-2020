@@ -36,12 +36,13 @@ const Icon = styled.img`
 `;
 const HeaderWrapper = styled.header`
 	position: relative;
-	font-family: Nidus Sans;
+	font-family: 'nidus_sansregular';
 	display: grid;
 	grid-template-columns: 25% 50% 25%;
 	align-items: center;
 	width: 100%;
 	padding-top: 5px;
+	letter-spacing:20px;
 	> h1 {
 		font-size: 32px;
 		margin: 0;

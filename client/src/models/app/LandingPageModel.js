@@ -1,11 +1,5 @@
 import { observable, decorate, action } from 'mobx';
-import {
-	CodeHeat,
-	AOC,
-	Streaks,
-	Enigma,
-	NS,
-} from '../../assets/landing-assets';
+import { CodeHeat, AOC, Enigma, NS, Castle } from '../../assets/landing-assets';
 
 class Region {
 	constructor(img, name, year, description) {
@@ -23,21 +17,21 @@ class LandingPageModel {
 		this.regionInfo.push(
 			new Region(
 				NS,
-				'Babylon',
-				'1750 BC',
-				'Build and establish your ground and march towards greatness.',
+				'Florence',
+				'1502 AD',
+				'Bring around an era of change and make your way to the throne',
+			),
+			new Region(
+				Castle,
+				'Ottomania',
+				'1918 AD',
+				'Set in World War One, work your way to clinch the top spot.',
 			),
 			new Region(
 				Enigma,
-				'Ottomania',
-				'1918 AD',
-				'Set in World War 1, work your way to clinch the top spot.',
-			),
-			new Region(
-				Streaks,
 				'Pripyat',
 				'1986 AD',
-				'An eerie wave of disaster has come upon us, guide your people to safety. ',
+				'An eerie wave of disaster has come upon, guide your people to safety. ',
 			),
 			new Region(
 				CodeHeat,

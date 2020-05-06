@@ -18,7 +18,7 @@ export const LoginForm = inject('loginStore')(
 		
 			loginStore.clearErrors();
 		
-		}, [loginStore]);
+		}, [loginStore,primaryCheck]);
 		return (
 			<LoginFormWrapper>
 				<h1 className="login-head">LOGIN</h1>
