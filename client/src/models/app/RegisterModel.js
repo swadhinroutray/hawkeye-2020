@@ -38,10 +38,9 @@ class RegisterModel {
 		value: '',
 		error: '',
 	};
-	successful=false
+	successful = false;
 	setMessage = val => {
-		this.message.value
-			= val;
+		this.message.value = val;
 	};
 	setField = (field, val) => {
 		this[field].value = val;
@@ -95,13 +94,13 @@ class RegisterModel {
 			return;
 		}
 		const postData = {
-			name: this.name.value,
-			username: this.username.value,
-			password: this.password.value,
-			confirmPass: this.confirmPass.value,
-			email: this.email.value,
-			mobile: this.mobile.value,
-			college: this.college.value,
+			name: this.name.value.trim(),
+			username: this.username.value.trim(),
+			password: this.password.value.trim(),
+			confirmPass: this.confirmPass.value.trim(),
+			email: this.email.value.trim(),
+			mobile: this.mobile.value.trim(),
+			college: this.college.value.trim(),
 		};
 		/*fetch('/api/auth/register', {
 			method: 'POST',
@@ -129,8 +128,8 @@ class RegisterModel {
 
 			if (res.success) {
 				this.setMessage('Registered successfully!');
-				this.successful=true;
-				alert('Registered successfully!')
+				this.successful = true;
+				alert('Registered successfully!');
 				return;
 			}
 			if (res.message === 'CONFLICT') {
@@ -156,7 +155,7 @@ decorate(RegisterModel, {
 	mobile: observable,
 	college: observable,
 	message: observable,
-	successful:observable,
+	successful: observable,
 	setField: action,
 	setMessage: action,
 	validateAll: action,

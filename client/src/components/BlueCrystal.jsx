@@ -12,7 +12,7 @@ class BlueCrystal extends Component {
 						}
 					</style>
 				</defs>
-				<title>{'BlueSelect'}</title>
+
 				<g
 					style={{
 						isolation: 'isolate',

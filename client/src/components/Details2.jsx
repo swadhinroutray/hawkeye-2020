@@ -18,7 +18,7 @@ export class Details2 extends Component {
 				<defs>
 					<style>{'.cls-1{fill:#757dbc}'}</style>
 				</defs>
-				<title>LeftBar</title>
+
 				<g id="OBJECTS">
 					<path
 						className="cls-1"
