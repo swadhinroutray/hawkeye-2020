@@ -53,7 +53,11 @@ const InfoWrapper = styled.div`
 	position: relative;
 	color: turquoise;
 	font-size: 1em;
+<<<<<<< HEAD
 	font-family: 'Futura PT Medium';
+=======
+	font-family: 'nidus_sansregular';
+>>>>>>> 24f19e892df48a8d6dc64eb823bf0c47047ba4de
 
 	padding: 15px 2vw;
 	box-sizing: border-box;

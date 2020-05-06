@@ -1,10 +1,18 @@
 import { createGlobalStyle } from 'styled-components';
 import bg from '../assets/Artboard.svg';
+<<<<<<< HEAD
 import neot from '../assets/fonts/nidsans-webfont.eot'
 import nwoff from '../assets/fonts/nidsans-webfont.woff'
 import nwoff2 from '../assets/fonts/nidsans-webfont.woff2'
 import nttf from '../assets/fonts/nidsans-webfont.ttf'
 import nsvg from '../assets/fonts/nidsans-webfont.svg'
+=======
+import neot from '../assets/nidsans_webfont.eot'
+import nwoff from '../assets/nidsans_webfont.woff'
+import nwoff2 from '../assets/nidsans_webfont.woff2'
+import nttf from '../assets/nidsans_webfont.ttf'
+import nsvg from '../assets/nidsans_webfont.svg'
+>>>>>>> 24f19e892df48a8d6dc64eb823bf0c47047ba4de
 const GlobalStyle = createGlobalStyle`
 
 

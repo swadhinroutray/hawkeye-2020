@@ -22,7 +22,11 @@ export const LandingPage = observer(() => {
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={store}>
 				<Page>
+<<<<<<< HEAD
 					{/* {!LoginStore.loggedIn && <Redirect to="/login" />} */}
+=======
+					
+>>>>>>> 24f19e892df48a8d6dc64eb823bf0c47047ba4de
 					<Header />
 					<Wrapper>
 						<RegionSelector>
