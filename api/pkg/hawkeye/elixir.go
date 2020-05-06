@@ -244,6 +244,13 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 			app.sendResponse(w, false, InternalServerError, "Something went wrong")
 			return
 		}
+	} else {
+		app.db.Collection("hiddenhints").FindOneAndUpdate(r.Context(), bson.M{"_id": presentHint.ID},
+			bson.M{
+				"$push": bson.M{
+					"users": currUser.ID,
+				},
+			})
 	}
 
 	if err != nil && err != mongo.ErrNoDocuments {
