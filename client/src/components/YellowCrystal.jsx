@@ -2230,7 +2230,7 @@ export class YellowCrystal extends Component {
 						}
 					</style>
 				</defs>
-				<title>{'YellowNotSelect'}</title>
+
 				<g
 					style={{
 						isolation: 'isolate',
