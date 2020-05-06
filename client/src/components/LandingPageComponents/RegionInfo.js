@@ -28,12 +28,12 @@ export const RegionInfo = inject('LandingStore')(
 
 				{LoginStore.profile.level &&
 				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
+				LoginStore.profile.level[LandingStore.currentRegion] < 11 ? (
 					<Link to={`/game/${LandingStore.currentRegion}`}>
 						<Start>Start</Start>
 					</Link>
 				) : LoginStore.profile.level &&
-				  LoginStore.profile.level[LandingStore.currentRegion] === 16 ? (
+				  LoginStore.profile.level[LandingStore.currentRegion] === 11 ? (
 					<span>
 						<Start>Conquered</Start>
 					</span>
@@ -53,7 +53,7 @@ const InfoWrapper = styled.div`
 	align-self: center;
 	position: relative;
 	color: turquoise;
-	font-size: 0.8em;
+	font-size: 1em;
 	font-family: 'Nidus Sans';
 
 	padding: 15px 2vw;
@@ -76,8 +76,8 @@ const InfoWrapper = styled.div`
 `;
 
 const Name = styled.div`
-	font-weight: 600;
-	font-size: 1.12em;
+	font-weight: 700;
+	font-size: 1.5em;
 `;
 const Desc = styled.div`
 	padding: 0 5px;

@@ -11,7 +11,8 @@ import map from './Map.svg';
 import AOC from './AOC.svg';
 import Enigma from './Enigma.svg';
 import NS from './NS.svg';
-import Streaks from './Streaks.svg';
+import Castle from './Castle.svg';
+
 export {
 	leftBar,
 	rightBar,
@@ -25,6 +26,6 @@ export {
 	map,
 	AOC,
 	Enigma,
-	Streaks,
+	Castle,
 	NS,
 };
