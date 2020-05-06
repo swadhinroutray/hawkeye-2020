@@ -54,6 +54,14 @@ func (app *App) unlockNextRegionForAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if _, err = app.db.Collection("count").UpdateMany(r.Context(),
+		bson.M{},
+		bson.M{"$inc": bson.M{"countRegions": 1}},
+	); err != nil {
+		app.log.Errorf("Database error %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
 	app.sendResponse(w, true, Success, nil)
 }
 
@@ -142,3 +150,18 @@ func (app *App) dismissAdmin(w http.ResponseWriter, r *http.Request) {
 
 // 	app.sendResponse(w, true, Success, submissions)
 // }
+
+func (app *App) keepCount(w http.ResponseWriter, r *http.Request) {
+
+	count := CountUnlockRegion{
+		ID:           primitive.NewObjectID(),
+		CountRegions: 0,
+	}
+	_, err := app.db.Collection("count").InsertOne(r.Context(), count)
+	if err != nil {
+		app.log.Errorf("Failed to insert User %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	app.sendResponse(w, true, Success, "Count set Successfully")
+}

@@ -28,9 +28,10 @@ class LoginModel {
 	};
 
 	setField(field, newValue) {
-		this.formData[field].value = newValue;
+		this.formData[field].value = newValue.trim();
 		let err = '';
-		if (loginValidator[field](newValue)) err = loginValidator[field](newValue);
+		if (loginValidator[field](newValue))
+			err = loginValidator[field](newValue.trim());
 		this.formData[field].error = err;
 	}
 
@@ -62,7 +63,10 @@ class LoginModel {
 			return;
 		}
 		const { email, password } = this.formData;
-		const postData = { email: email.value, password: password.value };
+		const postData = {
+			email: email.value.trim(),
+			password: password.value.trim(),
+		};
 
 		post('/api/auth/login', postData).then(this.loginControl);
 	}
@@ -82,7 +86,7 @@ class LoginModel {
 				inventory,
 				points,
 				itembool,
-				regionmultiplier
+				regionmultiplier,
 			} = res.data;
 
 			this.profile.id = id;

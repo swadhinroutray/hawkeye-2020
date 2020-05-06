@@ -35,14 +35,14 @@ const (
 //Setting Variables ...
 const (
 	ScoringGradient        = 1.5
-	RegionLimit            = 10
-	UnlockHintPoints       = 100
-	HangmanHintPoints      = 100
-	RegionMultiplierPoints = 100
+	RegionLimit            = 7
+	UnlockHintPoints       = 30
+	HangmanHintPoints      = 20
+	RegionMultiplierPoints = 60
 	RegionMultiplierValue  = 1.5
-	ResetStoreMinValue     = 1500
-	ResetStorePrice        = 800
-	SkipQuestionPoints     = 100
+	ResetStoreMinValue     = 600
+	ResetStorePrice        = 400
+	SkipQuestionPoints     = 50
 )
 
 //HTTP Status message ...

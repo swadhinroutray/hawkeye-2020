@@ -112,9 +112,18 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return
 	}
+	var getCount CountUnlockRegion
+	if err = app.db.Collection("count").FindOne(r.Context(), bson.M{}).Decode(&getCount); err != nil {
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	for i := 0; i < getCount.CountRegions; i++ {
+		app.unlockNextRegion(newUser, r)
+	}
 
 	app.log.Infof("Registered new user %#v", newUser)
 	app.sendResponse(w, true, Success, newUser)
+
 }
 
 //LoginRequest ...

@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link, Redirect } from 'react-router-dom';
-import loginStore from '../../../models/app/LoginModel'
-import { LoginFormWrapper } from '../LoginPage/LoginForm'
-
+import loginStore from '../../../models/app/LoginModel';
+import { LoginFormWrapper } from '../LoginPage/LoginForm';
+import ReactRecaptcha from 'react-google-recaptcha';
 const RegisterForm = inject('registerStore')(
 	observer(({ registerStore }) => {
-
-		const [primaryCheck, setPrimarCheck] = useState(false)
+		const [primaryCheck, setPrimarCheck] = useState(false);
 		useEffect(() => {
 			if (!primaryCheck) {
-				setPrimarCheck(true)
-				loginStore.getProfile()
-
+				setPrimarCheck(true);
+				loginStore.getProfile();
 			}
 			loginStore.clearErrors();
-		}, [loginStore,primaryCheck]);
+		}, [loginStore, primaryCheck]);
+		const recaptchaRef = React.createRef();
 		return (
-
 			<LoginFormWrapper class="register">
 				<h1 className="login-head">REGISTER</h1>
-
 
 				<div className="input-field">
 					<input
@@ -28,9 +25,9 @@ const RegisterForm = inject('registerStore')(
 						placeholder="Name"
 						required={true}
 						onChange={e => registerStore.setField('name', e.target.value)}
-					// value={registerStore['name'].value}
+						// value={registerStore['name'].value}
 					/>
-					<div>{registerStore['name'].error}</div>
+					<div className="error">{registerStore['name'].error}</div>
 				</div>
 				<div className="input-field">
 					<input
@@ -38,9 +35,9 @@ const RegisterForm = inject('registerStore')(
 						placeholder="Username"
 						required={true}
 						onChange={e => registerStore.setField('username', e.target.value)}
-					// value={registerStore['username'].value}
+						// value={registerStore['username'].value}
 					/>
-					<div>{registerStore['username'].error}</div>
+					<div className="error">{registerStore['username'].error}</div>
 				</div>
 				<div className="input-field">
 					<input
@@ -48,9 +45,9 @@ const RegisterForm = inject('registerStore')(
 						placeholder="Email Id"
 						required={true}
 						onChange={e => registerStore.setField('email', e.target.value)}
-					// value={registerStore['email'].value}
+						// value={registerStore['email'].value}
 					/>
-					<div>{registerStore['email'].error}</div>
+					<div className="error">{registerStore['email'].error}</div>
 				</div>
 				<div className="input-field">
 					<input
@@ -58,19 +55,21 @@ const RegisterForm = inject('registerStore')(
 						placeholder="Password"
 						required={true}
 						onChange={e => registerStore.setField('password', e.target.value)}
-					// value={registerStore['password'].value}
+						// value={registerStore['password'].value}
 					/>
-					<div>{registerStore['password'].error}</div>
+					<div className="error">{registerStore['password'].error}</div>
 				</div>
 				<div className="input-field">
 					<input
 						type="password"
 						placeholder="Confirm Password"
 						required={true}
-						onChange={e => registerStore.setField('confirmPass', e.target.value)}
-					// value={registerStore['confirmPass'].value}
+						onChange={e =>
+							registerStore.setField('confirmPass', e.target.value)
+						}
+						// value={registerStore['confirmPass'].value}
 					/>
-					<div>{registerStore['confirmPass'].error}</div>
+					<div className="error">{registerStore['confirmPass'].error}</div>
 				</div>
 				<div className="input-field">
 					<input
@@ -79,27 +78,38 @@ const RegisterForm = inject('registerStore')(
 						required={true}
 						onChange={e => registerStore.setField('mobile', e.target.value)}
 					/>
-					<div>{registerStore['mobile'].error}</div>
+					<div className="error">{registerStore['mobile'].error}</div>
 				</div>
 				<div className="input-field">
-					<input
-						type="text"
-						placeholder="College"
+					<select
+						name="college"
+						defaultValue="Select College"
 						onChange={e => registerStore.setField('college', e.target.value)}
-					// value={registerStore['college'].error}
-					/>
-					<div>{registerStore['college'].error}</div>
+					>
+						<option value="Select College" disabled>
+							Select College
+						</option>
+						<option value="MIT">MIT</option>
+						<option value="Other Colleges">Other Colleges</option>
+					</select>
+					<div className="error">{registerStore['college'].error}</div>
 				</div>
+				<ReactRecaptcha
+					ref={recaptchaRef}
+					sitekey={'6LfJLYgUAAAAAJkUPkyvjR5fFsjqldnKPT6707D1'}
+					onChange={value => {
+						registerStore.setToken(value);
+					}}
+				/>
 				<button onClick={() => registerStore.register()}>Submit</button>
 				<div className="message">{registerStore['message'].value}</div>
 				<Link className="link-register" to="/login">
 					Back to login
-			</Link>
+				</Link>
 				{loginStore.loggedIn ? <Redirect to="/" /> : null}
 				{registerStore.successful ? <Redirect to="/login" /> : null}
-
 			</LoginFormWrapper>
-		)
+		);
 	}),
 );
 
