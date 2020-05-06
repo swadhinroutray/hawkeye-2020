@@ -131,7 +131,7 @@ overflow:hidden;
 	
 	
 	color:#fff;
-	letter-spacing:2px;
+	letter-spacing:6px;
 	
 	align-self: center;
 	font-weight:bold;

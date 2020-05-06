@@ -27,10 +27,12 @@ export const ResetPass = inject('loginStore')(
 				{loginStore.resetSuccess ? (
 					<div id="loginStuff">
 					<LoginFormWrapper >
+					
 						<ResetConfirmation>Your Password has been reset!</ResetConfirmation>
 						<Link to="/login" style={{ textDecoration: 'none' }}>
 							<LoginLink>Back To Login</LoginLink>
 						</Link>
+						
 					</LoginFormWrapper>
 					</div>
 				) : (

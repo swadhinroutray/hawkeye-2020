@@ -42,6 +42,7 @@ const HeaderWrapper = styled.header`
 	align-items: center;
 	width: 100%;
 	padding-top: 5px;
+	letter-spacing:20px;
 	> h1 {
 		font-size: 32px;
 		margin: 0;

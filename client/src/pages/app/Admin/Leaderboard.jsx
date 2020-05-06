@@ -8,7 +8,7 @@ function Leaderboard() {
     const [users, getUsers] = useState([]);
     const [loading,setLoading] = useState(false);
     const [currentPage,setCurrentPage] = useState(1);
-    const [usersPerPage] = useState(5);
+    const [usersPerPage] = useState(10);
 
     useEffect(()=>{
      const fetchUsers = async ()=>{

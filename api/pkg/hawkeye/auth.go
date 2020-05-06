@@ -188,17 +188,21 @@ func (app *App) profileController(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *App) sendMail(token string, to string) error {
-	from := os.Getenv("EMAIL")
+	fromWHO := os.Getenv("EMAIL")
 	pass := os.Getenv("EMAIL_PASSWORD")
-	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://localhost:3030/resetpassword?token=%s", token)
 
-	msg := []byte("To: " + to + "\r\n" +
-		"Subject: Hawkeye Password Reset | IECSE Manipal\r\n" + body +
-		"\r\n")
+	// msg := []byte("To: " + to + "\r\n" +
+	// 	"Subject: Hawkeye Password Reset | IECSE Manipal\r\n" + body +
+	// 	"\r\n")
+	from := fmt.Sprintf("From: <%s>\r\n", fromWHO)
+	towhom := fmt.Sprintf("To: <%s>\r\n", to)
+	subject := "Subject: Hawkeye Password Reset | IECSE Manipal\r\n"
+	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://hawkeye.iecsemanipal.com/reset?token=%s", token)
 
-	auth := smtp.PlainAuth("", from, pass, "smtp.gmail.com")
+	msg := from + towhom + subject + "\r\n" + body
+	auth := smtp.PlainAuth("", fromWHO, pass, "smtp.gmail.com")
 
-	err := smtp.SendMail("smtp.gmail.com:587", auth, from, []string{to}, msg)
+	err := smtp.SendMail("smtp.gmail.com:587", auth, fromWHO, []string{to}, []byte(msg))
 
 	if err != nil {
 		app.log.Infof("Error:%s", err)

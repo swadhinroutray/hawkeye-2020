@@ -19,19 +19,19 @@ class LandingPageModel {
 				NS,
 				'Florence',
 				'1502 AD',
-				'Bring around an era of change, and make your way to the throne',
+				'Bring around an era of change and make your way to the throne',
 			),
 			new Region(
 				Castle,
 				'Ottomania',
 				'1918 AD',
-				'Set in World War 1, work your way to clinch the top spot.',
+				'Set in World War One, work your way to clinch the top spot.',
 			),
 			new Region(
 				Enigma,
 				'Pripyat',
 				'1986 AD',
-				'An eerie wave of disaster has come upon us, guide your people to safety. ',
+				'An eerie wave of disaster has come upon, guide your people to safety. ',
 			),
 			new Region(
 				CodeHeat,

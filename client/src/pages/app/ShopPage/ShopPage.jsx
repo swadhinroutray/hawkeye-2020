@@ -45,7 +45,7 @@ const ShopPageContainer = styled.div`
 		padding: 0;
 		> h1 {
 			display: inline-block;
-			margin: 0.15em auto 0.5em;
+			margin: 0.15em auto auto 0.5em;
 			font-size: 36px;
 			font-weight: 600;
 			letter-spacing: 0.15em;

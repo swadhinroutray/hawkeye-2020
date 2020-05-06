@@ -15,11 +15,11 @@ const Div = styled.div`
     width: 30vh;
     margin-left:auto;
     margin-right:auto;
-    font-size: 30px;
+    font-size: 20px;
     border: 2px solid #3abdb7;
     border-radius: 10px;
     margin-bottom: 10px;
-
+    font-family:"Futura PT Medium"
 `;
 const Centre = styled.div`
     display:flex;
