@@ -63,7 +63,6 @@ const AddQuestion = () => {
             }}>Add Keyword</button>
             
             <br />
-            <div>{this.state.alert}</div>
             <button onClick={() => submitForm({question:question, answer:answer, level:level, region:region, keywords: keywords})}>Add Question</button>
 
         </div>
