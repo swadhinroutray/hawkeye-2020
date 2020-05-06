@@ -12,7 +12,7 @@ export class PurpleCrystal extends Component {
 						}
 					</style>
 				</defs>
-				<title>{'PurpleSelect'}</title>
+
 				<g
 					style={{
 						isolation: 'isolate',

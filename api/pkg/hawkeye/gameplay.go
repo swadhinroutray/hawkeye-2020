@@ -131,9 +131,11 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 
 	region := ansReq.Region
 	level := currUser.Level[ansReq.Region]
+
 	if currUser.AnswerCount == 0 {
 		level = 0
 	}
+
 	fmt.Println(region)
 	fmt.Println(level)
 	//Fetch the Question that is going to be answered

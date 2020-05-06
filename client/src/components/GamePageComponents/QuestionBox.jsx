@@ -1,9 +1,17 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { inject, observer} from 'mobx-react';
 import { Redirect } from 'react-router';
 export const QuestionBox = inject('gameplayStore','loginStore')(
+
 	observer(
-		({ gameplayStore,match,loginStore ,getinventory}) => (
+		({ gameplayStore,match,loginStore ,getinventory}) => {
+			
+			useEffect(() => {
+				if(gameplayStore.message==='Hawk approves!')
+					setTimeout(()=>{gameplayStore.message=''},3000)
+				
+			})
+			return (
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
 					<div className="Level">LEVEL {gameplayStore.level}</div>
@@ -30,7 +38,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 					
 					<button style={{color:"white"}}  onClick={() => {getinventory(false);loginStore.getProfile();gameplayStore.submit(match.params.id)}}>SUBMIT</button>
 					<div className="AnswerStatus">
-						{gameplayStore.message==='Hawk approves!'&&<div style={{color:"green"}} >{gameplayStore.message}</div>}
+						{gameplayStore.message==='Hawk approves!'&&<div style={{color:"#90ee90"}} >{gameplayStore.message}</div>}
 						{gameplayStore.message==='Hawk disapproves.'&&<div style={{color:"red"}} >{gameplayStore.message}</div>}
 						{gameplayStore.message===`Hawk thinks you're close.`&&<div style={{color:"yellow"}} >{gameplayStore.message}</div>}
 						
@@ -38,6 +46,6 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 				</div>
 				<div id="points"  style={{fontSize:"0.9rem",color:"white"}}>Current Points:{gameplayStore.points}</div>
 			</div>
-		)
+		)}
 	)
 );
