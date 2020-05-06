@@ -418,7 +418,9 @@ class ShopPage extends Component {
 						)}
 					</div>
 					<ItemDescription>
-						<div className="crystal-name">Crystal {store.getSelected + 1}</div>
+						<div className="crystal-name">
+							{store.elixirName[store.getSelected]}
+						</div>
 						<div className="desc">
 							{store.itemDescriptions[store.getSelected]}
 						</div>
