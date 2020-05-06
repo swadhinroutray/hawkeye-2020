@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import store from '../../../models/app/RegisterModel';
 import RegisterForm from './RegisterForm';
 import { Provider } from 'mobx-react';

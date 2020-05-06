@@ -20,7 +20,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 							onChange={e => gameplayStore.setCurrentAnswer(e.target.value)}
 							onKeyPress={e => {
 								const code = e.keyCode || e.which;
-								if (code == 13) {getinventory(false);
+								if (code === 13) {getinventory(false);
 									gameplayStore.submit(match.params.id);}
 							}}
 						></input>

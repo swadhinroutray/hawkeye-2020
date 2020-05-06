@@ -16,7 +16,7 @@ export const ResetPass = inject('loginStore')(
 
 		}
 			loginStore.clearErrors();
-		}, [loginStore]);
+		}, [loginStore,primaryCheck]);
 		return (
 			<LoginPageWrapper >
 				<div id="headers">

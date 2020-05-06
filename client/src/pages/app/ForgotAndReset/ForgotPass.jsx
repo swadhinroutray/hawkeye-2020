@@ -17,7 +17,7 @@ export const ForgotPass = inject('loginStore')(
 
 		}
 			loginStore.clearErrors();
-		}, [loginStore]);
+		}, [loginStore,primaryCheck]);
 		return (
 			<LoginPageWrapper>
 				<div id="headers">
