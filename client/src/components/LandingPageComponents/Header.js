@@ -42,12 +42,16 @@ const HeaderWrapper = styled.header`
 	align-items: center;
 	width: 100%;
 	padding-top: 5px;
-	letter-spacing:20px;
+	letter-spacing: 0.15em;
+
 	> h1 {
 		font-size: 32px;
 		margin: 0;
 		color: #fff;
 		grid-column: 2/3;
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
 	}
 	> div {
 		grid-column: 3;

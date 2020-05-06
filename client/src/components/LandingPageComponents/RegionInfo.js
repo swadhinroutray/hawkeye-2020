@@ -5,6 +5,7 @@ import { startButton } from '../../assets/landing-assets';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import GameplayModel from '../../models/app/GameplayModel';
+
 export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
 		useEffect(() => {
@@ -28,12 +29,12 @@ export const RegionInfo = inject('LandingStore')(
 
 				{LoginStore.profile.level &&
 				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] < 11 ? (
+				LoginStore.profile.level[LandingStore.currentRegion] < 8 ? (
 					<Link to={`/game/${LandingStore.currentRegion}`}>
 						<Start>Start</Start>
 					</Link>
 				) : LoginStore.profile.level &&
-				  LoginStore.profile.level[LandingStore.currentRegion] === 11 ? (
+				  LoginStore.profile.level[LandingStore.currentRegion] === 8 ? (
 					<span>
 						<Start>Conquered</Start>
 					</span>
@@ -77,10 +78,17 @@ const InfoWrapper = styled.div`
 const Name = styled.div`
 	font-weight: 700;
 	font-size: 1.5em;
+	color: white;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 `;
 const Desc = styled.div`
 	padding: 0 5px;
-	/* margin: 10px 0 10px 0; */
+	margin: 3px 0;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 `;
 
 const Background = styled.img`
@@ -90,10 +98,13 @@ const Background = styled.img`
 	top: 0;
 	left: 0;
 	padding: 0;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 `;
 
 const Start = styled.div`
-	color: turquoise;
+	color: white;
 	padding: 8px 5px;
 	text-align: center;
 	position: relative;

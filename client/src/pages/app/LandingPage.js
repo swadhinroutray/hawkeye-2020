@@ -22,7 +22,6 @@ export const LandingPage = observer(() => {
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={store}>
 				<Page>
-					
 					<Header />
 					<Wrapper>
 						<RegionSelector>
@@ -30,7 +29,7 @@ export const LandingPage = observer(() => {
 							<RightBar src={rightBar} />
 							<h5>WELCOME {LoginStore.profile.username?.toUpperCase()}</h5>
 							<h4>SELECT YOUR REGION</h4>
-							<Hologram />
+							<Hologram LoginStore={LoginStore} />
 							<Slider
 								type="range"
 								name="region-selector"
@@ -39,8 +38,9 @@ export const LandingPage = observer(() => {
 								onChange={e =>
 									store.changeRegion(Math.floor(e.target.value / 10))
 								}
-								value={store.currentRegion * 10}
+								defaultValue={store.currentRegion * 10}
 							></Slider>
+							<MoveSlider>Move slider to change region</MoveSlider>
 							<Year>{store.regionInfo[store.currentRegion].year}</Year>
 						</RegionSelector>
 						<RegionInfo LoginStore={LoginStore} />
@@ -76,6 +76,9 @@ const Page = styled.div`
 		margin: 8px 0;
 		color: #fff;
 		font-family: 'nidus_sansregular';
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
 	}
 	h4 {
 		font-family: 'nidus_sansregular';
@@ -83,6 +86,9 @@ const Page = styled.div`
 		font-size: 1.7em;
 		margin-top: 5px;
 		color: #fff;
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
 	}
 
 	@media (min-width: 768px) {
@@ -128,8 +134,10 @@ const Slider = styled.input`
 	border-radius: 5px;
 	-webkit-transition: 0.2s;
 	transition: opacity 0.2s;
-	margin-bottom: 3vh;
 
+	:focus {
+		outline: none;
+	}
 	@media (min-width: 768px) {
 		margin-top: 8vh;
 		width: 90%;
@@ -163,6 +171,14 @@ const Slider = styled.input`
 		}
 	}
 `;
+const MoveSlider = styled.div`
+	font-size: 0.8em;
+	margin-bottom: 3vh;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	color: lightgrey;
+`;
 const Year = styled.div`
 	border: 1px solid turquoise;
 	width: 40%;
@@ -171,6 +187,9 @@ const Year = styled.div`
 	font-size: 1.2em;
 	font-weight: 500;
 	margin: 0 auto 2vh auto;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 	@media (min-width: 425px) {
 		width: 30%;
 	}
