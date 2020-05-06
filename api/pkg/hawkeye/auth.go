@@ -197,7 +197,7 @@ func (app *App) sendMail(token string, to string) error {
 	from := fmt.Sprintf("From: <%s>\r\n", fromWHO)
 	towhom := fmt.Sprintf("To: <%s>\r\n", to)
 	subject := "Subject: Hawkeye Password Reset | IECSE Manipal\r\n"
-	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - http://localhost:3030/reset?token=%s", token)
+	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://hawkeye.iecsemanipal.com/reset?token=%s", token)
 
 	msg := from + towhom + subject + "\r\n" + body
 	auth := smtp.PlainAuth("", fromWHO, pass, "smtp.gmail.com")
