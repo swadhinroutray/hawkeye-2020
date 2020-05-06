@@ -177,7 +177,7 @@ class GameplayModel {
 			question: this.questionId,
 			question_no: this.level,
 		};
-		post('/api/elixir/hangman', hangmanData).then(this.useEliirControl);
+		post('/api/elixir/hangman', hangmanData).then(this.useElixirControl);
 	}
 	useSkipQuestion() {
 		const hangmanData = {
@@ -194,9 +194,9 @@ class GameplayModel {
 		if (res.success) {
 			this.getQuestion();
 			this.potionUsed = false;
-			alert('potion applied successfully');
+			alert('Elixir Applied Successfully!');
 		} else {
-			alert('no hidden hint yet');
+			alert('Cannot Skip Question');
 		}
 		
 		
@@ -210,17 +210,17 @@ class GameplayModel {
 			question_no: this.level,
 		};
 		post('/api/elixir/regionmultiply', multiplierData).then(
-			this.useEliirControl,
+			this.useElixirControl,
 		);
 	}
-	useEliirControl = res => {
+	useElixirControl = res => {
 		
 		if (res.success) {
 			this.getQuestion();
 			this.potionUsed = true;
-			alert('potion applied successfully');
+			alert('Elixir Applied Successfully!');
 		} else {
-			alert('no hidden hint yet');
+			alert('Cannot Apply Elixir');
 		}
 		
 		
@@ -234,7 +234,7 @@ class GameplayModel {
 			question_no: this.level,
 		};
 		
-		post('/api/elixir/unlockhint', unlockHintData).then(this.useEliirControl);
+		post('/api/elixir/unlockhint', unlockHintData).then(this.useElixirControl);
 	}
 }
 decorate(GameplayModel, {
