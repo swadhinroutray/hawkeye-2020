@@ -1,10 +1,7 @@
 import hologramImg from './Hologram.svg';
-import regionImg from './Building.svg';
+import CodeHeat from './CodeHeat.svg';
 import leftBar from './LeftBar.svg';
 import rightBar from './RightBar.svg';
-import slider from './Slider.svg';
-import sliderButton from './SliderButton.svg';
-import waves from './Waves.svg';
 import backgroundMesh from './Background.svg';
 import startButton from './StartButton.svg';
 import hawkLogo from './HawkLogo.svg';
@@ -19,11 +16,8 @@ export {
 	leftBar,
 	rightBar,
 	hologramImg,
-	regionImg,
+	CodeHeat,
 	backgroundMesh,
-	waves,
-	slider,
-	sliderButton,
 	startButton,
 	hawkLogo,
 	shopLogo,

@@ -41,7 +41,7 @@ export const LandingPage = observer(() => {
 								}
 								value={store.currentRegion * 10}
 							></Slider>
-							<Year>{store.regionInfo[store.currentRegion].year} AD</Year>
+							<Year>{store.regionInfo[store.currentRegion].year}</Year>
 						</RegionSelector>
 						<RegionInfo LoginStore={LoginStore} />
 						<Map />
@@ -69,17 +69,16 @@ const Page = styled.div`
 	letter-spacing: 0.1em;
 	color: white;
 	font-family: 'Nidus Sans';
-	
 
 	h5 {
 		font-weight: 400;
 		font-size: 1.2em;
 		margin: 8px 0;
-		color:#fff;
-		font-family:'Nidus Sans';
+		color: #fff;
+		font-family: 'Nidus Sans';
 	}
 	h4 {
-		font-family:'Nidus Sans';
+		font-family: 'Nidus Sans';
 		font-weight: 600;
 		font-size: 1.7em;
 		margin-top: 5px;

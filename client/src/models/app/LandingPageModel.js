@@ -1,6 +1,6 @@
 import { observable, decorate, action } from 'mobx';
 import {
-	regionImg,
+	CodeHeat,
 	AOC,
 	Streaks,
 	Enigma,
@@ -8,47 +8,49 @@ import {
 } from '../../assets/landing-assets';
 
 class Region {
-	constructor(img, name, year, location, date, time) {
+	constructor(img, name, year, description) {
 		this.img = img;
 		this.name = name;
 		this.year = year;
-		this.location = location;
-		this.date = date;
-		this.time = time;
+		this.description = description;
 	}
 }
 class LandingPageModel {
-	currentRegion = Math.floor(Math.random()*4);
+	currentRegion = Math.floor(Math.random() * 4);
 	regionInfo = [];
 
 	constructor() {
 		this.regionInfo.push(
 			new Region(
-				regionImg,
-				'AVALON',
-				1900,
-				'NEW YORK',
-				'26-28 MARCH',
-				'12AM-12PM',
+				NS,
+				'Babylon',
+				'1750 BC',
+				'Build and establish your ground and march towards greatness.',
 			),
 			new Region(
 				Enigma,
-				'SCOTLAND YARD',
-				1945,
-				'LONDON',
-				'26-28 MARCH',
-				'12AM-12PM',
+				'Ottomania',
+				'1918 AD',
+				'Set in World War 1, work your way to clinch the top spot.',
 			),
 			new Region(
 				Streaks,
-				'new horizons',
-				1977,
-				'brooklyn',
-				'26-28 MARCH',
-				'12AM-12PM',
+				'Pripyat',
+				'1986 AD',
+				'An eerie wave of disaster has come upon us, guide your people to safety. ',
 			),
-			new Region(NS, 'hmayra', 2022, 'toronto', '26-28 MARCH', '12AM-12PM'),
-			new Region(AOC, 'Nuketown', 2068, 'compton', '26-28 MARCH', '12AM-12PM'),
+			new Region(
+				CodeHeat,
+				'The Anthropocene',
+				'2012 AD',
+				'At the advent of a world more connected than ever, can you help humanity solve problems that come with it?',
+			),
+			new Region(
+				AOC,
+				'Medusae Fossae',
+				'2047 AD',
+				'A new beginning. A perfect utopia? Only time will tell.',
+			),
 		);
 	}
 	changeRegion = regionNumber => {

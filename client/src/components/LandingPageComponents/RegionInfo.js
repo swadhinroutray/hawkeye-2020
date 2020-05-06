@@ -11,57 +11,43 @@ export const RegionInfo = inject('LandingStore')(
 			GameplayModel.locked = false;
 		}, []);
 		return (
-			<InfoWrapper className="info">
+			<InfoWrapper>
 				<Background src={DescriptionBg} />
-				<div className="info">
-					REGION: {LandingStore.regionInfo[LandingStore.currentRegion].name}
-				</div>
-				<div className="info">
-					LOCATION:{' '}
-					{LandingStore.regionInfo[LandingStore.currentRegion].location}
-				</div>
-				<div className="info">
-					YEAR: {LandingStore.regionInfo[LandingStore.currentRegion].year}AD
-				</div>
-				<div className="info">
-					DATE: {LandingStore.regionInfo[LandingStore.currentRegion].date}
-				</div>
-				<div className="info">
-					TIME: {LandingStore.regionInfo[LandingStore.currentRegion].time}
-				</div>
-				{(LoginStore.profile.regionmultiplier && LoginStore.profile.regionmultiplier) === LandingStore.currentRegion ? <div className="info">
-					Region Multiplier Applied
-				</div> : null}
+				<Name className="info">
+					{LandingStore.regionInfo[LandingStore.currentRegion].name}
+				</Name>
+				<Desc className="info">
+					{LandingStore.regionInfo[LandingStore.currentRegion].description}
+				</Desc>
+
+				{(LoginStore.profile.regionmultiplier &&
+					LoginStore.profile.regionmultiplier) ===
+				LandingStore.currentRegion ? (
+					<div className="info">Region Multiplier Applied</div>
+				) : null}
 
 				{LoginStore.profile.level &&
-					LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-					LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
-						<Link to={`/game/${LandingStore.currentRegion}`}>
-							<Start>
-
-								Start
-						</Start>
-						</Link>
-					) : LoginStore.profile.level && LoginStore.profile.level[LandingStore.currentRegion] === 16 ? (<span>
-						<Start>
-
-							Conquered
-					</Start>
-					</span>) : (
-							<span>
-								<Start>
-
-									Locked
-						</Start>
-							</span>
-						)}
-
+				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
+				LoginStore.profile.level[LandingStore.currentRegion] !== 16 ? (
+					<Link to={`/game/${LandingStore.currentRegion}`}>
+						<Start>Start</Start>
+					</Link>
+				) : LoginStore.profile.level &&
+				  LoginStore.profile.level[LandingStore.currentRegion] === 16 ? (
+					<span>
+						<Start>Conquered</Start>
+					</span>
+				) : (
+					<span>
+						<Start>Locked</Start>
+					</span>
+				)}
 			</InfoWrapper>
 		);
 	}),
 );
 const InfoWrapper = styled.div`
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	width: 90%;
 	margin: auto;
 	align-self: center;
@@ -89,6 +75,15 @@ const InfoWrapper = styled.div`
 	}
 `;
 
+const Name = styled.div`
+	font-weight: 600;
+	font-size: 1.12em;
+`;
+const Desc = styled.div`
+	padding: 0 5px;
+	/* margin: 10px 0 10px 0; */
+`;
+
 const Background = styled.img`
 	height: 100%;
 	width: 100%;
@@ -105,7 +100,6 @@ const Start = styled.div`
 	position: relative;
 	width: 50%;
 	margin: 8px auto 15px auto;
-background:url(${startButton}) no-repeat center center;
-background-size:100% 100%;
-	
+	background: url(${startButton}) no-repeat center center;
+	background-size: 100% 100%;
 `;
