@@ -16,12 +16,13 @@ export const InventoryBox = inject('gameplayStore')(
 			{
 				
 				useEffect(()=>{
+					
 					gameplayStore.getInventory()
 				},[gameplayStore])
 				return (inventory)? <div className="inventory"><div>
 
 							
-							{gameplayStore.itembool[parseInt(match.params.id)]&&(!gameplayStore.potionUsed) ? (gameplayStore.inventory)? <div className="inventory-items">
+							{gameplayStore.itembool[parseInt(match.params.id)] ? (gameplayStore.inventory)? <div className="inventory-items">
 								
 								{gameplayStore.inventory.some(obj=>obj.elixir===0)? <div className="inventory-item"><div className='crystal'><BlueCrystal/></div> <div className="inventory-item-content"><div> Extra hint</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useUnlockHint()}}>USE</button></div></div>:null}
 								{gameplayStore.inventory.some(obj=>obj.elixir===1) ? <div className="inventory-item"><div className='crystal'><YellowCrystal/></div><div className="inventory-item-content"><div> Region Multiplier</div><button onClick={()=>{getinventory(false);gameplayStore.getInventory();gameplayStore.useRegionMultiplier()

@@ -127,6 +127,7 @@ const size = {
 };
 const GameWrapper = styled.div`
 overflow:hidden;
+color: #fff;
 #heading{
 	
 	
@@ -145,6 +146,7 @@ font-size:2rem;
 	flex-direction:column;
 	align-items:center;
 	margin-bottom:50px;
+	
 .Navbar{
 	width:100%;
 	display:flex;
@@ -190,7 +192,7 @@ background-image:url(${ButtonBox});
 	background-repeat:no-repeat;
 	border:none;
 	background-size:70px 30px;
-color:#fff;
+	color:white;
 	width:70px;
 	height:30px;
 }
@@ -210,7 +212,7 @@ margin:1vh 1vw 0 0;
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
-	
+	color:white;
 	background-image:url(${Qbox});
 	background-repeat:no-repeat;
 	background-size:100% 100%;
@@ -227,18 +229,18 @@ max-height:300px;
 	flex-direction:column;
 	align-items:center;
 	text-align:center;
-
-
+	color:white;
 }
 .AnswerWrapper{
+	color:white;
 	margin-top:3px;
 	width:100%;
 }
 .HintsHeader{
 	font-family: "Futura PT Heavy";
 	text-align:center;
-	color: #fff;
-	font-size:30px;
+	color: white;
+	font-size:23px;
 	
 	
 }
@@ -249,7 +251,7 @@ max-height:300px;
 	text-align:center;
 	overflow-y:scroll;
 	font-size:13px;
-	
+	color:white;
 }
 .Hints::-webkit-scrollbar { 
                 display: none; 
@@ -331,7 +333,7 @@ max-height:300px;
 	:hover{
 	cursor:pointer;
 }
-	margin-top:10px;
+	
 	background-image:url(${ButtonBox});
 	background-color:transparent;
 	background-repeat:no-repeat;
@@ -341,7 +343,7 @@ max-height:300px;
 	height:30px;
 	width:82px;
 	margin-bottom:5px;
-	font-size:9px;
+	font-size:12px;
 	font-family: "Futura PT Medium"
 	
 }
@@ -368,9 +370,10 @@ img{
 	font-family: "Futura PT Medium";
 	font-size:15px;
 overflow-wrap:break-word;
-
+color: #fff;
 }
 .AnswerStatus{
+	color: #fff;
 	height:20px;
 }
 .Question::-webkit-scrollbar { 
@@ -379,11 +382,11 @@ overflow-wrap:break-word;
 .Level{
 	font-family: "Futura PT Heavy";
 	color: #fff;
-	font-size:3vh;
+	font-size:20px;
 	
 }
 .ActualHints{
-	
+	color: #fff;
 	background-image:url(${Qbox});
 	background-repeat:no-repeat;
 
@@ -580,6 +583,7 @@ li,h1{
 					order:3;
 				}
 				.Hints{
+					
 					font-family: "Futura PT Medium";
 					height: 130px;
 					width:220px;
@@ -624,6 +628,9 @@ li,h1{
 				}
 				#hawklogo{
 					margin:2vh 0 0 1vw;
+				}
+				.game-play{
+					width:85vw;
 				}
 			}
 			@media  (min-width : ${size.desktop}) {

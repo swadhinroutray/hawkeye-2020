@@ -10,14 +10,14 @@ export const AttemptsBox = inject('gameplayStore')(
 					<div className="Attemptsheader">
 						<div
 						id="attemptsHead"
-						style={attempts?{color:"#3ABDB7"}:{}}
+						style={!attempts?{color:"grey"}:{}}
 							className={attempts ? 'selected' : ''}
 							onClick={() => setAttempts(true)}
 						>
 							ATTEMPTS
 						</div>
 						<div
-						style={!attempts?{color:"#3ABDB7"}:{}}
+						style={attempts?{color:"grey"}:{}}
 						id="statsHead"
 							className={!attempts ? 'selected' : ''}
 							onClick={() => setAttempts(false)}
@@ -28,15 +28,15 @@ export const AttemptsBox = inject('gameplayStore')(
 					<div className="stats">
 						{attempts ? (
 							gameplayStore.attempts.map((hint, i) => (
-								<span className="Hint" key={i}>
+								<span style={{color:"white"}} className="Hint" key={i}>
 									{hint}
 								</span>
 							))
 						) : (
 							<>
-								<span className="Hint">At Par: {gameplayStore.stats.atPar}</span>
-								<span className="Hint">Leading: {gameplayStore.stats.leading}</span>
-								<span className="Hint">Trailing: {gameplayStore.stats.trailing}</span>
+								<span style={{color:"white",fontSize:"18px"}} className="Hint">At Par: {gameplayStore.stats.atPar}</span>
+								<span style={{color:"white",fontSize:"18px"}}  className="Hint">Leading: {gameplayStore.stats.leading}</span>
+								<span style={{color:"white",fontSize:"18px"}}  className="Hint">Trailing: {gameplayStore.stats.trailing}</span>
 							</>
 						)}
 					</div>

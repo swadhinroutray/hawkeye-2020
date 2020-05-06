@@ -15,7 +15,7 @@ const RegisterForm = inject('registerStore')(
 
 			}
 			loginStore.clearErrors();
-		}, [loginStore,primaryCheck]);
+		}, [primaryCheck]);
 		return (
 
 			<LoginFormWrapper class="register">

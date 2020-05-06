@@ -8,7 +8,7 @@ export const HintsBox = inject('gameplayStore')(
 				<div className="Hints">
 				<br/>
 					{gameplayStore.hints.map((hint, i) => (
-						<span className="Hint" key={i}>
+						<span style={{color:"white"}} className="Hint" key={i}>
 							{hint}
 						</span>
 					))}
