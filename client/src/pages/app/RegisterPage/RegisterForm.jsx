@@ -6,11 +6,9 @@ import { LoginFormWrapper } from '../LoginPage/LoginForm';
 import ReactRecaptcha from 'react-google-recaptcha';
 const RegisterForm = inject('registerStore')(
 	observer(({ registerStore }) => {
-		
-		
 		const recaptchaRef = React.createRef();
 		return (
-			<LoginFormWrapper class="register">
+			<LoginFormWrapper className="register">
 				<h1 className="login-head">REGISTER</h1>
 
 				<div className="input-field">
@@ -98,7 +96,12 @@ const RegisterForm = inject('registerStore')(
 					}}
 				/>
 				<button onClick={() => registerStore.register()}>Submit</button>
-				<div style={{overflowWrap:"break-word",width:"90%"}} className="message">{registerStore['message'].value}</div>
+				<div
+					style={{ overflowWrap: 'break-word', width: '90%' }}
+					className="message"
+				>
+					{registerStore['message'].value}
+				</div>
 				<Link className="link-register" to="/login">
 					Back to login
 				</Link>

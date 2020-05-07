@@ -6,6 +6,8 @@ import {
 	validateWithError,
 } from '../../utils/validation';
 import { get, post } from '../../utils/api';
+import LandingStore from './LandingPageModel';
+
 class LoginModel {
 	formData = {
 		email: { value: '', error: '' },
@@ -107,6 +109,7 @@ class LoginModel {
 			this.setField('email', '');
 			this.setField('password', '');
 			this.loggedIn = true;
+
 			return;
 		}
 		this.profileSetError = true;
@@ -222,7 +225,15 @@ class LoginModel {
 	};
 
 	getProfile() {
-		get('/api/users/getprofile').then(this.loginControl);
+		get('/api/users/getprofile')
+			.then(this.loginControl)
+			.then(() =>
+				LandingStore.changeRegion(
+					this.profile.level.indexOf(
+						Math.min(...this.profile.level.filter(lvl => lvl >= 1)),
+					),
+				),
+			);
 	}
 	getInventory() {
 		get('/api/shop/getinventory').then(this.inventoryControl);

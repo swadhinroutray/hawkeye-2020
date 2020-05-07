@@ -13,7 +13,7 @@ import {
 	Hologram,
 	Map,
 } from '../../components/LandingPageComponents';
-import { leftBar, rightBar } from '../../assets/landing-assets';
+import LandingStore from '../../models/app/LandingPageModel';
 
 export const LandingPage = observer(() => {
 	useEffect(() => {
@@ -22,7 +22,7 @@ export const LandingPage = observer(() => {
 	}, []);
 	return (
 		<Provider LoginStore={LoginStore}>
-			<Provider LandingStore={store}>
+			<Provider LandingStore={LandingStore}>
 				<Page>
 					<Details1 />
 					<Details2 />
@@ -38,14 +38,17 @@ export const LandingPage = observer(() => {
 								min="0"
 								max="41"
 								onChange={e =>
-									store.changeRegion(Math.floor(e.target.value / 10))
+									LandingStore.changeRegion(Math.floor(e.target.value / 10))
 								}
-								defaultValue={store.currentRegion * 10}
+								defaultValue={LandingStore.currentRegion * 10 + 1}
 							></Slider>
 							<MoveSlider>Move slider to change region</MoveSlider>
-							<Year>{store.regionInfo[store.currentRegion].year}</Year>
+							<Year>
+								{LandingStore.regionInfo[LandingStore.currentRegion].year}
+							</Year>
 						</RegionSelector>
 						<RegionInfo LoginStore={LoginStore} />
+
 						<Map />
 					</Wrapper>
 					{LoginStore.profileSetError && !LoginStore.loggedIn ? (
@@ -60,7 +63,15 @@ export const LandingPage = observer(() => {
 		</Provider>
 	);
 });
-
+// defaultValue={() =>
+// 	LoginStore.profile.level.indexOf(
+// 		Math.min(
+// 			...LoginStore.profile.level.filter(lvl => lvl >= 1),
+// 		),
+// 	) *
+// 		10 +
+// 	1
+// }
 const Page = styled.div`
 	min-height: 100vh;
 	display: flex;

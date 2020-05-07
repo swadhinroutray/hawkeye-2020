@@ -10,7 +10,9 @@ class Region {
 	}
 }
 class LandingPageModel {
-	currentRegion = Math.floor(Math.random() * 4);
+	// currentRegion = Math.floor(Math.random() * 4);
+	currentRegion = 4;
+
 	regionInfo = [];
 
 	constructor() {
@@ -57,6 +59,7 @@ decorate(LandingPageModel, {
 	regionInfo: observable,
 	currentRegion: observable,
 	changeRegion: action,
+	callMe: action,
 });
 
 const LandingStore = new LandingPageModel();
