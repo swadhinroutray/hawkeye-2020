@@ -1,11 +1,11 @@
 package hawkeye
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"math/rand"
 	"net/http"
-	"net/smtp"
 	"os"
 	"strings"
 	"time"
@@ -128,7 +128,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		app.log.Errorf("Captcha Error %v", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		app.sendResponse(w, false, InternalServerError, err.Error())
 		return
 	}
 	_, err = app.db.Collection("users").InsertOne(r.Context(), newUser)
@@ -221,25 +221,46 @@ func (app *App) profileController(w http.ResponseWriter, r *http.Request) {
 	app.sendResponse(w, true, Success, user)
 }
 
-func (app *App) sendMail(token string, to string) error {
-	fromWHO := os.Getenv("EMAIL")
-	pass := os.Getenv("EMAIL_PASSWORD")
+func (app *App) sendMail(token string, to string, name string, w http.ResponseWriter) error {
 
-	// msg := []byte("To: " + to + "\r\n" +
-	// 	"Subject: Hawkeye Password Reset | IECSE Manipal\r\n" + body +
-	// 	"\r\n")
-	from := fmt.Sprintf("From: <%s>\r\n", fromWHO)
-	towhom := fmt.Sprintf("To: <%s>\r\n", to)
-	subject := "Subject: Hawkeye Password Reset | IECSE Manipal\r\n"
-	body := fmt.Sprintf("Here's a link to resest your password for Hawkeye 2020 - https://hawkeye.iecsemanipal.com/reset?token=%s", token)
+	url := "https://mail.iecsemanipal.com/hawkeye/forgotpassword"
+	message := map[string]interface{}{
+		"toEmail": to,
+		"name":    name,
+		"link":    "http://localhost:3030/reset?token=%s" + token,
+	}
+	bytesRepresentation, err := json.Marshal(message)
+	if err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
+		return err
+	}
 
-	msg := from + towhom + subject + "\r\n" + body
-	auth := smtp.PlainAuth("", fromWHO, pass, "smtp.gmail.com")
+	client := &http.Client{}
 
-	err := smtp.SendMail("smtp.gmail.com:587", auth, fromWHO, []string{to}, []byte(msg))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bytesRepresentation))
+	fmt.Println("%v", req)
+	if err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
+		return err
+	}
+	authKey := os.Getenv("MAILER_ACCESS_TOKEN")
+
+	req.Header.Set("Authorization", authKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	res, err := client.Do(req)
+	fmt.Println("%v", res)
+	if err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
+		return err
+	}
 
 	if err != nil {
-		app.log.Infof("Error:%s", err)
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
 		return err
 	}
 
@@ -269,7 +290,7 @@ func (app *App) forgotPassword(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := app.sendMail(currUser.Token, forgotReq.Email); err != nil {
+	if err := app.sendMail(currUser.Token, forgotReq.Email, currUser.Name, w); err != nil {
 		app.log.Errorf("Error:%s", err)
 		app.sendResponse(w, false, InternalServerError, "Unable to send mail")
 		return

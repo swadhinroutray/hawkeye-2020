@@ -122,11 +122,22 @@ const Game = inject('loginStore')(
 										<FontAwesomeIcon icon={faTimes} />
 									</i>
 									<div className="Rules-content">
-										<ol>
-											<li>Rule</li>
-											<li>Rule</li>
-											<li>Rule</li>
-											<li>Rule</li>
+										<h2> Welcome to HawkEye'20 </h2>
+											<h3> Gameplay </h3>
+										<ol className= "rules-list">
+											<li>This is an online scavenger hunt, it starts at 9/5/20 12:00 HRs and ends on 12/5/20 00:00 HRs</li>
+											<li>Due to a mishap with the time portal, you have been randomly dropped into one of the 5 total timelines that have been created.</li>
+											<li>The next timeline is available after a certain period of time. You can unlock them faster if you solve the questions of your current timeline early.</li>
+											<li>If the answer is &#34;22 Cakes&#34; then the answer you should write is &#34;twotwo cakes&#34;. If the answer contains special characters, replace them to the nearest character.
+											For example, &#x27;&#x101;&#x27; becomes &#x27;a&#x27;. If the answer is &#x27;Steve Jobs&#x27; then the answer you should write is &#x27;steven paul jobs&#x27;.</li>
+											<li>All names, places, organizations, things will be as written onWikipedia with a few exceptions. They will mostly be the full nameof the answer.</li>
+											<li>All supporting images shall be linked externally or given to you. You will not find anything hidden in the codebase of the game.</li>
+											<li>To make it easier, Hawk presents you with 4 different types of Elixirs, that you can buy using your points. However due to a limited supply, there will be a limit on how many Elixirs of each kind you can buy, and you can only use one Elixir on a particular question.</li>
+											<li>However, after you reach a certain point, you will be allowed to reset your supply of Elixirs at the cost of your points. However, this will affect your position on the leaderboard, so use your points wisely. </li>
+											<li>Hawk will also let you know if you’re on the right track, by indicating that it thinks you’re close, if your answer contains keywords close to the actual answer, or the correct answer partially. </li>
+											<li>As you progress through these timelines, the points you get for answering a question also increases. After every third question that you solve, you get 1.5 times more points than you did for the previous ones.</li>
+											<li>Cheaters will be found by our monitoring system and will be ineligible for any prizes. Any suspicious behaviour will be reported to us by the game.</li>
+											<li>Winners will be decided on the basis of who has the most points at the end of the game and who got there first. Therefore, it’s imperative that you use your Elixirs wisely.</li>
 										</ol>
 									</div>
 									<ul></ul>
@@ -509,8 +520,14 @@ const GameWrapper = styled.div`
 
 	.Rules li {
 		margin-top: 2rem;
+		border: 2px solid turquoise;
+		border-radius: 2px;
+		list-style-type:none;
 	}
-
+	.rules-list{
+		padding-inline-start: 0;
+		padding : 15px;
+	}
 	.Rules {
 		position: fixed;
 		top: 10%;
@@ -521,7 +538,7 @@ const GameWrapper = styled.div`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-
+		text-align:center;
 		font-family: sans-serif;
 
 		border-radius: 25px;
