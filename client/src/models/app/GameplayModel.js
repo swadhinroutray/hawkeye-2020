@@ -20,7 +20,7 @@ class GameplayModel {
 	itembool = [];
 	inventory = [];
 	locked = false;
-	potionUsed = false;
+
 	points=0;
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
@@ -79,7 +79,7 @@ class GameplayModel {
 			this.message = hawkResponses[res.data.split(' ')[0]];
 			setTimeout(this.clearMessage, 1000);
 			if (res.data === 'Correct Answer') {
-				this.potionUsed = false;
+				
 				setTimeout(this.getQuestion, 1000);
 			}
 		}
@@ -193,7 +193,7 @@ class GameplayModel {
 		
 		if (res.success) {
 			this.getQuestion();
-			this.potionUsed = false;
+			
 			alert('Elixir Applied Successfully!');
 		} else {
 			alert('Cannot Skip Question');
@@ -217,7 +217,7 @@ class GameplayModel {
 		
 		if (res.success) {
 			this.getQuestion();
-			this.potionUsed = true;
+			
 			alert('Elixir Applied Successfully!');
 		} else {
 			alert('Cannot Apply Elixir');
@@ -248,7 +248,7 @@ decorate(GameplayModel, {
 	stats: observable,
 	inventory: observable,
 	locked: observable,
-	potionUsed: observable,
+	
 	getQuestion: action,
 	submit: action,
 	getTries: action,

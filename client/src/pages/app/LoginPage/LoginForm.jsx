@@ -115,7 +115,7 @@ export const LoginFormWrapper = styled.div`
 		border-top: 1px solid #7fd1e0;
 		border-bottom: 1px solid #7fd1e0;
 		padding: 0.5rem;
-		font-size: 1rem
+		font-size: 1rem;
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		box-sizing: border-box;

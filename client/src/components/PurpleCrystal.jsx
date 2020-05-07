@@ -533,25 +533,25 @@ export class PurpleCrystal extends Component {
 							className="prefix__cls-17"
 							d="M157.49 878.71a82.07 82.07 0 1148.59 105.4 82.16 82.16 0 01-48.59-105.4zm151.28 55.81a79.18 79.18 0 10-101.69 46.88 79.27 79.27 0 00101.69-46.87z"
 							transform="translate(-143.44 -815.71)"
-							fill={selected ? '#9500c6' : '#12aac2'}
+							fill={selected ? '#F2AD00' : '#12aac2'}
 						/>
 						<path
 							className="prefix__cls-17"
 							d="M176.14 885.59a62.55 62.55 0 0180.24-37l-1 2.71a59.59 59.59 0 00-41.25 111.81l-1 2.71a62.55 62.55 0 01-36.99-80.23z"
 							transform="translate(-143.44 -815.71)"
-							fill={selected ? '#9500c6' : '#12aac2'}
+							fill={selected ? '#F2AD00' : '#12aac2'}
 						/>
 						<path
 							className="prefix__cls-18"
 							d="M164.19 881.18a75.39 75.39 0 0196.71-44.58l-3 8.14a66.63 66.63 0 10-46.12 125l-3 8.14a75.39 75.39 0 01-44.59-96.7z"
 							transform="translate(-143.44 -815.71)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<path
 							className="prefix__cls-18"
 							d="M181.75 887.66a56.58 56.58 0 0172.58-33.46l-.5 1.36a55.07 55.07 0 10-38.12 103.33l-.5 1.36a56.58 56.58 0 01-33.46-72.59z"
 							transform="translate(-143.44 -815.71)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -559,7 +559,7 @@ export class PurpleCrystal extends Component {
 							cy={931.81}
 							r={3.47}
 							transform="rotate(-69.75 -355.504 626.857)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -567,7 +567,7 @@ export class PurpleCrystal extends Component {
 							cy={938.15}
 							r={1.74}
 							transform="rotate(-69.75 -338.318 633.197)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -575,7 +575,7 @@ export class PurpleCrystal extends Component {
 							cy={959.42}
 							r={1.75}
 							transform="rotate(-54.74 -550.753 690.143)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -583,7 +583,7 @@ export class PurpleCrystal extends Component {
 							cy={976.73}
 							r={1.75}
 							transform="rotate(-39.77 -906.61 767.065)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -591,7 +591,7 @@ export class PurpleCrystal extends Component {
 							cy={989.3}
 							r={1.75}
 							transform="rotate(-24.75 -1657.776 908.308)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -599,7 +599,7 @@ export class PurpleCrystal extends Component {
 							cy={996.29}
 							r={1.75}
 							transform="rotate(-9.76 -4598.238 1428.83)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -607,7 +607,7 @@ export class PurpleCrystal extends Component {
 							cy={997.21}
 							r={1.75}
 							transform="rotate(-84.74 -292.006 668.006)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -615,7 +615,7 @@ export class PurpleCrystal extends Component {
 							cy={992.01}
 							r={1.75}
 							transform="rotate(-69.75 -453.09 687.058)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -623,7 +623,7 @@ export class PurpleCrystal extends Component {
 							cy={981.04}
 							r={1.75}
 							transform="rotate(-54.76 -676.227 711.69)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -631,14 +631,14 @@ export class PurpleCrystal extends Component {
 							cy={965.05}
 							r={1.75}
 							transform="rotate(-39.75 -1034.306 755.524)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
 							cx={153.1}
 							cy={945.12}
 							r={1.75}
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							transform="rotate(-24.75 -1777.519 864.121)"
 						/>
 						<circle
@@ -647,7 +647,7 @@ export class PurpleCrystal extends Component {
 							cy={922.62}
 							r={1.75}
 							transform="rotate(-9.75 -4707.459 1355.987)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -655,7 +655,7 @@ export class PurpleCrystal extends Component {
 							cy={899.07}
 							r={1.75}
 							transform="rotate(-84.73 -373.705 569.889)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -663,7 +663,7 @@ export class PurpleCrystal extends Component {
 							cy={876.09}
 							r={1.75}
 							transform="rotate(-69.75 -506.523 571.135)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -671,7 +671,7 @@ export class PurpleCrystal extends Component {
 							cy={855.24}
 							r={1.75}
 							transform="rotate(-54.75 -697.985 585.953)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -679,7 +679,7 @@ export class PurpleCrystal extends Component {
 							cy={837.94}
 							r={1.75}
 							transform="rotate(-39.75 -1022.643 628.391)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -687,7 +687,7 @@ export class PurpleCrystal extends Component {
 							cy={825.37}
 							r={1.75}
 							transform="rotate(-24.75 -1733.332 744.38)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -695,7 +695,7 @@ export class PurpleCrystal extends Component {
 							cy={818.38}
 							r={1.75}
 							transform="rotate(-9.75 -4633.833 1251.549)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -703,7 +703,7 @@ export class PurpleCrystal extends Component {
 							cy={817.46}
 							r={1.75}
 							transform="rotate(-84.74 -275.55 488.207)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -711,7 +711,7 @@ export class PurpleCrystal extends Component {
 							cy={822.66}
 							r={1.75}
 							transform="rotate(-69.75 -390.611 517.705)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -719,7 +719,7 @@ export class PurpleCrystal extends Component {
 							cy={833.63}
 							r={1.75}
 							transform="rotate(-54.76 -572.11 564.204)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -727,7 +727,7 @@ export class PurpleCrystal extends Component {
 							cy={849.62}
 							r={1.75}
 							transform="rotate(-39.74 -895.861 640.124)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -735,7 +735,7 @@ export class PurpleCrystal extends Component {
 							cy={869.55}
 							r={1.75}
 							transform="rotate(-24.75 -1613.59 788.566)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -743,7 +743,7 @@ export class PurpleCrystal extends Component {
 							cy={891.94}
 							r={1.74}
 							transform="rotate(-9.73 -4540.553 1326.967)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -751,7 +751,7 @@ export class PurpleCrystal extends Component {
 							cy={915.32}
 							r={1.73}
 							transform="rotate(-84.77 -194.878 586.036)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -759,7 +759,7 @@ export class PurpleCrystal extends Component {
 							cy={948.29}
 							r={3.47}
 							transform="rotate(-54.75 -566.705 678.898)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -767,7 +767,7 @@ export class PurpleCrystal extends Component {
 							cy={961.97}
 							r={3.47}
 							transform="rotate(-39.74 -920.108 752.618)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -775,7 +775,7 @@ export class PurpleCrystal extends Component {
 							cy={971.9}
 							r={3.47}
 							transform="rotate(-24.75 -1666.285 890.915)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -783,7 +783,7 @@ export class PurpleCrystal extends Component {
 							cy={977.42}
 							r={3.47}
 							transform="rotate(-9.74 -4612.038 1411.3)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -791,7 +791,7 @@ export class PurpleCrystal extends Component {
 							cy={978.16}
 							r={3.47}
 							transform="rotate(-84.76 -290.684 648.935)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -799,7 +799,7 @@ export class PurpleCrystal extends Component {
 							cy={848.86}
 							r={3.47}
 							transform="rotate(-54.76 -583.59 579.465)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -807,7 +807,7 @@ export class PurpleCrystal extends Component {
 							cy={861.5}
 							r={3.47}
 							transform="rotate(-39.74 -910.94 652.068)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -815,7 +815,7 @@ export class PurpleCrystal extends Component {
 							cy={877.26}
 							r={3.47}
 							transform="rotate(-24.75 -1631.352 796.253)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -823,7 +823,7 @@ export class PurpleCrystal extends Component {
 							cy={895.04}
 							r={3.47}
 							transform="rotate(-9.74 -4553.629 1329.327)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-18"
@@ -831,7 +831,7 @@ export class PurpleCrystal extends Component {
 							cy={913.65}
 							r={3.47}
 							transform="rotate(-84.75 -213.215 584.426)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<path
 							className="prefix__cls-p5"

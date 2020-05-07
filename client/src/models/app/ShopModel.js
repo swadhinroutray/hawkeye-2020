@@ -10,16 +10,21 @@ class ShopModel {
 	points = 0;
 	message = '';
 	toBuy = [2, 1, 2, 2];
-	resetMinimumPointsReq = 1500;
-	resetPoints = 800;
-	elixirName = ["Extra Hint", 'Region Multiplier', 'Hangman Elixir', 'Skip Question'];
+	resetMinimumPointsReq = 600;
+	resetPoints = 400;
+	elixirName = [
+		'Extra Hint',
+		'Region Multiplier',
+		'Hangman Elixir',
+		'Skip Question',
+	];
 	itemDescriptions = [
 		'Get an extra hint for a question of your choice',
 		'Add a 1.5 multiplier for a region that has been unlocked for you',
 		"Ever played Hangman? This is exactly what you're thinking right now. Get some letters of the final answer for a question of your choice",
 		'Stuck with some question for a really long time? Here’s an elixir that lets you skip it!',
 	];
-	itemCost = [100, 100, 100, 100];
+	itemCost = [30, 60, 20, 50];
 	selected = 0;
 	owned = [0, 0, 0, 0];
 	get getSelected() {
@@ -44,7 +49,7 @@ class ShopModel {
 		if (res.success) {
 			this.points = res.data.points;
 		}
-	}
+	};
 	getOwned() {
 		get('/api/shop/remaining').then(this.getOwnedControl);
 	}
@@ -53,15 +58,14 @@ class ShopModel {
 		if (res.success) {
 			this.owned = res.data;
 		}
-	}
+	};
 	resetStore() {
 		get('/api/shop/resetstore').then(this.resetControl);
 	}
 	resetControl = res => {
 		console.log(res);
 		if (res.success) {
-			if (res.data === 'You do not have enough points')
-				this.message = res.data;
+			if (res.data === 'You do not have enough points') this.message = res.data;
 			if (res.data === 'Store successfully reset') {
 				this.message = 'Store successfully reset';
 				this.toBuy = this.initValues;
@@ -71,7 +75,7 @@ class ShopModel {
 				this.getOwned();
 			}
 		}
-	}
+	};
 	//ADD BOUGHT ITEM TO INVENTORY NOT DONE
 	buyItem() {
 		post('api/shop/buy/' + this.selected, {}).then(res => {
@@ -92,7 +96,6 @@ class ShopModel {
 			}
 		});
 	}
-
 }
 
 decorate(ShopModel, {

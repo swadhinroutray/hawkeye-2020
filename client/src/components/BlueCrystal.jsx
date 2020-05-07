@@ -144,32 +144,32 @@ class BlueCrystal extends Component {
 							className="prefix__cls-18"
 							d="M240.14 686.9a82.07 82.07 0 1182.07-82.07 82.16 82.16 0 01-82.07 82.07zm0-161.25a79.18 79.18 0 1079.18 79.18 79.27 79.27 0 00-79.18-79.18z"
 							transform="translate(-148.13 -513.84)"
-							fill={selected ? '#9500c6' : '#12aac2'}
+							fill={selected ? '#F2AD00' : '#12aac2'}
 						/>
 						<path
 							className="prefix__cls-19"
 							d="M240.14 679.76a75.39 75.39 0 01-75.3-75.3h8.67a66.63 66.63 0 10133.25 0h8.67a75.39 75.39 0 01-75.29 75.3z"
 							transform="translate(-148.13 -513.84)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<path
 							className="prefix__cls-18"
 							d="M240.14 667a62.55 62.55 0 01-62.48-62.48h2.89a59.59 59.59 0 00119.18 0h2.89A62.55 62.55 0 01240.14 667z"
 							transform="translate(-148.13 -513.84)"
-							fill={selected ? '#9500c6' : '#12aac2'}
+							fill={selected ? '#F2AD00' : '#12aac2'}
 						/>
 						<path
 							className="prefix__cls-19"
 							d="M240.14 661a56.58 56.58 0 01-56.51-56.51h1.45a55.07 55.07 0 10110.14 0h1.45A56.58 56.58 0 01240.14 661z"
 							transform="translate(-148.13 -513.84)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
 							cx={92.41}
 							cy={1.73}
 							r={1.73}
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -177,7 +177,7 @@ class BlueCrystal extends Component {
 							cy={517.42}
 							r={1.74}
 							transform="rotate(-74.99 -145.13 357.05)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -185,7 +185,7 @@ class BlueCrystal extends Component {
 							cy={526.39}
 							r={1.74}
 							transform="rotate(-60.02 -233.448 397.686)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -193,7 +193,7 @@ class BlueCrystal extends Component {
 							cy={540.67}
 							r={1.74}
 							transform="rotate(-45 -390.24 462.563)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -201,7 +201,7 @@ class BlueCrystal extends Component {
 							cy={559.28}
 							r={1.74}
 							transform="rotate(-30.01 -714.14 578.747)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -209,14 +209,14 @@ class BlueCrystal extends Component {
 							cy={580.96}
 							r={1.74}
 							transform="rotate(-14.99 -1699.47 887.138)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
 							cx={182.27}
 							cy={90.37}
 							r={1.74}
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -224,7 +224,7 @@ class BlueCrystal extends Component {
 							cy={627.47}
 							r={1.74}
 							transform="rotate(-75.01 -81.464 467.07)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -232,7 +232,7 @@ class BlueCrystal extends Component {
 							cy={649.14}
 							r={1.74}
 							transform="rotate(-60 -200.732 520.498)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -240,7 +240,7 @@ class BlueCrystal extends Component {
 							cy={667.75}
 							r={1.74}
 							transform="rotate(-45 -390.242 589.643)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -248,7 +248,7 @@ class BlueCrystal extends Component {
 							cy={682.04}
 							r={1.74}
 							transform="rotate(-30 -747.379 701.62)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -256,14 +256,14 @@ class BlueCrystal extends Component {
 							cy={691.01}
 							r={1.74}
 							transform="rotate(-14.98 -1764.311 997.601)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
 							cx={92.41}
 							cy={180.23}
 							r={1.74}
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -271,7 +271,7 @@ class BlueCrystal extends Component {
 							cy={691.01}
 							r={1.74}
 							transform="rotate(-75 -191.564 530.648)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -279,7 +279,7 @@ class BlueCrystal extends Component {
 							cy={682.04}
 							r={1.74}
 							transform="rotate(-60 -323.49 553.361)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -287,7 +287,7 @@ class BlueCrystal extends Component {
 							cy={667.75}
 							r={1.74}
 							transform="rotate(-45 -517.322 589.642)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -295,7 +295,7 @@ class BlueCrystal extends Component {
 							cy={649.14}
 							r={1.74}
 							transform="rotate(-30 -870.153 668.683)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -303,14 +303,14 @@ class BlueCrystal extends Component {
 							cy={627.47}
 							r={1.74}
 							transform="rotate(-14.99 -1873.196 933.41)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
 							cx={1.75}
 							cy={90.37}
 							r={1.75}
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -318,7 +318,7 @@ class BlueCrystal extends Component {
 							cy={580.85}
 							r={1.75}
 							transform="matrix(.26 -.97 .97 .26 -595.82 64.49)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -326,7 +326,7 @@ class BlueCrystal extends Component {
 							cy={559.08}
 							r={1.75}
 							transform="matrix(.5 -.87 .87 .5 -551.29 -94.17)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -334,7 +334,7 @@ class BlueCrystal extends Component {
 							cy={540.39}
 							r={1.75}
 							transform="rotate(-45 -518.009 462.276)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -342,7 +342,7 @@ class BlueCrystal extends Component {
 							cy={527.19}
 							r={1.74}
 							transform="matrix(.87 -.5 .5 .87 -385.45 -345.68)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -350,14 +350,14 @@ class BlueCrystal extends Component {
 							cy={518.23}
 							r={1.73}
 							transform="rotate(-15.02 -1806.055 823.082)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
 							cx={92}
 							cy={19.65}
 							r={3.47}
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -365,7 +365,7 @@ class BlueCrystal extends Component {
 							cy={535.92}
 							r={3.47}
 							transform="rotate(-75 -150.316 375.514)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -373,7 +373,7 @@ class BlueCrystal extends Component {
 							cy={543.05}
 							r={3.47}
 							transform="rotate(-59.99 -243.326 414.456)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -381,7 +381,7 @@ class BlueCrystal extends Component {
 							cy={554.39}
 							r={3.47}
 							transform="rotate(-45 -403.74 476.275)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -389,7 +389,7 @@ class BlueCrystal extends Component {
 							cy={569.16}
 							r={3.47}
 							transform="rotate(-29.99 -731.319 588.77)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -397,7 +397,7 @@ class BlueCrystal extends Component {
 							cy={586.37}
 							r={3.47}
 							transform="rotate(-15 -1708.388 888.435)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -405,7 +405,7 @@ class BlueCrystal extends Component {
 							cy={586.37}
 							r={3.47}
 							transform="rotate(-75.01 -237.609 425.943)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -413,7 +413,7 @@ class BlueCrystal extends Component {
 							cy={569.16}
 							r={3.47}
 							transform="matrix(.5 -.87 .87 .5 -551.83 -74.91)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
@@ -421,14 +421,14 @@ class BlueCrystal extends Component {
 							cy={554.39}
 							r={3.47}
 							transform="rotate(-45 -504.63 476.275)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-19"
 							cx={204.47}
 							cy={543.05}
 							r={3.47}
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							transform="rotate(-29.99 -828.713 562.722)"
 						/>
 						<circle
@@ -437,7 +437,7 @@ class BlueCrystal extends Component {
 							cy={535.92}
 							r={3.47}
 							transform="rotate(-15 -1803.847 841.69)"
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 						/>
 					</g>
 				</g>

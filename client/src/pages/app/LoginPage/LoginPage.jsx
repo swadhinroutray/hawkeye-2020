@@ -103,5 +103,6 @@ export const LoginPageWrapper = styled.div`
 		justify-content: space-around;
 		align-items: center;
 	}
+	#rc-imageselect,.recaptcha {transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;}
 `;
 export default LoginPage;
