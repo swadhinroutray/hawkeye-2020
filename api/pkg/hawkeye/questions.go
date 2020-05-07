@@ -295,3 +295,55 @@ func (app *App) regionQuestions(w http.ResponseWriter, r *http.Request) {
 
 	app.sendResponse(w, true, Success, allQuestions)
 }
+func (app *App) editSpecificHint(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	lvl, err1 := strconv.Atoi(params["lvl"])
+	region, err2 := strconv.Atoi(params["region"])
+	if err1 != nil || err2 != nil {
+		app.log.Infof("Bad request params %s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+
+	id, err := primitive.ObjectIDFromHex(params["id"])
+	if err != nil {
+		app.log.Infof("Bad request params %s", err.Error())
+		app.sendResponse(w, false, BadRequest, nil)
+		return
+	}
+
+	var reqBody EditHintRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	if err := app.validate.Struct(reqBody); err != nil {
+		app.sendValidationErrors(w, err)
+		return
+	}
+
+	update := make(bson.M)
+	if reqBody.Hint != nil {
+		update["hints.$.hint"] = reqBody.Hint
+	}
+	if reqBody.Active != nil {
+		update["hints.$.active"] = reqBody.Active
+	}
+
+	if _, err = app.db.Collection("questions").UpdateOne(
+		r.Context(),
+		bson.M{"level": lvl, "region": region, "hints._id": id},
+		bson.M{
+			"$set": update,
+		},
+	); err != nil {
+		app.log.Errorf("Database error %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.sendResponse(w, true, Success, "Success")
+}

@@ -167,17 +167,17 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	SetField := fmt.Sprintf("itembool.%d", elixir.Region)
-	filter := bson.M{"_id": currUser.ID}
-	update := bson.M{"$set": bson.M{
-		SetField: false,
-	},
-	}
-	if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
-		app.log.Errorf("Databse error %v", err.Error())
-		app.sendResponse(w, false, InternalServerError, "Something went wrong")
-		return
-	}
+	// SetField := fmt.Sprintf("itembool.%d", elixir.Region)
+	// filter := bson.M{"_id": currUser.ID}
+	// update := bson.M{"$set": bson.M{
+	// 	SetField: false,
+	// },
+	// }
+	// if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
+	// 	app.log.Errorf("Databse error %v", err.Error())
+	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// 	return
+	// }
 
 	message, status = app.removeInventory(r, currUser, 1)
 
@@ -361,14 +361,14 @@ func (app *App) skipQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// itemBool := fmt.Sprintf("itembool.%d", fetchedElixir.Region)
+	itemBool := fmt.Sprintf("itembool.%d", fetchedElixir.Region)
 
-	// app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
-	// 	bson.M{
-	// 		"$set": bson.M{
-	// 			itemBool: true,
-	// 		},
-	// 	})
+	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
+		bson.M{
+			"$set": bson.M{
+				itemBool: true,
+			},
+		})
 
 	// Log the elixir
 	app.logElixir(r, fetchedElixir, true, false)

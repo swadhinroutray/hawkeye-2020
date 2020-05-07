@@ -96,7 +96,7 @@ const RegisterForm = inject('registerStore')(
 				</div>
 				<ReactRecaptcha
 					ref={recaptchaRef}
-					sitekey={'6LfJLYgUAAAAAJkUPkyvjR5fFsjqldnKPT6707D1'}
+					sitekey={'6Lf0ufMUAAAAAARbazyMdgyepVH2eNxh6u-XZ_k0'}
 					onChange={value => {
 						registerStore.setToken(value);
 					}}
