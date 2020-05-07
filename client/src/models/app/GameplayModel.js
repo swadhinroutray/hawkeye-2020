@@ -57,11 +57,11 @@ class GameplayModel {
 			toast('region locked', {
 				position: "top-right",
 				autoClose: 4000,
-				hideProgressBar: false,
+				hideProgressBar: true,
 				closeOnClick: true,
 				closeButton:faTimes,
 				pauseOnHover: true,
-				draggable: true,
+				draggable: false,
 				progress: undefined,
 				});
 		} else {
@@ -69,10 +69,10 @@ class GameplayModel {
 			toast('all questions answered', {
 				position: "top-right",
 				autoClose: 4000,
-				hideProgressBar: false,
+				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
-				draggable: true,
+				draggable: false,
 				progress: undefined,
 				});
 		}
@@ -215,20 +215,20 @@ class GameplayModel {
 		toast('Elixir Applied Successfully!', {
 			position: "top-right",
 			autoClose: 4000,
-			hideProgressBar: false,
+			hideProgressBar: true,
 			closeOnClick: true,
 			pauseOnHover: true,
-			draggable: true,
+			draggable: false,
 			progress: undefined,
 			});
 		} else {
 			toast('Cannot Skip Question', {
 				position: "top-right",
 				autoClose: 4000,
-				hideProgressBar: false,
+				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
-				draggable: true,
+				draggable: false,
 				progress: undefined,
 				});
 		}
@@ -255,20 +255,20 @@ class GameplayModel {
 			toast('Elixir Applied Successfully!', {
 				position: "top-right",
 				autoClose: 4000,
-				hideProgressBar: false,
+				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
-				draggable: true,
+				draggable: false,
 				progress: undefined,
 				});
 		} else {
 			toast('Cannot Apply Elixir', {
 				position: "top-right",
 				autoClose: 4000,
-				hideProgressBar: false,
+				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
-				draggable: true,
+				draggable: false,
 				progress: undefined,
 				});
 		}

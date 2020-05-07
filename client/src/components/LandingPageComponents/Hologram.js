@@ -9,15 +9,13 @@ export const Hologram = inject('LandingStore')(
 			<HologramWrapper>
 				{LoginStore.profile.level &&
 				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] < 8 ? (
+				LoginStore.profile.level[LandingStore.currentRegion] <= 8 ? (
 					<RegionImg
-						// src={LandingStore.regionImages[LandingStore.currentRegion]}
 						src={LandingStore.regionInfo[LandingStore.currentRegion].img}
 						alt="region"
 					/>
 				) : (
 					<LockedImg
-						// src={LandingStore.regionImages[LandingStore.currentRegion]}
 						src={LandingStore.regionInfo[LandingStore.currentRegion].img}
 						alt="region"
 					/>

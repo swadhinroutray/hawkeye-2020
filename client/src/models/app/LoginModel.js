@@ -7,7 +7,7 @@ import {
 } from '../../utils/validation';
 import { get, post } from '../../utils/api';
 import LandingStore from './LandingPageModel';
-
+import { toast } from 'react-toastify';
 class LoginModel {
 	formData = {
 		email: { value: '', error: '' },
@@ -75,6 +75,19 @@ class LoginModel {
 
 	loginControl = res => {
 		if (res.success) {
+			if (res.data.banned === true) {
+				this.logout();
+				toast.error('You have been banned from the game', {
+					position: 'top-right',
+					autoClose: 4000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+				return;
+			}
 			const {
 				id,
 				name,
