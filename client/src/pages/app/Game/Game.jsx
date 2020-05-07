@@ -25,7 +25,7 @@ import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
 const Game = inject('loginStore')(
 	observer(({ loginStore, match }) => {
 		if (match.params.id < 0 || match.params.id > 4) {
-			return <Redirect to="/" />;
+			return <Redirect to="/regions" />;
 		}
 		useEffect(() => {
 			loginStore.getProfile();
@@ -41,7 +41,7 @@ const Game = inject('loginStore')(
 		const [inventory, getinventory] = useState(false);
 
 		return loginStore.profileSet ? (
-			<GameWrapper>
+			<GameWrapper region={match.params.id}>
 				<img id="leftbar" src={leftBar} alt="leftbar" />
 				<img id="rightbar" src={rightBar} alt="rightbar" />
 				<Provider gameplayStore={GameplayModel}>
@@ -51,19 +51,16 @@ const Game = inject('loginStore')(
 								<img id="hawklogo" src={HAWK} alt="Hawk" />
 							</a>
 						</div>
-						<div id="heading">
-							<a
-								style={{ color: 'white', textDecoration: 'none' }}
-								href="/regions"
-							>
-								HAWKEYE
-							</a>
-						</div>
+						
+						
 						<div className="nav-buttons">
+						<Link className="back" to="/regions">
+					<BackButton />
+				</Link>
 							<div className="navbar-btn" onClick={() => setrules(true)}>
 								<img id="rule-button" src={RulesIcon} alt="Rules" />
 							</div>
-							<div className="navbar-btn" onClick={() => loginStore.logout()}>
+							<div className="navbar-btn" id="logout" onClick={() => loginStore.logout()}>
 								<img src={LogoutIcon} alt="logout" />
 							</div>
 						</div>
@@ -76,6 +73,11 @@ const Game = inject('loginStore')(
 							/>
 						) : null}
 					</div>
+					{match.params.id==='0'&&<div id="heading">FLORENCE</div>}
+						{match.params.id==='1'&&<div id="heading">OTTOMANIA</div>}
+						{match.params.id==='2'&&<div id="heading">PRIPYAT</div>}
+						{match.params.id==='3'&&<div id="heading">THE ANTHROPOCENE</div>}
+						{match.params.id==='4'&&<div id="heading">MEDUSAE FOSSAE</div>}
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
@@ -121,9 +123,7 @@ const Game = inject('loginStore')(
 						</div>
 					</div>
 				</Provider>
-				<Link className="back" to="/regions">
-					<BackButton />
-				</Link>
+				
 			</GameWrapper>
 		) : (
 			<GameWrapper>
@@ -150,12 +150,13 @@ const GameWrapper = styled.div`
 	color: #fff;
 	#heading {
 		color: #fff;
-		letter-spacing: 6px;
-
+		letter-spacing: 0.1em;
+		
+text-align:center;
 		align-self: center;
-		font-weight: bold;
-		margin-top: 1vh;
-		font-size: 2rem;
+		font-weight:300;
+		
+		font-size: 1.8rem;
 	}
 
 	display: flex;
@@ -164,12 +165,13 @@ const GameWrapper = styled.div`
 	margin-bottom: 50px;
 
 	.Navbar {
-		width: 100%;
+		width: 100vw;
 		display: flex;
 		justify-content: space-between;
 	}
 
 	.nav-buttons {
+		
 		display: flex;
 	}
 
@@ -209,8 +211,12 @@ const GameWrapper = styled.div`
 	}
 
 	.navbar-btn img {
+		transition-duration: 0.4s;
 		:hover {
 			cursor: pointer;
+		
+			transform:scale(1.1);
+		
 		}
 
 		margin: 1vh 1vw 0 0;
@@ -338,8 +344,10 @@ const GameWrapper = styled.div`
 	.AnswerWrapper button {
 		:hover {
 			cursor: pointer;
+			
+			transform:scale(1.05);
 		}
-
+		
 		background-image: url(${ButtonBox});
 		background-color: transparent;
 		background-repeat: no-repeat;
@@ -364,7 +372,7 @@ const GameWrapper = styled.div`
 		margin: 0 2px;
 	}
 	#hawklogo {
-		width: 60px;
+		width: 50px;
 		height: 70px;
 	}
 	.Question {
@@ -528,11 +536,29 @@ const GameWrapper = styled.div`
 		display: none;
 	}
 	#Objects {
-		transform: translateX(-17%);
-		width: 3rem;
-		height: 3rem;
+		transition-duration: 0.4s;
+		margin: 1vh 1vw 0 0;
+		width: 40px;
+		height: 70px;
+		:hover{
+			transform:scale(1.1);
+		}
 	}
+	
 	@media (min-width: 1181px) {
+		.Navbar{
+			position:absolute;
+		}
+		#Objects {
+		margin: 1vh 20px 0 0;
+		width: 50px;
+		height: 70px;
+	}
+	
+	.navbar-btn img{
+		width:50px;
+		
+	}
 		.inventory {
 			left: 35%;
 			right: 35%;
@@ -551,7 +577,8 @@ const GameWrapper = styled.div`
 			width: 90vw;
 		}
 		#heading {
-			margin-left: 40px;
+		
+			margin-top:30px;
 		}
 
 		.QuestionBox {
@@ -573,7 +600,12 @@ const GameWrapper = styled.div`
 			height: 90px;
 		}
 	}
-	@media (min-width: 1181px) {
+
+@media (min-width: 1181px) {
+	.nav-buttons{
+		
+		margin:0 20px;
+	}
 		.ActualHints {
 			transform: scale(1.2);
 		}
@@ -597,16 +629,23 @@ const GameWrapper = styled.div`
 		.Attempts {
 			transform: scale(1.3);
 		}
-		.nav-buttons,
+		.navbar-btn img{
+		width:65px;
+		
+	}
+	#Objects{
+		width:65px;
+	}
 		#heading {
 			transform: scale(1.5);
 		}
-		.nav-buttons img {
-			margin: 2vh 2vw 0 0;
-		}
+		
 		#hawklogo {
+			width:65px;
+			
 			margin: 2vh 0 0 1vw;
 		}
+
 		.game-play {
 			width: 85vw;
 		}
@@ -636,8 +675,8 @@ const GameWrapper = styled.div`
 		}
 
 		#heading {
-			font-size: 1.5rem;
-			margin-left: 15px;
+			font-size: 1.4rem;
+			
 		}
 	}
 

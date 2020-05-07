@@ -39,7 +39,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 					<button style={{color:"white"}}  onClick={() => {getinventory(false);loginStore.getProfile();gameplayStore.submit(match.params.id)}}>SUBMIT</button>
 					<div className="AnswerStatus">
 						{gameplayStore.message==='Hawk approves!'&&<div style={{color:"#90ee90"}} >{gameplayStore.message}</div>}
-						{gameplayStore.message==='Hawk disapproves.'&&<div style={{color:"red"}} >{gameplayStore.message}</div>}
+						{gameplayStore.message==='Hawk disapproves.'&&<div style={{color:"#ff6666"}} >{gameplayStore.message}</div>}
 						{gameplayStore.message===`Hawk thinks you're close.`&&<div style={{color:"yellow"}} >{gameplayStore.message}</div>}
 						
 					</div>

@@ -108,7 +108,7 @@ const ShopPageContainer = styled.div`
 	}
 	.reset-blocked {
 		opacity: 50%;
-		color: ##3abdb7 !important;
+		color: #3abdb7 !important;
 	}
 
 	.filler {

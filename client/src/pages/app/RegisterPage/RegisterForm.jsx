@@ -6,14 +6,8 @@ import { LoginFormWrapper } from '../LoginPage/LoginForm';
 import ReactRecaptcha from 'react-google-recaptcha';
 const RegisterForm = inject('registerStore')(
 	observer(({ registerStore }) => {
-		const [primaryCheck, setPrimarCheck] = useState(false);
-		useEffect(() => {
-			if (!primaryCheck) {
-				setPrimarCheck(true);
-				loginStore.getProfile();
-			}
-			loginStore.clearErrors();
-		}, [loginStore, primaryCheck]);
+		
+		
 		const recaptchaRef = React.createRef();
 		return (
 			<LoginFormWrapper class="register">
