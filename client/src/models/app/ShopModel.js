@@ -1,5 +1,6 @@
 import { decorate, observable, action, computed } from 'mobx';
 import { get, post } from '../../utils/api';
+import {toast} from 'react-toastify'
 class ShopModel {
 	//0 Extra Hint
 	//1 Region Multiplier
