@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { observer, Provider } from 'mobx-react';
-import store from '../../models/app/LandingPageModel';
 import GameplayModel from '../../models/app/GameplayModel';
 import LoginStore from '../../models/app/LoginModel';
 import { Redirect } from 'react-router-dom';
 import Details1 from '../../components/Details1';
 import Details2 from '../../components/Details2';
+import Rules from '../../components/Rules';
 import {
 	RegionInfo,
 	Header,
@@ -20,13 +20,15 @@ export const LandingPage = observer(() => {
 		GameplayModel.locked = false;
 		LoginStore.getProfile();
 	}, []);
+	const [rules, setrules] = useState(false);
+
 	return (
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={LandingStore}>
 				<Page>
 					<Details1 />
 					<Details2 />
-					<Header />
+					<Header setrules={setrules} />
 					<Wrapper>
 						<RegionSelector>
 							<h5>WELCOME {LoginStore.profile.username?.toUpperCase()}</h5>
@@ -48,7 +50,6 @@ export const LandingPage = observer(() => {
 							</Year>
 						</RegionSelector>
 						<RegionInfo LoginStore={LoginStore} />
-
 						<Map />
 					</Wrapper>
 					{LoginStore.profileSetError && !LoginStore.loggedIn ? (
@@ -58,20 +59,13 @@ export const LandingPage = observer(() => {
 							}}
 						/>
 					) : null}
+					{rules && <Rules setrules={setrules} />}
 				</Page>
 			</Provider>
 		</Provider>
 	);
 });
-// defaultValue={() =>
-// 	LoginStore.profile.level.indexOf(
-// 		Math.min(
-// 			...LoginStore.profile.level.filter(lvl => lvl >= 1),
-// 		),
-// 	) *
-// 		10 +
-// 	1
-// }
+
 const Page = styled.div`
 	min-height: 100vh;
 	display: flex;

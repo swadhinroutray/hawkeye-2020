@@ -17,7 +17,7 @@ import PullUp from '../../../assets/PullUp.svg';
 import ButtonBox from '../../../assets/ButtonBox.svg';
 import Attempts from '../../../assets/Attempts.svg';
 import ReactLoading from 'react-loading';
-import Rules from '../../../components/Rules'
+import Rules from '../../../components/Rules';
 
 import { Link } from 'react-router-dom';
 import Details1 from '../../../components/Details1';
@@ -114,9 +114,7 @@ const Game = inject('loginStore')(
 									<span>INVENTORY</span>
 								</div>
 							) : null}
-							{rules && (
-								<Rules setrules={setrules}/>
-							)}
+							{rules && <Rules setrules={setrules} />}
 						</div>
 					</div>
 				</Provider>
@@ -492,7 +490,6 @@ const GameWrapper = styled.div`
 		padding-bottom: calc(100% * 2.5 / 5);
 	}
 
-	
 	#Objects {
 		transition-duration: 0.4s;
 		margin: 1vh 1vw 0 0;

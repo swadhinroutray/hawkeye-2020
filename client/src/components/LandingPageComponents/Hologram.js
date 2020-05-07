@@ -1,12 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { observer, inject } from 'mobx-react';
-import { hologramImg } from '../../assets/landing-assets';
+import { hologramImg, shopLogo } from '../../assets/landing-assets';
+import { Icon } from './Header';
+import { Link } from 'react-router-dom';
 
 export const Hologram = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
 		return (
 			<HologramWrapper>
+				<Link to="/shop">
+					<ShopLogo src={shopLogo} />
+				</Link>
+
+				{LoginStore.profile.regionmultiplier === LandingStore.currentRegion &&
+					LoginStore.profile.level[LandingStore.currentRegion] < 8 && (
+						<Multiplier>
+							<span>1.5</span>x
+						</Multiplier>
+					)}
+
 				{LoginStore.profile.level &&
 				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
 				LoginStore.profile.level[LandingStore.currentRegion] <= 8 ? (
@@ -25,7 +38,43 @@ export const Hologram = inject('LandingStore')(
 		);
 	}),
 );
+
+const ShopLogo = styled(Icon)`
+	position: absolute;
+	right: 16%;
+	top: 3%;
+
+	@media (min-width: 768px) {
+		right: 3%;
+	}
+`;
+
+const Multiplier = styled.span`
+	color: #f2ad00;
+	position: absolute;
+	left: 16%;
+	top: 3%;
+	font-size: 1.1rem;
+	font-weight: 600;
+
+	> span {
+		color: #f2ad00;
+		font-size: 1.4rem;
+		font-weight: 600;
+	}
+
+	@media (min-width: 768px) {
+		left: 25%;
+	}
+	@media (min-width: 1024px) {
+		font-size: 1.3rem;
+		> span {
+			font-size: 1.6rem;
+		}
+	}
+`;
 const HologramWrapper = styled.div`
+	position: relative;
 	overflow: hidden;
 	height: 26vh;
 	text-align: center;

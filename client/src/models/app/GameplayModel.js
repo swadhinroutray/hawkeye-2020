@@ -1,7 +1,7 @@
 import { decorate, observable, action } from 'mobx';
 import { get, post } from '../../utils/api';
-import {toast} from 'react-toastify';
-import {faTimes} from '@fortawesome/free-solid-svg-icons'
+import { toast } from 'react-toastify';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 const hawkResponses = {
 	Correct: `Hawk approves!`,
 	Wrong: `Hawk disapproves.`,
@@ -22,7 +22,7 @@ class GameplayModel {
 	inventory = [];
 	locked = false;
 
-	points=0;
+	points = 0;
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
@@ -33,12 +33,11 @@ class GameplayModel {
 			this.region = parseInt(region);
 		}
 
-		
 		get(`/api/question/fetch/${this.region}`).then(this.getQuestionControl);
 	};
 
 	getQuestionControl = res => {
-	console.log(res)
+		console.log(res);
 		if (res.success) {
 			if (res.data.question) {
 				this.questionId = res.data.id;
@@ -55,32 +54,30 @@ class GameplayModel {
 		} else if (res.data === 'Region Locked') {
 			this.locked = true;
 			toast('region locked', {
-				position: "top-right",
+				position: 'top-right',
 				autoClose: 4000,
 				hideProgressBar: true,
 				closeOnClick: true,
-				closeButton:faTimes,
+				closeButton: faTimes,
 				pauseOnHover: true,
 				draggable: false,
 				progress: undefined,
-				});
+			});
 		} else {
 			this.locked = true;
 			toast('all questions answered', {
-				position: "top-right",
+				position: 'top-right',
 				autoClose: 4000,
 				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: false,
 				progress: undefined,
-				});
+			});
 		}
-	
 	};
 
 	submit(region) {
-		
 		if (this.currentAnswer.length === 0) return;
 		post(`/api/question/answer`, {
 			answer: this.currentAnswer,
@@ -89,15 +86,13 @@ class GameplayModel {
 		this.attempts.unshift(this.currentAnswer);
 		this.attempts.replace(this.attempts.slice(0, 10));
 	}
-	
+
 	submitControl = res => {
-		
 		if (res.success) {
 			this.currentAnswer = '';
 			this.message = hawkResponses[res.data.split(' ')[0]];
 			setTimeout(this.clearMessage, 1000);
 			if (res.data === 'Correct Answer') {
-				
 				setTimeout(this.getQuestion, 1000);
 			}
 		}
@@ -112,10 +107,9 @@ class GameplayModel {
 	};
 
 	getTriesControl = res => {
-		
 		if (res.success) {
 			this.itembool = res.data.itembool;
-			this.points=res.data.points
+			this.points = res.data.points;
 			if (res.data.submissions) {
 				let submissions = res.data.submissions;
 				submissions = submissions.filter(
@@ -123,10 +117,9 @@ class GameplayModel {
 						submission.region === this.region &&
 						submission.level === this.level,
 				);
-			
 
 				this.attempts.replace(submissions.map(sub => sub.answer));
-				this.attempts=this.attempts.reverse()
+				this.attempts = this.attempts.reverse();
 			}
 		}
 		this.getStats();
@@ -137,12 +130,10 @@ class GameplayModel {
 	};
 
 	getStatsControl = res => {
-		
 		if (res.success) {
 			this.stats.atPar = res.data.atPar;
 			this.stats.leading = res.data.leading;
 			this.stats.trailing = res.data.trailing;
-		
 		}
 		this.getInventory();
 		setTimeout(this.getHiddenHints, 1000);
@@ -151,23 +142,20 @@ class GameplayModel {
 		get('/api/shop/getinventory').then(this.inventoryControl);
 	};
 	inventoryControl = res => {
-	
 		if (res.success) {
 			this.inventory = [];
-			if (res.data&&res.data.length > 0) {
-				
+			if (res.data && res.data.length > 0) {
 				res.data.forEach(item => {
 					let newItem = item;
 					newItem.region = this.region;
 					newItem.question = this.level;
 					this.inventory.push(newItem);
+					console.log(newItem);
 				});
 			} else {
 				this.inventory.push(['No hints yet']);
 			}
-			
 		}
-		
 	};
 	getHiddenHints = () => {
 		get(`/api/elixir/perks/${this.region}/${this.level}`).then(
@@ -180,7 +168,7 @@ class GameplayModel {
 				if (this.hints[0] === 'No hints yet') {
 					this.hints = [];
 				}
-				
+
 				res.data.forEach(hint => {
 					this.hints.push(hint.hint);
 				});
@@ -205,35 +193,34 @@ class GameplayModel {
 			question: this.questionId,
 			question_no: this.level,
 		};
-		post('/api/elixir/skipquestion', hangmanData).then(this.useSkipQuestionControl);
+		post('/api/elixir/skipquestion', hangmanData).then(
+			this.useSkipQuestionControl,
+		);
 	}
 	useSkipQuestionControl = res => {
-		
 		if (res.success) {
 			this.getQuestion();
-			
-		toast('Elixir Applied Successfully!', {
-			position: "top-right",
-			autoClose: 4000,
-			hideProgressBar: true,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: false,
-			progress: undefined,
-			});
-		} else {
-			toast('Cannot Skip Question', {
-				position: "top-right",
+
+			toast('Elixir Applied Successfully!', {
+				position: 'top-right',
 				autoClose: 4000,
 				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: false,
 				progress: undefined,
-				});
+			});
+		} else {
+			toast('Cannot Skip Question', {
+				position: 'top-right',
+				autoClose: 4000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+				progress: undefined,
+			});
 		}
-		
-		
 	};
 	useRegionMultiplier() {
 		const multiplierData = {
@@ -248,32 +235,29 @@ class GameplayModel {
 		);
 	}
 	useElixirControl = res => {
-		
 		if (res.success) {
 			this.getQuestion();
-			
+
 			toast('Elixir Applied Successfully!', {
-				position: "top-right",
+				position: 'top-right',
 				autoClose: 4000,
 				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: false,
 				progress: undefined,
-				});
+			});
 		} else {
 			toast('Cannot Apply Elixir', {
-				position: "top-right",
+				position: 'top-right',
 				autoClose: 4000,
 				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: false,
 				progress: undefined,
-				});
+			});
 		}
-		
-		
 	};
 	useUnlockHint() {
 		const unlockHintData = {
@@ -283,7 +267,7 @@ class GameplayModel {
 			question: this.questionId,
 			question_no: this.level,
 		};
-		
+
 		post('/api/elixir/unlockhint', unlockHintData).then(this.useElixirControl);
 	}
 }
@@ -298,12 +282,12 @@ decorate(GameplayModel, {
 	stats: observable,
 	inventory: observable,
 	locked: observable,
-	
+
 	getQuestion: action,
 	submit: action,
 	getTries: action,
-	points:observable,
-	itembool:observable,
+	points: observable,
+	itembool: observable,
 	getStats: action,
 	useRegionMultiplier: action,
 	getHiddenHints: action,

@@ -122,7 +122,6 @@ class LoginModel {
 			this.setField('email', '');
 			this.setField('password', '');
 			this.loggedIn = true;
-
 			return;
 		}
 		this.profileSetError = true;

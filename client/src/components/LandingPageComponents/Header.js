@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { hawkLogo, shopLogo, logoutLogo } from '../../assets/landing-assets';
+import { hawkLogo, logoutLogo } from '../../assets/landing-assets';
+import RulesLogo from '../../assets/RulesIcon.svg';
 import { observer, inject } from 'mobx-react';
 
 export const Header = inject('LoginStore')(
-	observer(({ LoginStore }) => {
+	observer(({ setrules, LoginStore }) => {
 		return (
 			<HeaderWrapper>
 				<HawkLogo src={hawkLogo} alt="hawk-logo" />
 				<h1>HAWKEYE</h1>
 				<div>
-					<Link to="/shop">
-						<Icon src={shopLogo} alt="shop-icon" />
-					</Link>
+					<Icon
+						src={RulesLogo}
+						onClick={() => setrules(true)}
+						alt="rules-icon"
+					/>
 					<Icon
 						src={logoutLogo}
 						alt="logout-icon"
@@ -24,7 +27,7 @@ export const Header = inject('LoginStore')(
 		);
 	}),
 );
-const Icon = styled.img`
+export const Icon = styled.img`
 	height: 4vh;
 	cursor: pointer;
 	@media (min-width: 321px) {
