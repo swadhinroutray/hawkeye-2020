@@ -25,6 +25,13 @@ type RegisterRequest struct {
 	Email           string `json:"email"       validate:"required,email"`
 	Mobile          string `json:"mobile"      validate:"required"`
 	College         string `json:"college"`
+	Token           string `json:"token"`
+}
+
+//R ...
+type R struct {
+	Secret string
+	// contains filtered or unexported fields
 }
 
 //RegisterResponse ...
@@ -105,7 +112,25 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Access:           0,
 		Banned:           false,
 	}
+	// fmt.Println("Request body %v\n", *r)
+	// re := recaptcha.R{
+	// 	Secret: os.Getenv("RECAPTCHA_SECRET_KEY"),
+	// }
+	// fmt.Printf("Token %s" + reqBody.Token)
+	// isValid := re.Verify(*r)
+	// if !isValid {
+	// 	app.log.Errorf("Captcha Error %v", re.LastError())
+	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
+	// 	return
+	// }
+	Secret := os.Getenv("RECAPTCHA_SECRET_KEY")
+	_, err = http.Get("https://www.google.com/recaptcha/api/siteverify?secret=" + Secret + "&response=" + reqBody.Token)
 
+	if err != nil {
+		app.log.Errorf("Captcha Error %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
 	_, err = app.db.Collection("users").InsertOne(r.Context(), newUser)
 	if err != nil {
 		app.log.Errorf("Failed to insert User %s", err.Error())

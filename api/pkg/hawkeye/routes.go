@@ -28,6 +28,7 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/makeadmin/{id}", app.withAdmin(app.makeAdmin)).Methods("POST")
 	admin.HandleFunc("/dismissadmin/{id}", app.withAdmin(app.dismissAdmin)).Methods("POST")
 	admin.HandleFunc("/setcount", app.withAdmin(app.keepCount)).Methods("POST")
+	admin.HandleFunc("/editspecifichint/{region}/{lvl}/{id}", app.withAdmin(app.editSpecificHint)).Methods("POST")
 
 	//admin.HandleFunc("/getsubmissions/{id}", app.withAdmin(app.getUserSubmissions)).Methods("GET")
 

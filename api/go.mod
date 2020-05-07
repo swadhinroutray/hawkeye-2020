@@ -8,6 +8,7 @@ require (
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/securecookie v1.1.1
 	github.com/gorilla/sessions v1.2.0 // indirect
+	github.com/haisum/recaptcha v0.0.0-20170327142240-7d3b8053900e
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/texttheater/golang-levenshtein v0.0.0-20191208221605-eb6844b05fc6
 	go.mongodb.org/mongo-driver v1.3.0
