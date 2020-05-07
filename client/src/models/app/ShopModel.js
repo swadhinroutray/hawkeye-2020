@@ -79,8 +79,9 @@ class ShopModel {
 	//ADD BOUGHT ITEM TO INVENTORY NOT DONE
 	buyItem() {
 		post('api/shop/buy/' + this.selected, {}).then(res => {
+			console.log(res);
 			if (res.success) {
-				if (res.data === 'A new potion has been addedto your inventory') {
+				if (res.data === 'A new potion has been added to your inventory') {
 					this.message = 'A new elixir has been added to your inventory';
 					this.toBuy[this.selected] -= 1;
 					this.points -= this.itemCost[this.selected];

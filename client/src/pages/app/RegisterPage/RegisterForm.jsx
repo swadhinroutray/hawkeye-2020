@@ -38,7 +38,9 @@ const RegisterForm = inject('registerStore')(
 						type="email"
 						placeholder="Email Id"
 						required={true}
-						onChange={e => registerStore.setField('email', e.target.value)}
+						onChange={e =>
+							registerStore.setField('email', e.target.value.trim())
+						}
 						// value={registerStore['email'].value}
 					/>
 					<div className="error">{registerStore['email'].error}</div>
