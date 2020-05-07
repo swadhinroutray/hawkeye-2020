@@ -82,14 +82,30 @@ class ShopModel {
 			console.log(res);
 			if (res.success) {
 				if (res.data === 'A new potion has been added to your inventory') {
-					this.message = 'A new elixir has been added to your inventory';
+					toast('A new potion has been added to your inventory', {
+						position: 'top-right',
+						autoClose: 4000,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+						progress: undefined,
+					});
 					this.toBuy[this.selected] -= 1;
 					this.points -= this.itemCost[this.selected];
 					this.owned[this.selected]++;
 					return;
 				}
 				if (res.data === "You don't have enough points!") {
-					this.message = res.data;
+					toast.error("You don't have enough points!", {
+						position: 'top-right',
+						autoClose: 4000,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: false,
+						progress: undefined,
+					});
 					return;
 				}
 			} else {

@@ -21,8 +21,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { leftBar, rightBar } from '../../../assets/landing-assets/index';
 import { Link } from 'react-router-dom';
+import Details1 from '../../../components/Details1';
+import Details2 from '../../../components/Details2';
 import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
-import ShopIcon from '../../../assets/ShopIcon.svg'
+import ShopIcon from '../../../assets/ShopIcon.svg';
 const Game = inject('loginStore')(
 	observer(({ loginStore, match }) => {
 		if (match.params.id < 0 || match.params.id > 4) {
@@ -43,8 +45,8 @@ const Game = inject('loginStore')(
 
 		return loginStore.profileSet ? (
 			<GameWrapper region={match.params.id}>
-				<img id="leftbar" src={leftBar} alt="leftbar" />
-				<img id="rightbar" src={rightBar} alt="rightbar" />
+				<Details1 />
+				<Details2 />
 				<Provider gameplayStore={GameplayModel}>
 					<div className="Navbar">
 						<div className="navbar-btn">
@@ -52,23 +54,27 @@ const Game = inject('loginStore')(
 								<img id="hawklogo" src={HAWK} alt="Hawk" />
 							</a>
 						</div>
-						
-						
+
 						<div className="nav-buttons">
-						<Link className="back" to="/regions">
-					<BackButton />
-				</Link>
-				<div className="navbar-btn" >
-				<a href ="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
-				</div>
-				<div className="navbar-btn" onClick={() => setrules(true)}>
+							<Link className="back" to="/regions">
+								<BackButton />
+							</Link>
+							<div className="navbar-btn">
+								<a href="/shop">
+									<img id="shop-button" src={ShopIcon} alt="shop" />
+								</a>
+							</div>
+							<div className="navbar-btn" onClick={() => setrules(true)}>
 								<img id="rule-button" src={RulesIcon} alt="Rules" />
 							</div>
-							
-							<div className="navbar-btn" id="logout" onClick={() => loginStore.logout()}>
+
+							<div
+								className="navbar-btn"
+								id="logout"
+								onClick={() => loginStore.logout()}
+							>
 								<img src={LogoutIcon} alt="logout" />
 							</div>
-							
 						</div>
 
 						{loginStore.profileSetError && !loginStore.loggedIn ? (
@@ -79,11 +85,11 @@ const Game = inject('loginStore')(
 							/>
 						) : null}
 					</div>
-					{match.params.id==='0'&&<div id="heading">FLORENCE</div>}
-						{match.params.id==='1'&&<div id="heading">OTTOMANIA</div>}
-						{match.params.id==='2'&&<div id="heading">PRIPYAT</div>}
-						{match.params.id==='3'&&<div id="heading">THE ANTHROPOCENE</div>}
-						{match.params.id==='4'&&<div id="heading">MEDUSAE FOSSAE</div>}
+					{match.params.id === '0' && <div id="heading">FLORENCE</div>}
+					{match.params.id === '1' && <div id="heading">OTTOMANIA</div>}
+					{match.params.id === '2' && <div id="heading">PRIPYAT</div>}
+					{match.params.id === '3' && <div id="heading">THE ANTHROPOCENE</div>}
+					{match.params.id === '4' && <div id="heading">MEDUSAE FOSSAE</div>}
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
@@ -140,7 +146,6 @@ const Game = inject('loginStore')(
 						</div>
 					</div>
 				</Provider>
-				
 			</GameWrapper>
 		) : (
 			<GameWrapper>
@@ -168,11 +173,11 @@ const GameWrapper = styled.div`
 	#heading {
 		color: #fff;
 		letter-spacing: 0.1em;
-		
-text-align:center;
+
+		text-align: center;
 		align-self: center;
-		font-weight:300;
-		
+		font-weight: 300;
+
 		font-size: 1.8rem;
 	}
 
@@ -188,7 +193,6 @@ text-align:center;
 	}
 
 	.nav-buttons {
-		
 		display: flex;
 	}
 
@@ -231,9 +235,8 @@ text-align:center;
 		transition-duration: 0.4s;
 		:hover {
 			cursor: pointer;
-		
-			transform:scale(1.1);
-		
+
+			transform: scale(1.1);
 		}
 
 		margin: 1vh 1vw 0 0;
@@ -295,15 +298,15 @@ text-align:center;
 		border-left: 2px solid #7fd1e0;
 		z-index: 100;
 		position: fixed;
-		
-
+		padding: 20px 5px;
+		box-sizing: border-box;
 		font-family: 'Futura PT Medium';
 		bottom: 0;
 		min-height: 20vh;
 		left: 0;
 		right: 0;
-		background: rgb(50, 34, 100,0.5);
-		
+		background: rgb(50, 34, 100, 0.8);
+
 		animation-name: fadeInUp;
 		-webkit-animation-name: fadeInUp;
 		animation-duration: 1s;
@@ -336,10 +339,11 @@ text-align:center;
 	.close {
 		font-size: 20px;
 		color: #fff;
-		
+
 		text-align: right;
-		position: absolute;top:0;
-		right:1%;
+		position: absolute;
+		top: 5%;
+		right: 3%;
 		:hover {
 			cursor: pointer;
 		}
@@ -363,10 +367,10 @@ text-align:center;
 	.AnswerWrapper button {
 		:hover {
 			cursor: pointer;
-			
-			transform:scale(1.05);
+
+			transform: scale(1.05);
 		}
-		
+
 		background-image: url(${ButtonBox});
 		background-color: transparent;
 		background-repeat: no-repeat;
@@ -552,7 +556,6 @@ text-align:center;
 		right: 2%;
 		font-size: 30px;
 	}
-	
 
 	.Rules::-webkit-scrollbar {
 		display: none;
@@ -562,30 +565,27 @@ text-align:center;
 		margin: 1vh 1vw 0 0;
 		width: 40px;
 		height: 70px;
-		:hover{
-			transform:scale(1.1);
+		:hover {
+			transform: scale(1.1);
 		}
 	}
-	.inventory-items{
-		
-		display:flex;
-		flex-wrap:wrap;
+	.inventory-items {
+		display: flex;
+		flex-wrap: wrap;
 	}
-	
+
 	@media (min-width: 1181px) {
-		.Navbar{
-			position:absolute;
+		.Navbar {
+			position: absolute;
 		}
 		#Objects {
-		
-		width: 50px;
-		height: 70px;
-	}
-	
-	.navbar-btn img{
-		width:50px;
-		
-	}
+			width: 50px;
+			height: 70px;
+		}
+
+		.navbar-btn img {
+			width: 50px;
+		}
 		.inventory {
 			left: 35%;
 			right: 35%;
@@ -604,8 +604,7 @@ text-align:center;
 			width: 90vw;
 		}
 		#heading {
-		
-			margin-top:30px;
+			margin-top: 30px;
 		}
 
 		.QuestionBox {
@@ -628,11 +627,10 @@ text-align:center;
 		}
 	}
 
-@media (min-width: 1181px) {
-	.nav-buttons{
-		
-		margin:0 20px;
-	}
+	@media (min-width: 1181px) {
+		.nav-buttons {
+			margin: 0 20px;
+		}
 		.ActualHints {
 			transform: scale(1.2);
 		}
@@ -656,20 +654,19 @@ text-align:center;
 		.Attempts {
 			transform: scale(1.3);
 		}
-		.navbar-btn img{
-		width:65px;
-		
-	}
-	#Objects{
-		width:65px;
-	}
+		.navbar-btn img {
+			width: 65px;
+		}
+		#Objects {
+			width: 65px;
+		}
 		#heading {
 			transform: scale(1.5);
 		}
-		
+
 		#hawklogo {
-			width:65px;
-			
+			width: 65px;
+
 			margin: 2vh 0 0 1vw;
 		}
 
@@ -703,7 +700,6 @@ text-align:center;
 
 		#heading {
 			font-size: 1.4rem;
-			
 		}
 	}
 

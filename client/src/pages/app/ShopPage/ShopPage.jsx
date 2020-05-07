@@ -70,6 +70,10 @@ const ShopPageContainer = styled.div`
 			display: inline-block;
 			width: 45px;
 			margin: 5px;
+			transition-duration: 0.4s;
+			:hover {
+				transform: scale(1.01);
+			}
 		}
 	}
 	.subhead {
@@ -99,6 +103,7 @@ const ShopPageContainer = styled.div`
 		padding: 10px 50px 5px 30px;
 		margin: 10px auto;
 		color: #fff;
+		transition: all 0.2s ease-in;
 		:hover {
 			cursor: pointer;
 		}
@@ -174,7 +179,7 @@ const ShopPageContainer = styled.div`
 			margin: 0 1em;
 			flex: 1;
 			align-self: start;
-			margin-top: 60px;
+			margin-top: 20px;
 		}
 		.item-container {
 			flex: 1.25;
@@ -202,7 +207,6 @@ const ShopPageContainer = styled.div`
 		.filler {
 			flex: 1;
 			align-self: start;
-			margin-top: 60px;
 		}
 		.item-container {
 			flex: 1.125;
@@ -222,11 +226,21 @@ const ShopPageContainer = styled.div`
 		}
 	}
 `;
-
+const Background = styled.img`
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	z-index: -100;
+`;
 const ItemsContainer = styled.div`
 	padding: 1em;
-	background-image: url(${ShopHud});
-	background-size: cover;
+	position: relative;
 	margin-bottom: 20px;
 	.title {
 		color: #fff;
@@ -313,6 +327,10 @@ const ItemDescription = styled.div`
 		color: #fff;
 		user-select: none;
 		margin: 10px auto;
+		transition: all 0.1s ease-out;
+		:hover {
+			transform: scale(1.05);
+		}
 	}
 	.buy-blocked {
 		opacity: 40%;
@@ -365,7 +383,7 @@ const ItemDescription = styled.div`
 		flex: 0.85;
 		height: fit-content;
 		align-self: start;
-		margin-top: 60px;
+		margin-top: 40px;
 		padding: 10px 15px;
 		margin-right: 0.5em;
 		letter-spacing: 3px;
@@ -431,6 +449,7 @@ class ShopPage extends Component {
 
 					<div className="item-container">
 						<ItemsContainer>
+							<Background src={ShopHud} />
 							<div className="title">Choose an Elixir</div>
 							<div className="grid">
 								<ShopItem number={0} />
