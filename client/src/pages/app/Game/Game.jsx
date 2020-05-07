@@ -211,8 +211,8 @@ const GameWrapper = styled.div`
 			transform: scale(1.1);
 		}
 
-		margin: 1vh 1vw 0 0;
-		width: 40px;
+		margin: 1vh 2vw 0 0;
+		width: 45px;
 		height: 70px;
 	}
 	.QuestionBox {
@@ -492,8 +492,8 @@ const GameWrapper = styled.div`
 
 	#Objects {
 		transition-duration: 0.4s;
-		margin: 1vh 1vw 0 0;
-		width: 40px;
+		margin: 1vh 2vw 0 0;
+		width: 45px;
 		height: 70px;
 		:hover {
 			transform: scale(1.1);
@@ -509,12 +509,14 @@ const GameWrapper = styled.div`
 			position: absolute;
 		}
 		#Objects {
-			width: 50px;
+			width: 55px;
 			height: 70px;
+			margin: 1vh 1vw 0 0;
 		}
 
 		.navbar-btn img {
-			width: 50px;
+			width: 55px;
+			margin: 1vh 1vw 0 0;
 		}
 		.inventory {
 			left: 35%;
