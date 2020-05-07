@@ -301,7 +301,7 @@ func (app *App) editSpecificHint(w http.ResponseWriter, r *http.Request) {
 	lvl, err1 := strconv.Atoi(params["lvl"])
 	region, err2 := strconv.Atoi(params["region"])
 	if err1 != nil || err2 != nil {
-		app.log.Infof("Bad request params %s", err.Error())
+		app.log.Infof("Region/level error")
 		app.sendResponse(w, false, BadRequest, nil)
 		return
 	}
@@ -321,7 +321,7 @@ func (app *App) editSpecificHint(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := app.validate.Struct(reqBody); err != nil {
-		app.sendValidationErrors(w, err)
+		app.sendValidationError(w, err)
 		return
 	}
 
