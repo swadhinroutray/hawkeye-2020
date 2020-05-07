@@ -96,7 +96,7 @@ const RegisterForm = inject('registerStore')(
 					}}
 				/>
 				<button onClick={() => registerStore.register()}>Submit</button>
-				<div className="message">{registerStore['message'].value}</div>
+				<div style={{overflowWrap:"break-word",width:"90%"}} className="message">{registerStore['message'].value}</div>
 				<Link className="link-register" to="/login">
 					Back to login
 				</Link>
