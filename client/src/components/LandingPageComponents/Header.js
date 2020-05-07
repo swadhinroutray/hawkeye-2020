@@ -33,6 +33,10 @@ const Icon = styled.img`
 	@media (min-width: 768px) {
 		height: 8vh;
 	}
+	transition: all 0.2s ease-in;
+	:hover {
+		transform: scale(1.05);
+	}
 `;
 const HeaderWrapper = styled.header`
 	position: relative;
@@ -65,7 +69,7 @@ const HeaderWrapper = styled.header`
 	}
 	@media (min-width: 768px) {
 		> h1 {
-			margin-top: 3vh;
+			margin-top: 0vh;
 			font-size: 56px;
 		}
 		> div {

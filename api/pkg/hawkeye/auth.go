@@ -111,18 +111,8 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Submissions:      []Submission{},
 		Access:           0,
 		Banned:           false,
+		FirstLogin:       false,
 	}
-	// fmt.Println("Request body %v\n", *r)
-	// re := recaptcha.R{
-	// 	Secret: os.Getenv("RECAPTCHA_SECRET_KEY"),
-	// }
-	// fmt.Printf("Token %s" + reqBody.Token)
-	// isValid := re.Verify(*r)
-	// if !isValid {
-	// 	app.log.Errorf("Captcha Error %v", re.LastError())
-	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
-	// 	return
-	// }
 	Secret := os.Getenv("RECAPTCHA_SECRET_KEY")
 	_, err = http.Get("https://www.google.com/recaptcha/api/siteverify?secret=" + Secret + "&response=" + reqBody.Token)
 
@@ -175,7 +165,6 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"email": reqBody.Email}).Decode(&user); err == mongo.ErrNoDocuments {
 		verr := ValidationError{Field: "email", Error: "emaildoesnotexist"}
 		app.log.Infof("%#v", verr)
-		//fmt.Println("1")
 		app.sendResponse(w, false, Conflict, []ValidationError{verr})
 		return
 	}
@@ -183,7 +172,6 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	if err := bcrypt.CompareHashAndPassword([]byte(strings.TrimSpace(user.Password)), []byte(reqBody.Password)); err == bcrypt.ErrMismatchedHashAndPassword {
 		app.log.Infof("Password mismatch %s")
 		verr := ValidationError{Field: "password", Error: "wrongpassword"}
-		//fmt.Println("2 \n")
 		app.sendResponse(w, false, Unauthorized, []ValidationError{verr})
 		return
 	}
@@ -195,6 +183,15 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 
 	if err := app.setSession(w, r, currUser, 86400); err != nil {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+	if user.FirstLogin == false {
+		app.db.Collection("users").FindOneAndUpdate(r.Context(),
+			bson.M{"_id": user.ID},
+			bson.M{"$set": bson.M{"firstlogin": true}},
+		)
+		app.log.Infof("Session Set for user %s", currUser.Email)
+		app.sendResponse(w, true, Success, currUser)
 		return
 	}
 	app.log.Infof("Session Set for user %s", currUser.Email)
