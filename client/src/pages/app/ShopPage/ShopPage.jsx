@@ -10,7 +10,7 @@ import { ReactComponent as LogoutIcon } from '../../../assets/LogoutIcon.svg';
 import ShopHud from '../../../assets/ShopHud.svg';
 import DescHud from '../../../assets/DescHud.svg';
 import { ReactComponent as Map } from '../../../assets/Map.svg';
-
+import Rules from '../../../components/Rules';
 import buy from '../../../assets/buybuttonbg.svg';
 import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
 import { hawkLogo } from '../../../assets/landing-assets';
@@ -406,12 +406,21 @@ const ItemDescription = styled.div`
 `;
 
 class ShopPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			rules: false,
+		};
+	}
 	componentDidMount() {
 		this.props.loginStore.getProfile();
 		this.props.shopStore.getProfile();
 		this.props.shopStore.getOwned();
 		this.props.shopStore.loadToBuy();
 	}
+	setRules = val => {
+		this.setState({ rules: val });
+	};
 	render() {
 		const store = this.props.shopStore;
 		return (
@@ -425,9 +434,14 @@ class ShopPage extends Component {
 						<Link className="icon" to="/regions">
 							<BackButton />
 						</Link>
-						<Link className="icon" to="">
+						<div
+							className="icon"
+							onClick={e => {
+								this.setRules(true);
+							}}
+						>
 							<RulesIcon />
-						</Link>
+						</div>
 						<Link
 							className="icon"
 							onClick={() => {
@@ -501,7 +515,7 @@ class ShopPage extends Component {
 						<div>cost: {store.resetPoints}</div>
 					</div>
 				)}
-
+				{this.state.rules && <Rules setrules={this.setRules} />}
 				{this.props.loginStore.profileSetError &&
 				!this.props.loginStore.loggedIn ? (
 					<Redirect
