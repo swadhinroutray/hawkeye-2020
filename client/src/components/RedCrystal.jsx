@@ -25,260 +25,260 @@ export class RedCrystal extends Component {
 							fill="#0e8092"
 						/>
 						<path
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							d="M631.75 654.93a75.39 75.39 0 01-106.49-.12l6.14-6.13a66.63 66.63 0 1094.33-94.12l6.14-6.13a75.39 75.39 0 01-.12 106.5z"
 							transform="translate(-486.39 -509.44)"
 						/>
 						<path
 							d="M622.76 645.91a62.55 62.55 0 01-88.36-.1l2-2a59.59 59.59 0 0084.37-84.18l2-2a62.55 62.55 0 01-.01 88.28z"
 							transform="translate(-486.39 -509.44)"
-							fill={selected ? '#12aac2' : '#9500c6'}
+							fill={selected ? '#12aac2' : '#F2AD00'}
 						/>
 						<path
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							d="M618.53 641.67a56.58 56.58 0 01-79.92-.09l1-1a55.07 55.07 0 1078-77.79l1-1a56.58 56.58 0 01-.08 79.88z"
 							transform="translate(-486.39 -509.44)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={528.44}
 							cy={551.38}
 							r={3.47}
 							transform="rotate(-44.94 -330.687 884.625)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={515.51}
 							cy={538.42}
 							r={1.74}
 							transform="rotate(-44.94 -343.616 871.66)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={533.35}
 							cy={523.23}
 							r={1.75}
 							transform="rotate(-29.93 -662.84 1178.336)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={555.13}
 							cy={514.24}
 							r={1.75}
 							transform="rotate(-14.95 -1629.316 2113.064)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={578.5}
 							cy={511.19}
 							r={1.75}
 							transform="rotate(-89.94 80.269 499.925)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={601.85}
 							cy={514.29}
 							r={1.75}
 							transform="rotate(-74.95 26.393 576.794)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={623.61}
 							cy={523.33}
 							r={1.75}
 							transform="rotate(-59.93 -61.41 690.432)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={642.29}
 							cy={537.7}
 							r={1.75}
 							transform="rotate(-44.94 -216.855 870.944)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={656.61}
 							cy={556.4}
 							r={1.75}
 							transform="rotate(-29.95 -538.932 1210.874)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={665.6}
 							cy={578.18}
 							r={1.75}
 							transform="rotate(-15 -1508.86 2158.635)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={668.65}
 							cy={601.55}
 							r={1.75}
 							transform="rotate(-89.94 170.418 590.28)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={665.55}
 							cy={624.9}
 							r={1.75}
 							transform="rotate(-74.94 90.034 687.462)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={656.51}
 							cy={646.66}
 							r={1.75}
 							transform="rotate(-59.92 -28.602 813.847)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={642.14}
 							cy={665.34}
 							r={1.75}
 							transform="rotate(-44.94 -217.008 998.576)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={623.43}
 							cy={679.66}
 							r={1.75}
 							transform="rotate(-29.94 -572.373 1334.473)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={601.65}
 							cy={688.65}
 							r={1.75}
 							transform="matrix(.97 -.26 .26 .97 -643.52 -331.17)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={578.29}
 							cy={691.7}
 							r={1.75}
 							transform="rotate(-89.94 80.058 680.425)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={554.94}
 							cy={688.6}
 							r={1.75}
 							transform="rotate(-75 -20.869 747.504)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={533.18}
 							cy={679.56}
 							r={1.75}
 							transform="rotate(-59.92 -151.88 846.76)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={514.5}
 							cy={665.19}
 							r={1.75}
 							transform="rotate(-44.94 -344.629 998.428)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={500.18}
 							cy={646.49}
 							r={1.75}
 							transform="rotate(-29.94 -695.609 1301.321)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={491.19}
 							cy={624.71}
 							r={1.75}
 							transform="matrix(.97 -.26 .26 .97 -630.69 -361.9)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={488.14}
 							cy={601.34}
 							r={1.75}
 							transform="rotate(-89.94 -10.091 590.07)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={492.26}
 							cy={578.58}
 							r={1.74}
 							transform="rotate(-74.92 -83.393 641.255)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={501.24}
 							cy={556.97}
 							r={1.73}
 							transform="rotate(-59.95 -183.552 723.915)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={543.23}
 							cy={540.06}
 							r={3.47}
 							transform="rotate(-29.93 -652.879 1195.209)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={560.44}
 							cy={532.96}
 							r={3.47}
 							transform="rotate(-14.93 -1626.765 2134.2)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={578.91}
 							cy={530.55}
 							r={3.47}
 							transform="rotate(-89.94 80.684 519.28)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={597.37}
 							cy={533}
 							r={3.47}
 							transform="rotate(-74.93 21.75 595.619)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={614.57}
 							cy={540.14}
 							r={3.47}
 							transform="rotate(-59.95 -70.256 707.074)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={517.01}
 							cy={637.48}
 							r={3.47}
 							transform="rotate(-29.94 -678.724 1292.351)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={509.9}
 							cy={620.27}
 							r={3.47}
 							transform="rotate(-14.92 -1678.43 2222.992)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={507.49}
 							cy={601.8}
 							r={3.47}
 							transform="rotate(-89.94 9.264 590.525)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={509.94}
 							cy={583.34}
 							r={3.47}
 							transform="rotate(-74.93 -65.628 645.96)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={517.09}
 							cy={566.15}
 							r={3.47}
@@ -408,265 +408,265 @@ export class RedCrystal extends Component {
 							transform="translate(-486.39 -509.44)"
 						/>
 						<path
-							fill={selected ? '#9500c6' : '#12aac2'}
+							fill={selected ? '#F2AD00' : '#12aac2'}
 							d="M636.79 660a82.07 82.07 0 11.13-116.06 82.16 82.16 0 01-.13 116.06zM522.91 545.83a79.18 79.18 0 10112 .13 79.27 79.27 0 00-112-.13z"
 							transform="translate(-486.39 -509.44)"
 						/>
 						<path
-							fill={selected ? '#9500c6' : '#12aac2'}
+							fill={selected ? '#f9d230' : '#12aac2'}
 							d="M622.76 645.91a62.55 62.55 0 01-88.36-.1l2-2a59.59 59.59 0 0084.37-84.18l2-2a62.55 62.55 0 01-.01 88.28z"
 							transform="translate(-486.39 -509.44)"
 						/>
 						<path
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							d="M631.75 654.93a75.39 75.39 0 01-106.49-.12l6.14-6.13a66.63 66.63 0 1094.33-94.12l6.14-6.13a75.39 75.39 0 01-.12 106.5z"
 							transform="translate(-486.39 -509.44)"
 						/>
 						<path
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							d="M618.53 641.67a56.58 56.58 0 01-79.92-.09l1-1a55.07 55.07 0 1078-77.79l1-1a56.58 56.58 0 01-.08 79.88z"
 							transform="translate(-486.39 -509.44)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={528.44}
 							cy={551.38}
 							r={3.47}
 							transform="rotate(-44.94 -330.687 884.625)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={515.51}
 							cy={538.42}
 							r={1.74}
 							transform="rotate(-44.94 -343.616 871.66)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={533.35}
 							cy={523.23}
 							r={1.75}
 							transform="rotate(-29.93 -662.84 1178.336)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={555.13}
 							cy={514.24}
 							r={1.75}
 							transform="rotate(-14.95 -1629.316 2113.064)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={578.5}
 							cy={511.19}
 							r={1.75}
 							transform="rotate(-89.94 80.269 499.925)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={601.85}
 							cy={514.29}
 							r={1.75}
 							transform="rotate(-74.95 26.393 576.794)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={623.61}
 							cy={523.33}
 							r={1.75}
 							transform="rotate(-59.93 -61.41 690.432)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={642.29}
 							cy={537.7}
 							r={1.75}
 							transform="rotate(-44.94 -216.855 870.944)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={656.61}
 							cy={556.4}
 							r={1.75}
 							transform="rotate(-29.95 -538.932 1210.874)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={665.6}
 							cy={578.18}
 							r={1.75}
 							transform="rotate(-15 -1508.86 2158.635)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={668.65}
 							cy={601.55}
 							r={1.75}
 							transform="rotate(-89.94 170.418 590.28)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={665.55}
 							cy={624.9}
 							r={1.75}
 							transform="rotate(-74.94 90.034 687.462)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={656.51}
 							cy={646.66}
 							r={1.75}
 							transform="rotate(-59.92 -28.602 813.847)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={642.14}
 							cy={665.34}
 							r={1.75}
 							transform="rotate(-44.94 -217.008 998.576)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={623.43}
 							cy={679.66}
 							r={1.75}
 							transform="rotate(-29.94 -572.373 1334.473)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={601.65}
 							cy={688.65}
 							r={1.75}
 							transform="matrix(.97 -.26 .26 .97 -643.52 -331.17)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={578.29}
 							cy={691.7}
 							r={1.75}
 							transform="rotate(-89.94 80.058 680.425)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={554.94}
 							cy={688.6}
 							r={1.75}
 							transform="rotate(-75 -20.869 747.504)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={533.18}
 							cy={679.56}
 							r={1.75}
 							transform="rotate(-59.92 -151.88 846.76)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={514.5}
 							cy={665.19}
 							r={1.75}
 							transform="rotate(-44.94 -344.629 998.428)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={500.18}
 							cy={646.49}
 							r={1.75}
 							transform="rotate(-29.94 -695.609 1301.321)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={491.19}
 							cy={624.71}
 							r={1.75}
 							transform="matrix(.97 -.26 .26 .97 -630.69 -361.9)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={488.14}
 							cy={601.34}
 							r={1.75}
 							transform="rotate(-89.94 -10.091 590.07)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={492.26}
 							cy={578.58}
 							r={1.74}
 							transform="rotate(-74.92 -83.393 641.255)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={501.24}
 							cy={556.97}
 							r={1.73}
 							transform="rotate(-59.95 -183.552 723.915)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={543.23}
 							cy={540.06}
 							r={3.47}
 							transform="rotate(-29.93 -652.879 1195.209)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={560.44}
 							cy={532.96}
 							r={3.47}
 							transform="rotate(-14.93 -1626.765 2134.2)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={578.91}
 							cy={530.55}
 							r={3.47}
 							transform="rotate(-89.94 80.684 519.28)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={597.37}
 							cy={533}
 							r={3.47}
 							transform="rotate(-74.93 21.75 595.619)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={614.57}
 							cy={540.14}
 							r={3.47}
 							transform="rotate(-59.95 -70.256 707.074)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={517.01}
 							cy={637.48}
 							r={3.47}
 							transform="rotate(-29.94 -678.724 1292.351)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={509.9}
 							cy={620.27}
 							r={3.47}
 							transform="rotate(-14.92 -1678.43 2222.992)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={507.49}
 							cy={601.8}
 							r={3.47}
 							transform="rotate(-89.94 9.264 590.525)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={509.94}
 							cy={583.34}
 							r={3.47}
 							transform="rotate(-74.93 -65.628 645.96)"
 						/>
 						<circle
-							fill={selected ? '#dd43dd' : '#7fd0df'}
+							fill={selected ? '#F9D230' : '#7fd0df'}
 							cx={517.09}
 							cy={566.15}
 							r={3.47}

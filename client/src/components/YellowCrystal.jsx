@@ -2240,24 +2240,24 @@ export class YellowCrystal extends Component {
 						<path
 							d="M546.88 984.67a82.07 82.07 0 11107.35-44.11 82.16 82.16 0 01-107.35 44.11zM609 835.88a79.18 79.18 0 1042.56 103.57A79.27 79.27 0 00609 835.88z"
 							transform="translate(-487.47 -818.29)"
-							fill={selected ? '#dd43dd' : '#12aac2'}
+							fill={selected ? '#F9D230' : '#12aac2'}
 						/>
 						<path
 							className="prefix__cls-3"
 							d="M549.63 978.08a75.39 75.39 0 01-40.47-98.5l8 3.34a66.63 66.63 0 10123 51.34l8 3.34a75.39 75.39 0 01-98.53 40.48z"
 							transform="translate(-487.47 -818.29)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#F2AD00' : '#7fd0df'}
 						/>
 						<path
 							d="M554.53 966.33a62.55 62.55 0 01-33.59-81.73l2.67 1.11a59.59 59.59 0 00110 45.92l2.67 1.11a62.55 62.55 0 01-81.75 33.59z"
 							transform="translate(-487.47 -818.29)"
-							fill={selected ? '#dd43dd' : '#12aac2'}
+							fill={selected ? '#F9D230' : '#12aac2'}
 						/>
 						<path
 							className="prefix__cls-3"
 							d="M556.84 960.81a56.58 56.58 0 01-30.38-73.92l1.33.56a55.07 55.07 0 10101.63 42.43l1.33.56a56.58 56.58 0 01-73.91 30.37z"
 							transform="translate(-487.47 -818.29)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#F2AD00' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2265,7 +2265,7 @@ export class YellowCrystal extends Component {
 							cy={843.11}
 							r={3.47}
 							transform="rotate(-67.34 -251.962 799.841)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2273,7 +2273,7 @@ export class YellowCrystal extends Component {
 							cy={826.21}
 							r={1.74}
 							transform="rotate(-67.34 -244.905 782.935)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2281,7 +2281,7 @@ export class YellowCrystal extends Component {
 							cy={836.92}
 							r={1.75}
 							transform="rotate(-52.33 -442.612 923.883)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2289,7 +2289,7 @@ export class YellowCrystal extends Component {
 							cy={853.63}
 							r={1.75}
 							transform="rotate(-37.35 -803.633 1165.685)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2297,7 +2297,7 @@ export class YellowCrystal extends Component {
 							cy={874.07}
 							r={1.75}
 							transform="rotate(-22.34 -1653.619 1699.194)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2305,7 +2305,7 @@ export class YellowCrystal extends Component {
 							cy={896.84}
 							r={1.75}
 							transform="rotate(-7.35 -5945.356 4282.713)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2313,7 +2313,7 @@ export class YellowCrystal extends Component {
 							cy={920.4}
 							r={1.75}
 							transform="rotate(-82.33 -43.463 790.026)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2321,7 +2321,7 @@ export class YellowCrystal extends Component {
 							cy={943.15}
 							r={1.75}
 							transform="rotate(-67.34 -195.928 899.869)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2329,7 +2329,7 @@ export class YellowCrystal extends Component {
 							cy={963.52}
 							r={1.75}
 							transform="rotate(-52.35 -425.942 1050.258)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2337,7 +2337,7 @@ export class YellowCrystal extends Component {
 							cy={980.13}
 							r={1.75}
 							transform="rotate(-37.34 -821.213 1292.228)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2345,7 +2345,7 @@ export class YellowCrystal extends Component {
 							cy={991.85}
 							r={1.75}
 							transform="rotate(-22.34 -1702.79 1816.976)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2353,7 +2353,7 @@ export class YellowCrystal extends Component {
 							cy={997.89}
 							r={1.75}
 							transform="rotate(-7.34 -6032.043 4389.037)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2361,7 +2361,7 @@ export class YellowCrystal extends Component {
 							cy={997.82}
 							r={1.75}
 							transform="rotate(-82.32 -145.026 867.497)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2369,7 +2369,7 @@ export class YellowCrystal extends Component {
 							cy={991.66}
 							r={1.75}
 							transform="rotate(-67.34 -313.99 948.376)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2377,7 +2377,7 @@ export class YellowCrystal extends Component {
 							cy={979.82}
 							r={1.75}
 							transform="rotate(-52.34 -552.69 1066.708)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2385,7 +2385,7 @@ export class YellowCrystal extends Component {
 							cy={963.11}
 							r={1.75}
 							transform="rotate(-37.33 -947.876 1275.589)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2393,7 +2393,7 @@ export class YellowCrystal extends Component {
 							cy={942.67}
 							r={1.75}
 							transform="rotate(-22.34 -1820.573 1767.805)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2401,7 +2401,7 @@ export class YellowCrystal extends Component {
 							cy={919.9}
 							r={1.75}
 							transform="rotate(-7.34 -6133.24 4310.769)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2409,7 +2409,7 @@ export class YellowCrystal extends Component {
 							cy={896.34}
 							r={1.75}
 							transform="rotate(-82.33 -222.448 765.935)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2417,7 +2417,7 @@ export class YellowCrystal extends Component {
 							cy={873.59}
 							r={1.75}
 							transform="rotate(-67.34 -362.497 830.313)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2425,7 +2425,7 @@ export class YellowCrystal extends Component {
 							cy={853.22}
 							r={1.75}
 							transform="rotate(-52.34 -568.965 940.122)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2433,7 +2433,7 @@ export class YellowCrystal extends Component {
 							cy={836.61}
 							r={1.75}
 							transform="rotate(-37.32 -931.209 1149.274)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2441,7 +2441,7 @@ export class YellowCrystal extends Component {
 							cy={824.89}
 							r={1.75}
 							transform="rotate(-22.34 -1771.376 1650.027)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2449,7 +2449,7 @@ export class YellowCrystal extends Component {
 							cy={820.02}
 							r={1.74}
 							transform="rotate(-7.32 -6072.832 4221.435)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2457,7 +2457,7 @@ export class YellowCrystal extends Component {
 							cy={820.09}
 							r={1.74}
 							transform="rotate(-82.36 -121.026 689.545)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2465,7 +2465,7 @@ export class YellowCrystal extends Component {
 							cy={852.47}
 							r={3.47}
 							transform="rotate(-52.33 -454.339 939.472)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2473,7 +2473,7 @@ export class YellowCrystal extends Component {
 							cy={865.67}
 							r={3.47}
 							transform="rotate(-37.33 -819.687 1178.078)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2481,7 +2481,7 @@ export class YellowCrystal extends Component {
 							cy={881.83}
 							r={3.47}
 							transform="matrix(.92 -.38 .38 .92 -774.26 -507.16)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2489,7 +2489,7 @@ export class YellowCrystal extends Component {
 							cy={899.83}
 							r={3.47}
 							transform="rotate(-7.33 -5982.143 4295.702)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2497,7 +2497,7 @@ export class YellowCrystal extends Component {
 							cy={918.45}
 							r={3.47}
 							transform="rotate(-82.35 -62.27 787.983)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 
 						<circle
@@ -2506,7 +2506,7 @@ export class YellowCrystal extends Component {
 							cy={865.35}
 							r={3.47}
 							transform="rotate(-52.35 -554.178 952.052)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2514,7 +2514,7 @@ export class YellowCrystal extends Component {
 							cy={852.22}
 							r={3.47}
 							transform="rotate(-37.33 -919.768 1164.554)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2522,7 +2522,7 @@ export class YellowCrystal extends Component {
 							cy={842.96}
 							r={3.47}
 							transform="matrix(.92 -.38 .38 .92 -763.47 -542.47)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2530,7 +2530,7 @@ export class YellowCrystal extends Component {
 							cy={838.19}
 							r={3.47}
 							transform="rotate(-7.33 -6061.619 4234.491)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<circle
 							className="prefix__cls-3"
@@ -2538,7 +2538,7 @@ export class YellowCrystal extends Component {
 							cy={838.24}
 							r={3.47}
 							transform="rotate(-82.34 -123.566 707.81)"
-							fill={selected ? '#9500c6' : '#7fd0df'}
+							fill={selected ? '#f9d230' : '#7fd0df'}
 						/>
 						<path
 							fill="url(#prefix__linear-gradient)"

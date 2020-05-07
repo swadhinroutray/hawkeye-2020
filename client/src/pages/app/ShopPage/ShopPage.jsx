@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import ShopItem from './ShopItem';
 import Details1 from '../../../components/Details1';
@@ -13,6 +13,7 @@ import { ReactComponent as Map } from '../../../assets/Map.svg';
 
 import buy from '../../../assets/buybuttonbg.svg';
 import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
+import { hawkLogo } from '../../../assets/landing-assets';
 
 const size = {
 	mobileS: '320px',
@@ -34,28 +35,40 @@ const device = {
 	desktop: `(min-width: ${size.desktop})`,
 	desktopL: `(min-width: ${size.desktop})`,
 };
-
+const animateDesc = keyframes`
+	
+	0%{
+		height: 0px;
+	}
+	100%{
+		height: fit-content;
+	}
+	`;
 const ShopPageContainer = styled.div`
-	height: 100%;
+	div {
+		user-select: none;
+	}
+	height: 100vh;
 	text-align: center;
 	color: #3abdb7;
 	letter-spacing: 0.1em;
-	padding: 0 40px 0;
 	.header {
-		padding: 0;
-		> h1 {
-			display: inline-block;
-			margin: 0.15em auto auto 0.5em;
-			font-size: 36px;
-			font-weight: 600;
-			letter-spacing: 0.15em;
-			text-transform: uppercase;
-			color: #fff;
+		margin-top: 10px;
+		margin: 0 10px;
+		display: flex;
+		.right {
+			z-index: 1000;
 		}
+		justify-content: space-between;
+		img {
+			height: 45px;
+		}
+		padding: 0;
+
 		.icon {
 			all: unset;
 			display: inline-block;
-			width: 35px;
+			width: 45px;
 			margin: 5px;
 		}
 	}
@@ -66,11 +79,15 @@ const ShopPageContainer = styled.div`
 		font-weight: 300;
 		color: #fff;
 	}
+	.wrapper {
+		padding: 0 30px 0;
+	}
 	h3 {
 		margin: 0.3em;
 		color: #fff;
 		font-weight: 100;
 		font-size: 21px;
+		box-sizing: border-box;
 	}
 	.reset {
 		background-image: url(${buy});
@@ -79,32 +96,33 @@ const ShopPageContainer = styled.div`
 		width: fit-content;
 		text-align: center;
 		letter-spacing: 3px;
-		padding: 10px 50px 15px 30px;
+		padding: 10px 50px 5px 30px;
 		margin: 10px auto;
+		color: #fff;
 		:hover {
 			cursor: pointer;
 		}
+		div {
+			font-size: 13px;
+		}
 	}
 	.reset-blocked {
-		opacity: 30%;
+		opacity: 50%;
+		color: ##3abdb7 !important;
 	}
-	.back {
-		display: block;
-		width: 45px;
-		margin: 0.5em auto;
-	}
+
 	.filler {
 		display: none;
 	}
 	@media ${device.mobileS} and (max-width: ${size.mobileM}) {
-		padding: 0 40px 0;
 		letter-spacing: 0;
+		margin: 10px auto;
 		.header {
-			> h1 {
-				margin: 0.15em auto 0.5em;
-				vertical-align: top;
-				font-size: 30px;
-				letter-spacing: 0;
+			.icon {
+				width: 35px;
+			}
+			img {
+				width: 35px;
 			}
 		}
 		.subhead {
@@ -115,25 +133,20 @@ const ShopPageContainer = styled.div`
 			margin: 0.1em;
 			font-size: 20px;
 		}
-		.back {
-			display: block;
-			width: 35px;
-			margin: 0.5em auto;
-		}
 	}
 	@media ${device.tablet} {
-		max-width: 70%;
+		max-width: 80%;
 		margin: 0 auto;
 		.header {
-			padding: 20px;
-			> h1 {
-				margin: 0.4em auto;
-				font-size: 48px;
-				vertical-align: center;
-			}
+			padding: 20px 0;
+			margin: 0;
+
 			.icon {
-				width: 55px;
+				width: 8vh;
 				margin: auto 15px;
+			}
+			img {
+				height: 8vh;
 			}
 		}
 		.subhead {
@@ -143,40 +156,39 @@ const ShopPageContainer = styled.div`
 			margin: 0.3em;
 			font-size: 26px;
 		}
-		.back {
-			width: 55px;
-		}
 	}
 	@media ${device.laptop} {
-		max-width: 95%;
+		max-width: 100%;
 		padding: 0;
 		letter-spacing: 7px;
+
 		.wrapper {
 			display: flex;
+			transform: translateY(-80px);
+		}
+		.reset {
+			transform: translateY(-80px);
 		}
 		.filler {
 			display: block;
 			margin: 0 1em;
 			flex: 1;
-			align-self: center;
+			align-self: start;
+			margin-top: 60px;
 		}
 		.item-container {
 			flex: 1.25;
 		}
 		.header {
 			padding: 0;
-			h1 {
-				transform: translateX(30%);
-			}
-			.icon {
-				cursor: pointer;
-				transform: translateX(30vw);
-			}
+			margin: 20px;
 		}
 		.subhead {
 			font-size: 46px;
+			transform: translateY(-80px);
 		}
 		h3 {
+			transform: translateY(-80px);
 			font-size: 38px;
 		}
 		.buy,
@@ -188,8 +200,9 @@ const ShopPageContainer = styled.div`
 		max-width: 96%;
 		letter-spacing: 15px;
 		.filler {
-			flex: 1.125;
-			align-self: center;
+			flex: 1;
+			align-self: start;
+			margin-top: 60px;
 		}
 		.item-container {
 			flex: 1.125;
@@ -236,18 +249,18 @@ const ItemsContainer = styled.div`
 		margin-bottom: 15px;
 		.title {
 			margin-top: 0.4em;
-			font-size: 28px;
+			font-size: 26px;
 		}
 	}
 	@media ${device.laptop} {
-		margin: 0 1.5em 2em;
+		margin: 0 1.5em 1em 0;
 		padding: 1em;
 		.grid {
 			padding: 0 5%;
 		}
 	}
 	@media ${device.desktop} {
-		margin: 0 10px 40px;
+		margin: 0 10px 10px;
 		letter-spacing: 10px;
 		.grid {
 			grid-row-gap: 30px;
@@ -255,28 +268,37 @@ const ItemsContainer = styled.div`
 		}
 		.title {
 			margin: 0.7em 0;
-			font-size: 36px;
+			font-size: 32px;
 		}
 	}
 `;
 const ItemDescription = styled.div`
 	background: url(${DescHud}) no-repeat;
+	transition: height 1s linear;
 	background-size: cover;
+	box-sizing: border-box;
 	text-align: left;
 	padding: 7px 20px;
+
 	.crystal-name {
 		font-size: 18px;
+		color: #fff;
 		margin-bottom: 10px;
 	}
 	.desc {
 		font-size: 12px;
 		margin-bottom: 10px;
 	}
+
+	.white-txt {
+		color: #fff;
+	}
 	.status {
 		font-size: 14px;
 		font-weight: bold;
 		.cost,
 		.left {
+			color: #f2ad00;
 			padding-right: 25px;
 			display: inline-block;
 		}
@@ -288,14 +310,17 @@ const ItemDescription = styled.div`
 		width: fit-content;
 		text-align: center;
 		padding: 7px 30px;
+		color: #fff;
+		user-select: none;
 		margin: 10px auto;
 	}
 	.buy-blocked {
-		opacity: 30%;
+		opacity: 40%;
+		color: #3abdb7 !important;
 	}
 	.message {
 		margin-top: 2px;
-		font-size: 0.6em;
+		font-size: 0.7em;
 		min-height: 1.1em;
 		user-select: none;
 	}
@@ -339,11 +364,11 @@ const ItemDescription = styled.div`
 	@media ${device.laptop} {
 		flex: 0.85;
 		height: fit-content;
-		align-self: center;
-		padding: 10px 35px;
+		align-self: start;
+		margin-top: 60px;
+		padding: 10px 15px;
 		margin-right: 0.5em;
 		letter-spacing: 3px;
-		transform: translate(0, -10%);
 		.status {
 			.cost,
 			.left {
@@ -376,20 +401,25 @@ class ShopPage extends Component {
 				<Details1 />
 				<Details2 />
 				<div className="header">
-					<h1>HAWKEYE</h1>
+					<img src={hawkLogo} alt="hawk logo" />
 
-					<Link className="icon" to="">
-						<RulesIcon />
-					</Link>
-					<Link
-						className="icon"
-						onClick={() => {
-							this.props.loginStore.logout();
-						}}
-						to=""
-					>
-						<LogoutIcon />
-					</Link>
+					<div className="right">
+						<Link className="icon" to="/regions">
+							<BackButton />
+						</Link>
+						<Link className="icon" to="">
+							<RulesIcon />
+						</Link>
+						<Link
+							className="icon"
+							onClick={() => {
+								this.props.loginStore.logout();
+							}}
+							to=""
+						>
+							<LogoutIcon />
+						</Link>
+					</div>
 				</div>
 				<h1 className="subhead">Shop</h1>
 				<h3>Your Points: {this.props.shopStore.points}</h3>
@@ -409,13 +439,6 @@ class ShopPage extends Component {
 								<ShopItem number={3} />
 							</div>
 						</ItemsContainer>
-						{store.points > store.resetMinimumPointsReq ? (
-							<div className="reset" onClick={store.resetStore.bind(store)}>
-								<span>Reset Store</span>
-							</div>
-						) : (
-							<div className="reset reset-blocked">Reset Store</div>
-						)}
 					</div>
 					<ItemDescription>
 						<div className="crystal-name">
@@ -426,10 +449,16 @@ class ShopPage extends Component {
 						</div>
 						<div className="status">
 							<span className="cost">
-								Cost: {store.itemCost[store.getSelected]} Points
+								Cost:{' '}
+								<span className="white-txt">
+									{store.itemCost[store.getSelected]} Points
+								</span>
 							</span>
 							<span className="left">
-								Left: {store.toBuy[store.getSelected]}
+								Left:{' '}
+								<span className="white-txt">
+									{store.toBuy[store.getSelected]}
+								</span>
 							</span>
 						</div>
 						{store.toBuy[store.getSelected] !== 0 ? (
@@ -442,9 +471,18 @@ class ShopPage extends Component {
 						<span className="message">{store.message}</span>
 					</ItemDescription>
 				</div>
-				<Link className="back" to="/regions">
-					<BackButton />
-				</Link>
+				{store.points > store.resetMinimumPointsReq ? (
+					<div className="reset" onClick={store.resetStore.bind(store)}>
+						<span>Reset Store</span>
+						<div>cost: {store.resetPoints}</div>
+					</div>
+				) : (
+					<div className="reset reset-blocked">
+						<span>Reset Store</span>
+						<div>cost: {store.resetPoints}</div>
+					</div>
+				)}
+
 				{this.props.loginStore.profileSetError &&
 				!this.props.loginStore.loggedIn ? (
 					<Redirect

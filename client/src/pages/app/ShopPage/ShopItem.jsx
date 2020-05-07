@@ -29,10 +29,10 @@ const device = {
 
 const ShopItemContainer = styled.div`
 	justify-self: center;
-	margin: 10px;
+	margin: 10px 0;
 	.image {
 		width: 80px;
-		margin:0 auto;
+		margin: 0 auto;
 	}
 	.content {
 		font-size: 15px;
@@ -40,20 +40,24 @@ const ShopItemContainer = styled.div`
 	.subtext {
 		font-size: 13px;
 	}
+	.selected {
+		transition: 0.5s linear;
+		color: #f2ad00;
+	}
 	@media ${device.mobileS} and (max-width: ${size.mobileM}) {
 		.image {
 			width: 70px;
 		}
 	}
 	@media ${device.tablet} {
-		margin: 10px auto;
+		margin: 5px 0;
 
 		.image {
 			margin: 10px auto;
 			width: 90px;
 		}
 		.content {
-			font-size: 22px;
+			font-size: 18px;
 		}
 		.subtext {
 			font-size: 18px;
@@ -94,14 +98,23 @@ class ShopItem extends Component {
 								selected={shopStore.getSelected === number ? true : false}
 							/>
 						) : (
-										<RedCrystal
-											selected={shopStore.getSelected === number ? true : false}
-										/>
-									)}
+							<RedCrystal
+								selected={shopStore.getSelected === number ? true : false}
+							/>
+						)}
 					</div>
-					<div className="content">
+					<div
+						className={
+							'content ' + (shopStore.getSelected === number ? 'selected' : '')
+						}
+					>
 						{shopStore.elixirName[number]}
-						<div className="subtext">
+						<div
+							className={
+								'subtext ' +
+								(shopStore.getSelected === number ? 'selected' : '')
+							}
+						>
 							Owned: {shopStore.owned[number]}
 						</div>
 					</div>
