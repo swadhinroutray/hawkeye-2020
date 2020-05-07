@@ -1,6 +1,7 @@
 import { decorate, observable, action } from 'mobx';
 import { get, post } from '../../utils/api';
-
+import {toast} from 'react-toastify';
+import {faTimes} from '@fortawesome/free-solid-svg-icons'
 const hawkResponses = {
 	Correct: `Hawk approves!`,
 	Wrong: `Hawk disapproves.`,
@@ -53,10 +54,27 @@ class GameplayModel {
 			this.getTries();
 		} else if (res.data === 'Region Locked') {
 			this.locked = true;
-			alert('region locked');
+			toast('region locked', {
+				position: "top-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				closeButton:faTimes,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				});
 		} else {
 			this.locked = true;
-			alert('all questions answered');
+			toast('all questions answered', {
+				position: "top-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				});
 		}
 	
 	};
@@ -194,9 +212,25 @@ class GameplayModel {
 		if (res.success) {
 			this.getQuestion();
 			
-			alert('Elixir Applied Successfully!');
+		toast('Elixir Applied Successfully!', {
+			position: "top-right",
+			autoClose: 4000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			});
 		} else {
-			alert('Cannot Skip Question');
+			toast('Cannot Skip Question', {
+				position: "top-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				});
 		}
 		
 		
@@ -218,9 +252,25 @@ class GameplayModel {
 		if (res.success) {
 			this.getQuestion();
 			
-			alert('Elixir Applied Successfully!');
+			toast('Elixir Applied Successfully!', {
+				position: "top-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				});
 		} else {
-			alert('Cannot Apply Elixir');
+			toast('Cannot Apply Elixir', {
+				position: "top-right",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				});
 		}
 		
 		

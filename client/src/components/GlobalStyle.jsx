@@ -5,6 +5,16 @@ import nwoff from '../assets/fonts/nidsans_webfont.woff';
 import nwoff2 from '../assets/fonts/nidsans_webfont.woff2';
 import nttf from '../assets/fonts/nidsans_webfont.ttf';
 import nsvg from '../assets/fonts/nidsans_webfont.svg';
+
+const size = {
+	mobileS: '320px',
+	mobileM: '375px',
+	mobileL: '425px',
+	tablet: '768px',
+	laptop: '1024px',
+	laptopL: '1440px',
+	desktop: '1560px',
+};
 const GlobalStyle = createGlobalStyle`
 
 
@@ -42,6 +52,37 @@ const GlobalStyle = createGlobalStyle`
 	*{
 		color: #3abdb7;
 	}
+	
+	.Toastify__toast-body {
+		color:#276C63;
+		font-family: 'nidus_sansregular';
+		
+}
+.Toastify__toast>button{
+	color:#276C63;
+}
+.Toastify__progress-bar--default{
+	background:#276C63;
+}
+
+.Toastify__close-button--default{
+	opacity:1;
+	color:#276C63;
+}
+path{
+	color:#276C63;
+}
+.Toastify__close-button>*{
+	color:#276C63;
+	opacity:1;
+}	
+
+.Toastify__toast {
+	
+	background:white;
+}
+
 	`;
+	
 
 export { GlobalStyle };

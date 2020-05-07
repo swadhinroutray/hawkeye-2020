@@ -16,10 +16,20 @@ import AddHints from '../pages/app/Admin/AddHints';
 import { PrivateRoute } from './PrivateRoute';
 import { AdminRoute } from './AdminRoute';
 import Leaderboard from '../pages/app/Admin/Leaderboard';
-
+import { ToastContainer } from 'react-toastify';
 const AppRouter = () => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
+			<ToastContainer 
+			 position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover/>
 			<Switch>
 				<Route path={'/register'} component={RegisterPage}></Route>
 				<Route path={'/login'} component={LoginPage}></Route>

@@ -5,6 +5,7 @@ import {
 	chainValidations,
 } from '../../utils/validation';
 import { post } from '../../utils/api';
+import {toast} from 'react-toastify';
 class RegisterModel {
 	name = {
 		value: '',
@@ -133,7 +134,15 @@ class RegisterModel {
 			if (res.success) {
 				this.setMessage('Registered successfully!');
 				this.successful = true;
-				alert('Registered successfully!');
+				toast('Registered Successfully', {
+					position: "top-right",
+					autoClose: 4000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					});
 				return;
 			}
 			if (res.message === 'CONFLICT') {
