@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { leftBar, rightBar } from '../../../assets/landing-assets/index';
 import { Link } from 'react-router-dom';
 import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
+import ShopIcon from '../../../assets/ShopIcon.svg'
 const Game = inject('loginStore')(
 	observer(({ loginStore, match }) => {
 		if (match.params.id < 0 || match.params.id > 4) {
@@ -57,12 +58,17 @@ const Game = inject('loginStore')(
 						<Link className="back" to="/regions">
 					<BackButton />
 				</Link>
-							<div className="navbar-btn" onClick={() => setrules(true)}>
+				<div className="navbar-btn" >
+				<a href ="/shop"><img id="shop-button" src={ShopIcon} alt="shop"/></a>
+				</div>
+				<div className="navbar-btn" onClick={() => setrules(true)}>
 								<img id="rule-button" src={RulesIcon} alt="Rules" />
 							</div>
+							
 							<div className="navbar-btn" id="logout" onClick={() => loginStore.logout()}>
 								<img src={LogoutIcon} alt="logout" />
 							</div>
+							
 						</div>
 
 						{loginStore.profileSetError && !loginStore.loggedIn ? (
@@ -184,14 +190,14 @@ text-align:center;
 	.inventory-item {
 		font-size: 18px;
 		font-family: 'Futura PT Medium';
-		margin-top: 10px;
+		margin: 10px;
 		display: flex;
 	}
 	.crystal svg {
 		font-size: 5rem !important;
 	}
 	.Hint {
-		font-size: 13px;
+		font-size: 16px;
 		text-align: center;
 	}
 	.inventory-item-content button {
@@ -278,15 +284,15 @@ text-align:center;
 		border-left: 2px solid #7fd1e0;
 		z-index: 100;
 		position: fixed;
-		display: flex;
-		justify-content: space-between;
+		
 
 		font-family: 'Futura PT Medium';
 		bottom: 0;
 		min-height: 20vh;
 		left: 0;
 		right: 0;
-		background: #322264;
+		background: rgb(50, 34, 100,0.5);
+		
 		animation-name: fadeInUp;
 		-webkit-animation-name: fadeInUp;
 		animation-duration: 1s;
@@ -319,8 +325,10 @@ text-align:center;
 	.close {
 		font-size: 20px;
 		color: #fff;
-		margin: 1px;
+		
 		text-align: right;
+		position: absolute;top:0;
+		right:1%;
 		:hover {
 			cursor: pointer;
 		}
@@ -380,7 +388,7 @@ text-align:center;
 		overflow: hidden;
 		overflow-y: scroll;
 		font-family: 'Futura PT Medium';
-		font-size: 15px;
+		font-size: 16px;
 		overflow-wrap: break-word;
 		color: #fff;
 	}
@@ -527,10 +535,7 @@ text-align:center;
 		right: 2%;
 		font-size: 30px;
 	}
-	.inventory-items {
-		display: flex;
-		flex-direction: column;
-	}
+	
 
 	.Rules::-webkit-scrollbar {
 		display: none;
@@ -544,13 +549,18 @@ text-align:center;
 			transform:scale(1.1);
 		}
 	}
+	.inventory-items{
+		
+		display:flex;
+		flex-wrap:wrap;
+	}
 	
 	@media (min-width: 1181px) {
 		.Navbar{
 			position:absolute;
 		}
 		#Objects {
-		margin: 1vh 20px 0 0;
+		
 		width: 50px;
 		height: 70px;
 	}
