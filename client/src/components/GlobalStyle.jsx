@@ -48,6 +48,7 @@ const GlobalStyle = createGlobalStyle`
 		background-image: url(${bg});
 		background-repeat: no-repeat;
 		background-size: cover;
+
 	}
 	*{
 		color: #3abdb7;

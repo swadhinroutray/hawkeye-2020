@@ -5,6 +5,8 @@ import store from '../../models/app/LandingPageModel';
 import GameplayModel from '../../models/app/GameplayModel';
 import LoginStore from '../../models/app/LoginModel';
 import { Redirect } from 'react-router-dom';
+import Details1 from '../../components/Details1';
+import Details2 from '../../components/Details2';
 import {
 	RegionInfo,
 	Header,
@@ -22,11 +24,11 @@ export const LandingPage = observer(() => {
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={store}>
 				<Page>
+					<Details1 />
+					<Details2 />
 					<Header />
 					<Wrapper>
 						<RegionSelector>
-							<LeftBar src={leftBar} />
-							<RightBar src={rightBar} />
 							<h5>WELCOME {LoginStore.profile.username?.toUpperCase()}</h5>
 							<h4>SELECT YOUR REGION</h4>
 							<Hologram LoginStore={LoginStore} />
@@ -201,17 +203,4 @@ const Year = styled.div`
 	@media (min-width: 1024px) {
 		width: 60%;
 	}
-`;
-
-const LeftBar = styled.img`
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 4px;
-`;
-const RightBar = styled.img`
-	height: 100%;
-	position: absolute;
-	top: 0;
-	right: 4px;
 `;

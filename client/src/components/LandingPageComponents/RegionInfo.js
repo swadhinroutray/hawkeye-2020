@@ -40,7 +40,9 @@ export const RegionInfo = inject('LandingStore')(
 					</span>
 				) : (
 					<span>
-						<Start>Locked</Start>
+						<Start>
+							<span className="locked">Locked</span>
+						</Start>
 					</span>
 				)}
 			</InfoWrapper>
@@ -112,4 +114,7 @@ const Start = styled.div`
 	margin: 8px auto 15px auto;
 	background: url(${startButton}) no-repeat center center;
 	background-size: 100% 100%;
+	.locked {
+		color: #ff6666;
+	}
 `;
