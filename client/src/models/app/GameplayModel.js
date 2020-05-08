@@ -199,6 +199,7 @@ class GameplayModel {
 	}
 	useSkipQuestionControl = res => {
 		if (res.success) {
+			this.message = '';
 			this.getQuestion();
 
 			toast('Elixir Applied Successfully!', {

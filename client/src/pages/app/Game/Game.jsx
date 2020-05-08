@@ -89,6 +89,7 @@ const Game = inject('loginStore')(
 					{match.params.id === '2' && <div id="heading">PRIPYAT</div>}
 					{match.params.id === '3' && <div id="heading">THE ANTHROPOCENE</div>}
 					{match.params.id === '4' && <div id="heading">MEDUSAE FOSSAE</div>}
+					<div id="points"  style={{fontSize:"0.9rem",color:"white"}}>Current Points:{GameplayModel.points}</div>
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
