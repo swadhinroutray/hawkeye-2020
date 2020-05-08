@@ -1,20 +1,46 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
+const size = {
+	mobileS: '320px',
+	mobileM: '375px',
+	mobileL: '425px',
+	tablet: '768px',
+	laptop: '1024px',
+	laptopL: '1440px',
+	desktop: '1560px',
+};
+
+const device = {
+	mobileS: `(min-width: ${size.mobileS})`,
+	mobileM: `(min-width: ${size.mobileM})`,
+	mobileL: `(min-width: ${size.mobileL})`,
+	tablet: `(min-width: ${size.tablet})`,
+	laptop: `(min-width: ${size.laptop})`,
+	laptopL: `(min-width: ${size.laptopL})`,
+	desktop: `(min-width: ${size.desktop})`,
+	desktopL: `(min-width: ${size.desktop})`,
+};
+
+const SVG = styled.svg`
+	height: 60%;
+	position: absolute;
+	right: 1%;
+	top: 20%;
+	opacity: 59%;
+	@media ${device.tablet} {
+		height: 70%;
+		top: 15%;
+	}
+`;
 export class Details1 extends Component {
 	render() {
 		return (
-			<svg
+			<SVG
 				id="Viewport"
-				xmlns="http://www.w3.org/2000/svg"
+				xmlns="http://www.w3.org/2000/SVG"
 				viewBox="0 0 27.83 1452.51"
 				preserveAspectRatio="none"
-				style={{
-					height: '80%',
-					position: 'absolute',
-					right: '1%',
-					top: '10%',
-					opacity: '59%',
-				}}
 			>
 				<defs>
 					<style>{'.cls-1{fill:#757dbc}'}</style>
@@ -1552,7 +1578,7 @@ export class Details1 extends Component {
 						transform="translate(-788.92 -232.24)"
 					/>
 				</g>
-			</svg>
+			</SVG>
 		);
 	}
 }
