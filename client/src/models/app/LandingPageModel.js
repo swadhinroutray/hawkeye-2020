@@ -10,9 +10,7 @@ class Region {
 	}
 }
 class LandingPageModel {
-	// currentRegion = Math.floor(Math.random() * 4);
-	currentRegion = 4;
-
+	currentRegion = Math.floor(Math.random() * 4);
 	regionInfo = [];
 
 	constructor() {
