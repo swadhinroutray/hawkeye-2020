@@ -3,7 +3,6 @@ package hawkeye
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"math/rand"
 	"net/http"
 	"os"
@@ -233,10 +232,10 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 		return err
 	}
 
-	client := &http.Client{}
+	// client := &http.Client{}
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bytesRepresentation))
-	fmt.Println("%v", req)
+
 	if err != nil {
 		app.log.Infof("ERROR %v", err.Error())
 		app.sendResponse(w, false, InternalServerError, "Could not send Email")
@@ -247,8 +246,8 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 	req.Header.Set("Authorization", authKey)
 	req.Header.Set("Content-Type", "application/json")
 
-	res, err := client.Do(req)
-	fmt.Println("%v", res)
+	// res, err := client.Do(req)
+
 	if err != nil {
 		app.log.Infof("ERROR %v", err.Error())
 		app.sendResponse(w, false, InternalServerError, "Could not send Email")
