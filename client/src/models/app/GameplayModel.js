@@ -21,7 +21,7 @@ class GameplayModel {
 	itembool = [];
 	inventory = [];
 	locked = false;
-
+	hangman='';
 	points = 0;
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
@@ -40,6 +40,7 @@ class GameplayModel {
 		console.log(res);
 		if (res.success) {
 			if (res.data.question) {
+				this.hangman='';
 				this.questionId = res.data.id;
 				this.question = res.data.question;
 				this.level = res.data.level;
@@ -170,7 +171,7 @@ class GameplayModel {
 		);
 	};
 	getHiddenHintsControl = res => {
-		console.log(res)
+		
 		if (res.success) {
 			if (res.data && res.data.length > 0) {
 				if (this.hints[0] === 'No hints yet') {
@@ -178,8 +179,14 @@ class GameplayModel {
 				}
 
 				res.data.forEach(hint => {
-					this.hints.push(hint.hint);
+					
+					if(hint.hintnum===2){
+						this.hangman=hint.hint;
+					}else{
+						this.hints.push(hint.hint);
+					}
 				});
+				
 			}
 		}
 	};
@@ -291,7 +298,7 @@ decorate(GameplayModel, {
 	stats: observable,
 	inventory: observable,
 	locked: observable,
-
+	hangman:observable,
 	getQuestion: action,
 	submit: action,
 	getTries: action,

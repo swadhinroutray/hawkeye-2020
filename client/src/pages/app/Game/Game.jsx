@@ -232,7 +232,7 @@ const GameWrapper = styled.div`
 	}
 
 	.QuestionWrapper {
-		height: 110px;
+		height: 100px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

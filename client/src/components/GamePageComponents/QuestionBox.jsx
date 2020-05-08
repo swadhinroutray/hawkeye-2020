@@ -9,7 +9,9 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 			useEffect(() => {
 				if(gameplayStore.message==='Hawk approves!')
 					setTimeout(()=>{gameplayStore.message=''},3000)
-				
+				if(gameplayStore.hints){
+					console.log(gameplayStore.hints.filter(hint=>hint.hintnum===2)[0])
+				}
 			})
 			return (
 			<div className="QuestionBox">
@@ -21,6 +23,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 				<div className="AnswerWrapper">
 					<div className="AnswerField">
 						<input
+						style={{marginBottom:0}}
 						autoComplete="off"
 							name="answer"
 							type="text"
@@ -35,9 +38,9 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 						></input>
 						{(gameplayStore.locked)&&(()=>{gameplayStore.locked=false; return true}) ? (<Redirect to="/login" />) : null}
 					</div>
-					
+						<div style={{color:"white",minHeight:"2px",marginBottom:"10px",marginTop:"10px",overflowWrap:"break-word"}}>{gameplayStore.hangman}</div>
 					<button style={{color:"white"}}  onClick={() => {getinventory(false);loginStore.getProfile();gameplayStore.submit(match.params.id)}}>SUBMIT</button>
-					<div className="AnswerStatus">
+					<div style={{marginTop:"2px"}} className="AnswerStatus">
 						{gameplayStore.message==='Hawk approves!'&&<div style={{color:"#90ee90"}} >{gameplayStore.message}</div>}
 						{gameplayStore.message==='Hawk disapproves.'&&<div style={{color:"#ff6666"}} >{gameplayStore.message}</div>}
 						{gameplayStore.message===`Hawk thinks you're close.`&&<div style={{color:"yellow"}} >{gameplayStore.message}</div>}
