@@ -44,6 +44,7 @@ func (app *App) mountRoutes() {
 	elixir.HandleFunc("/regionmultiply", app.withUser(app.regionMultipler)).Methods("POST")
 	elixir.HandleFunc("/hangman", app.withUser(app.hangMan)).Methods("POST")
 	elixir.HandleFunc("/perks/{region}/{level}", app.withUser(app.getHiddenHints)).Methods("GET")
+	elixir.HandleFunc("/perks/hangman/{region}/{level}", app.withUser(app.getHangmanHint)).Methods("GET")
 	elixir.HandleFunc("/skipquestion", app.withUser(app.skipQuestion)).Methods("POST")
 
 	//Shop Routes

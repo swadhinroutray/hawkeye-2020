@@ -192,6 +192,43 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (app *App) getHangmanHint(w http.ResponseWriter, r *http.Request) {
+	currUser := app.getUserTest(r)
+
+	params := mux.Vars(r)
+
+	level, err1 := strconv.Atoi(params["level"])
+	region, err2 := strconv.Atoi(params["region"])
+
+	if err1 != nil || err2 != nil {
+		app.sendResponse(w, false, InternalServerError, nil)
+		return
+	}
+
+	var hiddenHint []Hint
+
+	cursor, err := app.db.Collection("hiddenhints").Aggregate(r.Context(),
+		bson.A{
+			bson.M{"$match": bson.M{"users": currUser.ID.Hex(), "region": region, "level": level, "hintnum": 2}},
+		},
+	)
+
+	if err != nil {
+		app.log.Errorf("Internal Server Error: %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	if err := cursor.All(r.Context(), &hiddenHint); err != nil {
+		app.log.Errorf("Internal Server Error: %s", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+		return
+	}
+
+	app.sendResponse(w, true, Success, hiddenHint)
+
+}
+
 func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 	var fetchedElixir FetchedElixir
 	json.NewDecoder(r.Body).Decode(&fetchedElixir)
@@ -233,11 +270,12 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
 
-			Level:  fetchedElixir.QuestionNo,
-			Region: fetchedElixir.Region,
-			Hint:   strings.TrimSpace(unlockedHint),
-			Active: false,
-			Users:  []string{currUser.ID.Hex()},
+			Level:   fetchedElixir.QuestionNo,
+			Region:  fetchedElixir.Region,
+			Hint:    strings.TrimSpace(unlockedHint),
+			Active:  false,
+			HintNum: 2,
+			Users:   []string{currUser.ID.Hex()},
 		}
 		_, err1 := app.db.Collection("hiddenhints").InsertOne(r.Context(), newHang)
 		if err1 != nil {
