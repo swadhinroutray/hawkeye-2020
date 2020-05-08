@@ -29,13 +29,13 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/dismissadmin/{id}", app.withAdmin(app.dismissAdmin)).Methods("POST")
 	admin.HandleFunc("/setcount", app.withAdmin(app.keepCount)).Methods("POST")
 	admin.HandleFunc("/editspecifichint/{region}/{lvl}/{id}", app.withAdmin(app.editSpecificHint)).Methods("POST")
+	admin.HandleFunc("/addhawksnestquestion", app.withAdmin(app.addHawkNestQuestion)).Methods("POST")
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
 	questions.HandleFunc("/fetch/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
 	questions.HandleFunc("/answer", app.withUser(app.answerController)).Methods("POST")
 	questions.HandleFunc("/getsubmissions/{region}/{level}", app.withUser(app.fetchSubmissions)).Methods("GET")
-	questions.HandleFunc("/fetch/hawksnest/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
 
 	//Elixir Routes
 	elixir := api.PathPrefix("/elixir").Subrouter()
@@ -57,4 +57,11 @@ func (app *App) mountRoutes() {
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")
 	Users.HandleFunc("/getrank", app.withUser(app.rankController)).Methods("GET")
+
+	// questions.HandleFunc("/fetch/hawksnest/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
+	HawksNest := api.PathPrefix("/hawksnest").Subrouter()
+	HawksNest.HandleFunc("/fetchquestions/{level}", app.withUser(app.fetchHawksNestQuestion)).Methods("GET")
+	HawksNest.HandleFunc("/answer", app.withUser(app.HawksNestAnswerController)).Methods("POST")
+	HawksNest.HandleFunc("/getsubmissions/{level}", app.withUser(app.HawksNestfetchSubmissions)).Methods("GET")
+
 }

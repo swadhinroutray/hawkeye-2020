@@ -111,6 +111,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Access:           0,
 		Banned:           false,
 		AllAnswered:      false,
+		NestLevel:        1,
 		// FirstLogin:       false,
 	}
 	Secret := os.Getenv("RECAPTCHA_SECRET_KEY")
