@@ -319,6 +319,7 @@ decorate(GameplayModel, {
 	points: observable,
 	itembool: observable,
 	getStats: action,
+	clear:action,
 	useRegionMultiplier: action,
 	getHiddenHints: action,
 });
