@@ -227,6 +227,16 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	)
+	if currUser.AnswerCount == (RegionLimit * 5) {
+		app.db.Collection("users").FindOneAndUpdate(r.Context(),
+			bson.M{"_id": currUser.ID},
+			bson.M{
+				"$set": bson.M{
+					"allanswered": true,
+				},
+			},
+		)
+	}
 	app.sendResponse(w, true, Success, "Correct Answer")
 	return
 }
