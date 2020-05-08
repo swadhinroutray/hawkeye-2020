@@ -30,6 +30,7 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/setcount", app.withAdmin(app.keepCount)).Methods("POST")
 	admin.HandleFunc("/editspecifichint/{region}/{lvl}/{id}", app.withAdmin(app.editSpecificHint)).Methods("POST")
 	admin.HandleFunc("/addhawksnestquestion", app.withAdmin(app.addHawkNestQuestion)).Methods("POST")
+	admin.HandleFunc("/adedithawksnesthint", app.withAdmin(app.editHawkNestHint)).Methods("POST")
 
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
