@@ -20,12 +20,16 @@ export const LandingPage = observer(() => {
 		GameplayModel.locked = false;
 		LoginStore.getProfile();
 	}, []);
+
 	const [rules, setrules] = useState(false);
 
 	return (
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={LandingStore}>
 				<Page>
+					{LoginStore.rulesDisplay && (
+						<Rules setrules={LoginStore.setRulesDisplay.bind(LoginStore)} />
+					)}
 					<Details1 />
 					<Details2 />
 					<Header setrules={setrules} />
@@ -86,7 +90,6 @@ const Page = styled.div`
 		user-select: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;
-		
 	}
 	h4 {
 		font-family: 'nidus_sansregular';
@@ -97,7 +100,6 @@ const Page = styled.div`
 		user-select: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;
-	
 	}
 
 	@media (min-width: 768px) {

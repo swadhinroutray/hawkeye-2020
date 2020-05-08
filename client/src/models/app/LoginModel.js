@@ -17,10 +17,10 @@ class LoginModel {
 	profile = {};
 	profileSet = false;
 	profileSetError = false;
-
+	firstLogin = false;
 	isForgotLoading = false;
 	forgotEmailSent = false;
-
+	rulesDisplay = false;
 	isResetLoading = false;
 	resetSuccess = false;
 	passwordError = '';
@@ -28,11 +28,14 @@ class LoginModel {
 		resetPassword: { value: '', err: '' },
 		confirmPassword: { value: '', err: '' },
 	};
+	setRulesDisplay(val) {
+		this.rulesDisplay = false;
+	}
 
 	setField(field, newValue) {
 		this.formData[field].value = newValue.trim();
 		let err = '';
-		
+
 		this.formData[field].error = err;
 	}
 
@@ -101,6 +104,8 @@ class LoginModel {
 				points,
 				itembool,
 				regionmultiplier,
+				submissions,
+				FirstLogin,
 			} = res.data;
 
 			this.profile.id = id;
@@ -117,10 +122,19 @@ class LoginModel {
 			this.profile.itembool = itembool;
 			this.profile.regionmultiplier = regionmultiplier;
 			this.profileSet = true;
+			this.profile.submissions = submissions;
+			this.profile.FirstLogin = FirstLogin;
 			this.loggedIn = true;
 			this.setField('email', '');
 			this.setField('password', '');
 			this.loggedIn = true;
+			if (FirstLogin) {
+				post('api/users/firstlogin', { value: false }).then(res => {
+					if (res.success === true) {
+						this.rulesDisplay = true;
+					}
+				});
+			}
 			return;
 		}
 		this.profileSetError = true;
@@ -238,16 +252,15 @@ class LoginModel {
 	getProfile() {
 		get('/api/users/getprofile')
 			.then(this.loginControl)
-			.then(() =>{
-				if(this.profile.level){
-				LandingStore.changeRegion(
-					this.profile.level.indexOf(
-						Math.min(...this.profile.level.filter(lvl => lvl >= 1)),
-					),
-				)
-					}
-					}
-			);
+			.then(() => {
+				if (this.profile.level) {
+					LandingStore.changeRegion(
+						this.profile.level.indexOf(
+							Math.min(...this.profile.level.filter(lvl => lvl >= 1)),
+						),
+					);
+				}
+			});
 	}
 	getInventory() {
 		get('/api/shop/getinventory').then(this.inventoryControl);
@@ -262,7 +275,7 @@ class LoginModel {
 decorate(LoginModel, {
 	formData: observable,
 	loggedIn: observable,
-
+	rulesDisplay: observable,
 	profile: observable,
 	profileSet: observable,
 	profileSetError: observable,
@@ -279,6 +292,7 @@ decorate(LoginModel, {
 	resetSuccess: observable,
 	resetForm: observable,
 	passwordError: observable,
+	setRulesDisplay: action,
 });
 
 const store = new LoginModel();
