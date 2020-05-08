@@ -342,6 +342,11 @@ const GameWrapper = styled.div`
 
 			transform: scale(1.05);
 		}
+		:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 
 		background-image: url(${ButtonBox});
 		background-color: transparent;
