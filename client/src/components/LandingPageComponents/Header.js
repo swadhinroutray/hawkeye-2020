@@ -109,5 +109,6 @@ const HeaderWrapper = styled.header`
 	@media ${device.laptop} {
 		padding: 0;
 		margin: 20px;
+		margin-bottom: 0px;
 	}
 `;
