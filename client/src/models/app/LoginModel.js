@@ -32,8 +32,7 @@ class LoginModel {
 	setField(field, newValue) {
 		this.formData[field].value = newValue.trim();
 		let err = '';
-		if (loginValidator[field](newValue))
-			err = loginValidator[field](newValue.trim());
+		
 		this.formData[field].error = err;
 	}
 
