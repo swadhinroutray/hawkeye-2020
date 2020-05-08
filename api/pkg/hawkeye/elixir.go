@@ -62,7 +62,7 @@ func (app *App) getHiddenHints(w http.ResponseWriter, r *http.Request) {
 
 	cursor, err := app.db.Collection("hiddenhints").Aggregate(r.Context(),
 		bson.A{
-			bson.M{"$match": bson.M{"users": currUser.ID.Hex(), "region": region, "level": level}},
+			bson.M{"$match": bson.M{"users": currUser.ID.Hex(), "region": region, "level": level, "hintnum": 1}},
 		},
 	)
 
