@@ -11,12 +11,12 @@ export const Header = inject('LoginStore')(
 		return (
 			<HeaderWrapper>
 				
-				<Icon src={hawkLogo} alt="hawk-logo" />
+				<Icon  src={hawkLogo} alt="hawk-logo" />
 				
 				
 				<div>
 				
-				<Link className="icon" to="/shop">
+				<Link style={{margin:"10px"}} className="icon" to="/shop">
 					<ShopIcon/>
 					</Link>
 				
@@ -59,7 +59,7 @@ export const Icon = styled.img`
 			all: unset;
 			display: inline-block;
 			width: 45px;
-			margin: 5px;
+			margin: 10px;
 			transition-duration: 0.4s;
 			:hover {
 				cursor: pointer;
