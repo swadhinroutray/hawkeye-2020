@@ -39,74 +39,76 @@ export default class Rules extends React.Component {
 
 						<div style={{ color: 'white' }} className="rules-list">
 							<div style={{ color: 'white' }}>
-								1) This is an online scavenger hunt, it starts at 9/5/20 12:00
-								PM and ends on 12/5/20 23:59 PM
+								1) This is an online scavenger hunt, it starts at 9/5/20 
+								12:00 PM and ends on 12/5/20 23:59 PM
 							</div>
 							<div style={{ color: 'white' }}>
-								2) Due to a mishap with the time portal, you have been randomly
-								dropped into one of the 5 total timelines that have been
-								created.
+								2) Due to a mishap with the time portal, you have been randomly dropped into one of the 5 total timelines that have been created.
+
 							</div>
 							<div style={{ color: 'white' }}>
-								3) The next timeline is available after a certain period of
-								time. You can unlock them faster if you solve the questions of
-								your current timeline early.
+								3)The next timeline(region) will be made available after a certain period of time. 
+								You can unlock them faster if you solve the questions of your current timeline early. 
 							</div>
 							<div style={{ color: 'white' }}>
-								4) If the answer is &#34;22 Cakes&#34; then the answer you
-								should write is &#34;twotwo cakes&#34;. If the answer contains
-								special characters, replace them to the nearest character. For
-								example, &#x27;&#x101;&#x27; becomes &#x27;a&#x27;. If the
-								answer is &#x27;Steve Jobs&#x27; then the answer you should
-								write is &#x27;steven paul jobs&#x27;.
+								4) If the answer is &#34;22 Cakes&#34; then the answer you should write is &#34;twotwo cakes&#34;. If the answer contains special characters, replace them to the nearest character.
+								For example, &#x27;&#x101;&#x27; becomes &#x27;a&#x27;. If the answer is &#x27;Steve Jobs&#x27; then the answer you should write is &#x27;steven paul jobs&#x27;.
 							</div>
 							<div style={{ color: 'white' }}>
-								5) All names, places, organizations, things will be as written
-								onWikipedia with a few exceptions. They will mostly be the full
-								nameof the answer.
+								5) All names, places, organizations, things should be as appears on Wikipedia with a few exceptions. 
+									They will mostly be the full name of the person, place or thing.
+
 							</div>
 							<div style={{ color: 'white' }}>
-								6) All supporting images shall be linked externally or given to
-								you. You will not find anything hidden in the codebase of the
-								game.
+								6)All supporting images shall be linked externally or given to you. 
+								You will not find anything hidden in the codebase of the game.
+
 							</div>
 							<div style={{ color: 'white' }}>
-								7) To make it easier, Hawk presents you with 4 different types
-								of Elixirs, that you can buy using your points. However due to a
-								limited supply, there will be a limit on how many Elixirs of
-								each kind you can buy, and you can only use one Elixir on a
-								particular question.
+								7)You will receive points for every question you solve. 
+								The leaderboard is calculated based on the total points you have, and NOT the number of questions you have solved.
+
 							</div>
 							<div style={{ color: 'white' }}>
-								8) However, after you reach a certain point, you will be allowed
-								to reset your supply of Elixirs at the cost of your points.
-								However, this will affect your position on the leaderboard, so
-								use your points wisely.{' '}
+								8)As you progress through these timelines, the points you get for answering a question also increases. 
+								After every third question that you solve, you get 1.5 times more points than you did for the previous ones.
+
 							</div>
 							<div style={{ color: 'white' }}>
-								9) Hawk will also let you know if you’re on the right track, by
-								indicating that it thinks you’re close, if your answer contains
-								keywords close to the actual answer, or the correct answer
-								partially.{' '}
+								9) To make it interesting, Hawk presents you with 4 different types of Elixirs, that you can buy using your points.
+								 However, due to a limited supply, there are only a few Elixirs of each kind you can buy. You can only use one Elixir on a particular question.
+
 							</div>
 							<div style={{ color: 'white' }}>
-								10) As you progress through these timelines, the points you get
-								for answering a question also increases. After every third
-								question that you solve, you get 1.5 times more points than you
-								did for the previous ones.
+								10) However, after you reach a certain point, you will be allowed to reset your supply of Elixirs at the cost of your points. 
+								This will however, affect your position on the leaderboard, so use your points wisely.
 							</div>
 							<div style={{ color: 'white' }}>
-								11) Cheaters will be found by our monitoring system and will be
-								ineligible for any prizes. Any suspicious behaviour will be
-								reported to us by the game.
+								11)Hawk will also let you know if you’re on the right track, by indicating that it thinks you’re close, 
+								if your answer contains keywords close to the actual answer, or the correct answer partially. 
 							</div>
 							<div style={{ color: 'white' }}>
-								12) Winners will be decided on the basis of who has the most
-								points at the end of the game and who got there first.
-								Therefore, it’s imperative that you use your Elixirs wisely.
+								12) Cheaters will be found by our monitoring system and will be ineligible for any prizes. 
+								Any suspicious behaviour will be reported to us by the game.
 							</div>
-						</div>
+							<div style={{ color: 'white' }}>
+								13) Winners will be decided on the basis of who has the most points at the end of the game and who got there first. 
+								Therefore, it’s imperative that you buy and use your Elixirs wisely.
+							</div>
+						
 					</div>
+
+					<h3>For any issues, contact one of the following</h3>
+						<div className="Contact">
+						
+							<h4>Swadhin Routray 7676598351</h4>
+							<h4>Chakradhar Reddy 9515334754</h4>
+							<h4>Keoul Patel 8291416388</h4>
+							<h4>Dennis Johnson 9048044761</h4>
+							<h4>Sanchit Sahay 8817137466</h4>
+						
+						</div>
+						</div>
 				</div>
 			</RulesWrapper>
 		);
@@ -181,6 +183,12 @@ const RulesWrapper = styled.div`
 
 	.rules-list {
 		color: white;
+		text-align:left;
+	}
+	.Contact{
+		display:flex;
+		flex-wrap:wrap;
+		font-size:10px;
 	}
 	@media (max-width: ${size.laptop}) {
 		.Rules {
