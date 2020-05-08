@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
 		height: 100%;
 		margin:0 !important;
 		padding:0 !important;
-		overflow: auto;
+		overflow: scroll;
 	}
 	body::-webkit-scrollbar { 
                 display: none; 
