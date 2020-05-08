@@ -72,6 +72,7 @@ const ShopPageContainer = styled.div`
 			margin: 5px;
 			transition-duration: 0.4s;
 			:hover {
+				cursor: pointer;
 				transform: scale(1.05);
 			}
 		}
