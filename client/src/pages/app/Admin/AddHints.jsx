@@ -38,7 +38,7 @@ class AddHints extends React.Component {
                 hint: this.state.hint,
                 hintnum: this.state.hintnum,
             })
-        }).then(resp => resp.json)
+        }).then(resp => resp.json())
         .then(data => console.log(data))
     }
 
@@ -51,9 +51,10 @@ class AddHints extends React.Component {
             body: JSON.stringify({
                 region: this.state.region,
                 level: this.state.level,
-                hint: this.state.hint
+                hint: this.state.hint,
+                hintnum: this.state.hintnum,
             })
-        }).then(resp => resp.json)
+        }).then(resp => resp.json())
         .then(data => console.log(data))
     }
 
