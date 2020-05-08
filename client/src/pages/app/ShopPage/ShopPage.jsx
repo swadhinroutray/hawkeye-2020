@@ -390,7 +390,7 @@ const ItemDescription = styled.div`
 		margin-top: 40px;
 		padding: 20px 25px;
 		box-sizing: border-box;
-		padding-right: 10px
+		padding-right: 10px;
 		margin-right: 0.5em;
 		letter-spacing: 3px;
 		.status {

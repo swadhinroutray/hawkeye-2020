@@ -388,6 +388,7 @@ const GameWrapper = styled.div`
 		margin: 0 2px;
 	}
 	#hawklogo {
+		margin-left:10%;
 		width: 50px;
 		height: 70px;
 	}
@@ -584,6 +585,9 @@ const GameWrapper = styled.div`
 	}
 
 	@media (min-width: 1181px) {
+		#hawklogo{
+			margin-left:40%;
+		}
 		.nav-buttons {
 			margin: 0 20px;
 		}

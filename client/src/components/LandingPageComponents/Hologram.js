@@ -1,17 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { observer, inject } from 'mobx-react';
-import { hologramImg, shopLogo } from '../../assets/landing-assets';
+import { hologramImg } from '../../assets/landing-assets';
 import { Icon } from './Header';
-import { Link } from 'react-router-dom';
+
 
 export const Hologram = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
 		return (
 			<HologramWrapper>
-				<Link to="/shop">
-					<ShopLogo src={shopLogo} />
-				</Link>
+				
 
 				{LoginStore.profile.regionmultiplier === LandingStore.currentRegion &&
 					LoginStore.profile.level[LandingStore.currentRegion] < 8 && (
@@ -52,7 +50,7 @@ const ShopLogo = styled(Icon)`
 const Multiplier = styled.span`
 	color: #f2ad00;
 	position: absolute;
-	left: 16%;
+	right: 16%;
 	top: 3%;
 	font-size: 1.1rem;
 	font-weight: 600;
@@ -64,7 +62,7 @@ const Multiplier = styled.span`
 	}
 
 	@media (min-width: 768px) {
-		left: 25%;
+		right: 15%;
 	}
 	@media (min-width: 1024px) {
 		font-size: 1.3rem;

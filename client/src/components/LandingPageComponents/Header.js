@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { hawkLogo, logoutLogo } from '../../assets/landing-assets';
+import { hawkLogo, logoutLogo, shopLogo } from '../../assets/landing-assets';
 import RulesLogo from '../../assets/RulesIcon.svg';
 import { observer, inject } from 'mobx-react';
 
@@ -10,8 +10,14 @@ export const Header = inject('LoginStore')(
 		return (
 			<HeaderWrapper>
 				<HawkLogo src={hawkLogo} alt="hawk-logo" />
-				<h1>HAWKEYE</h1>
+				
 				<div>
+				<Link  to="/shop">
+					<Icon
+						src={shopLogo}
+						alt="shop-icon"
+					/>
+					</Link>
 					<Icon
 						src={RulesLogo}
 						onClick={() => setrules(true)}
@@ -28,13 +34,14 @@ export const Header = inject('LoginStore')(
 	}),
 );
 export const Icon = styled.img`
-	height: 4vh;
+	height: 8vh;
+	margin:0.3rem 0.3rem;
+	
 	cursor: pointer;
-	@media (min-width: 321px) {
-		height: 5vh;
-	}
+	
 	@media (min-width: 768px) {
-		height: 8vh;
+		margin:0 1rem;
+	
 	}
 	transition: all 0.2s ease-in;
 	:hover {
@@ -44,9 +51,10 @@ export const Icon = styled.img`
 const HeaderWrapper = styled.header`
 	position: relative;
 	font-family: 'nidus_sansregular';
-	display: grid;
-	grid-template-columns: 25% 50% 25%;
-	align-items: center;
+	display:flex;
+	justify-content:space-between;
+	
+
 	width: 100%;
 	padding-top: 5px;
 	letter-spacing: 0.15em;
@@ -89,14 +97,15 @@ const HeaderWrapper = styled.header`
 `;
 
 const HawkLogo = styled.img`
-	float: left;
-	height: 5vh;
-	margin-left: 10%;
-	grid-column: 1/2;
+	
+	height: 8vh;
+	
+	margin-left:2%;
 	align-items: center;
 
-	align-self: flex-end;
+	align-self: center;
 	@media (min-width: 768px) {
 		height: 8vh;
+		
 	}
 `;
