@@ -26,7 +26,21 @@ class GameplayModel {
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
-
+	clear(){
+		this.level = 0;
+	this.region = 0;
+	this.question = '';
+	this.message = '';
+	this.currentAnswer = '';
+	this.attempts = [];
+	this.hints = [];
+	this.stats = { atPar: 0, trailing: 0, leading: 0 };
+	this.itembool = [];
+	this.inventory = [];
+	this.locked = false;
+	this.hangman='';
+	this.points = 0;
+	}
 	getQuestion = region => {
 		this.locked = false;
 		if (region || region === 0) {
@@ -37,7 +51,7 @@ class GameplayModel {
 	};
 
 	getQuestionControl = res => {
-		console.log(res);
+		
 		if (res.success) {
 			if (res.data.question) {
 				this.hangman='';
@@ -151,7 +165,7 @@ class GameplayModel {
 					newItem.region = this.region;
 					newItem.question = this.level;
 					this.inventory.push(newItem);
-					console.log(newItem);
+					
 				});
 			} else {
 				this.inventory.push(['No hints yet']);
@@ -159,7 +173,7 @@ class GameplayModel {
 		}
 	};
 	getHiddenHints = () => {
-		console.log("Here")
+		
 		get(`/api/elixir/perks/hiddenhint/${this.region}/${this.level}`).then(
 			this.getHiddenHintsControl,
 		).then(()=>{this.getHangman()});
@@ -305,6 +319,7 @@ decorate(GameplayModel, {
 	points: observable,
 	itembool: observable,
 	getStats: action,
+	clear:action,
 	useRegionMultiplier: action,
 	getHiddenHints: action,
 });

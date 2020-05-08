@@ -34,7 +34,7 @@ const (
 
 //Setting Variables ...
 const (
-	ScoringGradient        = 1.2
+	ScoringGradient        = 1.25
 	RegionLimit            = 7
 	UnlockHintPoints       = 30
 	HangmanHintPoints      = 20

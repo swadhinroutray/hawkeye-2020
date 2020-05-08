@@ -14,8 +14,9 @@ const sessionName = "session"
 
 //CurrUser ...
 type CurrUser struct {
-	ID    primitive.ObjectID
-	Email string
+	ID         primitive.ObjectID
+	Email      string
+	FirstLogin bool
 }
 
 //ErrorInvalidCookie ...
@@ -65,6 +66,7 @@ func (app *App) getCurrentUser(r *http.Request) (CurrUser, error) {
 func (app *App) getUserTest(r *http.Request) User {
 	CurrUser, err := app.getCurrentUser(r)
 	if err != nil {
+
 	}
 	var curUser User
 	filter := bson.M{"email": CurrUser.Email}

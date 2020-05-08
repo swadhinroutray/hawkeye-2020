@@ -34,7 +34,7 @@ type User struct {
 	History          []Elixir     `bson:"history" json:"history"`
 	Token            string       `bson:"token" json:"-"`
 	RegionMultiplier int          `bson:"regionmultiplier" json:"regionmultiplier"`
-	// FirstLogin       bool         `bson:"firstlogin" json:"firstlogin"`
+	FirstLogin       bool         `bson:"firstlogin" json:"firstlogin"`
 }
 
 //Question (Collection)...

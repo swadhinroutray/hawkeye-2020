@@ -22,7 +22,7 @@ const device = {
 };
 const SVG = styled.svg`
 	height: 60%;
-	position: absolute;
+	position: fixed;
 	left: 1%;
 	top: 20%;
 	opacity: 59%;
