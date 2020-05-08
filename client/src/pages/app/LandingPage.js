@@ -79,23 +79,25 @@ const Page = styled.div`
 
 	h5 {
 		font-weight: 400;
-		font-size: 1.2em;
+		font-size: 1.4em;
 		margin: 8px 0;
 		color: #fff;
 		font-family: 'nidus_sansregular';
 		user-select: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;
+		
 	}
 	h4 {
 		font-family: 'nidus_sansregular';
 		font-weight: 600;
-		font-size: 1.7em;
+		font-size: 1.9em;
 		margin-top: 5px;
 		color: #fff;
 		user-select: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;
+	
 	}
 
 	@media (min-width: 768px) {
@@ -117,7 +119,7 @@ const Wrapper = styled.div`
 	position: relative;
 	overflow: hidden;
 
-	@media (min-width: 768px) {
+	@media (min-width: 1112px) {
 		display: grid;
 		grid-template-columns: 30fr auto 30fr;
 		/* justify-items: center; */

@@ -48,7 +48,6 @@ const ShopPageContainer = styled.div`
 	div {
 		user-select: none;
 	}
-	height: 100vh;
 	text-align: center;
 	color: #3abdb7;
 	letter-spacing: 0.1em;
@@ -72,6 +71,7 @@ const ShopPageContainer = styled.div`
 			margin: 5px;
 			transition-duration: 0.4s;
 			:hover {
+				cursor: pointer;
 				transform: scale(1.05);
 			}
 		}
@@ -163,6 +163,7 @@ const ShopPageContainer = styled.div`
 		}
 	}
 	@media ${device.laptop} {
+		overflow: hidden;
 		max-width: 100%;
 		padding: 0;
 		letter-spacing: 7px;
@@ -200,8 +201,12 @@ const ShopPageContainer = styled.div`
 		.back {
 			cursor: pointer;
 		}
+		.reset {
+			margin-bottom: 0;
+		}
 	}
 	@media ${device.desktop} {
+		margin-bottom: 0;
 		max-width: 96%;
 		letter-spacing: 15px;
 		.filler {
@@ -244,9 +249,10 @@ const ItemsContainer = styled.div`
 	margin-bottom: 20px;
 	.title {
 		color: #fff;
-		margin-top: 0.5em;
+		font-size: 1.3em;
+		margin: 0.8em auto 0.5em;
 	}
-	overflow: auto;
+	overflow: hidden;
 	.grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -292,7 +298,7 @@ const ItemDescription = styled.div`
 	background-size: cover;
 	box-sizing: border-box;
 	text-align: left;
-	padding: 7px 20px;
+	padding: 15px 25px;
 
 	.crystal-name {
 		font-size: 18px;
@@ -302,6 +308,7 @@ const ItemDescription = styled.div`
 	.desc {
 		font-size: 12px;
 		margin-bottom: 10px;
+		line-height: 20px;
 	}
 
 	.white-txt {
@@ -323,7 +330,7 @@ const ItemDescription = styled.div`
 		box-sizing: border-box;
 		width: fit-content;
 		text-align: center;
-		padding: 7px 30px;
+		padding: 7px 50px;
 		color: #fff;
 		user-select: none;
 		margin: 10px auto;
@@ -343,7 +350,7 @@ const ItemDescription = styled.div`
 		user-select: none;
 	}
 	@media ${device.mobileS} and (max-width: ${size.mobileM}) {
-		padding: 7px 15px;
+		padding: 15px 25px;
 		.crystal-name {
 			font-size: 16px;
 			margin-bottom: 10px;
@@ -363,13 +370,14 @@ const ItemDescription = styled.div`
 		}
 	}
 	@media ${device.tablet} {
-		padding-left: 20px;
+		padding: 20px 40px;
 		.crystal-name {
 			font-size: 26px;
 		}
 		.desc {
 			font-size: 18px;
-			margin-bottom: 10px;
+			line-height: 28px;
+			margin-bottom: 20px;
 		}
 		.status {
 			.cost,
@@ -384,7 +392,9 @@ const ItemDescription = styled.div`
 		height: fit-content;
 		align-self: start;
 		margin-top: 40px;
-		padding: 10px 15px;
+		padding: 20px 25px;
+		box-sizing: border-box;
+		padding-right: 10px;
 		margin-right: 0.5em;
 		letter-spacing: 3px;
 		.status {

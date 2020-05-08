@@ -14,7 +14,7 @@ const MapImg = styled.img`
 	grid-column: 1/2;
 	display: none;
 
-	@media (min-width: 768px) {
+	@media (min-width: 1112px) {
 		display: block;
 	}
 `;
