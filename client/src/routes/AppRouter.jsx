@@ -20,16 +20,17 @@ import { ToastContainer } from 'react-toastify';
 const AppRouter = () => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
-			<ToastContainer 
-			 position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover/>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 			<Switch>
 				<Route path={'/register'} component={RegisterPage}></Route>
 				<Route path={'/login'} component={LoginPage}></Route>

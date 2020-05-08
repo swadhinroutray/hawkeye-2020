@@ -36,10 +36,8 @@ const GlobalStyle = createGlobalStyle`
 	html, body {
 		color:white;
 		font-family: 'nidus_sansregular';
-		height: 100%;
 		margin:0 !important;
 		padding:0 !important;
-		overflow: auto;
 	}
 	body::-webkit-scrollbar { 
                 display: none; 
@@ -51,7 +49,14 @@ const GlobalStyle = createGlobalStyle`
 		-o-background-size: cover;
 		-moz-background-size: cover;
 		-webkit-background-size:cover;
+		height :100vh;
+		overflow-x:hidden;
+		overflow-y:auto;
 
+	}
+	.main-wrapper{
+		max-height:100vh;
+		overflow-y:scroll;
 	}
 	*{
 		color: #3abdb7;
