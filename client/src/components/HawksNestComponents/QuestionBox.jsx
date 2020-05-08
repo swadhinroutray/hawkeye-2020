@@ -33,8 +33,7 @@ export const QuestionBox = inject(
 							onKeyPress={e => {
 								const code = e.keyCode || e.which;
 								if (code === 13) {
-									getinventory(false);
-									gameplayStore.submit(match.params.id);
+									gameplayStore.submit(5);
 								}
 							}}
 						></input>
@@ -50,13 +49,13 @@ export const QuestionBox = inject(
 					<button
 						style={{ color: 'white' }}
 						onClick={() => {
-							getinventory(false);
 							loginStore.getProfile();
-							gameplayStore.submit(match.params.id);
+							gameplayStore.submit();
 						}}
 					>
 						SUBMIT
 					</button>
+
 					<div className="AnswerStatus">
 						{gameplayStore.message === 'Hawk approves!' && (
 							<div style={{ color: '#90ee90' }}>{gameplayStore.message}</div>

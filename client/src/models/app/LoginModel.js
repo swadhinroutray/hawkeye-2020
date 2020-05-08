@@ -32,7 +32,7 @@ class LoginModel {
 	setField(field, newValue) {
 		this.formData[field].value = newValue.trim();
 		let err = '';
-		
+
 		this.formData[field].error = err;
 	}
 
@@ -101,6 +101,7 @@ class LoginModel {
 				points,
 				itembool,
 				regionmultiplier,
+				allanswered,
 			} = res.data;
 
 			this.profile.id = id;
@@ -116,11 +117,13 @@ class LoginModel {
 			this.profile.points = points;
 			this.profile.itembool = itembool;
 			this.profile.regionmultiplier = regionmultiplier;
+			this.profile.allanswered = allanswered;
 			this.profileSet = true;
 			this.loggedIn = true;
 			this.setField('email', '');
 			this.setField('password', '');
 			this.loggedIn = true;
+			console.log(this.profile.allanswered);
 			return;
 		}
 		this.profileSetError = true;
@@ -238,16 +241,15 @@ class LoginModel {
 	getProfile() {
 		get('/api/users/getprofile')
 			.then(this.loginControl)
-			.then(() =>{
-				if(this.profile.level){
-				LandingStore.changeRegion(
-					this.profile.level.indexOf(
-						Math.min(...this.profile.level.filter(lvl => lvl >= 1)),
-					),
-				)
-					}
-					}
-			);
+			.then(() => {
+				if (this.profile.level) {
+					LandingStore.changeRegion(
+						this.profile.level.indexOf(
+							Math.min(...this.profile.level.filter(lvl => lvl >= 1)),
+						),
+					);
+				}
+			});
 	}
 	getInventory() {
 		get('/api/shop/getinventory').then(this.inventoryControl);

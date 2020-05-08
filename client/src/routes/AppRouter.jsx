@@ -17,19 +17,21 @@ import { PrivateRoute } from './PrivateRoute';
 import { AdminRoute } from './AdminRoute';
 import Leaderboard from '../pages/app/Admin/Leaderboard';
 import { ToastContainer } from 'react-toastify';
+import HawksNest from '../pages/app/HawksNest/HawksNest';
 const AppRouter = () => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
-			<ToastContainer 
-			 position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover/>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 			<Switch>
 				<Route path={'/register'} component={RegisterPage}></Route>
 				<Route path={'/login'} component={LoginPage}></Route>
@@ -38,6 +40,7 @@ pauseOnHover/>
 				<Route path={'/game/:id'} component={Game}></Route>
 				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
 				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
+				<PrivateRoute path={'/hawksnest'} component={HawksNest}></PrivateRoute>
 				<AdminRoute path={'/admin/addquestion'} component={AddQuestion} />
 				<AdminRoute path={'/admin/addhints'} component={AddHints} />
 				<AdminRoute path={'/admin/leaderboard'} component={Leaderboard} />
