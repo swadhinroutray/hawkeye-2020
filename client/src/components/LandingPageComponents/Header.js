@@ -21,7 +21,7 @@ export const Header = inject('LoginStore')(
 					<div
 						className="icon"
 						onClick={e => {
-							this.setrules(true);
+							setrules(true);
 						}}
 					>
 						<RulesIcon />
