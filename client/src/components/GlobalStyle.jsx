@@ -56,6 +56,9 @@ const GlobalStyle = createGlobalStyle`
 		min-height :100vh;
 		overflow-x:hidden;
 		overflow-y:scroll;
+		:-webkit-scrollbar { 
+			display: none; 
+		}
 	}
 	*{
 		color: #3abdb7;
