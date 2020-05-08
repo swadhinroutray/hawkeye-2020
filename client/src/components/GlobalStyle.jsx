@@ -40,6 +40,11 @@ const GlobalStyle = createGlobalStyle`
 		margin:0 !important;
 		padding:0 !important;
 		overflow: scroll;
+		transition: height 1000000s ease;
+-webkit-transition: height 1000000s ease;
+-moz-transition: height 1000000s ease;
+-o-transition: height 1000000s ease;
+		
 	}
 	body::-webkit-scrollbar { 
                 display: none; 
