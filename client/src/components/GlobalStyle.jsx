@@ -34,19 +34,17 @@ const GlobalStyle = createGlobalStyle`
 
 }
 	html, body {
-		
 		color:white;
 		font-family: 'nidus_sansregular';
 		height: 100%;
 		margin:0 !important;
 		padding:0 !important;
-		overflow: scroll;
+		overflow: auto;
 	}
 	body::-webkit-scrollbar { 
                 display: none; 
             }
 	body{
-		position:fixed;
 		background-image: url(${bg});
 		background-repeat: no-repeat;
 		background-size: cover;
