@@ -122,6 +122,10 @@ export const LoginFormWrapper = styled.div`
 	}
 
 	button {
+		:focus {
+  outline: none;
+  box-shadow: none;
+}
 		border: none;
 		-webkit-user-select: none;
 		color: #fff;
