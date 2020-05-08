@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
 	html, body {
 		color:white;
 		font-family: 'nidus_sansregular';
-		height: 100%;
+		height: 100vh;
 		margin:0 !important;
 		padding:0 !important;
 		overflow: scroll;
