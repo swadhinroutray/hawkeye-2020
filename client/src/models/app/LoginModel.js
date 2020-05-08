@@ -239,12 +239,15 @@ class LoginModel {
 	getProfile() {
 		get('/api/users/getprofile')
 			.then(this.loginControl)
-			.then(() =>
+			.then(() =>{
+				if(this.profile.level){
 				LandingStore.changeRegion(
 					this.profile.level.indexOf(
 						Math.min(...this.profile.level.filter(lvl => lvl >= 1)),
 					),
-				),
+				)
+					}
+					}
 			);
 	}
 	getInventory() {
