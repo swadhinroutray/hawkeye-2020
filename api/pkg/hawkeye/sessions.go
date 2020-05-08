@@ -66,7 +66,6 @@ func (app *App) getUserTest(r *http.Request) User {
 	CurrUser, err := app.getCurrentUser(r)
 	if err != nil {
 	}
-	// app.sendResponse(w, true, Success, CurrUser)
 	var curUser User
 	filter := bson.M{"email": CurrUser.Email}
 	err = app.db.Collection("users").FindOne(r.Context(), filter).Decode(&curUser)

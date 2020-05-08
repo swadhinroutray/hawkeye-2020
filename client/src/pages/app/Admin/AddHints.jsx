@@ -52,11 +52,7 @@ class AddHints extends React.Component {
                 region: this.state.region,
                 level: this.state.level,
                 hint: this.state.hint,
-<<<<<<< HEAD
-                hintnum: this.state.hintnum
-=======
                 hintnum: this.state.hintnum,
->>>>>>> 6b8a1fe07ada94fdac849f726104629fc678bafe
             })
         }).then(resp => resp.json())
         .then(data => console.log(data))

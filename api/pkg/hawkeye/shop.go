@@ -21,13 +21,13 @@ func ElixirName(elixirtype int) (name string, elixirpoints int) {
 		{
 			name = "Extra Hint"
 			elixirpoints = UnlockHintPoints
-			return name, elixirpoints //batao bhai kitna rakhna hai
+			return name, elixirpoints
 		}
 	case 1:
 		{
 			name = "Region Multiplier"
 			elixirpoints = RegionMultiplierPoints
-			return name, elixirpoints //batao bhai kitna rakhna hai
+			return name, elixirpoints
 		}
 	case 2:
 		{
@@ -35,7 +35,6 @@ func ElixirName(elixirtype int) (name string, elixirpoints int) {
 			elixirpoints = HangmanHintPoints
 			return name, elixirpoints
 		}
-		//case 3: TBD
 	default:
 		{
 			name = "Skip Question"
@@ -46,10 +45,10 @@ func ElixirName(elixirtype int) (name string, elixirpoints int) {
 }
 
 func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
-	//get  current user, check tobuy, if elixir is possible then allow buying
+
 	currUser := app.getUserTest(r)
 	params := mux.Vars(r)
-	//get index of the elixir in the url parameter
+
 	elixirID, err := strconv.Atoi(params["elixirid"])
 	app.log.Infof("Elixir ID: %d", elixirID)
 	if err != nil {
@@ -62,11 +61,6 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, true, Success, "You don't have this potion left to buy!")
 		return
 	}
-	//Create a new elixir and add to his inventory(done)
-	//deduct the tobuy value of that index by one(done)
-	//log the  elixir (done)
-	//Deduct the points of the user(done)
-	// Check if he has enough points (DONE)
 
 	name, elixirpoints := ElixirName(elixirID)
 
@@ -120,7 +114,7 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 	}
 	app.log.Infof("Elixir bought successfully")
 	app.logElixir(r, tempFetch, false, true)
-	app.sendResponse(w, true, Success, "A new potion has been added to your inventory")
+	app.sendResponse(w, true, Success, "A new elixir has been added to your inventory")
 }
 
 func (app *App) sendInventory(w http.ResponseWriter, r *http.Request) {
