@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { hawkLogo, logoutLogo, shopLogo } from '../../assets/landing-assets';
+import { hawkLogo, logoutLogo,} from '../../assets/landing-assets';
+import { ReactComponent as ShopIcon } from '../../assets/ShopIcon.svg';
 import RulesLogo from '../../assets/RulesIcon.svg';
 import { observer, inject } from 'mobx-react';
 
@@ -9,15 +10,16 @@ export const Header = inject('LoginStore')(
 	observer(({ setrules, LoginStore }) => {
 		return (
 			<HeaderWrapper>
-				<HawkLogo src={hawkLogo} alt="hawk-logo" />
+				
+				<Icon src={hawkLogo} alt="hawk-logo" />
+				
 				
 				<div>
-				<Link  to="/shop">
-					<Icon
-						src={shopLogo}
-						alt="shop-icon"
-					/>
+				
+				<Link className="icon" to="/shop">
+					<ShopIcon/>
 					</Link>
+				
 					<Icon
 						src={RulesLogo}
 						onClick={() => setrules(true)}
@@ -33,27 +35,70 @@ export const Header = inject('LoginStore')(
 		);
 	}),
 );
+const size = {
+	mobileS: '320px',
+	mobileM: '375px',
+	mobileL: '425px',
+	tablet: '768px',
+	laptop: '1024px',
+	laptopL: '1440px',
+	desktop: '1560px',
+};
+const device = {
+	mobileS: `(min-width: ${size.mobileS})`,
+	mobileM: `(min-width: ${size.mobileM})`,
+	mobileL: `(min-width: ${size.mobileL})`,
+	tablet: `(min-width: ${size.tablet})`,
+	laptop: `(min-width: ${size.laptop})`,
+	laptopL: `(min-width: ${size.laptopL})`,
+	desktop: `(min-width: ${size.desktop})`,
+	desktopL: `(min-width: ${size.desktop})`,
+};
 export const Icon = styled.img`
-	height: 8vh;
-	margin:0.3rem 0.3rem;
 	
-	cursor: pointer;
-	
-	@media (min-width: 768px) {
-		margin:0 1rem;
-	
-	}
-	transition: all 0.2s ease-in;
-	:hover {
-		transform: scale(1.05);
-	}
+			all: unset;
+			display: inline-block;
+			width: 45px;
+			margin: 5px;
+			transition-duration: 0.4s;
+			:hover {
+				cursor: pointer;
+				transform: scale(1.05);
+			}
+			@media ${device.mobileS} and (max-width: ${size.mobileM}) {
+
+				width: 35px;
+			}
+			@media ${device.tablet} {
+				width: 8vh;
+				margin: auto 15px;
+			}
+		
 `;
 const HeaderWrapper = styled.header`
 	position: relative;
 	font-family: 'nidus_sansregular';
 	display:flex;
 	justify-content:space-between;
-	
+	.icon{
+		all: unset;
+			display: inline-block;
+			width: 45px;
+			margin: 5px;
+			transition-duration: 0.4s;
+			:hover {
+				cursor: pointer;
+				transform: scale(1.05);
+			}
+			@media ${device.mobileS} and (max-width: ${size.mobileM}) {
+
+				width: 35px;
+			}
+			@media ${device.tablet} {
+				width: 8vh;
+				margin: auto 15px !important;
+			}
+	}
 
 	width: 100%;
 	padding-top: 5px;

@@ -48,9 +48,6 @@ const GlobalStyle = createGlobalStyle`
 		background-image: url(${bg});
 		background-repeat: no-repeat;
 		background-size: cover;
-		-o-background-size: cover;
-		-moz-background-size: cover;
-		-webkit-background-size:cover;
 
 	}
 	*{
@@ -87,5 +84,6 @@ path{
 }
 
 	`;
+	
 
 export { GlobalStyle };
