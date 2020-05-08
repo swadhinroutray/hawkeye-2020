@@ -14,8 +14,9 @@ const sessionName = "session"
 
 //CurrUser ...
 type CurrUser struct {
-	ID    primitive.ObjectID
-	Email string
+	ID         primitive.ObjectID
+	Email      string
+	FirstLogin bool
 }
 
 //ErrorInvalidCookie ...

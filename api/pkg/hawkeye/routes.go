@@ -58,4 +58,5 @@ func (app *App) mountRoutes() {
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")
 	Users.HandleFunc("/getrank", app.withUser(app.rankController)).Methods("GET")
+	Users.HandleFunc("/firstlogin", app.withUser(app.setFirstLoginFalse)).Methods("POST")
 }
