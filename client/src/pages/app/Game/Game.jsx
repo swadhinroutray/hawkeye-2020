@@ -467,7 +467,7 @@ const GameWrapper = styled.div`
 		:hover {
 			cursor: pointer;
 		}
-		@media (max-height: 480px) {
+		@media (max-height: 440px) {
 			display:none;
 		}
 		position: fixed;
