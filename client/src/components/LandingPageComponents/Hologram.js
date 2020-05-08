@@ -4,19 +4,16 @@ import { observer, inject } from 'mobx-react';
 import { hologramImg, shopLogo } from '../../assets/landing-assets';
 import HawksNest from '../../assets/HawkNest.svg';
 import { Icon } from './Header';
-import { Link } from 'react-router-dom';
+
 
 export const Hologram = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
 		if (!LoginStore.profile.allanswered)
 			return (
 				<HologramWrapper>
-					<Link to="/shop">
-						<ShopLogo src={shopLogo} />
-					</Link>
-
+					
 					{LoginStore.profile.regionmultiplier === LandingStore.currentRegion &&
-						LoginStore.profile.level[LandingStore.currentRegion] < 8 && (
+						LoginStore.profile.level[LandingStore.currentRegion] < 7&& (
 							<Multiplier>
 								<span>1.5</span>x
 							</Multiplier>
@@ -24,7 +21,7 @@ export const Hologram = inject('LandingStore')(
 
 					{LoginStore.profile.level &&
 					LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-					LoginStore.profile.level[LandingStore.currentRegion] <= 8 ? (
+					LoginStore.profile.level[LandingStore.currentRegion] <= 7 ? (
 						<RegionImg
 							src={LandingStore.regionInfo[LandingStore.currentRegion].img}
 							alt="region"
@@ -61,7 +58,7 @@ const ShopLogo = styled(Icon)`
 const Multiplier = styled.span`
 	color: #f2ad00;
 	position: absolute;
-	left: 16%;
+	right: 16%;
 	top: 3%;
 	font-size: 1.1rem;
 	font-weight: 600;
@@ -73,7 +70,7 @@ const Multiplier = styled.span`
 	}
 
 	@media (min-width: 768px) {
-		left: 25%;
+		right: 15%;
 	}
 	@media (min-width: 1024px) {
 		font-size: 1.3rem;

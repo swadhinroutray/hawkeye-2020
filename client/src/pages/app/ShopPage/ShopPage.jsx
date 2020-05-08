@@ -48,7 +48,6 @@ const ShopPageContainer = styled.div`
 	div {
 		user-select: none;
 	}
-	height: 100%;
 	text-align: center;
 	color: #3abdb7;
 	letter-spacing: 0.1em;
@@ -72,6 +71,7 @@ const ShopPageContainer = styled.div`
 			margin: 5px;
 			transition-duration: 0.4s;
 			:hover {
+				cursor: pointer;
 				transform: scale(1.05);
 			}
 		}
@@ -163,6 +163,7 @@ const ShopPageContainer = styled.div`
 		}
 	}
 	@media ${device.laptop} {
+		overflow: hidden;
 		max-width: 100%;
 		padding: 0;
 		letter-spacing: 7px;
@@ -199,6 +200,9 @@ const ShopPageContainer = styled.div`
 		.buy,
 		.back {
 			cursor: pointer;
+		}
+		.reset {
+			margin-bottom: 0;
 		}
 	}
 	@media ${device.desktop} {
@@ -390,7 +394,7 @@ const ItemDescription = styled.div`
 		margin-top: 40px;
 		padding: 20px 25px;
 		box-sizing: border-box;
-		padding-right: 10px
+		padding-right: 10px;
 		margin-right: 0.5em;
 		letter-spacing: 3px;
 		.status {

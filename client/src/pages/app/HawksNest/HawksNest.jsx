@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import HawksNestModel from '../../../models/app/HawksNestModel';
-import HawksNestLogo from '../../../assets/HawkNest.svg';
 
 import {
 	AttemptsBox,
@@ -69,7 +68,6 @@ const HawksNest = inject('loginStore')(
 					</div>
 
 					<div id="heading">HAWKS NEST</div>
-					<NestImg src={HawksNestLogo} />
 
 					<div id="points">
 						Current Points:{' '}
@@ -100,20 +98,7 @@ const HawksNest = inject('loginStore')(
 		);
 	}),
 );
-const NestImg = styled.img`
-	height: 14vh;
-	z-index: 10;
-	position: relative;
-	top: 1vh;
-	@media (min-width: 768px) {
-		height: 22vh;
-		top: 3vh;
-	}
-	@media (min-width: 1024px) {
-		height: 22vh;
-		top: 4vh;
-	}
-`;
+
 const size = {
 	mobileS: '320px',
 	mobileM: '375px',

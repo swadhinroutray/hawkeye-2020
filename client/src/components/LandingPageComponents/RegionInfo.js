@@ -21,6 +21,7 @@ export const RegionInfo = inject('LandingStore')(
 					<Link to={'/hawksnest'}>
 						<Start>Start</Start>
 					</Link>
+
 				</InfoWrapper>
 			);
 		} else {
@@ -42,14 +43,15 @@ export const RegionInfo = inject('LandingStore')(
 						</div>
 					) : null}
 
-					{LoginStore.profile.level &&
-					LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-					LoginStore.profile.level[LandingStore.currentRegion] < 8 ? (
-						<Link to={`/game/${LandingStore.currentRegion}`}>
-							<Start>Start</Start>
-						</Link>
+									
+				{LoginStore.profile.level &&
+				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
+				LoginStore.profile.level[LandingStore.currentRegion] < 7 ? (
+					<Link style={{color:"#90ee90"}} to={`/game/${LandingStore.currentRegion}`}>
+						<Start style={{color:"#90ee90"}} >Start</Start>
+					</Link>
 					) : LoginStore.profile.level &&
-					  LoginStore.profile.level[LandingStore.currentRegion] === 8 ? (
+					  LoginStore.profile.level[LandingStore.currentRegion] === 7 ? (
 						<span>
 							<Start>Conquered</Start>
 						</span>
@@ -74,7 +76,7 @@ const InfoWrapper = styled.div`
 	font-size: 1em;
 	font-family: 'nidus_sansregular';
 
-	padding: 15px 2vw;
+	padding: 30px 20px;
 	box-sizing: border-box;
 
 	@media (min-width: 450px) {
@@ -82,8 +84,9 @@ const InfoWrapper = styled.div`
 	}
 	@media (min-width: 768px) {
 		width: 100%;
-		padding: 15% 7%;
+		padding: 15% 20px;
 		font-size: 1em;
+		
 	}
 	@media (min-width: 1024px) {
 		width: 80%;
@@ -103,7 +106,7 @@ const Name = styled.div`
 `;
 const Desc = styled.div`
 	padding: 0 5px;
-	margin: 3px 0;
+	margin: 20px 0;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -127,7 +130,7 @@ const Start = styled.div`
 	text-align: center;
 	position: relative;
 	width: 50%;
-	margin: 8px auto 15px auto;
+	margin: 20px auto 15px auto;
 	background: url(${startButton}) no-repeat center center;
 	background-size: 100% 100%;
 	.locked {

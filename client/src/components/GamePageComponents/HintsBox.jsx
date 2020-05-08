@@ -7,11 +7,16 @@ export const HintsBox = inject('gameplayStore')(
 				<div className="HintsHeader">HINTS</div>
 				<div className="Hints">
 				<br/>
-					{gameplayStore.hints.map((hint, i) => (
+				{gameplayStore.hints.length?
+					gameplayStore.hints.map((hint, i) => (
 						<span style={{color:"white"}} className="Hint" key={i}>
 							{hint}
 						</span>
-					))}
+					)):(<span style={{color:"white"}} className="Hint" >
+					No Hints yet
+				</span>)
+				}
+					
 				</div>
 			</div>
 		)

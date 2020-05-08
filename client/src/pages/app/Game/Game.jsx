@@ -235,7 +235,7 @@ const GameWrapper = styled.div`
 	}
 
 	.QuestionWrapper {
-		height: 110px;
+		height: 100px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -353,6 +353,10 @@ const GameWrapper = styled.div`
 		border-top: 1px solid #7fd1e0;
 		border-bottom: 1px solid #7fd1e0;
 		font-family: 'Futura PT Medium';
+		:focus {
+  outline: none;
+  box-shadow: none;
+}
 	}
 	.AnswerWrapper button {
 		:hover {
@@ -389,6 +393,7 @@ const GameWrapper = styled.div`
 		margin: 0 2px;
 	}
 	#hawklogo {
+		margin-left:10%;
 		width: 50px;
 		height: 70px;
 	}
@@ -463,8 +468,8 @@ const GameWrapper = styled.div`
 		:hover {
 			cursor: pointer;
 		}
-		@media (max-height: 480px) {
-			display: none;
+		@media (max-height: 440px) {
+			display:none;
 		}
 		position: fixed;
 		bottom: 0;
@@ -585,6 +590,9 @@ const GameWrapper = styled.div`
 	}
 
 	@media (min-width: 1181px) {
+		#hawklogo{
+			margin-left:40%;
+		}
 		.nav-buttons {
 			margin: 0 20px;
 		}

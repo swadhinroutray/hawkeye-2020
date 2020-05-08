@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { hawkLogo, logoutLogo } from '../../assets/landing-assets';
+import { ReactComponent as ShopIcon } from '../../assets/ShopIcon.svg';
 import RulesLogo from '../../assets/RulesIcon.svg';
 import { observer, inject } from 'mobx-react';
 
@@ -9,9 +10,13 @@ export const Header = inject('LoginStore')(
 	observer(({ setrules, LoginStore }) => {
 		return (
 			<HeaderWrapper>
-				<HawkLogo src={hawkLogo} alt="hawk-logo" />
-				<h1>HAWKEYE</h1>
+				<Icon src={hawkLogo} alt="hawk-logo" />
+
 				<div>
+					<Link className="icon" to="/shop">
+						<ShopIcon />
+					</Link>
+
 					<Icon
 						src={RulesLogo}
 						onClick={() => setrules(true)}
@@ -27,26 +32,67 @@ export const Header = inject('LoginStore')(
 		);
 	}),
 );
+const size = {
+	mobileS: '320px',
+	mobileM: '375px',
+	mobileL: '425px',
+	tablet: '768px',
+	laptop: '1024px',
+	laptopL: '1440px',
+	desktop: '1560px',
+};
+const device = {
+	mobileS: `(min-width: ${size.mobileS})`,
+	mobileM: `(min-width: ${size.mobileM})`,
+	mobileL: `(min-width: ${size.mobileL})`,
+	tablet: `(min-width: ${size.tablet})`,
+	laptop: `(min-width: ${size.laptop})`,
+	laptopL: `(min-width: ${size.laptopL})`,
+	desktop: `(min-width: ${size.desktop})`,
+	desktopL: `(min-width: ${size.desktop})`,
+};
 export const Icon = styled.img`
-	height: 4vh;
-	cursor: pointer;
-	@media (min-width: 321px) {
-		height: 5vh;
-	}
-	@media (min-width: 768px) {
-		height: 8vh;
-	}
-	transition: all 0.2s ease-in;
+	all: unset;
+	display: inline-block;
+	width: 45px;
+	margin: 10px;
+	transition-duration: 0.4s;
 	:hover {
+		cursor: pointer;
 		transform: scale(1.05);
+	}
+	@media ${device.mobileS} and (max-width: ${size.mobileM}) {
+		width: 35px;
+	}
+	@media ${device.tablet} {
+		width: 8vh;
+		margin: auto 15px;
 	}
 `;
 const HeaderWrapper = styled.header`
 	position: relative;
 	font-family: 'nidus_sansregular';
-	display: grid;
-	grid-template-columns: 25% 50% 25%;
-	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	.icon {
+		all: unset;
+		display: inline-block;
+		width: 45px;
+		margin: 10px;
+		transition-duration: 0.4s;
+		:hover {
+			cursor: pointer;
+			transform: scale(1.05);
+		}
+		@media ${device.mobileS} and (max-width: ${size.mobileM}) {
+			width: 35px;
+		}
+		@media ${device.tablet} {
+			width: 8vh;
+			margin: auto 15px !important;
+		}
+	}
+
 	width: 100%;
 	padding-top: 5px;
 	letter-spacing: 0.15em;
@@ -89,13 +135,12 @@ const HeaderWrapper = styled.header`
 `;
 
 const HawkLogo = styled.img`
-	float: left;
-	height: 5vh;
-	margin-left: 10%;
-	grid-column: 1/2;
+	height: 8vh;
+
+	margin-left: 2%;
 	align-items: center;
 
-	align-self: flex-end;
+	align-self: center;
 	@media (min-width: 768px) {
 		height: 8vh;
 	}

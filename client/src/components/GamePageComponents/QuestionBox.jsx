@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Redirect } from 'react-router';
-export const QuestionBox = inject(
-	'gameplayStore',
-	'loginStore',
-)(
-	observer(({ gameplayStore, match, loginStore, getinventory }) => {
-		useEffect(() => {
-			if (gameplayStore.message === 'Hawk approves!')
-				setTimeout(() => {
-					gameplayStore.message = '';
-				}, 3000);
-		});
-		return (
+export const QuestionBox = inject('gameplayStore','loginStore')(
+
+	observer(
+		({ gameplayStore,match,loginStore ,getinventory}) => {
+			
+			useEffect(() => {
+				if(gameplayStore.message==='Hawk approves!'||gameplayStore.message==='Hawk disapproves.')
+					setTimeout(()=>{gameplayStore.message=''},3000)
+			})
+			return (
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
 					<div className="Level">LEVEL {gameplayStore.level}</div>
@@ -24,7 +22,8 @@ export const QuestionBox = inject(
 				<div className="AnswerWrapper">
 					<div className="AnswerField">
 						<input
-							autoComplete="off"
+						style={{marginBottom:0}}
+						autoComplete="off"
 							name="answer"
 							type="text"
 							placeholder="Answer here"
@@ -46,27 +45,13 @@ export const QuestionBox = inject(
 							<Redirect to="/login" />
 						) : null}
 					</div>
-
-					<button
-						style={{ color: 'white' }}
-						onClick={() => {
-							getinventory(false);
-							loginStore.getProfile();
-							gameplayStore.submit(match.params.id);
-						}}
-					>
-						SUBMIT
-					</button>
-					<div className="AnswerStatus">
-						{gameplayStore.message === 'Hawk approves!' && (
-							<div style={{ color: '#90ee90' }}>{gameplayStore.message}</div>
-						)}
-						{gameplayStore.message === 'Hawk disapproves.' && (
-							<div style={{ color: '#ff6666' }}>{gameplayStore.message}</div>
-						)}
-						{gameplayStore.message === `Hawk thinks you're close.` && (
-							<div style={{ color: 'yellow' }}>{gameplayStore.message}</div>
-						)}
+						<div style={{color:"white",minHeight:"2px",marginBottom:"10px",marginTop:"10px",overflowWrap:"break-word"}}>{gameplayStore.hangman}</div>
+					<button style={{color:"white"}}  onClick={() => {getinventory(false);loginStore.getProfile();gameplayStore.submit(match.params.id)}}>SUBMIT</button>
+					<div style={{marginTop:"2px"}} className="AnswerStatus">
+						{gameplayStore.message==='Hawk approves!'&&<div style={{color:"#90ee90"}} >{gameplayStore.message}</div>}
+						{gameplayStore.message==='Hawk disapproves.'&&<div style={{color:"#ff6666"}} >{gameplayStore.message}</div>}
+						{gameplayStore.message===`Hawk thinks you're close.`&&<div style={{color:"yellow"}} >{gameplayStore.message}</div>}
+						
 					</div>
 				</div>
 			</div>
