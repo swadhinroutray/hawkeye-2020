@@ -262,7 +262,7 @@ const RulesWrapper = styled.div`
 	color: white;
 	.Rules {
 		overflow: hidden;
-		overflow-y: scroll;
+		// overflow-y: scroll;
 		position: absolute;
 		top: 5%;
 		bottom: 2%;

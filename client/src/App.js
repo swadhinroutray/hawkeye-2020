@@ -6,9 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
 	return (
 		<BrowserRouter>
-			
 			<GlobalStyle />
-			<AppRouter />
+			<div className="main-wrapper">
+				<AppRouter />
+			</div>
 		</BrowserRouter>
 	);
 }
