@@ -26,32 +26,42 @@ export const LandingPage = observer(() => {
 		<Provider LoginStore={LoginStore}>
 			<Provider LandingStore={LandingStore}>
 				<Page>
+					{/* {LoginStore.profile.allanswered && <Redirect to="/hawksnest" />} */}
 					<Details1 />
 					<Details2 />
 					<Header setrules={setrules} />
+
 					<Wrapper>
 						<RegionSelector>
 							<h5>WELCOME {LoginStore.profile.username?.toUpperCase()}</h5>
 							<h4>SELECT YOUR REGION</h4>
 							<Hologram LoginStore={LoginStore} />
-							<Slider
-								type="range"
-								name="region-selector"
-								min="0"
-								max="41"
-								onChange={e =>
-									LandingStore.changeRegion(Math.floor(e.target.value / 10))
-								}
-								defaultValue={LandingStore.currentRegion * 10 + 1}
-							></Slider>
-							<MoveSlider>Move slider to change region</MoveSlider>
-							<Year>
-								{LandingStore.regionInfo[LandingStore.currentRegion].year}
-							</Year>
+
+							{!LoginStore.profile.allanswered ? (
+								<>
+									<Slider
+										type="range"
+										name="region-selector"
+										min="0"
+										max="41"
+										onChange={e =>
+											LandingStore.changeRegion(Math.floor(e.target.value / 10))
+										}
+										defaultValue={LandingStore.currentRegion * 10 + 1}
+									></Slider>
+									<MoveSlider>Move slider to change region</MoveSlider>
+									<Year>
+										{LandingStore.regionInfo[LandingStore.currentRegion].year}
+									</Year>
+								</>
+							) : (
+								<Year>2020 AD</Year>
+							)}
 						</RegionSelector>
 						<RegionInfo LoginStore={LoginStore} />
 						<Map />
 					</Wrapper>
+
 					{LoginStore.profileSetError && !LoginStore.loggedIn ? (
 						<Redirect
 							to={{

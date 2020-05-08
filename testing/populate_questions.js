@@ -80,7 +80,7 @@ async function addHawksQuestions(level) {
     },
     body: JSON.stringify({
       question: "The dogs are out",
-      answer: "Tedros Adhanom Ghebreyesus",
+      answer: "Tedros",
       level: level,
       keywords: ["WHO", "World Health Organisation", "Baha Men"],
     }),
@@ -90,7 +90,7 @@ async function addHawksQuestions(level) {
 }
 
 async function loopHN() {
-  for (var j = 1; j <= 70; j++) {
+  for (var j = 1; j <= 7; j++) {
     addHawksQuestions(j);
     await new Promise((resolve) => setTimeout(resolve, 25));
   }

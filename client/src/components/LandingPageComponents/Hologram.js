@@ -2,40 +2,49 @@ import React from 'react';
 import styled from 'styled-components';
 import { observer, inject } from 'mobx-react';
 import { hologramImg, shopLogo } from '../../assets/landing-assets';
+import HawksNest from '../../assets/HawkNest.svg';
 import { Icon } from './Header';
 import { Link } from 'react-router-dom';
 
 export const Hologram = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
-		return (
-			<HologramWrapper>
-				<Link to="/shop">
-					<ShopLogo src={shopLogo} />
-				</Link>
+		if (!LoginStore.profile.allanswered)
+			return (
+				<HologramWrapper>
+					<Link to="/shop">
+						<ShopLogo src={shopLogo} />
+					</Link>
 
-				{LoginStore.profile.regionmultiplier === LandingStore.currentRegion &&
-					LoginStore.profile.level[LandingStore.currentRegion] < 8 && (
-						<Multiplier>
-							<span>1.5</span>x
-						</Multiplier>
+					{LoginStore.profile.regionmultiplier === LandingStore.currentRegion &&
+						LoginStore.profile.level[LandingStore.currentRegion] < 8 && (
+							<Multiplier>
+								<span>1.5</span>x
+							</Multiplier>
+						)}
+
+					{LoginStore.profile.level &&
+					LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
+					LoginStore.profile.level[LandingStore.currentRegion] <= 8 ? (
+						<RegionImg
+							src={LandingStore.regionInfo[LandingStore.currentRegion].img}
+							alt="region"
+						/>
+					) : (
+						<LockedImg
+							src={LandingStore.regionInfo[LandingStore.currentRegion].img}
+							alt="region"
+						/>
 					)}
-
-				{LoginStore.profile.level &&
-				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] <= 8 ? (
-					<RegionImg
-						src={LandingStore.regionInfo[LandingStore.currentRegion].img}
-						alt="region"
-					/>
-				) : (
-					<LockedImg
-						src={LandingStore.regionInfo[LandingStore.currentRegion].img}
-						alt="region"
-					/>
-				)}
-				<HologramImg src={hologramImg} alt="hologram" />
-			</HologramWrapper>
-		);
+					<HologramImg src={hologramImg} alt="hologram" />
+				</HologramWrapper>
+			);
+		else
+			return (
+				<HologramWrapper>
+					<RegionImg src={HawksNest} alt="hawks-nest" />
+					<HologramImg src={hologramImg} alt="hologram" />
+				</HologramWrapper>
+			);
 	}),
 );
 

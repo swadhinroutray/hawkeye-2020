@@ -41,12 +41,13 @@ class HawksNestModel {
 	};
 
 	getQuestionControl = res => {
+		console.log(res);
 		if (res.success) {
 			if (res.data.question) {
 				this.questionId = res.data.id;
 				this.question = res.data.question;
 				this.nestLevel = res.data.level;
-
+				console.log(res.data.question);
 				if (res.data.hints.length > 0) {
 					this.hints.replace(res.data.hints.map(hint => hint.hint));
 				} else {

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import HawksNestModel from '../../../models/app/HawksNestModel';
+import HawksNestLogo from '../../../assets/HawkNest.svg';
 
 import {
 	AttemptsBox,
@@ -17,11 +18,8 @@ import ButtonBox from '../../../assets/ButtonBox.svg';
 import Attempts from '../../../assets/Attempts.svg';
 import ReactLoading from 'react-loading';
 import Rules from '../../../components/Rules';
-
-import { Link } from 'react-router-dom';
 import Details1 from '../../../components/Details1';
 import Details2 from '../../../components/Details2';
-import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
 
 const HawksNest = inject('loginStore')(
 	observer(({ loginStore, match }) => {
@@ -48,10 +46,6 @@ const HawksNest = inject('loginStore')(
 						</div>
 
 						<div className="nav-buttons">
-							<Link className="back" to="/regions">
-								<BackButton />
-							</Link>
-
 							<div className="navbar-btn" onClick={() => setrules(true)}>
 								<img id="rule-button" src={RulesIcon} alt="Rules" />
 							</div>
@@ -75,6 +69,8 @@ const HawksNest = inject('loginStore')(
 					</div>
 
 					<div id="heading">HAWKS NEST</div>
+					<NestImg src={HawksNestLogo} />
+
 					<div id="points">
 						Current Points:{' '}
 						<span style={{ color: 'white' }}>{HawksNestModel.points}</span>
@@ -96,6 +92,7 @@ const HawksNest = inject('loginStore')(
 		) : (
 			<GameWrapper>
 				<ReactLoading type={'spin'} color={'#3abdb7'} className="loading" />
+
 				{loginStore.profileSetError && !loginStore.loggedIn ? (
 					<Redirect to="/login" />
 				) : null}
@@ -103,7 +100,20 @@ const HawksNest = inject('loginStore')(
 		);
 	}),
 );
-
+const NestImg = styled.img`
+	height: 14vh;
+	z-index: 10;
+	position: relative;
+	top: 1vh;
+	@media (min-width: 768px) {
+		height: 22vh;
+		top: 3vh;
+	}
+	@media (min-width: 1024px) {
+		height: 22vh;
+		top: 4vh;
+	}
+`;
 const size = {
 	mobileS: '320px',
 	mobileM: '375px',

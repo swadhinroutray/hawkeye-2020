@@ -11,42 +11,58 @@ export const RegionInfo = inject('LandingStore')(
 		useEffect(() => {
 			GameplayModel.locked = false;
 		}, []);
-		return (
-			<InfoWrapper>
-				<Background src={DescriptionBg} />
-				<Name className="info">
-					{LandingStore.regionInfo[LandingStore.currentRegion].name}
-				</Name>
-				<Desc className="info">
-					{LandingStore.regionInfo[LandingStore.currentRegion].description}
-				</Desc>
 
-				{(LoginStore.profile.regionmultiplier &&
-					LoginStore.profile.regionmultiplier) ===
-				LandingStore.currentRegion ? (
-					<div style={{color:"#f2ad00"}} className="info">Region Multiplier Applied</div>
-				) : null}
-
-				{LoginStore.profile.level &&
-				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] < 8 ? (
-					<Link to={`/game/${LandingStore.currentRegion}`}>
+		if (LoginStore.profile.allanswered) {
+			return (
+				<InfoWrapper>
+					<Background src={DescriptionBg} />
+					<Name className="info">Hawks Nest</Name>
+					<Desc className="info">This is your final quest!</Desc>
+					<Link to={'/hawksnest'}>
 						<Start>Start</Start>
 					</Link>
-				) : LoginStore.profile.level &&
-				  LoginStore.profile.level[LandingStore.currentRegion] === 8 ? (
-					<span>
-						<Start>Conquered</Start>
-					</span>
-				) : (
-					<span>
-						<Start>
-							<span className="locked">Locked</span>
-						</Start>
-					</span>
-				)}
-			</InfoWrapper>
-		);
+				</InfoWrapper>
+			);
+		} else {
+			return (
+				<InfoWrapper>
+					<Background src={DescriptionBg} />
+					<Name className="info">
+						{LandingStore.regionInfo[LandingStore.currentRegion].name}
+					</Name>
+					<Desc className="info">
+						{LandingStore.regionInfo[LandingStore.currentRegion].description}
+					</Desc>
+
+					{(LoginStore.profile.regionmultiplier &&
+						LoginStore.profile.regionmultiplier) ===
+					LandingStore.currentRegion ? (
+						<div style={{ color: '#f2ad00' }} className="info">
+							Region Multiplier Applied
+						</div>
+					) : null}
+
+					{LoginStore.profile.level &&
+					LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
+					LoginStore.profile.level[LandingStore.currentRegion] < 8 ? (
+						<Link to={`/game/${LandingStore.currentRegion}`}>
+							<Start>Start</Start>
+						</Link>
+					) : LoginStore.profile.level &&
+					  LoginStore.profile.level[LandingStore.currentRegion] === 8 ? (
+						<span>
+							<Start>Conquered</Start>
+						</span>
+					) : (
+						<span>
+							<Start>
+								<span className="locked">Locked</span>
+							</Start>
+						</span>
+					)}
+				</InfoWrapper>
+			);
+		}
 	}),
 );
 const InfoWrapper = styled.div`
