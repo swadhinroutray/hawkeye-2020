@@ -51,7 +51,7 @@ class GameplayModel {
 	};
 
 	getQuestionControl = res => {
-		console.log(res);
+		
 		if (res.success) {
 			if (res.data.question) {
 				this.hangman='';
@@ -165,7 +165,7 @@ class GameplayModel {
 					newItem.region = this.region;
 					newItem.question = this.level;
 					this.inventory.push(newItem);
-					console.log(newItem);
+					
 				});
 			} else {
 				this.inventory.push(['No hints yet']);
@@ -173,7 +173,7 @@ class GameplayModel {
 		}
 	};
 	getHiddenHints = () => {
-		console.log("Here")
+		
 		get(`/api/elixir/perks/hiddenhint/${this.region}/${this.level}`).then(
 			this.getHiddenHintsControl,
 		).then(()=>{this.getHangman()});
