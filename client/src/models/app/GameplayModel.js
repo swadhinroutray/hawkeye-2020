@@ -26,7 +26,21 @@ class GameplayModel {
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
-
+	clear(){
+		this.level = 0;
+	this.region = 0;
+	this.question = '';
+	this.message = '';
+	this.currentAnswer = '';
+	this.attempts = [];
+	this.hints = [];
+	this.stats = { atPar: 0, trailing: 0, leading: 0 };
+	this.itembool = [];
+	this.inventory = [];
+	this.locked = false;
+	this.hangman='';
+	this.points = 0;
+	}
 	getQuestion = region => {
 		this.locked = false;
 		if (region || region === 0) {

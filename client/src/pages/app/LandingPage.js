@@ -19,6 +19,7 @@ export const LandingPage = observer(() => {
 	useEffect(() => {
 		GameplayModel.locked = false;
 		LoginStore.getProfile();
+		GameplayModel.clear()
 	}, []);
 	const [rules, setrules] = useState(false);
 
