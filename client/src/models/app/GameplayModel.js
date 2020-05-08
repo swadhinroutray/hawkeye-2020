@@ -158,19 +158,20 @@ class GameplayModel {
 		}
 	};
 	getHiddenHints = () => {
-		console.log("Here")
-		get(`/api/elixir/perks/hiddenhint/${this.region}/${this.level}`).then(
-			this.getHiddenHintsControl,
-		).then(()=>{this.getHangman()});
+		console.log('Here');
+		get(`/api/elixir/perks/hiddenhint/${this.region}/${this.level}`)
+			.then(this.getHiddenHintsControl)
+			.then(() => {
+				this.getHangman();
+			});
 	};
 	getHangman = () => {
-		
 		get(`/api/elixir/perks/hangman/${this.region}/${this.level}`).then(
 			this.getHiddenHintsControl,
 		);
 	};
 	getHiddenHintsControl = res => {
-		console.log(res)
+		console.log(res);
 		if (res.success) {
 			if (res.data && res.data.length > 0) {
 				if (this.hints[0] === 'No hints yet') {

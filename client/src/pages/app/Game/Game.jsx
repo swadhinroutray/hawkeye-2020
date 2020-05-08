@@ -89,7 +89,10 @@ const Game = inject('loginStore')(
 					{match.params.id === '2' && <div id="heading">PRIPYAT</div>}
 					{match.params.id === '3' && <div id="heading">THE ANTHROPOCENE</div>}
 					{match.params.id === '4' && <div id="heading">MEDUSAE FOSSAE</div>}
-					<div id="points" >Current Points: <span style={{color:"white"}}>{GameplayModel.points}</span></div>
+					<div id="points">
+						Current Points:{' '}
+						<span style={{ color: 'white' }}>{GameplayModel.points}</span>
+					</div>
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
@@ -265,19 +268,18 @@ const GameWrapper = styled.div`
 	.stats::-webkit-scrollbar {
 		display: none;
 	}
-	#points{
-		
-		font-size:15px;
-		font-weight:bold;
-		color:#F2AD00;
-		margin-top:1rem;
-		@media(min-width:${size.laptop}){
-			margin-top:2rem;
-			font-size:20px;
+	#points {
+		font-size: 15px;
+		font-weight: bold;
+		color: #f2ad00;
+		margin-top: 1rem;
+		@media (min-width: ${size.laptop}) {
+			margin-top: 2rem;
+			font-size: 20px;
 		}
-		@media(min-width:${size.laptopL}){
-			margin-top:2rem;
-			font-size:25px;
+		@media (min-width: ${size.laptopL}) {
+			margin-top: 2rem;
+			font-size: 25px;
 		}
 	}
 	.inventory {
@@ -359,10 +361,9 @@ const GameWrapper = styled.div`
 			transform: scale(1.05);
 		}
 		:focus {
-  outline: none;
-  box-shadow: none;
-}
-
+			outline: none;
+			box-shadow: none;
+		}
 
 		background-image: url(${ButtonBox});
 		background-color: transparent;
@@ -463,7 +464,7 @@ const GameWrapper = styled.div`
 			cursor: pointer;
 		}
 		@media (max-height: 480px) {
-			display:none;
+			display: none;
 		}
 		position: fixed;
 		bottom: 0;
