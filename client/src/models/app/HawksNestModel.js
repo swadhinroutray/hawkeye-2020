@@ -26,7 +26,7 @@ class GameplayModel {
 
 	getQuestion = region => {
 		this.locked = false;
-		get('/api/question/fetch/hawksnest/5').then(this.getQuestionControl);
+		get('/api/fetch/hawksnest/0').then(this.getQuestionControl);
 	};
 
 	getQuestionControl = res => {
@@ -127,7 +127,6 @@ class GameplayModel {
 			this.stats.leading = res.data.leading;
 			this.stats.trailing = res.data.trailing;
 		}
-		this.getInventory();
 		setTimeout(this.getHiddenHints, 1000);
 	};
 }
