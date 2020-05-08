@@ -90,5 +90,6 @@ path{
 }
 
 	`;
+	
 
 export { GlobalStyle };
