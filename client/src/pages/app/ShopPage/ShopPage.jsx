@@ -48,7 +48,6 @@ const ShopPageContainer = styled.div`
 	div {
 		user-select: none;
 	}
-	height: 100%;
 	text-align: center;
 	color: #3abdb7;
 	letter-spacing: 0.1em;
@@ -164,6 +163,7 @@ const ShopPageContainer = styled.div`
 		}
 	}
 	@media ${device.laptop} {
+		overflow: hidden;
 		max-width: 100%;
 		padding: 0;
 		letter-spacing: 7px;
@@ -200,6 +200,9 @@ const ShopPageContainer = styled.div`
 		.buy,
 		.back {
 			cursor: pointer;
+		}
+		.reset {
+			margin-bottom: 0;
 		}
 	}
 	@media ${device.desktop} {
