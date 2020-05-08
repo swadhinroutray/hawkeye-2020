@@ -45,8 +45,6 @@ func (app *App) addQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//var sanitizedKeywords []string
-
 	i := 0
 
 	for i = 0; i < len(quesBody.Keywords); i++ {
@@ -157,7 +155,6 @@ func (app *App) addHiddenHint(w http.ResponseWriter, r *http.Request) {
 		Users:   []string{""},
 	}
 
-	//filter := bson.M{"level": reqBody.Level, "region": reqBody.Region}
 	_, err := app.db.Collection("hiddenhints").InsertOne(r.Context(), newHint)
 	if err != nil {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
@@ -185,13 +182,6 @@ func (app *App) editHint(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, BadRequest, nil)
 		return
 	}
-
-	// hintnum, err := primitive.ObjectIDFromHex(params["hintnum"])
-	// if err != nil {
-	// 	app.log.Infof("Bad request params %s", err.Error())
-	// 	app.sendResponse(w, false, BadRequest, nil)
-	// 	return
-	// }
 
 	var reqBody EditHintRequest
 

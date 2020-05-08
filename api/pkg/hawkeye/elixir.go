@@ -167,18 +167,6 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// SetField := fmt.Sprintf("itembool.%d", elixir.Region)
-	// filter := bson.M{"_id": currUser.ID}
-	// update := bson.M{"$set": bson.M{
-	// 	SetField: false,
-	// },
-	// }
-	// if _, err := app.db.Collection("users").UpdateOne(r.Context(), filter, update); err != nil {
-	// 	app.log.Errorf("Databse error %v", err.Error())
-	// 	app.sendResponse(w, false, InternalServerError, "Something went wrong")
-	// 	return
-	// }
-
 	message, status = app.removeInventory(r, currUser, 1)
 
 	if !status {

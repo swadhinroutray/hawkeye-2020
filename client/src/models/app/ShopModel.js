@@ -82,8 +82,8 @@ class ShopModel {
 		post('api/shop/buy/' + this.selected, {}).then(res => {
 			console.log(res);
 			if (res.success) {
-				if (res.data === 'A new potion has been added to your inventory') {
-					toast('A new potion has been added to your inventory', {
+				if (res.data === 'A new elixir has been added to your inventory') {
+					toast('A new elixir has been added to your inventory', {
 						position: 'top-right',
 						autoClose: 4000,
 						hideProgressBar: true,

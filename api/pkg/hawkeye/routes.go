@@ -30,8 +30,6 @@ func (app *App) mountRoutes() {
 	admin.HandleFunc("/setcount", app.withAdmin(app.keepCount)).Methods("POST")
 	admin.HandleFunc("/editspecifichint/{region}/{lvl}/{id}", app.withAdmin(app.editSpecificHint)).Methods("POST")
 
-	//admin.HandleFunc("/getsubmissions/{id}", app.withAdmin(app.getUserSubmissions)).Methods("GET")
-
 	//Question Routes
 	questions := api.PathPrefix("/question").Subrouter()
 	questions.HandleFunc("/fetch/{region}", app.withUser(app.fetchQuestion)).Methods("GET")

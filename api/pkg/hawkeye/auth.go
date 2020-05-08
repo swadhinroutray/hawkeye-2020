@@ -110,7 +110,8 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Submissions:      []Submission{},
 		Access:           0,
 		Banned:           false,
-		FirstLogin:       false,
+		AllAnswered:      false,
+		// FirstLogin:       false,
 	}
 	Secret := os.Getenv("RECAPTCHA_SECRET_KEY")
 	_, err = http.Get("https://www.google.com/recaptcha/api/siteverify?secret=" + Secret + "&response=" + reqBody.Token)
@@ -184,15 +185,15 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
 		return
 	}
-	if user.FirstLogin == false {
-		app.db.Collection("users").FindOneAndUpdate(r.Context(),
-			bson.M{"_id": user.ID},
-			bson.M{"$set": bson.M{"firstlogin": true}},
-		)
-		app.log.Infof("Session Set for user %s", currUser.Email)
-		app.sendResponse(w, true, Success, currUser)
-		return
-	}
+	// if user.FirstLogin == false {
+	// 	app.db.Collection("users").FindOneAndUpdate(r.Context(),
+	// 		bson.M{"_id": user.ID},
+	// 		bson.M{"$set": bson.M{"firstlogin": true}},
+	// 	)
+	// 	app.log.Infof("Session Set for user %s", currUser.Email)
+	// 	app.sendResponse(w, true, Success, currUser)
+	// 	return
+	// }
 	app.log.Infof("Session Set for user %s", currUser.Email)
 	app.sendResponse(w, true, Success, currUser)
 }
