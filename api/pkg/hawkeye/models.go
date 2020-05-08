@@ -35,6 +35,7 @@ type User struct {
 	Token            string       `bson:"token" json:"-"`
 	RegionMultiplier int          `bson:"regionmultiplier" json:"regionmultiplier"`
 	AllAnswered      bool         `bson:"allanswered" json:"allanswered"`
+	NestLevel        int          `bson:"nestlevel" json:"nestlevel"`
 }
 
 //Question (Collection)...
