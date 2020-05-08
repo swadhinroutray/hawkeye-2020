@@ -21,7 +21,6 @@ class GameplayModel {
 	itembool = [];
 	inventory = [];
 	locked = false;
-
 	points = 0;
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;

@@ -171,10 +171,10 @@ func (app *App) HawksNestAnswerController(w http.ResponseWriter, r *http.Request
 	newSubmission := Submission{
 		ID:        primitive.NewObjectID(),
 		CreatedAt: time.Now(),
-
-		Level:  ansReq.Level,
-		Answer: ansReq.Answer,
-		Status: matchResult,
+		Region:    5,
+		Level:     ansReq.Level,
+		Answer:    ansReq.Answer,
+		Status:    matchResult,
 	}
 
 	if matchResult == WrongAnswer {

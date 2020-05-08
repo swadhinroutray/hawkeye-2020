@@ -5,7 +5,7 @@ export const QuestionBox = inject(
 	'gameplayStore',
 	'loginStore',
 )(
-	observer(({ gameplayStore, match, loginStore, getinventory }) => {
+	observer(({ gameplayStore, loginStore }) => {
 		useEffect(() => {
 			if (gameplayStore.message === 'Hawk approves!')
 				setTimeout(() => {
@@ -15,7 +15,7 @@ export const QuestionBox = inject(
 		return (
 			<div className="QuestionBox">
 				<div className="QuestionWrapper">
-					<div className="Level">LEVEL {gameplayStore.level}</div>
+					<div className="Level">LEVEL {gameplayStore.nestLevel}</div>
 					<br />
 					<div style={{ color: 'white' }} className="Question">
 						{gameplayStore.question}
@@ -33,7 +33,7 @@ export const QuestionBox = inject(
 							onKeyPress={e => {
 								const code = e.keyCode || e.which;
 								if (code === 13) {
-									gameplayStore.submit(5);
+									gameplayStore.submit();
 								}
 							}}
 						></input>
@@ -45,7 +45,6 @@ export const QuestionBox = inject(
 							<Redirect to="/login" />
 						) : null}
 					</div>
-
 					<button
 						style={{ color: 'white' }}
 						onClick={() => {
@@ -55,6 +54,7 @@ export const QuestionBox = inject(
 					>
 						SUBMIT
 					</button>
+					<div>{gameplayStore.nestlevel}</div>
 
 					<div className="AnswerStatus">
 						{gameplayStore.message === 'Hawk approves!' && (

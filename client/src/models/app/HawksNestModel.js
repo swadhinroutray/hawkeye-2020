@@ -2,15 +2,16 @@ import { decorate, observable, action } from 'mobx';
 import { get, post } from '../../utils/api';
 import { toast } from 'react-toastify';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import LoginStore from './LoginModel';
 const hawkResponses = {
 	Correct: `Hawk approves!`,
 	Wrong: `Hawk disapproves.`,
 	Close: `Hawk thinks you're close.`,
 };
 
-class GameplayModel {
+class HawksNestModel {
 	questionId;
-	level = 0;
+	nestLevel = 0;
 	question = '';
 	message = '';
 	currentAnswer = '';
@@ -20,22 +21,32 @@ class GameplayModel {
 	locked = false;
 	points = 0;
 
+	setNestLevel = newLevel => {
+		this.nestLevel = newLevel;
+	};
+
 	setCurrentAnswer(newValue) {
 		this.currentAnswer = newValue;
 	}
 
-	getQuestion = region => {
+	getQuestion = () => {
 		this.locked = false;
-		get('/api/fetch/hawksnest/0').then(this.getQuestionControl);
+		get('/api/users/getprofile')
+			.then(LoginStore.loginControl)
+			.then(() => {
+				get(`/api/hawksnest/fetchquestions/${this.nestLevel}`).then(
+					this.getQuestionControl,
+				);
+			});
 	};
 
 	getQuestionControl = res => {
-		console.log(res);
 		if (res.success) {
 			if (res.data.question) {
 				this.questionId = res.data.id;
 				this.question = res.data.question;
-				this.level = res.data.level;
+				this.nestLevel = res.data.level;
+
 				if (res.data.hints.length > 0) {
 					this.hints.replace(res.data.hints.map(hint => hint.hint));
 				} else {
@@ -72,9 +83,9 @@ class GameplayModel {
 
 	submit() {
 		if (this.currentAnswer.length === 0) return;
-		post(`/api/question/answer`, {
+		post(`/api/hawksnest/answer`, {
 			answer: this.currentAnswer,
-			region: 5,
+			level: this.nestLevel,
 		}).then(this.submitControl);
 		this.attempts.unshift(this.currentAnswer);
 		this.attempts.replace(this.attempts.slice(0, 10));
@@ -104,16 +115,17 @@ class GameplayModel {
 			this.points = res.data.points;
 			if (res.data.submissions) {
 				let submissions = res.data.submissions;
+
 				submissions = submissions.filter(
 					submission =>
-						submission.region === this.region &&
-						submission.level === this.level,
+						submission.region === 5 && submission.level === this.nestLevel,
 				);
 
 				this.attempts.replace(submissions.map(sub => sub.answer));
 				this.attempts = this.attempts.reverse();
 			}
 		}
+
 		this.getStats();
 	};
 
@@ -130,8 +142,9 @@ class GameplayModel {
 		setTimeout(this.getHiddenHints, 1000);
 	};
 }
-decorate(GameplayModel, {
-	level: observable,
+
+decorate(HawksNestModel, {
+	nestLevel: observable,
 	question: observable,
 	message: observable,
 	region: observable,
@@ -147,6 +160,7 @@ decorate(GameplayModel, {
 	getTries: action,
 	points: observable,
 	getStats: action,
+	setNestLevel: action,
 });
-const store = new GameplayModel();
+const store = new HawksNestModel();
 export default store;

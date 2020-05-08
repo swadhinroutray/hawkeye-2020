@@ -187,7 +187,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 	newMult := currUser.Multiplier
 
 	//Change scoring system after every 5th question
-	if currUser.AnswerCount%3 == 0 {
+	if currUser.AnswerCount%5 == 0 {
 		newMult = int(float64(newMult) * ScoringGradient)
 	}
 

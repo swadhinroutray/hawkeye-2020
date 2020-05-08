@@ -7,7 +7,9 @@ import {
 } from '../../utils/validation';
 import { get, post } from '../../utils/api';
 import LandingStore from './LandingPageModel';
+import HawksNestModel from './HawksNestModel';
 import { toast } from 'react-toastify';
+
 class LoginModel {
 	formData = {
 		email: { value: '', error: '' },
@@ -102,6 +104,7 @@ class LoginModel {
 				itembool,
 				regionmultiplier,
 				allanswered,
+				nestlevel,
 			} = res.data;
 
 			this.profile.id = id;
@@ -118,12 +121,15 @@ class LoginModel {
 			this.profile.itembool = itembool;
 			this.profile.regionmultiplier = regionmultiplier;
 			this.profile.allanswered = allanswered;
+			this.profile.nestlevel = nestlevel;
 			this.profileSet = true;
 			this.loggedIn = true;
 			this.setField('email', '');
 			this.setField('password', '');
 			this.loggedIn = true;
-			console.log(this.profile.allanswered);
+
+			HawksNestModel.setNestLevel(nestlevel);
+
 			return;
 		}
 		this.profileSetError = true;

@@ -2,7 +2,8 @@ import { inject, observer, Provider } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
-import GameplayModel from '../../../models/app/GameplayModel';
+import HawksNestModel from '../../../models/app/HawksNestModel';
+
 import {
 	AttemptsBox,
 	HintsBox,
@@ -26,10 +27,10 @@ const HawksNest = inject('loginStore')(
 	observer(({ loginStore, match }) => {
 		useEffect(() => {
 			loginStore.getProfile();
-			GameplayModel.getQuestion(5);
+			HawksNestModel.getQuestion();
 			loginStore.clearErrors();
-			GameplayModel.clearMessage();
-		}, [loginStore, match, GameplayModel]);
+			HawksNestModel.clearMessage();
+		}, [loginStore, match, HawksNestModel]);
 
 		const [rules, setrules] = useState(false);
 
@@ -37,7 +38,8 @@ const HawksNest = inject('loginStore')(
 			<GameWrapper region={match.params.id}>
 				<Details1 />
 				<Details2 />
-				<Provider gameplayStore={GameplayModel}>
+
+				<Provider gameplayStore={HawksNestModel}>
 					<div className="Navbar">
 						<div className="navbar-btn">
 							<a href="/regions">
@@ -75,13 +77,13 @@ const HawksNest = inject('loginStore')(
 					<div id="heading">HAWKS NEST</div>
 					<div id="points">
 						Current Points:{' '}
-						<span style={{ color: 'white' }}>{GameplayModel.points}</span>
+						<span style={{ color: 'white' }}>{HawksNestModel.points}</span>
 					</div>
 
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
-								<QuestionBox match={match} />
+								<QuestionBox />
 								<HintsBox />
 								<AttemptsBox />
 							</div>

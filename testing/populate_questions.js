@@ -28,9 +28,6 @@ async function addQuestions(region, level) {
     })
   );
 
-  //console.log("HERE GOES NOTHING")
-  //console.log(loginCookie)
-
   fetch("http://localhost:8080/api/admin/addquestion", {
     method: "POST",
     headers: {
@@ -60,4 +57,44 @@ async function loopAdd() {
   }
 }
 
+async function addHawksQuestions(level) {
+  var loginCookie = parseCookies(
+    await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        email: "a@g.com",
+        password: "a",
+      }),
+    })
+  );
+
+  fetch("http://localhost:8080/api/admin/addhawksnestquestion", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      cookie: loginCookie,
+    },
+    body: JSON.stringify({
+      question: "The dogs are out",
+      answer: "Tedros Adhanom Ghebreyesus",
+      level: level,
+      keywords: ["WHO", "World Health Organisation", "Baha Men"],
+    }),
+  })
+    .then((resp) => resp.json())
+    .then((data) => console.log(data));
+}
+
+async function loopHN() {
+  for (var j = 1; j <= 70; j++) {
+    addHawksQuestions(j);
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+}
+
 loopAdd();
+loopHN();
