@@ -24,7 +24,7 @@ export const RegionInfo = inject('LandingStore')(
 				{(LoginStore.profile.regionmultiplier &&
 					LoginStore.profile.regionmultiplier) ===
 				LandingStore.currentRegion ? (
-					<div className="info">Region Multiplier Applied</div>
+					<div style={{color:"#f2ad00"}} className="info">Region Multiplier Applied</div>
 				) : null}
 
 				{LoginStore.profile.level &&
