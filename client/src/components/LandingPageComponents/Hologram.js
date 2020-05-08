@@ -45,16 +45,6 @@ export const Hologram = inject('LandingStore')(
 	}),
 );
 
-const ShopLogo = styled(Icon)`
-	position: absolute;
-	right: 16%;
-	top: 3%;
-
-	@media (min-width: 768px) {
-		right: 3%;
-	}
-`;
-
 const Multiplier = styled.span`
 	color: #f2ad00;
 	position: absolute;

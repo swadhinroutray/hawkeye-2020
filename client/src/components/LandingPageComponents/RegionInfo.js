@@ -10,6 +10,7 @@ export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
 		useEffect(() => {
 			GameplayModel.locked = false;
+			GameplayModel.clear()
 		}, []);
 
 		if (LoginStore.profile.allanswered) {

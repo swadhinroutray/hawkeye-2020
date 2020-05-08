@@ -1,9 +1,9 @@
 import { inject, observer, Provider } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect} from 'react-router';
 import styled from 'styled-components';
 import HawksNestModel from '../../../models/app/HawksNestModel';
-
+import {Link} from 'react-router-dom'
 import {
 	AttemptsBox,
 	HintsBox,
@@ -19,6 +19,7 @@ import ReactLoading from 'react-loading';
 import Rules from '../../../components/Rules';
 import Details1 from '../../../components/Details1';
 import Details2 from '../../../components/Details2';
+import { ReactComponent as BackButton } from '../../../assets/BackButton.svg';
 
 const HawksNest = inject('loginStore')(
 	observer(({ loginStore, match }) => {
@@ -39,12 +40,16 @@ const HawksNest = inject('loginStore')(
 				<Provider gameplayStore={HawksNestModel}>
 					<div className="Navbar">
 						<div className="navbar-btn">
+	
 							<a href="/regions">
 								<img id="hawklogo" src={HAWK} alt="Hawk" />
 							</a>
 						</div>
 
 						<div className="nav-buttons">
+						<Link className="back" to="/regions">
+								<BackButton />
+							</Link>
 							<div className="navbar-btn" onClick={() => setrules(true)}>
 								<img id="rule-button" src={RulesIcon} alt="Rules" />
 							</div>

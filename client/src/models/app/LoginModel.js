@@ -19,10 +19,10 @@ class LoginModel {
 	profile = {};
 	profileSet = false;
 	profileSetError = false;
-
+	firstLogin = false;
 	isForgotLoading = false;
 	forgotEmailSent = false;
-
+	rulesDisplay = false;
 	isResetLoading = false;
 	resetSuccess = false;
 	passwordError = '';
@@ -30,6 +30,9 @@ class LoginModel {
 		resetPassword: { value: '', err: '' },
 		confirmPassword: { value: '', err: '' },
 	};
+	setRulesDisplay(val) {
+		this.rulesDisplay = false;
+	}
 
 	setField(field, newValue) {
 		this.formData[field].value = newValue.trim();
@@ -105,6 +108,8 @@ class LoginModel {
 				regionmultiplier,
 				allanswered,
 				nestlevel,
+				submissions,
+				FirstLogin,
 			} = res.data;
 
 			this.profile.id = id;
@@ -123,6 +128,8 @@ class LoginModel {
 			this.profile.allanswered = allanswered;
 			this.profile.nestlevel = nestlevel;
 			this.profileSet = true;
+			this.profile.submissions = submissions;
+			this.profile.FirstLogin = FirstLogin;
 			this.loggedIn = true;
 			this.setField('email', '');
 			this.setField('password', '');
@@ -130,6 +137,13 @@ class LoginModel {
 
 			HawksNestModel.setNestLevel(nestlevel);
 
+			if (FirstLogin) {
+				post('api/users/firstlogin', { value: false }).then(res => {
+					if (res.success === true) {
+						this.rulesDisplay = true;
+					}
+				});
+			}
 			return;
 		}
 		this.profileSetError = true;
@@ -270,7 +284,7 @@ class LoginModel {
 decorate(LoginModel, {
 	formData: observable,
 	loggedIn: observable,
-
+	rulesDisplay: observable,
 	profile: observable,
 	profileSet: observable,
 	profileSetError: observable,
@@ -287,6 +301,7 @@ decorate(LoginModel, {
 	resetSuccess: observable,
 	resetForm: observable,
 	passwordError: observable,
+	setRulesDisplay: action,
 });
 
 const store = new LoginModel();

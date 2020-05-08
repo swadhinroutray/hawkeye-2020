@@ -112,7 +112,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Banned:           false,
 		AllAnswered:      false,
 		NestLevel:        1,
-		// FirstLogin:       false,
+		FirstLogin:       true,
 	}
 	Secret := os.Getenv("RECAPTCHA_SECRET_KEY")
 	_, err = http.Get("https://www.google.com/recaptcha/api/siteverify?secret=" + Secret + "&response=" + reqBody.Token)
@@ -178,8 +178,9 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	currUser := CurrUser{
-		ID:    user.ID,
-		Email: user.Email,
+		ID:         user.ID,
+		Email:      user.Email,
+		FirstLogin: user.FirstLogin,
 	}
 
 	if err := app.setSession(w, r, currUser, 86400); err != nil {
@@ -330,4 +331,30 @@ func (app *App) resetPassword(w http.ResponseWriter, r *http.Request) {
 	)
 
 	app.sendResponse(w, true, Success, "Password reset successfully")
+}
+
+// FirstLoginRequest ...
+type FirstLoginRequest struct {
+	Value bool `json:"value" bson:"value"`
+}
+
+func (app *App) setFirstLoginFalse(w http.ResponseWriter, r *http.Request) {
+	currUser := app.getUserTest(r)
+
+	var firstLogin FirstLoginRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&firstLogin); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"_id": currUser.ID},
+		bson.M{
+			"$set": bson.M{
+				"firstlogin": firstLogin.Value,
+			},
+		},
+	)
+
+	app.sendResponse(w, true, Success, "First Login changed")
 }

@@ -39,9 +39,10 @@ const GlobalStyle = createGlobalStyle`
 		margin:0 !important;
 		padding:0 !important;
 	}
-	html{
-		height:100%;
+	body::-webkit-scrollbar { 
+		display: none; 
 	}
+
 	body{
 		background-image: url(${bg});
 		background-repeat: no-repeat;
@@ -52,9 +53,12 @@ const GlobalStyle = createGlobalStyle`
 		
 	}
 	.main-wrapper{
-		height :100vh;
+		min-height :100vh;
 		overflow-x:hidden;
 		overflow-y:scroll;
+		:-webkit-scrollbar { 
+			display: none; 
+		}
 	}
 	*{
 		color: #3abdb7;

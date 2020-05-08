@@ -59,6 +59,7 @@ func (app *App) mountRoutes() {
 	Users := api.PathPrefix("/users").Subrouter()
 	Users.HandleFunc("/getprofile", app.withUser(app.getProfile)).Methods("GET")
 	Users.HandleFunc("/getrank", app.withUser(app.rankController)).Methods("GET")
+	Users.HandleFunc("/firstlogin", app.withUser(app.setFirstLoginFalse)).Methods("POST")
 
 	// questions.HandleFunc("/fetch/hawksnest/{region}", app.withUser(app.fetchQuestion)).Methods("GET")
 	HawksNest := api.PathPrefix("/hawksnest").Subrouter()

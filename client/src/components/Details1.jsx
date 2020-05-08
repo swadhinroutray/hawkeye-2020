@@ -24,7 +24,7 @@ const device = {
 
 const SVG = styled.svg`
 	height: 60%;
-	position: absolute;
+	position: fixed;
 	right: 1%;
 	top: 20%;
 	opacity: 59%;
