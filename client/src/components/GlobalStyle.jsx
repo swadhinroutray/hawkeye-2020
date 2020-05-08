@@ -39,9 +39,10 @@ const GlobalStyle = createGlobalStyle`
 		margin:0 !important;
 		padding:0 !important;
 	}
-	html{
-		height:100%;
+	body::-webkit-scrollbar { 
+		display: none; 
 	}
+
 	body{
 		background-image: url(${bg});
 		background-repeat: no-repeat;
