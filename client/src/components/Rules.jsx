@@ -165,7 +165,11 @@ const RulesWrapper = styled.div`
 	.Rules path {
 		color: white;
 	}
+    .Rules-content div{
+        text-align: left;
+    }
 	.Rules-content {
+        
 		font-family: 'Futura PT Medium';
 		height: 90%;
 		font-size: 20px;
