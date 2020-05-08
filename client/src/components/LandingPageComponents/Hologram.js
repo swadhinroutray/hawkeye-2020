@@ -2,15 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { observer, inject } from 'mobx-react';
 import { hologramImg } from '../../assets/landing-assets';
-import { Icon } from './Header';
-
+// import { Icon } from './Header';
 
 export const Hologram = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
 		return (
 			<HologramWrapper>
-				
-
 				{LoginStore.profile.regionmultiplier === LandingStore.currentRegion &&
 					LoginStore.profile.level[LandingStore.currentRegion] < 8 && (
 						<Multiplier>
@@ -36,16 +33,6 @@ export const Hologram = inject('LandingStore')(
 		);
 	}),
 );
-
-const ShopLogo = styled(Icon)`
-	position: absolute;
-	right: 16%;
-	top: 3%;
-
-	@media (min-width: 768px) {
-		right: 3%;
-	}
-`;
 
 const Multiplier = styled.span`
 	color: #f2ad00;

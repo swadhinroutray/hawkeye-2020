@@ -119,7 +119,7 @@ const ShopPageContainer = styled.div`
 	.filler {
 		display: none;
 	}
-	@media ${device.mobileS} and (max-width: ${size.mobileM}) {
+	@media ${device.mobileS}, (max-width: ${size.mobileM}) {
 		letter-spacing: 0;
 		margin: 10px auto;
 		.header {
@@ -152,6 +152,7 @@ const ShopPageContainer = styled.div`
 			}
 			img {
 				height: 8vh;
+				width: 8vh;
 			}
 		}
 		.subhead {
