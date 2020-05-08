@@ -62,8 +62,9 @@ const InfoWrapper = styled.div`
 	}
 	@media (min-width: 768px) {
 		width: 100%;
-		padding: 15% 7%;
+		padding: 15% 20px;
 		font-size: 1em;
+		
 	}
 	@media (min-width: 1024px) {
 		width: 80%;

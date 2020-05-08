@@ -119,7 +119,7 @@ const Wrapper = styled.div`
 	position: relative;
 	overflow: hidden;
 
-	@media (min-width: 768px) {
+	@media (min-width: 1112px) {
 		display: grid;
 		grid-template-columns: 30fr auto 30fr;
 		/* justify-items: center; */
