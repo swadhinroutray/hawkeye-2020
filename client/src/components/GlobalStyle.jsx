@@ -49,14 +49,12 @@ const GlobalStyle = createGlobalStyle`
 		-o-background-size: cover;
 		-moz-background-size: cover;
 		-webkit-background-size:cover;
+		
+	}
+	.main-wrapper{
 		height :100vh;
 		overflow-x:hidden;
 		overflow-y:auto;
-
-	}
-	.main-wrapper{
-		max-height:100vh;
-		overflow-y:scroll;
 	}
 	*{
 		color: #3abdb7;
