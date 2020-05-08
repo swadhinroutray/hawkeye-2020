@@ -89,6 +89,7 @@ const Game = inject('loginStore')(
 					{match.params.id === '2' && <div id="heading">PRIPYAT</div>}
 					{match.params.id === '3' && <div id="heading">THE ANTHROPOCENE</div>}
 					{match.params.id === '4' && <div id="heading">MEDUSAE FOSSAE</div>}
+					<div id="points" >Current Points: <span style={{color:"white"}}>{GameplayModel.points}</span></div>
 					<div className="GameContent">
 						<div className="GameWrapper">
 							<div className="game-play">
@@ -263,6 +264,21 @@ const GameWrapper = styled.div`
 	}
 	.stats::-webkit-scrollbar {
 		display: none;
+	}
+	#points{
+		
+		font-size:15px;
+		font-weight:bold;
+		color:#F2AD00;
+		margin-top:1rem;
+		@media(min-width:${size.laptop}){
+			margin-top:2rem;
+			font-size:20px;
+		}
+		@media(min-width:${size.laptopL}){
+			margin-top:2rem;
+			font-size:25px;
+		}
 	}
 	.inventory {
 		border-top: 2px solid #7fd1e0;
@@ -445,6 +461,9 @@ const GameWrapper = styled.div`
 		font-family: 'Futura PT Medium';
 		:hover {
 			cursor: pointer;
+		}
+		@media (max-height: 480px) {
+			display:none;
 		}
 		position: fixed;
 		bottom: 0;

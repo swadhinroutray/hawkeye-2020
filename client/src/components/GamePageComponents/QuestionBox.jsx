@@ -44,7 +44,7 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 						
 					</div>
 				</div>
-				<div id="points"  style={{fontSize:"0.9rem",color:"white"}}>Current Points:{gameplayStore.points}</div>
+				
 			</div>
 		)}
 	)
