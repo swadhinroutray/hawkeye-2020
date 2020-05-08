@@ -351,6 +351,10 @@ const GameWrapper = styled.div`
 		border-top: 1px solid #7fd1e0;
 		border-bottom: 1px solid #7fd1e0;
 		font-family: 'Futura PT Medium';
+		:focus {
+  outline: none;
+  box-shadow: none;
+}
 	}
 	.AnswerWrapper button {
 		:hover {
