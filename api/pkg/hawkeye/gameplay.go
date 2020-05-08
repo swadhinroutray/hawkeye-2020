@@ -136,8 +136,6 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		level = 0
 	}
 
-	fmt.Println(region)
-	fmt.Println(level)
 	//Fetch the Question that is going to be answered
 	var answerQues Question
 	err := app.db.Collection("questions").FindOne(r.Context(), bson.M{"level": level, "region": region}).Decode(&answerQues)
