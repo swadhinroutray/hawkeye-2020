@@ -7,11 +7,8 @@ export const QuestionBox = inject('gameplayStore','loginStore')(
 		({ gameplayStore,match,loginStore ,getinventory}) => {
 			
 			useEffect(() => {
-				if(gameplayStore.message==='Hawk approves!')
+				if(gameplayStore.message==='Hawk approves!'||gameplayStore.message==='Hawk disapproves.')
 					setTimeout(()=>{gameplayStore.message=''},3000)
-				if(gameplayStore.hints){
-					console.log(gameplayStore.hints.filter(hint=>hint.hintnum===2)[0])
-				}
 			})
 			return (
 			<div className="QuestionBox">
