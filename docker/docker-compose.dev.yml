@@ -18,18 +18,18 @@ services:
       WAIT_HOSTS: db:27017,redis:6379
       WAIT_HOSTS_TIMEOUT: 120
 
-  client:
-    build:
-      context: ../client
-      dockerfile: ../docker/client.dev.Dockerfile
-    restart: unless-stopped
-    networks:
-      - network
-    volumes:
-      - ../client:/usr/src/client
-    ports:
-      - ${CLIENT_PORT}:3000
-    env_file: ../.env
+  # client:
+  #   build:
+  #     context: ../client
+  #     dockerfile: ../docker/client.dev.Dockerfile
+  #   restart: unless-stopped
+  #   networks:
+  #     - network
+  #   volumes:
+  #     - ../client:/usr/src/client
+  #   ports:
+  #     - ${CLIENT_PORT}:3000
+  #   env_file: ../.env
 
   db:
     image: mongo:latest

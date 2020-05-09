@@ -3,6 +3,7 @@ package hawkeye
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"math/rand"
 	"net/http"
 	"os"
@@ -185,6 +186,39 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// VerifyRequest ...
+type VerifyRequest struct {
+	Token string `json:"token" bson:"token"`
+}
+
+func (app *App) verifyEmail(w http.ResponseWriter, r *http.Request) {
+
+	var verReq VerifyRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&verReq); err != nil {
+		app.sendDecodeError(w, err)
+		return
+	}
+
+	var thisUser User
+
+	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"token": verReq.Token}).Decode(&thisUser); err == mongo.ErrNoDocuments {
+		app.sendResponse(w, false, Conflict, nil)
+		return
+	}
+
+	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"token": verReq.Token},
+		bson.M{
+			"$set": bson.M{
+				"email": thisUser.Email[12:],
+			},
+		},
+	)
+
+	app.sendResponse(w, true, Success, "Email Verified successfully")
+
+}
+
 //LoginRequest ...
 type LoginRequest struct {
 	Email    string `json:"email" validate:"required,email"`
@@ -269,7 +303,7 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 	message := map[string]interface{}{
 		"toEmail": to,
 		"name":    name,
-		"link":    "https://hawkeye.iecsemanipal.com/reset?token=" + token,
+		"link":    "http://localhost:3030/reset?token=%s" + token,
 	}
 	bytesRepresentation, err := json.Marshal(message)
 	if err != nil {
@@ -278,7 +312,7 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 		return err
 	}
 
-	client := &http.Client{}
+	// client := &http.Client{}
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bytesRepresentation))
 
@@ -292,7 +326,7 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 	req.Header.Set("Authorization", authKey)
 	req.Header.Set("Content-Type", "application/json")
 
-	_, err = client.Do(req)
+	// res, err := client.Do(req)
 
 	if err != nil {
 		app.log.Infof("ERROR %v", err.Error())
@@ -354,6 +388,8 @@ func (app *App) resetPassword(w http.ResponseWriter, r *http.Request) {
 		app.sendDecodeError(w, err)
 		return
 	}
+
+	fmt.Print(resetReq)
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(strings.TrimSpace(resetReq.Password)), bcrypt.DefaultCost)
 	if err != nil {
