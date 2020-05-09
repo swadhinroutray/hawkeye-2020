@@ -64,7 +64,7 @@ class ShopModel {
 		get('/api/shop/resetstore').then(this.resetControl);
 	}
 	resetControl = res => {
-		console.log(res);
+		// console.log(res);
 		if (res.success) {
 			if (res.data === 'You do not have enough points') this.message = res.data;
 			if (res.data === 'Store successfully reset') {
@@ -80,7 +80,7 @@ class ShopModel {
 	//ADD BOUGHT ITEM TO INVENTORY NOT DONE
 	buyItem() {
 		post('api/shop/buy/' + this.selected, {}).then(res => {
-			console.log(res);
+			// console.log(res);
 			if (res.success) {
 				if (res.data === 'A new elixir has been added to your inventory') {
 					toast('A new elixir has been added to your inventory', {
