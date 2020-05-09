@@ -226,7 +226,7 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 	message := map[string]interface{}{
 		"toEmail": to,
 		"name":    name,
-		"link":    "https://hawkeye.iecsemanipal.com/reset?token=%s" + token,
+		"link":    "https://hawkeye.iecsemanipal.com/reset?token=" + token,
 	}
 	bytesRepresentation, err := json.Marshal(message)
 	if err != nil {
@@ -235,7 +235,7 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 		return err
 	}
 
-	 client := &http.Client{}
+	client := &http.Client{}
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bytesRepresentation))
 
@@ -249,7 +249,7 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 	req.Header.Set("Authorization", authKey)
 	req.Header.Set("Content-Type", "application/json")
 
-	 _, err = client.Do(req)
+	_, err = client.Do(req)
 
 	if err != nil {
 		app.log.Infof("ERROR %v", err.Error())
