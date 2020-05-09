@@ -52,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
 		-webkit-background-size:cover;
 		
 	}
+	
 	.main-wrapper{
 		min-height :100vh;
 		overflow-x:hidden;

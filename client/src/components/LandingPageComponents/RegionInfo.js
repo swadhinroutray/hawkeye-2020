@@ -10,7 +10,7 @@ export const RegionInfo = inject('LandingStore')(
 	observer(({ LandingStore, LoginStore }) => {
 		useEffect(() => {
 			GameplayModel.locked = false;
-			GameplayModel.clear()
+			GameplayModel.clear();
 		}, []);
 
 		if (LoginStore.profile.allanswered) {
@@ -22,7 +22,6 @@ export const RegionInfo = inject('LandingStore')(
 					<Link to={'/hawksnest'}>
 						<Start>Start</Start>
 					</Link>
-
 				</InfoWrapper>
 			);
 		} else {
@@ -35,22 +34,25 @@ export const RegionInfo = inject('LandingStore')(
 					<Desc className="info">
 						{LandingStore.regionInfo[LandingStore.currentRegion].description}
 					</Desc>
-
 					{(LoginStore.profile.regionmultiplier &&
 						LoginStore.profile.regionmultiplier) ===
 					LandingStore.currentRegion ? (
-						<div style={{ color: '#f2ad00' }} className="info">
+						<div
+							style={{ color: '#f2ad00', marginTop: '15px' }}
+							className="info"
+						>
 							Region Multiplier Applied
 						</div>
 					) : null}
-
-									
-				{LoginStore.profile.level &&
-				LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
-				LoginStore.profile.level[LandingStore.currentRegion] < 7 ? (
-					<Link style={{color:"#90ee90"}} to={`/game/${LandingStore.currentRegion}`}>
-						<Start style={{color:"#90ee90"}} >Start</Start>
-					</Link>
+					{LoginStore.profile.level &&
+					LoginStore.profile.level[LandingStore.currentRegion] > 0 &&
+					LoginStore.profile.level[LandingStore.currentRegion] < 7 ? (
+						<Link
+							style={{ color: '#90ee90' }}
+							to={`/game/${LandingStore.currentRegion}`}
+						>
+							<Start style={{ color: '#90ee90' }}>Start</Start>
+						</Link>
 					) : LoginStore.profile.level &&
 					  LoginStore.profile.level[LandingStore.currentRegion] === 7 ? (
 						<span>
@@ -87,7 +89,6 @@ const InfoWrapper = styled.div`
 		width: 100%;
 		padding: 15% 20px;
 		font-size: 1em;
-		
 	}
 	@media (min-width: 1024px) {
 		width: 80%;

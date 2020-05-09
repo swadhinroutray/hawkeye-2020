@@ -295,8 +295,7 @@ const GameWrapper = styled.div`
 		min-height: 20vh;
 		left: 0;
 		right: 0;
-		background: rgb(50, 34, 100, 0.8);
-
+		background: rgb(50, 34, 100, 0.85);
 		animation-name: fadeInUp;
 		-webkit-animation-name: fadeInUp;
 		animation-duration: 1s;
@@ -354,9 +353,9 @@ const GameWrapper = styled.div`
 		border-bottom: 1px solid #7fd1e0;
 		font-family: 'Futura PT Medium';
 		:focus {
-  outline: none;
-  box-shadow: none;
-}
+			outline: none;
+			box-shadow: none;
+		}
 	}
 	.AnswerWrapper button {
 		:hover {
@@ -393,7 +392,7 @@ const GameWrapper = styled.div`
 		margin: 0 2px;
 	}
 	#hawklogo {
-		margin-left:10%;
+		margin-left: 10%;
 		width: 50px;
 		height: 70px;
 	}
@@ -469,7 +468,7 @@ const GameWrapper = styled.div`
 			cursor: pointer;
 		}
 		@media (max-height: 440px) {
-			display:none;
+			display: none;
 		}
 		position: fixed;
 		bottom: 0;
@@ -590,8 +589,8 @@ const GameWrapper = styled.div`
 	}
 
 	@media (min-width: 1181px) {
-		#hawklogo{
-			margin-left:40%;
+		#hawklogo {
+			margin-left: 40%;
 		}
 		.nav-buttons {
 			margin: 0 20px;
