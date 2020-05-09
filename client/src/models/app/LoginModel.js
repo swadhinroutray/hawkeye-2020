@@ -30,6 +30,8 @@ class LoginModel {
 		resetPassword: { value: '', err: '' },
 		confirmPassword: { value: '', err: '' },
 	};
+	verifySuccess = false;
+	verifyMessage = "Please wait while we're verifying your account";
 	setRulesDisplay(val) {
 		this.rulesDisplay = false;
 	}
@@ -271,6 +273,23 @@ class LoginModel {
 				}
 			});
 	}
+	verifyEmail(token) {
+		post('/api/auth/verifyemail', { token: token }).then(this.verifyControl);
+	}
+	verifyControl = res => {
+		if (res.success) {
+			this.verifySuccess = res.success;
+			this.verifyMessage = 'Reset Succesfully!!';
+			return;
+		}
+		if (res.success === false) {
+			this.verifyMessage = "Couldn't verify email";
+			setTimeout(() => {
+				this.verifySuccess = true;
+			}, 100000);
+			return;
+		}
+	};
 	getInventory() {
 		get('/api/shop/getinventory').then(this.inventoryControl);
 	}
@@ -302,6 +321,10 @@ decorate(LoginModel, {
 	resetForm: observable,
 	passwordError: observable,
 	setRulesDisplay: action,
+
+	verifySuccess: observable,
+	verifyControl: action,
+	verifyMessage: observable,
 });
 
 const store = new LoginModel();

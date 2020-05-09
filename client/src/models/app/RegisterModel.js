@@ -134,9 +134,9 @@ class RegisterModel {
 			if (res.success) {
 				this.setMessage('Registered successfully!');
 				this.successful = true;
-				toast('Registered Successfully', {
+				toast('Please check your email for verification link', {
 					position: 'top-right',
-					autoClose: 4000,
+					autoClose: 10000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
