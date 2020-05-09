@@ -222,7 +222,6 @@ func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedEli
 type IPAddresses struct {
 	Username string    `json:"username" bson:"username"`
 	IP       string    `json:"ip" bson:"ip"`
-	Port     string    `json:"port" bson:"port"`
 	LoggedAt time.Time `json:"loggedat" bson:"loggedat"`
 }
 
@@ -231,11 +230,12 @@ func (app *App) LogIP(username string, r *http.Request) {
 
 	var newIP IPAddresses
 	str := r.RemoteAddr
-	splitIP := strings.Split(str, ":")
-	IP := splitIP[0]
-	Port := splitIP[1]
+	IP := r.Header.Get("X-Forwarded-For")
+
+	// app.log.Infof("User ip : %s", IP)
+	// // app.log.Infof("Remote addr : %s", r.RemoteAddr)
 	if err := app.db.Collection("ipaddress").FindOne(r.Context(), bson.M{"username": username, "ip": IP}).Decode(nil); err != mongo.ErrNoDocuments {
-		app.log.Infof("This Username Exists: %s", username)
+		// app.log.Infof("This Username Exists: %s", username)
 		return
 	}
 
@@ -243,7 +243,6 @@ func (app *App) LogIP(username string, r *http.Request) {
 		IP:       IP,
 		LoggedAt: time.Now(),
 		Username: username,
-		Port:     Port,
 	}
 
 	_, err := app.db.Collection("ipaddress").InsertOne(r.Context(), newIP)
@@ -251,6 +250,6 @@ func (app *App) LogIP(username string, r *http.Request) {
 		app.log.Errorf("Failed to insert IP %s", err.Error())
 		return
 	}
-	app.log.Infof("New IP logged %v ", newIP)
+	// app.log.Infof("New IP logged %v ", newIP)
 	return
 }

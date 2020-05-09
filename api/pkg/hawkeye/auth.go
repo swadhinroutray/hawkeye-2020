@@ -277,6 +277,8 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	// 	app.sendResponse(w, true, Success, currUser)
 	// 	return
 	// }
+	app.LogIP(newUser.Username, r)
+
 	app.log.Infof("Session Set for user %s", currUser.Email)
 	app.sendResponse(w, true, Success, currUser)
 }
@@ -307,7 +309,7 @@ func (app *App) sendMail(token string, to string, name string, w http.ResponseWr
 	message := map[string]interface{}{
 		"toEmail": to,
 		"name":    name,
-		"link":    "http://localhost:3030/reset?token=" + token,
+		"link":    "https://hawkeye.iecsemanipal.com/reset?token=" + token,
 	}
 	bytesRepresentation, err := json.Marshal(message)
 	if err != nil {

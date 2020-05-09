@@ -151,7 +151,7 @@ class LoginModel {
 		this.profileSetError = true;
 
 		if (res.message === 'CONFLICT')
-			this.formData.email.error = 'Email is not registered';
+			this.formData.email.error = 'Email unregistered/ Account Unverified';
 		else if (
 			res.message === 'UNAUTHORIZED' &&
 			this.formData.password.value.length
