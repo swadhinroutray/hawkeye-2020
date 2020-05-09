@@ -97,8 +97,9 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Password:  string(hash),
 		Token:     primitive.NewObjectID().Hex(),
 		Email:     emailVerify + strings.TrimSpace(reqBody.Email),
-		Mobile:    strings.TrimSpace(reqBody.Mobile),
-		College:   strings.TrimSpace(reqBody.College),
+		// Email:   strings.TrimSpace(reqBody.Email),
+		Mobile:  strings.TrimSpace(reqBody.Mobile),
+		College: strings.TrimSpace(reqBody.College),
 
 		Level:            levels,
 		Inventory:        []Elixir{},
@@ -117,7 +118,10 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		NestLevel:        1,
 		FirstLogin:       true,
 	}
-	url := "https://mail.iecsemanipal.com/hawkeye/verifyaccount" //TODO: FIX ENDPOINT
+
+	app.LogIP(newUser.Username, r)
+
+	url := "https://mail.iecsemanipal.com/hawkeye/verifyaccount"
 	message := map[string]interface{}{
 		"toEmail": strings.TrimSpace(reqBody.Email),
 		"name":    strings.TrimSpace(reqBody.Name),

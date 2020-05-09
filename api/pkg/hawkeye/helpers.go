@@ -234,7 +234,7 @@ func (app *App) LogIP(username string, r *http.Request) {
 	splitIP := strings.Split(str, ":")
 	IP := splitIP[0]
 	Port := splitIP[1]
-	if err := app.db.Collection("ipaddress").FindOne(r.Context(), bson.M{"username": username, "ip": IP, "port": Port}).Decode(nil); err != mongo.ErrNoDocuments {
+	if err := app.db.Collection("ipaddress").FindOne(r.Context(), bson.M{"username": username, "ip": IP}).Decode(nil); err != mongo.ErrNoDocuments {
 		app.log.Infof("This Username Exists: %s", username)
 		return
 	}
