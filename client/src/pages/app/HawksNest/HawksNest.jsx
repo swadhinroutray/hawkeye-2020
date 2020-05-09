@@ -1,9 +1,9 @@
 import { inject, observer, Provider } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
-import { Redirect} from 'react-router';
+import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import HawksNestModel from '../../../models/app/HawksNestModel';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import {
 	AttemptsBox,
 	HintsBox,
@@ -34,20 +34,20 @@ const HawksNest = inject('loginStore')(
 
 		return loginStore.profileSet ? (
 			<GameWrapper region={match.params.id}>
+				{!loginStore.profile.allanswered && <Redirect to="/regions" />}
 				<Details1 />
 				<Details2 />
 
 				<Provider gameplayStore={HawksNestModel}>
 					<div className="Navbar">
 						<div className="navbar-btn">
-	
 							<a href="/regions">
 								<img id="hawklogo" src={HAWK} alt="Hawk" />
 							</a>
 						</div>
 
 						<div className="nav-buttons">
-						<Link className="back" to="/regions">
+							<Link className="back" to="/regions">
 								<BackButton />
 							</Link>
 							<div className="navbar-btn" onClick={() => setrules(true)}>
