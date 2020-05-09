@@ -133,6 +133,7 @@ func (app *App) unlockExtraHint(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, message, "Something went wrong")
 		return
 	}
+	app.LogIP(currUser.Username, r)
 
 	app.logElixir(r, elixir, true, false)
 	app.sendResponse(w, true, Success, fetchedHint)
@@ -175,6 +176,8 @@ func (app *App) regionMultipler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	app.log.Infof("Multiplier applied to region %d", elixir.Region)
+	app.LogIP(currUser.Username, r)
+
 	app.logElixir(r, elixir, true, false)
 	app.sendResponse(w, true, Success, "Multiplier applied successfully")
 
@@ -297,6 +300,7 @@ func (app *App) hangMan(w http.ResponseWriter, r *http.Request) {
 
 	// Log the elixir
 	app.logElixir(r, fetchedElixir, true, false)
+	app.LogIP(currUser.Username, r)
 
 	// Remove elixir from inventory
 	message, status = app.removeInventory(r, currUser, 2)
@@ -398,6 +402,7 @@ func (app *App) skipQuestion(w http.ResponseWriter, r *http.Request) {
 
 	// Log the elixir
 	app.logElixir(r, fetchedElixir, true, false)
+	app.LogIP(currUser.Username, r)
 
 	// Remove elixir from inventory
 	message, status = app.removeInventory(r, currUser, 3)

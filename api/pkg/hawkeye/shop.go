@@ -112,6 +112,8 @@ func (app *App) buyElixir(w http.ResponseWriter, r *http.Request) {
 		Region:     newElixir.Region,
 		QuestionNo: newElixir.Question,
 	}
+
+	app.LogIP(currUser.Username, r)
 	app.log.Infof("Elixir bought successfully")
 	app.logElixir(r, tempFetch, false, true)
 	app.sendResponse(w, true, Success, "A new elixir has been added to your inventory")

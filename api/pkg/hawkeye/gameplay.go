@@ -159,7 +159,7 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		Answer: ansReq.Answer,
 		Status: matchResult,
 	}
-
+	app.LogIP(currUser.Username, r)
 	if matchResult == WrongAnswer {
 
 		keyClose := app.checkKeywords(ansReq.Answer, answerQues.Keywords)

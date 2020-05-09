@@ -10,6 +10,7 @@ import (
 	"github.com/texttheater/golang-levenshtein/levenshtein"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -215,4 +216,41 @@ func (app *App) checkInventory(r *http.Request, currUser User, elixir FetchedEli
 	}
 
 	return Success, true
+}
+
+//IPAddresses ...
+type IPAddresses struct {
+	Username string    `json:"username" bson:"username"`
+	IP       string    `json:"ip" bson:"ip"`
+	Port     string    `json:"port" bson:"port"`
+	LoggedAt time.Time `json:"loggedat" bson:"loggedat"`
+}
+
+//LogIP ...
+func (app *App) LogIP(username string, r *http.Request) {
+
+	var newIP IPAddresses
+	str := r.RemoteAddr
+	splitIP := strings.Split(str, ":")
+	IP := splitIP[0]
+	Port := splitIP[1]
+	if err := app.db.Collection("ipaddress").FindOne(r.Context(), bson.M{"username": username, "ip": IP, "port": Port}).Decode(nil); err != mongo.ErrNoDocuments {
+		app.log.Infof("This Username Exists: %s", username)
+		return
+	}
+
+	newIP = IPAddresses{
+		IP:       IP,
+		LoggedAt: time.Now(),
+		Username: username,
+		Port:     Port,
+	}
+
+	_, err := app.db.Collection("ipaddress").InsertOne(r.Context(), newIP)
+	if err != nil {
+		app.log.Errorf("Failed to insert IP %s", err.Error())
+		return
+	}
+	app.log.Infof("New IP logged %v ", newIP)
+	return
 }
