@@ -18,6 +18,7 @@ import { AdminRoute } from './AdminRoute';
 import Leaderboard from '../pages/app/Admin/Leaderboard';
 import { ToastContainer } from 'react-toastify';
 import HawksNest from '../pages/app/HawksNest/HawksNest';
+import { VerifyEmail } from '../pages/app/VerifyEmail/VerifyEmail';
 const AppRouter = () => {
 	return (
 		<Provider loginStore={store} shopStore={ShopStore}>
@@ -38,6 +39,7 @@ const AppRouter = () => {
 				<Route path={'/forgot'} component={ForgotPass}></Route>
 				<Route path={'/reset'} component={ResetPass}></Route>
 				<Route path={'/game/:id'} component={Game}></Route>
+				<Route path={'/verify'} component={VerifyEmail}></Route>
 				<PrivateRoute path={'/shop'} component={ShopPage}></PrivateRoute>
 				<PrivateRoute path={'/regions'} component={LandingPage}></PrivateRoute>
 				<PrivateRoute path={'/hawksnest'} component={HawksNest}></PrivateRoute>

@@ -121,7 +121,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 	message := map[string]interface{}{
 		"toEmail": strings.TrimSpace(reqBody.Email),
 		"name":    strings.TrimSpace(reqBody.Name),
-		"link":    "https://hawkeye.iecsemanipal.com/login?token=" + newUser.Token,
+		"link":    "https://hawkeye.iecsemanipal.com/verify?token=" + newUser.Token,
 	}
 	bytesRepresentation, err := json.Marshal(message)
 	if err != nil {
