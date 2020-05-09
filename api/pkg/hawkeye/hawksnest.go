@@ -47,7 +47,7 @@ func (app *App) HawksNestfetchSubmissions(w http.ResponseWriter, r *http.Request
 		app.log.Errorf("Internal Server Error:%s", err.Error())
 		return
 	}
-	app.LogIP(newUser.Username, r)
+	app.LogIP(currUser.Username, r)
 	app.sendResponse(w, true, Success, submissions)
 
 }
@@ -115,7 +115,7 @@ func (app *App) fetchHawksNestQuestion(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, Success, questions)
 		return
 	}
-	app.LogIP(newUser.Username, r)
+	app.LogIP(currUser.Username, r)
 
 	app.sendResponse(w, true, Success, questions[0])
 }
@@ -199,7 +199,7 @@ func (app *App) HawksNestAnswerController(w http.ResponseWriter, r *http.Request
 		app.sendResponse(w, true, Success, "Close Answer")
 		return
 	}
-	app.LogIP(newUser.Username, r)
+	app.LogIP(currUser.Username, r)
 	app.logSubmission(currUser, newSubmission, r)
 
 	//Only gets here if the answer is correct

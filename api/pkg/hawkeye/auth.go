@@ -277,7 +277,6 @@ func (app *App) loginController(w http.ResponseWriter, r *http.Request) {
 	// 	app.sendResponse(w, true, Success, currUser)
 	// 	return
 	// }
-	app.LogIP(newUser.Username, r)
 
 	app.log.Infof("Session Set for user %s", currUser.Email)
 	app.sendResponse(w, true, Success, currUser)
