@@ -110,8 +110,8 @@ export default class Rules extends React.Component {
 							</div>
 							<div style={{ color: 'white' }}>
 								2) As you progress through these timelines, the points you get
-								for answering a question also increases. After every third
-								question that you solve, you get 1.5 times more points than you
+								for answering a question also increases. After every fifth
+								question that you solve, you get 1.25 times more points than you
 								did for the previous ones.
 							</div>
 							<div style={{ color: 'white' }}>

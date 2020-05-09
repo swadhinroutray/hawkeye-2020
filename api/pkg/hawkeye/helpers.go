@@ -40,8 +40,8 @@ const (
 	HangmanHintPoints      = 20
 	RegionMultiplierPoints = 60
 	RegionMultiplierValue  = 1.5
-	ResetStoreMinValue     = 600
-	ResetStorePrice        = 400
+	ResetStoreMinValue     = 400
+	ResetStorePrice        = 300
 	SkipQuestionPoints     = 50
 )
 

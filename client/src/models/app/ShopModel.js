@@ -11,8 +11,8 @@ class ShopModel {
 	points = 0;
 	message = '';
 	toBuy = [2, 1, 2, 2];
-	resetMinimumPointsReq = 600;
-	resetPoints = 400;
+	resetMinimumPointsReq = 400;
+	resetPoints = 300;
 	elixirName = [
 		'Extra Hint',
 		'Region Multiplier',
