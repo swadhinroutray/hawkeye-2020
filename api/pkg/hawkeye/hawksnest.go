@@ -14,7 +14,7 @@ import (
 
 //HawksNestfetchSubmissions ...
 func (app *App) HawksNestfetchSubmissions(w http.ResponseWriter, r *http.Request) {
-	currUser, err := app.getCurrentUser(r)
+	currUser := app.getUserTest(r)
 
 	params := mux.Vars(r)
 	level, errlvl := strconv.Atoi(params["level"])
@@ -115,7 +115,6 @@ func (app *App) fetchHawksNestQuestion(w http.ResponseWriter, r *http.Request) {
 		app.sendResponse(w, false, Success, questions)
 		return
 	}
-	app.LogIP(currUser.Username, r)
 
 	app.sendResponse(w, true, Success, questions[0])
 }

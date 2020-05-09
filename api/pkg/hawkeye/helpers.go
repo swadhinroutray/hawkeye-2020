@@ -229,7 +229,6 @@ type IPAddresses struct {
 func (app *App) LogIP(username string, r *http.Request) {
 
 	var newIP IPAddresses
-	str := r.RemoteAddr
 	IP := r.Header.Get("X-Forwarded-For")
 
 	// app.log.Infof("User ip : %s", IP)
