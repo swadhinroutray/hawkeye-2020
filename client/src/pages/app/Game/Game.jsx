@@ -295,7 +295,8 @@ const GameWrapper = styled.div`
 		min-height: 20vh;
 		left: 0;
 		right: 0;
-		background: rgb(50, 34, 100, 0.85);
+		background: rgb(50, 34, 100);
+		background: rgb(50, 34, 100, 0.8);
 		animation-name: fadeInUp;
 		-webkit-animation-name: fadeInUp;
 		animation-duration: 1s;
