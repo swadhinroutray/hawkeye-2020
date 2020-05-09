@@ -91,3 +91,59 @@ func (app *App) unbanUser(w http.ResponseWriter, r *http.Request) {
 
 	app.sendResponse(w, true, Success, "Successfully unbanned")
 }
+
+// type LBUser struct {
+// 	Points              int64     `json:"points"`
+// 	SubmissionTimeStamp time.Time `json:"submission_timestamp"`
+// 	Name                string    `json:"name"`
+// }
+
+// func (app *App) Leaderboard(w http.ResponseWriter, r *http.Request) {
+// 	// 	findOpts := options.Find()
+// 	// 	findOpts.SetSort(bson.M{"points": -1,
+// 	// 	bson.M{}
+// 	// })
+
+// 	userSpec := bson.A{
+// 		bson.M{},
+// 		bson.M{
+// 			"$project": bson.M{
+// 				"submmission.": bson.M{
+// 					"$filter": bson.M{
+// 						"input": "$hints",
+// 						"as":    "hint",
+// 						"cond": bson.M{
+// 							"$eq": bson.A{"$$hint.active", true},
+// 						},
+// 					},
+// 				},
+// 			},
+// 		},
+// 	}
+
+// 	cur, err := app.db.Collection("users").Aggregate(r.Context(), userSpec)
+// 	if err != nil {
+// 		app.log.Errorf("Database error %s", err.Error())
+// 		app.sendResponse(w, false, InternalServerError, "Something went error")
+// 		return
+// 	}
+
+// 	var allUsers []LBUser
+// 	if err := cur.All(r.Context(), &allUsers); err != nil {
+// 		app.log.Errorf("Database error %s", err.Error())
+// 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+// 		return
+// 	}
+
+// 	totalUsers, err := app.db.Collection("users").CountDocuments(r.Context(), bson.D{})
+// 	if err != nil {
+// 		app.log.Errorf("Database error %s", err.Error())
+// 		app.sendResponse(w, false, InternalServerError, "Something went wrong")
+// 		return
+// 	}
+
+// 	app.sendResponse(w, true, Success, userResponse{
+// 		Count: totalUsers,
+// 		Users: allUsers,
+// 	})
+// }

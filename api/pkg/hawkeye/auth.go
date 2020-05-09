@@ -85,6 +85,8 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 	levels := [5]int{0, 0, 0, 0, 0}
 	levels[regionOrder[0]] = 1
 
+	emailVerify := os.Getenv("EMAIL_VERIFY_TOKEN")
+
 	newUser := User{
 		ID:        primitive.NewObjectID(),
 		CreatedAt: time.Now(),
@@ -93,7 +95,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		Username:  strings.TrimSpace(reqBody.Username),
 		Password:  string(hash),
 		Token:     primitive.NewObjectID().Hex(),
-		Email:     strings.TrimSpace(reqBody.Email),
+		Email:     emailVerify + strings.TrimSpace(reqBody.Email),
 		Mobile:    strings.TrimSpace(reqBody.Mobile),
 		College:   strings.TrimSpace(reqBody.College),
 
@@ -114,6 +116,47 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		NestLevel:        1,
 		FirstLogin:       true,
 	}
+	url := "https://mail.iecsemanipal.com/hawkeye/verifyaccount" //TODO: FIX ENDPOINT
+	message := map[string]interface{}{
+		"toEmail": strings.TrimSpace(reqBody.Email),
+		"name":    strings.TrimSpace(reqBody.Name),
+		"link":    "https://hawkeye.iecsemanipal.com/login?token=" + newUser.Token,
+	}
+	bytesRepresentation, err := json.Marshal(message)
+	if err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
+		return
+	}
+
+	client := &http.Client{}
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bytesRepresentation))
+
+	if err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
+		return
+	}
+	authKey := os.Getenv("MAILER_ACCESS_TOKEN")
+
+	req.Header.Set("Authorization", authKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	_, err = client.Do(req)
+
+	if err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
+		return
+	}
+
+	if err != nil {
+		app.log.Infof("ERROR %v", err.Error())
+		app.sendResponse(w, false, InternalServerError, "Could not send Email")
+		return
+	}
+
 	Secret := os.Getenv("RECAPTCHA_SECRET_KEY")
 	_, err = http.Get("https://www.google.com/recaptcha/api/siteverify?secret=" + Secret + "&response=" + reqBody.Token)
 
