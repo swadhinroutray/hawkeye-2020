@@ -283,10 +283,10 @@ class LoginModel {
 			return;
 		}
 		if (res.success === false) {
-			this.verifyMessage = "Couldn't verify email";
+			this.verifyMessage = "We couldn't verify this email, try logging in to check if email has been verified";
 			setTimeout(() => {
 				this.verifySuccess = true;
-			}, 100000);
+			}, 5000);
 			return;
 		}
 	};
