@@ -127,6 +127,15 @@ func checkAnswer(userAnswer string, answer string) string {
 	return WrongAnswer
 }
 
+func checkNestKey(userAnswer string, answer string) string {
+	tally := levenshtein.RatioForStrings([]rune(userAnswer), []rune(answer), levenshtein.DefaultOptions)
+	if tally == 1 {
+		return CloseAnswer
+	}
+
+	return WrongAnswer
+}
+
 var timeBought struct {
 	tused   time.Time
 	tbought time.Time

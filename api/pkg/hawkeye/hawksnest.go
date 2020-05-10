@@ -147,6 +147,17 @@ type AnswerNestRequest struct {
 // 	)
 // }
 
+func (app *App) checkNestKeywords(answer string, keywords []string) bool {
+	i := 0
+	for i = 0; i < len(keywords); i++ {
+		matchResult := checkNestKey(sanitize(answer), keywords[i])
+		if matchResult == CloseAnswer {
+			return true
+		}
+	}
+	return false
+}
+
 //HawksNestAnswerController ...
 func (app *App) HawksNestAnswerController(w http.ResponseWriter, r *http.Request) {
 
@@ -180,7 +191,7 @@ func (app *App) HawksNestAnswerController(w http.ResponseWriter, r *http.Request
 
 	if matchResult == WrongAnswer {
 
-		keyClose := app.checkKeywords(ansReq.Answer, answerQues.Keywords)
+		keyClose := app.checkNestKeywords(ansReq.Answer, answerQues.Keywords)
 
 		if keyClose {
 			newSubmission.Status = CloseAnswer
@@ -205,18 +216,9 @@ func (app *App) HawksNestAnswerController(w http.ResponseWriter, r *http.Request
 	newMult := currUser.Multiplier
 
 	//Change scoring system after every 5th question
-	if currUser.AnswerCount%3 == 0 {
+	if currUser.AnswerCount%5 == 0 {
 		newMult = int(float64(newMult) * ScoringGradient)
 	}
-
-	//Update level of the region
-	// levelSon := fmt.Sprintf("level.%d", ansReq.Region)
-
-	// levelChange := 1
-
-	// if currUser.AnswerCount == 0 {
-	// 	levelChange = 0
-	// }
 
 	//Update points, answer count and multiplier, change item bool to true
 	app.db.Collection("users").FindOneAndUpdate(r.Context(),

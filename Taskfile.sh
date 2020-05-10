@@ -4,7 +4,7 @@ default(){
 }
 
 start() {
-    docker-compose -f docker/docker-compose.prod.yml \
+    docker-compose -f docker/docker-compose.dev.yml \
     --project-name hawkeye2020 up \
     --build --abort-on-container-exit
 }
