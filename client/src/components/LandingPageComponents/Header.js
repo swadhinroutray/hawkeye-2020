@@ -15,9 +15,12 @@ export const Header = inject('LoginStore')(
 				<img src={hawkLogo} alt="hawk logo" />
 
 				<div className="right">
-					<Link className="icon" to="/shop">
-						<ShopIcon />
-					</Link>
+					{LoginStore.profile.allanswered === false && (
+						<Link className="icon" to="/shop">
+							<ShopIcon />
+						</Link>
+					)}
+
 					<div
 						className="icon"
 						onClick={e => {

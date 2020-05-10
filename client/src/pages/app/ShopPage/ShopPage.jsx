@@ -526,6 +526,9 @@ class ShopPage extends Component {
 						<div>cost: {store.resetPoints}</div>
 					</div>
 				)}
+				{this.props.loginStore.profile.allanswered === true && (
+					<Redirect to="/regions" />
+				)}
 				{this.state.rules && <Rules setrules={this.setRules} />}
 				{this.props.loginStore.profileSetError &&
 				!this.props.loginStore.loggedIn ? (
