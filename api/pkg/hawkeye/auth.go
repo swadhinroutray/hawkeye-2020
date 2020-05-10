@@ -126,6 +126,7 @@ func (app *App) registerController(w http.ResponseWriter, r *http.Request) {
 		"toEmail": strings.TrimSpace(reqBody.Email),
 		"name":    strings.TrimSpace(reqBody.Name),
 		"link":    "https://hawkeye.iecsemanipal.com/verify?token=" + newUser.Token,
+		// "link": "http://localhost:3030/verify?token=" + newUser.Token,
 	}
 	bytesRepresentation, err := json.Marshal(message)
 	if err != nil {
@@ -204,6 +205,8 @@ func (app *App) verifyEmail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	newToken := primitive.NewObjectID().Hex()
+
 	var thisUser User
 
 	if err := app.db.Collection("users").FindOne(r.Context(), bson.M{"token": verReq.Token}).Decode(&thisUser); err == mongo.ErrNoDocuments {
@@ -211,10 +214,18 @@ func (app *App) verifyEmail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	newEmail := thisUser.Email
+	prefixToken := os.Getenv("EMAIL_VERIFY_TOKEN")
+	tokenLength := len(prefixToken)
+	if strings.HasPrefix(newEmail, prefixToken) {
+		newEmail = thisUser.Email[tokenLength:]
+	}
+
 	app.db.Collection("users").FindOneAndUpdate(r.Context(), bson.M{"token": verReq.Token},
 		bson.M{
 			"$set": bson.M{
-				"email": thisUser.Email[12:],
+				"email": newEmail,
+				"token": newToken,
 			},
 		},
 	)
