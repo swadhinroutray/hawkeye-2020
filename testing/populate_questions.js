@@ -22,8 +22,8 @@ async function addQuestions(region, level) {
       },
 
       body: JSON.stringify({
-        email: "a@g.com",
-        password: "password",
+        email: "swadhin.routray@gmail.com",
+        password: "a",
       }),
     })
   );
@@ -53,7 +53,7 @@ async function loopAdd() {
   var i;
   for (i = 0; i < 5; i++) {
     var j;
-    for (j = 0; j <= 7; j++) {
+    for (j = 0; j <= 6; j++) {
       addQuestions(i, j);
       await new Promise((resolve) => setTimeout(resolve, 25));
     }

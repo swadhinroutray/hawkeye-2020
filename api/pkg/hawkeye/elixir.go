@@ -399,8 +399,12 @@ func (app *App) skipQuestion(w http.ResponseWriter, r *http.Request) {
 				itemBool: true,
 			},
 		})
-
-	if currUser.AnswerCount == (RegionLimit * 5) {
+	sum := 0
+	for i := 0; i < 5; i++ {
+		sum = sum + currUser.Level[i]
+	}
+	fmt.Println("SUM %d", sum)
+	if sum == ((RegionLimit+1)*5)-1 {
 		app.db.Collection("users").FindOneAndUpdate(r.Context(),
 			bson.M{"_id": currUser.ID},
 			bson.M{
