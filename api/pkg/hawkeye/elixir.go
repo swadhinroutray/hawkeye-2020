@@ -400,6 +400,17 @@ func (app *App) skipQuestion(w http.ResponseWriter, r *http.Request) {
 			},
 		})
 
+	if currUser.AnswerCount == (RegionLimit * 5) {
+		app.db.Collection("users").FindOneAndUpdate(r.Context(),
+			bson.M{"_id": currUser.ID},
+			bson.M{
+				"$set": bson.M{
+					"allanswered": true,
+				},
+			},
+		)
+	}
+
 	// Log the elixir
 	app.logElixir(r, fetchedElixir, true, false)
 	app.LogIP(currUser.Username, r)
