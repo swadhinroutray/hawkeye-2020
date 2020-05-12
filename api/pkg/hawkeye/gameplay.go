@@ -211,6 +211,15 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 		levelChange = 0
 	}
 
+	sum := 0
+	for i := 0; i < 5; i++ {
+		sum = sum + currUser.Level[i]
+	}
+	allAnswered := false
+	if sum >= ((RegionLimit+1)*5)-1 {
+		allAnswered = true
+	}
+
 	itemBool := fmt.Sprintf("itembool.%d", ansReq.Region)
 	//Update points, answer count and multiplier, change item bool to true
 	app.db.Collection("users").FindOneAndUpdate(r.Context(),
@@ -222,9 +231,11 @@ func (app *App) answerController(w http.ResponseWriter, r *http.Request) {
 				"multiplier":   newMult,
 				levelSon:       currUser.Level[ansReq.Region] + levelChange,
 				itemBool:       true,
+				"allanswered":  allAnswered,
 			},
 		},
 	)
+
 	if currUser.AnswerCount == (RegionLimit * 5) {
 		app.db.Collection("users").FindOneAndUpdate(r.Context(),
 			bson.M{"_id": currUser.ID},
